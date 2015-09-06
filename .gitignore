@@ -1,3 +1,6 @@
 students.txt
 midterm*
 exams/*
+sml/*
+*.cmi
+*.cmo
