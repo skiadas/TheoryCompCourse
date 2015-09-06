@@ -44,7 +44,10 @@ This course is much more rigorous than most Computer Science courses. A strong b
 At the end of this course you:
 
 - will have become familiar with various descriptions of what it means to *compute* something.
--
+- will have developed a solid foundation on various kinds of automata and their relation to computation.
+- will have taken your first steps into understanding what process programming language compilers follow when reading a computer program.
+- will be able to articulate the fundamental issues regarding computability and its limits.
+- will have developed an appreciation for the power of formal language in expressing concepts.
 
 ## Course Components
 

@@ -1,4 +1,4 @@
-AppliedStatsCourse
-==================
+Theory of Computation
+=====================
 
-Web site for my Applied Statistics Course
+Web site for my Theory of Computation course
