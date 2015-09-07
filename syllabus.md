@@ -21,7 +21,7 @@ Book
   ~ *Calculus*, 3rd ed, by Jon Rogawski
 
 Websites
-  ~ [for notes](skiadas.github.io/TheoryCompCourse/site/).
+  ~ [for notes](http://skiadas.github.io/TheoryCompCourse/site/).
 
 Class times
   ~ MWRF 1pm-2pm in SCH120.
