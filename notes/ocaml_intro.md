@@ -14,7 +14,7 @@ Some key features of OCAML
 - **Strong and Expressive Type system**: With the use of user-defined types, pattern matching and tuple formation, and polymorphic types, OCAML offers a very rich level of expressiveness and compile-time guarantees to programmers.
 - **Functional Programming**: OCAML espouses functional programming paradigms. Mutable values are discouraged, though possible, and there is extensive support for higher-order-functions, as well as for using functions as first order values, i.e. as return values, arguments or local variables in other functions (Javascript is a popular language that shares that feature).
 - **All functions take exactly one argument**: This is probably very surprising, but we will talk more about it later on. In any case it is a fascinating feature.
-- **Everything is an expression**: Expression return values, statements do not. Essentially everything in OCAML is an expression. Even an if-then-else block for example.
+- **Everything is an expression**: Expressions return values, statements do not. Essentially everything in OCAML is an expression. Even an if-then-else block for example.
 - **Automatic Memory management**. Like most non-C/C++ languages, OCAML does not require manual memory allocation/deallocation.
 - **Objects**: OCAML also supports object-oriented programming. We will not however examine this nature of the language much.
 
