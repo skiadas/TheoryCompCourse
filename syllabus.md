@@ -18,7 +18,7 @@ Office Hours
   ~ MW 2pm-4pm, R 2pm-3pm, and by appointment.
 
 Book
-  ~ *Calculus*, 3rd ed, by Jon Rogawski
+  ~ *Introduction to the Theory of Computation*, 2nd ed, by Michael Sipser
 
 Websites
   ~ [for notes](http://skiadas.github.io/TheoryCompCourse/site/).

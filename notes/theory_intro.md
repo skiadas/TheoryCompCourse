@@ -12,10 +12,10 @@ Let us start with a "simple" question?
 
 Take a few moments to think about it.
 
-You probably arrived to something roughly like this.
+You probably arrived at something roughly like this.
 
 - Given a task at hand, a "problem", we write some sort of "program", or "algorithm", or series of instructions. We tell the computer about it.
-- We now can "feed" an "input" into the program, and it will tell us whether the input is appropriate for the problem.
+- We now can "feed" an "input" into the program, and the computer will follow the instructions we gave it and end up with a result that tells us whether the input is appropriate for the problem.
 
 Okay this sounds hopelessly vague. Let's try some concrete examples. Try to think of what steps you will need to take to solve the following problems. "Numbers" are here interpreted as a string of digits, so do not assume that you know about fancy things like arithmetic operations. Try to solve these problems with as little "memory" as possible: Your process should be reading one digit at a time, starting from the highest order digit, and it should try to maintain as little information as possible from the one digit to the next.
 
