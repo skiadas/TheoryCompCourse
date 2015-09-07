@@ -49,7 +49,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><strong>Objects</strong>: OCAML also supports object-oriented programming. We will not however examine this nature of the language much.</li>
 </ul>
 <h2 id="interactive-sessions-with-utop">Interactive Sessions with utop</h2>
-<p>The easiest way to get going with OCAML is to use the <code>utop</code> command line tool. It should already be installed in your systems. Just hit the terminal and type <code>utop</code>. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.</p>
+<p>The easiest way to get going with OCAML is to use the <code>utop</code> command line tool. We will need to start by installing it. Open up a terminal, and you should find a tool called <code>opam</code>. You will need to do the following:</p>
+<pre><code>opam init --dot-profile=~/.bashrc</code></pre>
+<p>This will create your <code>.bashrc</code> file if it does not already exist, and add some necessary lines to it. OPAM is a package manager for OCAML. We will now use it to install utop. You would want to do:</p>
+<pre><code>opam install utop</code></pre>
+<p>Now you should be able to type <code>utop</code>. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.</p>
 <p>Let’s take it for a spin. Type:</p>
 <pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dv">4</span> + <span class="dv">5</span>;;</code></pre>
 <p>You should see a reply that tells you that the result value was <code>9</code> and it was of type <code>int</code>. Note that you have to use 2 semicolons to indicate that you finished typing the command and you want OCAML to run it. You do not need that when working from a file.</p>

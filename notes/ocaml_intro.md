@@ -20,7 +20,19 @@ Some key features of OCAML
 
 ## Interactive Sessions with utop
 
-The easiest way to get going with OCAML is to use the `utop` command line tool. It should already be installed in your systems. Just hit the terminal and type `utop`. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.
+The easiest way to get going with OCAML is to use the `utop` command line tool. We will need to start by installing it. Open up a terminal, and you should find a tool called `opam`. You will need to do the following:
+
+```
+opam init --dot-profile=~/.bashrc
+```
+
+This will create your `.bashrc` file if it does not already exist, and add some necessary lines to it. OPAM is a package manager for OCAML. We will now use it to install utop. You would want to do:
+
+```
+opam install utop
+```
+
+Now you should be able to type `utop`. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.
 
 Let's take it for a spin. Type:
 
