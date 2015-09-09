@@ -32,6 +32,8 @@ This will create your `.bashrc` file if it does not already exist, and add some 
 opam install utop
 ```
 
+You may need to run `opam update` first.
+
 Now you should be able to type `utop`. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.
 
 Let's take it for a spin. Type:
