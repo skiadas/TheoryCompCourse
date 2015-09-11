@@ -2,6 +2,11 @@
 
 We will describe in this section the fundamental building blocks of languages. Starting with *alphabets*.
 
+## Reading
+
+Sections 0.2 (pages 13 and on), 0.3, 0.4
+
+
 ## Alphabets
 
 An **alphabet** is any *nonempty* finite set. It is essentially the set of "characters" that we will deal with. It may be as simple as the two elements "0" and "1", or it could be as complex as the different keywords in a programming language.
