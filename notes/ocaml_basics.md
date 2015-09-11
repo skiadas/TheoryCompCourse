@@ -178,7 +178,7 @@ There is practically no difference between these two forms, the latter is really
 
 ```ocaml
 let twice = fun f -> fun x -> f (f x);;
-``
+```
 
 All these 3 are the same. In general this is what we call a "curried" function, in honor of Haskell Curry. The idea is that a function of 2 arguments is intead thought of as a function of the first argument, that in turn returns a function of the second argument. We in effect apply the arguments one at a time.
 

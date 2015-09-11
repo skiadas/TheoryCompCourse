@@ -81,9 +81,9 @@ Your final grade depends on class attendance, homework, project, quizzes, midter
 --------------  --------
     Attendance        5%
       Homework       20%
- Worst Midterm       15%
+ Worst Midterm       20%
 Middle Midterm       25%
-  Best Midterm       35%
+  Best Midterm       30%
 
 This gives a number up to 100, which is then converted to a letter grade based roughly on the following correspondence:
 

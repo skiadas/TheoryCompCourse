@@ -11,20 +11,18 @@
 - Day 3
     - [OCAML basics (cont)](notes/ocaml_basics.md)
 - Day 4
-    - [Basic set notions](notes/sets.md)
-    - [OCAML example: sets as lists](notes/ocaml_sets.md)
+    - [OCAML basics (cont)](notes/ocaml_basics.md)
+    - [OCAML example: sets as lists (optional)](notes/ocaml_sets.md)
 
 ## Week  2 (09/14-09/18)
 
 - Day 1
-    - Functions and relations, predicates
-    - Proof examples
+    - [Alphabets, strings, substrings, empty string, lexicographic ordering](notes/alphabet.md)
+    - [Alphabet and friends in OCAML](notes/ocaml_alphabet.md)
 - Day 2
-    - Alphabets, strings, substrings, empty string
-    - Lexicographic ordering
-- Day 3
     - Languages, examples
     - Union, Intersection, Star
+- Day 3
     - OCAML: How to represent languages? (lazy evaluation perhaps?)
 - Day 4
     - Deterministic Finite Automata

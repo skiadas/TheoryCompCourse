@@ -119,7 +119,7 @@ List<span class="kw">.</span>fold_left (+) <span class="dv">0</span> a;;        
 <p>So this way of thinking would correspond to defining the functions thus:</p>
 <pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice f x = f (f x);;</code></pre>
 <p>There is practically no difference between these two forms, the latter is really just “syntactic sugar” for the former, and actually that in turn is syntactic sugar for something like:</p>
-<p>`<code>ocaml let twice = fun f -&gt; fun x -&gt; f (f x);;</code></p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice = <span class="kw">fun</span> f -&gt; <span class="kw">fun</span> x -&gt; f (f x);;</code></pre>
 <p>All these 3 are the same. In general this is what we call a “curried” function, in honor of Haskell Curry. The idea is that a function of 2 arguments is intead thought of as a function of the first argument, that in turn returns a function of the second argument. We in effect apply the arguments one at a time.</p>
 <h3 id="recursion-on-functions">Recursion on functions</h3>
 <p>We now arrive at an area where OCAML differs a lot from other languages. Not so much because other languages do not have recursive functions, but because of how ubiquitous they are. There are three main reasons for this:</p>
