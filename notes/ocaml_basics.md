@@ -299,7 +299,7 @@ let safeDiv x y =
 
 So in this case if the "denominator" `y` is equal to zero, we do not attempt to divide. This way we can be sure that we will not have to deal with a runtime exception. The other advantage is that if someone wants to use our value, they have to explicitly do a pattern match and say "if I am in the case of `None` I do this, otherwise if I am `Some n` I can do something with the `n`". So anyone who wishes to use our value is forced by the type system to deal with the possibility that our function might not have returned an actual value. They can't simply forget to account for it. This is powerful.
 
-Unfortunately by default there is no reach set of functions to work with the option type. In this section we will look at their implementation. At the same time we will learn a bit about OCAML's module system.
+Unfortunately by default there is no rich set of functions to work with the option type. In this section we will look at their implementation. At the same time we will learn a bit about OCAML's module system.
 
 This time we will work with files. I have already created the two files for us, you will have to download them. I suggest that you check out the entire [GitHub project](https://github.com/skiadas/TheoryCompCourse). Choose a directory you want to use, then do:
 
