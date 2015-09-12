@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="alphabet-implementation-in-ocaml">Alphabet implementation in OCAML</h1>
+<p>We will build here an implementation of the concept of an alphabet in OCAML, for later use.</p>
+<p>This will likely also be our first use of a <em>functor</em>.</p>
+<p>The relevant files are <a href="ocaml/alphabet.ml">alphabet.ml</a> and <a href="ocaml/alphabet.mli">alphabet.mli</a>.</p>
+<p>We will start by looking at the interface file. The first thing you will see is:</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> <span class="kw">type</span> <span class="dt">ElemsType</span> =
+   <span class="kw">sig</span>
+      <span class="kw">type</span> elem
+      <span class="kw">val</span> compare  : elem -&gt; elem -&gt; <span class="dt">int</span>
+      <span class="kw">val</span> allElems : elem <span class="dt">list</span>
+   <span class="kw">end</span></code></pre>
+<p>This is a signature for a module. It is the module used as input to our alphabet. Basically, if someone wants to create a new “alphabet” they need to give us a type for the elements, <code>elem</code>, a comparison function <code>compare : elem -&gt; elem -&gt; int</code>, and a list of all the elements <code>allElems</code>. For instance if we wanted an alphabet with just the numbers <span class="math">\(0\)</span> and <span class="math">\(1\)</span>, then the type would be <code>int</code>, the comparison function would be the normal <code>compare</code> function, and <code>allElems = [0; 1]</code>.</p>
+<p>Next up we have a signature for the kind of module type our alphabets will have. It is wrapped inside this <code>module type A</code> business, as opposed to just thrown at the “top level”, because our alphabets will be sort of like functions, taking an <code>ElemsType</code> as input and returning the appropriate alphabet module. This <code>module type A</code> is exactly the type for that returned module.</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> <span class="kw">type</span> <span class="dt">A</span> =
+   <span class="kw">sig</span>
+      <span class="kw">type</span> elem
+      <span class="kw">type</span> t = elem <span class="dt">list</span>
+
+      <span class="kw">val</span> allElems : elem <span class="dt">list</span>
+      <span class="kw">val</span> epsilon : t
+      <span class="kw">val</span> empty : t -&gt; <span class="dt">bool</span>
+      <span class="kw">val</span> length : t -&gt; <span class="dt">int</span>
+      <span class="kw">val</span> append : t -&gt; t -&gt; t
+      <span class="kw">val</span> concat : t <span class="dt">list</span> -&gt; t
+      <span class="kw">val</span> substring : t -&gt; t -&gt; <span class="dt">bool</span>
+      <span class="kw">val</span> prefix : t -&gt; t -&gt; <span class="dt">bool</span>
+      <span class="kw">val</span> suffix : t -&gt; t -&gt; <span class="dt">bool</span>
+      <span class="kw">val</span> allPrefixes : t -&gt; t <span class="dt">list</span>
+      <span class="kw">val</span> allSuffixes : t -&gt; t <span class="dt">list</span>
+      <span class="kw">val</span> allStrings : <span class="dt">int</span> -&gt; t <span class="dt">list</span>
+      <span class="kw">val</span> allStringsLeq : <span class="dt">int</span> -&gt; t <span class="dt">list</span>
+   <span class="kw">end</span></code></pre>
+<p>So let us have a look at this module type: First off it specifies that there are two new value types created, one <code>elem</code> to represent the element type for the alphabet, and one <code>t</code> to represent the type of strings in the alphabet. Notice that we are exposing the type <code>t</code>, we’re telling the world exactly how strings are stored. We could have kept it secret and offered a way to go to and from <code>elem list</code>. But in this instance it is essentially in the definition of a string that it is a list of elements, so not much harm is done by exposing it.</p>
+<p>After that we have a list values and functions, performing most common tasks for strings. <code>allElems</code> contains a list of all the elements in the alphabet, <code>epsilon</code> is the empty string, <code>empty</code> is a function to test if our string is the empty string, <code>length</code> returns the length of a string, <code>append</code> concatenates two strings, <code>concat</code> concatenates a whole list of strings, <code>substring</code>, <code>prefix</code> and <code>suffix</code> tell us if the first string is a substring/prefix/suffix of the second, <code>allPrefixes</code> and <code>allSuffixes</code> return all the prefixes/suffixes of a list, and <code>allStrings</code> and <code>allStringsLeq</code> return all strings of (up to) a given length. Finally, we have a couple of functions that would split the string on a given prefix/suffix/substring. Since these might fail to do a split, they return <code>option</code> type values.</p>
+<p>Let us see what comes after this module type, before we look at implementation.</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> Make (<span class="dt">Elems</span> : <span class="dt">ElemsType</span>) : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = Elems<span class="kw">.</span>elem
+
+<span class="ot">module</span> MakeInts  (<span class="dt">I</span>: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">int</span> <span class="dt">list</span> <span class="kw">end</span>)  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="ot">module</span> MakeChars (<span class="dt">I</span>: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">char</span> <span class="dt">list</span> <span class="kw">end</span>) : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
+
+<span class="ot">module</span> Binary  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="ot">module</span> Decimal : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="ot">module</span> Chars2  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
+<span class="ot">module</span> Chars3  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span></code></pre>
+<p>The first three are what we call <em>functors</em>. so <code>Make</code> is a property of the <code>Alphabet</code> module, so we can reach it as <code>Alphabet.Make</code>, and it takes as “argument” a module <code>Elems</code> of type <code>ElemsType</code>. It returns a module of type <code>A</code>, where the meaning of <code>elem</code> in that type is “clarified” to be the type <code>Elems.elem</code>.</p>
+<p>So a <strong>functor</strong> is a <em>parametrized module</em>, that takes as input another module and returns a more “customized” module. It is in that sense similar to a function, but for modules.</p>
+<p>We also offer two more functors, to more easily make alphabets out of lists of integers or characters.</p>
+<p>Finally, we construct Five specific alphabets, for binary inputs (0/1), decimal inputs (0-9), and small character sets (‘a’/‘b’, ‘a’/‘b’/‘c’, ‘a’/‘b’/‘c’/‘d’).</p>
+<p>Now let’s talk implementation, in the <code>.ml</code> file.</p>
+<p>First, we need to redeclare the two module types <code>ElemsType</code> and <code>A</code>. Then we build our functor <code>Make</code>, which takes the majority of the file. Let’s take a closer look.</p>
+<p>Recall that <code>Make</code> has taken as argument another module <code>Elems</code>. So it can use that in its implementations. To start off, it declares the type <code>elem</code> to be <code>Elems.elem</code>. This was something we had to do anyway as the signature for <code>Make</code> told the world we would.</p>
+<p>Some of the functions/values that <code>Make</code> is supposed to create are straightforward. <code>allElems</code> comes from <code>Elems.allElems</code>, which we pass through <code>List.sort_uniq</code> to ensure uniqueness. <code>epsilon</code> is just the empty list, <code>empty</code> just tests the “string” for equality with the empty list, <code>length</code>, <code>append</code> and <code>concat</code> all come from the corresponding <code>List</code> methods.</p>
+<p>Testing if a string is a <code>prefix</code> of another starts with a pattern match on the two strings. An empty string is always a prefix, and a nonempty string is never a prefix of an empty string. Barring that, the first elements of each string need to match and the remaining substring of the first string needs to be a prefix of the substring of the other.</p>
+<p>Testing for <code>suffix</code> is slightly different: To be a suffix a string must either be equal the target string, or else be a suffix of the tail of that string.</p>
+<p>To get <code>allPrefixes</code> of a string, we can get all the prefixes of its tail, then prepend the head element to them, and finally include the empty string.</p>
+<p>To get <code>allSuffixes</code> of a string we just need to include the string itself to the suffixes of its tail.</p>
+<p>For <code>s_1</code> to be a <code>substring</code> of another string <code>s_2</code> it must be a prefix of one of the suffixes of <code>s_2</code>. (We could also have described it as a suffix of one of the prefixes)</p>
+<p>Next we have three functions to split a string at a specific prefix/suffix/substring, and to return the remaining piece(s). The main theme in all these functions is two pattern matches: One to see if we have arrived at a trivial case (typically end of string or end of substring) and another on the result of a recursive call, to see if it found a match in the “rest”.</p>
+<p>Lastly, we have the functions that create lists of all strings of a given length. These are a good illustration of <code>List.map</code> together with breaking the problem down to smaller functions.</p>
+</body>
+</html>
