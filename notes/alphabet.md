@@ -36,5 +36,3 @@ We will always assume that the symbols in an alphabet have a natural **order** t
 > A string $w$ is less than a string $v$ if:
 >   - $w$ is a prefix string of $v$, or
 >   - At the first place where they disagree, the symbol in $w$ is less than the corresponding symbol in $v$
-
-

@@ -30,6 +30,9 @@ module type A =
       val allPrefixes : t -> t list
       val allSuffixes : t -> t list
 
+      (* Given a string, returns a list of all splits of
+         the string into 2 concatenated substrings *)
+      val splits : t -> (t * t) list
       (* If splitPrefix w v = Some z then v = append w z *)
       val splitPrefix : t -> t -> t option
       (* If splitSuffix w v = Some z then v = append z w *)

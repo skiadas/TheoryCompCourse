@@ -25,6 +25,7 @@ module type A =
       val suffix : t -> t -> bool
       val allPrefixes : t -> t list
       val allSuffixes : t -> t list
+      val splits : t -> (t * t) list
       val splitPrefix : t -> t -> t option
       val splitSuffix : t -> t -> t option
       val splitSubstring : t -> t -> (t * t) option
@@ -117,6 +118,21 @@ module Make(Elems : ElemsType) =
          else let s = allStringsLeq (n - 1)
               in List.append s (addAllPrefixes allElems s)
 
+      let rec compare s1 s2 =
+         match (s1, s2) with
+            ([], [])                -> 0
+          | ([], _)                 -> -1
+          | (_, [])                 -> 1
+          | (x :: s1', y :: s2') ->
+            let c = Elems.compare x y
+            in if c = 0 then compare s1' s2' else c
+
+      let splits s =
+         let rec doNext soFar rest =
+            match rest with
+               []         -> [(soFar, rest)]   (* Last one *)
+             | x :: rest' -> (soFar, rest) :: doNext (soFar @ [x]) rest'
+         in doNext [] s
    end
 
 module MakeInts(I: sig val allElems: int list end) =

@@ -20,12 +20,10 @@
     - [Alphabets, strings, substrings, empty string, lexicographic ordering](notes/alphabet.md)
     - [Alphabet and friends in OCAML](notes/ocaml_alphabet.md)
 - Day 2
-    - Languages, examples
-    - Union, Intersection, Star
+    - [Languages, examples, constructions](notes/languages.md)
 - Day 3
-    - OCAML: How to represent languages? (lazy evaluation perhaps?)
-- Day 4
     - Deterministic Finite Automata
+- Day 4
     - DFAs in OCAML
 
 ## Week  3 (09/21-09/25)

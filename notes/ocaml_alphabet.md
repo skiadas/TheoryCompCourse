@@ -40,6 +40,7 @@ module type A =
       val allSuffixes : t -> t list
       val allStrings : int -> t list
       val allStringsLeq : int -> t list
+      val compare : t -> t -> int
    end
 ```
 
@@ -90,3 +91,5 @@ For `s_1` to be a `substring` of another string `s_2` it must be a prefix of one
 Next we have three functions to split a string at a specific prefix/suffix/substring, and to return the remaining piece(s). The main theme in all these functions is two pattern matches: One to see if we have arrived at a trivial case (typically end of string or end of substring) and another on the result of a recursive call, to see if it found a match in the "rest".
 
 Lastly, we have the functions that create lists of all strings of a given length. These are a good illustration of `List.map` together with breaking the problem down to smaller functions.
+
+And of course, we should implement lexicographic ordering, done in the function `compare`.

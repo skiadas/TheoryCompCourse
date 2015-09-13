@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-2">Assignment 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
+<ol style="list-style-type: decimal">
+<li>We want to consider a function that takes as arguments two other functions <span class="math">\(f\)</span> and <span class="math">\(g\)</span>, and return their composition. So taking as inputs <span class="math">\(f\)</span>, <span class="math">\(g\)</span> and a value <span class="math">\(x\)</span>, our function would compute <span class="math">\(g (f x)\)</span>. Write down the type that this function should have (it will likely need to use three parametric types <code>'a</code>, <code>'b</code>, <code>'c</code>).  </li>
+<li>Using <code>List.fold_left</code>, write a function that expects to be given a list of floating point numbers and returns the maximum of them (and returns the special number <code>neg_infinity</code> for an empty list). The body of the function can consist of just one line with about 35 characters, but you can opt for longer solutions if you prefer.  </li>
+<li>In our section on languages, we discussed describing a language as a predicate <code>string -&gt; bool</code>. Supposing <code>val f : string -&gt; bool</code> and <code>val g : string -&gt; bool</code> are describing two such languages <span class="math">\(A\)</span> and <span class="math">\(B\)</span>, write functions that would correspond to their intersection. In other words you need to describe functions that are given as input functions <code>f</code>, and <code>g</code> and return a function that takes in a string. So your definitions can look like one of the following forms (remember currying):</li>
+</ol>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> inters f g =
+    <span class="kw">fun</span> s -&gt; ... <span class="co">(* testing that s belongs to both languages described by f, g *)</span></code></pre>
+<p>or</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> inters f g s =
+    ... <span class="co">(* same as the dots above *)</span></code></pre>
+<p>  4. The same question but for the union.   5. The same question but for the concatenation (it’s a bit harder).  </p>
+<p>Challenge problem (really not for the faint-hearted):</p>
+<p>Do the same as problems 3-5, but for the Kleene star of a language.</p>
+</body>
+</html>
