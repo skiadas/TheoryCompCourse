@@ -4,3 +4,5 @@ exams/*
 sml/*
 *.cmi
 *.cmo
+*.cmx
+*.o
