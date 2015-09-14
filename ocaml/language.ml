@@ -25,7 +25,7 @@ module type Language =
       (* Finite languages *)
       val fromList : str list -> t
       (* Does the language contain a string? *)
-      val contains : str -> t -> bool
+      val contains : t -> str -> bool
 
       (* The following you need to implement *)
       val intersect  : t -> t -> t
@@ -46,20 +46,20 @@ module Make (A : Alphabet.A) =
 
       let fromFunction f = f
       let fromList lst = fun s -> List.mem s lst
-      let contains s f = f s
+      let contains f s = f s
 
       let intersect f g =
-         (* raise NotImplemented *)
+         raise NotImplemented
 
       let union f g =
-         (* raise NotImplemented *)
+         raise NotImplemented
 
       let complement f =
          raise NotImplemented
 
       (* Language concatenation *)
       let concat f g =
-         (* raise NotImplemented *)
+         raise NotImplemented
 
       (* Kleene Star. This one is harder, and optional. Do at your own peril. *)
       let star f =
@@ -91,28 +91,28 @@ let test_false cnd msg =
 print_endline "Testing language.ml";;
 module L = Make(Alphabet.Chars4);;
 let l1 = L.fromFunction (fun s -> s <> []);;
-test_false (L.contains [] l1) "l1 should not contain empty";;
-test_true (L.contains ['a'] l1) "l1 should contain nonempty";;
+test_false (L.contains l1 []) "l1 should not contain empty";;
+test_true (L.contains l1 ['a']) "l1 should contain nonempty";;
 
 (* l2 is all strings containing at least one a *)
 let rec f s = match s with [] -> false | x :: rest -> x = 'a' || f rest
 let l2 = L.fromFunction f;;
-test_true (L.contains (explode ("cdddccbab")) l2) "l2 should contain strings with a";;
-test_false (L.contains (explode ("cdddccbb")) l2) "l2 should not contain strings without a";;
+test_true (L.contains l2 (explode ("cdddccbab"))) "l2 should contain strings with a";;
+test_false (L.contains l2 (explode ("cdddccbb"))) "l2 should not contain strings without a";;
 (* l3 is all strings containing at least one b *)
 let rec f s = match s with [] -> false | x :: rest -> x = 'b' || f rest
 let l3 = L.fromFunction f;;
-test_true (L.contains (explode ("cdddccbab")) l3) "l3 should contain strings with b";;
-test_false (L.contains (explode ("cdddccaa")) l3) "l3 should not contain strings without b";;
+test_true (L.contains l3 (explode ("cdddccbab"))) "l3 should contain strings with b";;
+test_false (L.contains l3 (explode ("cdddccaa"))) "l3 should not contain strings without b";;
 (*
    l4 = L.intersect l2 l3
    Tests will fail until you implement intersect.
    Comment section out if you want to jump through it for now
 *)
 let l4 = L.intersect l2 l3;;
-test_true (L.contains (explode ("cdddccbab")) l4) "l4 should contain strings with both a and b";;
-test_false (L.contains (explode ("cdddccaa")) l4) "l4 should not contain strings without b";;
-test_false (L.contains (explode ("cdddccbb")) l4) "l4 should not contain strings without a";;
+test_true (L.contains l4 (explode ("cdddccbab"))) "l4 should contain strings with both a and b";;
+test_false (L.contains l4 (explode ("cdddccaa"))) "l4 should not contain strings without b";;
+test_false (L.contains l4 (explode ("cdddccbb"))) "l4 should not contain strings without a";;
 
 (*
    l5 = L.union l2 l3
@@ -120,9 +120,9 @@ test_false (L.contains (explode ("cdddccbb")) l4) "l4 should not contain strings
    Comment section out if you want to jump through it for now
 *)
 let l5 = L.union l2 l3;;
-test_false (L.contains (explode ("cdddcc")) l5) "l5 should not contain strings without either a or b";;
-test_true (L.contains (explode ("cdddcca")) l5) "l5 should contain strings with a";;
-test_true (L.contains (explode ("cdddbcc")) l5) "l5 should not contain strings with b";;
+test_false (L.contains l5 (explode ("cdddcc"))) "l5 should not contain strings without either a or b";;
+test_true (L.contains l5 (explode ("cdddcca"))) "l5 should contain strings with a";;
+test_true (L.contains l5 (explode ("cdddbcc"))) "l5 should not contain strings with b";;
 
 (*
    Student TODO: Add your own test for complement
@@ -134,9 +134,9 @@ let langForChar c =
 let lAs = langForChar 'a';;
 let lBs = langForChar 'b';;
 let l7 = L.concat lAs lBs;;
-test_true (L.contains (explode ("aaabb")) l7) "l7 should contain a's followed by b's";;
-test_true (L.contains (explode ("bb")) l7) "l7 should contain all b's";;
-test_true (L.contains (explode ("aaaaa")) l7) "l7 should contain all a's";;
-test_false (L.contains (explode ("bba")) l7) "l7 should not contain b's before a's";;
-test_false (L.contains (explode ("acbb")) l7) "l7 should contain all other letters";;
+test_true (L.contains l7 (explode ("aaabb"))) "l7 should contain a's followed by b's";;
+test_true (L.contains l7 (explode ("bb"))) "l7 should contain all b's";;
+test_true (L.contains l7 (explode ("aaaaa"))) "l7 should contain all a's";;
+test_false (L.contains l7 (explode ("bba"))) "l7 should not contain b's before a's";;
+test_false (L.contains l7 (explode ("acbb"))) "l7 should contain all other letters";;
 

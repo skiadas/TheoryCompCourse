@@ -13,7 +13,7 @@ module type Language =
       (* Finite languages *)
       val fromList : str list -> t
       (* Does the language contain a string? *)
-      val contains : str -> t -> bool
+      val contains : t -> str -> bool
 
       val intersect  : t -> t -> t
       val union      : t -> t -> t
