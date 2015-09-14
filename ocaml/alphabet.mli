@@ -14,6 +14,9 @@ module type A =
       (* type for a string of elements *)
       type t = elem list
 
+      val elemCompare : elem -> elem -> int
+      val compare : t -> t -> int
+
       val allElems : elem list
       val epsilon : t
       val empty : t -> bool
@@ -56,3 +59,8 @@ module Decimal : A with type elem = int
 module Chars2  : A with type elem = char
 module Chars3  : A with type elem = char
 module Chars4  : A with type elem = char
+
+val explode : string -> char list
+val implode : char list -> string
+val explodeInt : string -> int list
+val implodeInt : int list -> string

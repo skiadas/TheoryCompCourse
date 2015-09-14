@@ -1,5 +1,9 @@
 # Languages
 
+## Reading
+
+Practice problems (page 83): 1.20
+
 ## Definition of Languages
 
 In this section we will discuss the formal definition of "languages", give a number of examples, and discuss some standard constructions.
@@ -24,6 +28,7 @@ After a bit of thought you'll probably arrive at two different descriptions, bot
 So basically:
 
 > We can "specify" a language by providing either:
+>
 > 1. A way to tell, for a given string, if it belongs in the language or not, or
 > 2. A way to generate strings from the language, eventually *all* the strings from the language.
 

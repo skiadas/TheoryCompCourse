@@ -14,6 +14,9 @@ module type A =
       (* type for a string of elements *)
       type t = elem list
 
+      val elemCompare : elem -> elem -> int
+      val compare : t -> t -> int
+
       val allElems : elem list
       val epsilon : t
       val empty : t -> bool
@@ -39,6 +42,8 @@ module Make(Elems : ElemsType) =
       type elem = Elems.elem
       (* type for a string of elements *)
       type t = elem list
+
+      let elemCompare = Elems.compare
 
       let allElems = List.sort_uniq Elems.compare Elems.allElems
       let epsilon = []
@@ -112,11 +117,13 @@ module Make(Elems : ElemsType) =
          then [[]]
          else addAllPrefixes allElems (allStrings (n - 1))
 
-      let rec allStringsLeq n =
-         if n = 0
-         then [[]]
-         else let s = allStringsLeq (n - 1)
-              in List.append s (addAllPrefixes allElems s)
+      let allStringsLeq n =
+         let rec fromPrev nsteps prevs =
+            if n = nsteps
+            then prevs
+            else let next = addAllPrefixes allElems (List.hd prevs)
+                 in fromPrev (nsteps + 1) (next :: prevs)
+         in List.flatten (List.rev (fromPrev 0 [[[]]]))
 
       let rec compare s1 s2 =
          match (s1, s2) with
@@ -155,3 +162,21 @@ module MakeChars(C: sig val allElems: char list end) =
 module Chars2 = MakeChars(struct let allElems = ['a'; 'b'] end)
 module Chars3 = MakeChars(struct let allElems = ['a'; 'b'; 'c'] end)
 module Chars4 = MakeChars(struct let allElems = ['a'; 'b'; 'c'; 'd'] end)
+
+let explode s =
+   let rec exp i l =
+      if i < 0 then l else exp (i - 1) (s.[i] :: l)
+   in exp (Bytes.length s - 1) [];;
+
+let implode l =
+   let res = Bytes.create (List.length l)
+   in let rec imp i lst =
+         match lst with
+           []     -> res
+         | c :: l -> Bytes.set res i c; imp (i + 1) l
+      in imp 0 l;;
+
+let explodeInt s = List.map (fun c -> Char.code c - Char.code '0') (explode s)
+
+let implodeInt l = implode (List.map (fun i -> Char.chr (i + Char.code '0')) l)
+

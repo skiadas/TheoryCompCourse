@@ -22,7 +22,7 @@
 - Day 2
     - [Languages, examples, constructions](notes/languages.md)
 - Day 3
-    - Deterministic Finite Automata
+    - [Deterministic Finite Automata](notes/fin_aut_dfa.md)
 - Day 4
     - DFAs in OCAML
 
