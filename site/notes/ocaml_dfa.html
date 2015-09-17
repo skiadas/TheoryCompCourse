@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="dfas-in-ocaml">DFAs in OCAML</h1>
+<p>We describe here our implementation of DFAs in OCAML. The files that implement this are in the <code>ocaml</code> folder, namely <code>dfa.ml</code> and <code>dfa.mli</code>.</p>
+<p>Let’s start by the interface:</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">exception</span> <span class="dt">InvalidDFA</span>
+
+<span class="ot">module</span> <span class="kw">type</span> <span class="dt">DFA</span> =
+   <span class="kw">sig</span>
+      <span class="ot">module</span> A : Alphabet<span class="kw">.</span><span class="dt">A</span>
+      <span class="kw">type</span> state = <span class="dt">int</span>
+      <span class="kw">type</span> elem
+      <span class="kw">type</span> str
+      <span class="co">(* The dfa type *)</span>
+      <span class="kw">type</span> t
+
+      <span class="kw">val</span> make : <span class="dt">int</span> -&gt; (state -&gt; elem -&gt; state) -&gt; state <span class="dt">list</span> -&gt; t
+
+      <span class="kw">val</span> delta : t -&gt; state -&gt; elem -&gt; state
+      <span class="kw">val</span> deltaStar : t -&gt; state -&gt; str -&gt; state
+      <span class="kw">val</span> accept : t -&gt; str -&gt; <span class="dt">bool</span>
+
+      <span class="co">(* Returns the accepted strings of at most given length *)</span>
+      <span class="kw">val</span> acceptedStrings : t -&gt; <span class="dt">int</span> -&gt; str <span class="dt">list</span>
+
+      <span class="kw">val</span> union : t -&gt; t -&gt; t
+      <span class="kw">val</span> intersect : t -&gt; t -&gt; t
+   <span class="kw">end</span>
+
+<span class="ot">module</span> Make(<span class="dt">A</span> : Alphabet<span class="kw">.</span><span class="dt">A</span>) : <span class="dt">DFA</span> <span class="kw">with</span> <span class="kw">type</span> elem = A<span class="kw">.</span>elem
+                                   <span class="kw">and</span> <span class="kw">type</span> str = A<span class="kw">.</span>t</code></pre>
+<p>The module type <code>DFA</code> describes a <code>DFA</code> on a prescribed alphabet <code>A</code>. It introduces a number of types: one for states, represented simply as integers, one for elements of the alphabet, one for strings from the alphabet, and finally a type <code>t</code> to represent a <code>dfa</code>.</p>
+<p>The first key method is <code>make</code>, which creates a new <code>dfa</code>. It takes 3 inputs: First the number of states, then a transition function that given a “state” and an element returns a new state, and finally a list of “final states”. It returns a <code>dfa</code> (doing some validation first). By convention, the state corresponding to the number <code>0</code> is automatically treated as the start state, so no need to specify it.</p>
+<p>Following are methods allowing us to trace the accepting of strings: <code>delta</code> carries out one step of the transition function, <code>deltaStar</code> carries out a whole sequence of steps, and <code>accept</code> determines whether the string is accepted by the dfa.</p>
+<p>Lastly, <code>acceptedStrings</code> returns all strings of length up to a given integer that are accepted by the dfa.</p>
+<p>Finally, two methods implement the construction of the union and intersection of dfas, that we will be discussing in class.</p>
+<p>The implementation of <code>dfa.ml</code> is for the most part straightforward. We represent <code>dfa</code>s as a <em>record type</em>, which we haven’t talked about before but should be straightforward:</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> t = {
+    nstates : state;
+    delta : state -&gt; elem -&gt; state;
+    final : state <span class="dt">list</span>;
+}</code></pre>
+<p>The function <code>make</code> essentially just wraps its 3 arguments into an object of type <code>t</code>, and <code>validate</code>s it first before returning it (to make sure that the transition function does not take you out of the valid state range, for example, and that the valid states are actually valid states).</p>
+<p>The <code>delta</code> function literally just returns the value stored in <code>delta</code>. It is worth noting this expression:</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> delta { nstates; delta; final } = delta</code></pre>
+<p>The part <code>{ nstates; delta; final }</code> is basically a pattern matching a record. It would normally be written as: <code>{ nstates = nstates; delta = delta; final = final }</code> where we use the field names also as variable names. The above is a shorthand for that.</p>
+<p>Next up is <code>deltaStar</code>, which is supposed to follow the transition function through a list of inputs. A simple <code>List.fold_left</code> does this nicely.</p>
+<p>Then here is <code>accept</code>:</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> accept ({ nstates; delta; final } <span class="kw">as</span> dfa) es =
+    List<span class="kw">.</span>mem (deltaStar dfa <span class="dv">0</span> es) final</code></pre>
+<p>Note the expression <code>({ nstates; delta; final } as dfa)</code>. This says that the first argument should match a record, and bind the 3 arguments to the variables <code>nstates</code>, <code>delta</code> and <code>final</code>, but that the whole argument should also be bound to the variable <code>dfa</code>. All the function does then is use <code>deltaStar</code> to follow the string’s steps, starting from the start state <code>0</code>, and check whether the resulting state is one of the final states.</p>
+<p>Lastly, <code>acceptedStrings</code> generates all lists up to a given length, using <code>A.allStringsLeq</code>, then uses <code>List.filter</code> to only keep those that pass the dfa’s <code>accept</code>.</p>
+</body>
+</html>

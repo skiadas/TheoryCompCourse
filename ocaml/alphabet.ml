@@ -59,11 +59,12 @@ module Make(Elems : ElemsType) =
           | (_, [])                 -> false
           | (x :: rest, y :: rest2) -> x = y && prefix rest rest2
 
-      let rec suffix s1 s2 =
-         match s2 with
+      let suffix s1 s2 =
+         prefix (List.rev s1) (List.rev s2)
+(*          match s2 with
             []        -> s1 = []
-          | x :: rest -> suffix s1 rest
-
+          | x :: rest -> s1 = s2 || suffix s1 rest
+ *)
       let rec allPrefixes s =
          match s with
             []        -> [[]]

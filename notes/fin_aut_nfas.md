@@ -30,7 +30,7 @@ The idea of non-deterministic automata is simple: We preserve the finite-ness an
 
 > A **(Non-deterministic) Finite Automaton** (NFA) is a $5$-tuple $(Q, \Sigma, \delta, q_0, F)$, where:
 > - $Q$ is a finite set, called the *states*,
-> - $\Sigma$ is a finite set, called the *alphabet*, and we use $\Sigma_\epsilon$ to denote the alphabet extended with a new special symbol, $\espilon$, to indicate no use of input,
+> - $\Sigma$ is a finite set, called the *alphabet*, and we use $\Sigma_\epsilon$ to denote the alphabet extended with a new special symbol, $\epsilon$, to indicate no use of input,
 > - $\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)$ is the *transition function*,
 > - $q_0\in Q$ is the *start state*,
 > - $F\subset Q$ is the set of *accept or final states* (possibly empty)

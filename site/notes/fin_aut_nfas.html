@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="non-deterministic-finite-automata">Non-Deterministic Finite Automata</h1>
+<p>In this section we extend our definition of deterministic finite automata to a seemingly more powerful notion, that of non-deterministic finite automata.</p>
+<p>The surprising and wonderful result of this section is that these non-deterministic automata are actually not more powerful; they in fact describe the same set of languages.</p>
+<h2 id="reading">Reading</h2>
+<p>Sections</p>
+<p>Practice problems (page 83):</p>
+<h2 id="motivation-for-non-deterministic-automata">Motivation for non-deterministic automata</h2>
+<p>Finite automata have a certain rigidity to them: At every state and a given input, there is exactly one other state to transition to. This is precisely why they are called “deterministic”.</p>
+<p>But in so many practical situations we encounter non-determinism and are confronted with choices. A good example of this is trying to recognize the concatenation of two regular languages:</p>
+<p><span class="math">\[AB = \left\{wv\mid w\in A,\, v\in B\right\}\]</span></p>
+<p>If we imagine a deterministic automaton trying to use the automata for <span class="math">\(A\)</span> and <span class="math">\(B\)</span> along the way, we could for instance imagine it starting with the automaton for <span class="math">\(A\)</span>, then continuing with the automaton for <span class="math">\(B\)</span>. It is this “continuing” part that is difficult: At what point should we drop <span class="math">\(A\)</span> and start looking at <span class="math">\(B\)</span>? How do we know this is the right time to do so?</p>
+<p>To make this more concrete, suppose that the overall input is <code>1101001</code>, and suppose that the words <code>11</code>, <code>110</code> and <code>11010</code> are all valid words in <span class="math">\(A\)</span>. Then that longer input may be in <span class="math">\(AB\)</span> because <code>01001</code> is in <span class="math">\(B\)</span>, or because <code>1001</code> is in <span class="math">\(B\)</span>, or because <code>01</code> is in <span class="math">\(B\)</span>, or maybe for all 3 reasons. But we can’t know until we start looking into <span class="math">\(B\)</span>. So after we have read the first two numbers following <span class="math">\(A\)</span>’s automaton, we have arrived at an accept state for <span class="math">\(A\)</span>; do we continue or do we start looking into <span class="math">\(B\)</span>? What if we do start at <span class="math">\(B\)</span> and <code>0100</code> turns out not to be in <span class="math">\(B\)</span>? We would conclude that the whole input isn’t in <span class="math">\(AB\)</span> (even though it could be there for other reasons).</p>
+<p>So we have to make a choice at that point, and we don’t know what the right choice would be, and we can’t afford to make the wrong choice. So we can’t make a choice. This is the problem presented by deterministic automata.</p>
+<h2 id="definition-of-non-deterministic-automata">Definition of non-deterministic automata</h2>
+<p>The idea of non-deterministic automata is simple: We preserve the finite-ness and definite-ness of the states of a DFA, but we become more flexible on the transitions. From a state and on a given next input, you may now transition to 0 or more states. We also allow for “free transitions”, called “epsilon-transitions”, from a state to another without consuming any input. This way, at any given moment in the computation, our automaton might be in a variety/set of different states, not just one. And on each new input, the automaton would follow that input from all the different states it might have been in, resulting in a new list of possible states. When the computation ends, the automaton would possibly be in any number of possible states, and as long as one of these is an accepting state then the automaton would accept the string.</p>
+<blockquote>
+<p>A <strong>(Non-deterministic) Finite Automaton</strong> (NFA) is a <span class="math">\(5\)</span>-tuple <span class="math">\((Q, \Sigma, \delta, q_0, F)\)</span>, where: - <span class="math">\(Q\)</span> is a finite set, called the <em>states</em>, - <span class="math">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>, and we use <span class="math">\(\Sigma_\epsilon\)</span> to denote the alphabet extended with a new special symbol, <span class="math">\(\epsilon\)</span>, to indicate no use of input, - <span class="math">\(\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)\)</span> is the <em>transition function</em>, - <span class="math">\(q_0\in Q\)</span> is the <em>start state</em>, - <span class="math">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</p>
+</blockquote>
+<p>Here <span class="math">\(\mathcal{P}(Q)\)</span> denotes the power-set of the set <span class="math">\(Q\)</span>. In other words the return values of the transition function are whole sets of states, instead of individual states.</p>
+</body>
+</html>
