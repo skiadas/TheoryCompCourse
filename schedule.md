@@ -22,22 +22,23 @@
 - Day 2
     - [Languages, examples, constructions](notes/languages.md)
 - Day 3
-    - [Deterministic Finite Automata](notes/fin_aut_dfa.md)
+    - [Languages, examples, constructions](notes/languages.md)
 - Day 4
-    - DFAs in OCAML
+    - [Deterministic Finite Automata](notes/fin_aut_dfa.md)
 
 ## Week  3 (09/21-09/25)
 
 - Day 1
-    - Language accepted by automaton / Regular Languages
-    - Examples from OCAML language
+    - [DFAs in OCAML](notes/ocaml_dfa.md)
 - Day 2
+    - [Regular Languages](notes/fin_aut_dfa.md)
+    - [Examples of Languages from OCAML](notes/ocaml_lang_examples.md)
+- Day 3
     - Union of regular languages is regular
     - Implement in OCAML
-- Day 3
+- Day 4
     - Non-deterministic automata, examples
     - Implementation in OCAML
-- Day 4
     - DFA equivalent to an NFA
     - Union / Intersection / Star of regular languages is regular
 
