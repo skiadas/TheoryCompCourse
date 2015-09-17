@@ -12,7 +12,7 @@ module type DFA =
       (* The dfa type *)
       type t
 
-      val make : state -> (state -> elem -> state) -> state list -> t
+      val make : int -> (state -> elem -> state) -> state list -> t
 
       val delta : t -> state -> elem -> state
       val deltaStar : t -> state -> str -> state
@@ -20,6 +20,9 @@ module type DFA =
 
       (* Returns the accepted strings of at most given length *)
       val acceptedStrings : t -> int -> str list
+
+      val union : t -> t -> t
+      val intersect : t -> t -> t
    end
 
 module Make(A : Alphabet.A) =
@@ -69,5 +72,45 @@ module Make(A : Alphabet.A) =
 
       let acceptedStrings dfa n =
          List.filter (accept dfa) (A.allStringsLeq n)
+
+      let rec fromTo a b =
+         if a > b
+         then []
+         else a :: fromTo (a + 1) b
+
+      let upTo n = fromTo 0 (n - 1)
+
+      let union { nstates= nstate1; delta= delta1; final= final1 }
+                { nstates= nstate2; delta= delta2; final= final2 } =
+         let from12 i j = i + nstate2 * j in
+         let to12 n = (n mod nstate2, n / nstate2) in
+         let nstates = nstate1 * nstate2 in
+         let newDelta n a = let (i, j) = to12 n
+                            in from12 (delta1 i a) (delta2 j a) in
+         let isFinal n =
+            let (i, j) = to12 n
+            in List.mem i final1 || List.mem j final2
+         in {
+            nstates= nstates;
+            delta= newDelta;
+            final= List.filter isFinal (upTo nstates);
+         }
+
+      let intersect { nstates= nstate1; delta= delta1; final= final1 }
+                    { nstates= nstate2; delta= delta2; final= final2 } =
+         let from12 i j = i + nstate2 * j in
+         let to12 n = (n mod nstate2, n / nstate2) in
+         let nstates = nstate1 * nstate2 in
+         let newDelta n a = let (i, j) = to12 n
+                            in from12 (delta1 i a) (delta2 j a) in
+         let isFinal n =
+            let (i, j) = to12 n
+            in List.mem i final1 && List.mem j final2
+         in {
+            nstates= nstates;
+            delta= newDelta;
+            final= List.filter isFinal (upTo nstates);
+         }
+
 
    end

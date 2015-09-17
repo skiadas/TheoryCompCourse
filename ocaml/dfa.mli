@@ -12,7 +12,7 @@ module type DFA =
       (* The dfa type *)
       type t
 
-      val make : state -> (state -> elem -> state) -> state list -> t
+      val make : int -> (state -> elem -> state) -> state list -> t
 
       val delta : t -> state -> elem -> state
       val deltaStar : t -> state -> str -> state
@@ -20,6 +20,9 @@ module type DFA =
 
       (* Returns the accepted strings of at most given length *)
       val acceptedStrings : t -> int -> str list
+
+      val union : t -> t -> t
+      val intersect : t -> t -> t
    end
 
 module Make(A : Alphabet.A) : DFA with type elem = A.elem

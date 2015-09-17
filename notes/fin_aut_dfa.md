@@ -21,7 +21,7 @@ The idea of a finite automaton is simple:
 
 We usually represent finite automata via a **state diagram**:
 
-> In the **state diagram for a finite automaton, you have:
+> In the *state diagram* for a finite automaton, you have:
 > - One "circle" for each state.
 > - For each state arrows going out to other states, with a label on the arrows indicating the inputs for which they are applicable.
 > - An arrow coming from nowhere indicates the *start state*.
@@ -43,6 +43,8 @@ Now as practice for you: Suppose we want a finite automaton that detects divisio
 - Similarly if we are at state $5$, then because $2\times 5 = 3 \mod 7$ we would be going to state $3$ on input `0` and to state `4` on input `1`.
 
 Exercise 1.37 asks you to generalize this idea.
+
+Another practice problem: Describe an automaton that takes as input a string of a's and b's, and accepts only those strings where no letter appears twice in a row.
 
 ### Formal Definitions
 
@@ -79,3 +81,30 @@ More formally:
 > - A language is called a **regular language** if there is a DFA that recognizes it.
 
 Note that there might be many DFAs all recognizing the same language. But for a given DFA there is exactly one language it recognizes, namely the language of all strings in $\Sigma$ that the DFA accepts.
+
+### The Union of Regular Languages
+
+Regularity of a language (i.e. having a DFA that recognizes it) is preserved under a number of operations. In this section we will focus on the union:
+
+> **Theorem**
+>
+> If $A_1$ and $A_2$ are two regular languages, then their union $A_1 \cup A_2$ is also regular.
+
+In this section we will prove this theorem.
+
+- We start with assuming that $M_1 = (Q_1, \Sigma, \delta_1, q_1, F_1)$ and $M_2 = (Q_2, \Sigma, \delta_2, q_2, F_2)$ are DFAs that recognize the languages $A_1$ and $A_2$ respectively (these exist since those languages are regular).
+- We will construct a new DFA, $M$, which recognizes the union $A_1\cup A_2$.
+- The idea is this: $M$ will "simulate" following both $M_1$ and $M_2$. At any stage we try to make progress towards both automata, and at the end we'll be able to see if one of the automata can accept.
+- Now we proceed with the details. For a new automaton we need to define a 5-tuple: $(Q, \Sigma, \delta, q, F)$
+    - $Q$ will be the cartesian product $Q_1 \times Q_2$. In other words a state in the new automaton is a pair $(q, q')$, where $q\in Q_1$ and $q'\in Q_2$ are states from the two DFAs respectively (Some states in $Q$ might end up being not reachable, but we don't care about that).
+    - The transition function $\delta$ uses $\delta_1$ and $\delta_2$:
+
+        $$\delta\left((q, q'), a\right) = \left(\delta_1(q, a), \delta_2(q', a)\right)$$
+    - The start state is the pair of start states, $(q_1, q_2)$.
+    - The final states $F$ are those that are final for $M_1$ or $M_2$:
+
+        $$F = \left\{(q, q') \mid q\in F_1\textrm{ or }q'\in F_2\right\}$$
+
+**Question**: What do you think about the intersection of regular languages?
+
+The concatenation of regular languages, as well as the kleene star of a regular language, are regular, but this fact will be harder to prove, and it will be a consequence of further work we will do with non-deterministic automata and regular expressions.
