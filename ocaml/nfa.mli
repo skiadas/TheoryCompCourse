@@ -18,10 +18,15 @@ module type NFA =
       val delta : t -> state list -> elem -> state list
       val deltaStar : t -> state list -> str -> state list
       val accept : t -> str -> bool
+      val isFinal : t -> state -> bool
 
       (* Returns the accepted strings of at most given length *)
       val acceptedStrings : t -> int -> str list
 
+      val union : t -> t -> t
+      val complement : t -> t
+      val concatenate : t -> t -> t
+      val star : t -> t
    end
 
 module Make(A : Alphabet.A) : NFA with type elem = A.elem

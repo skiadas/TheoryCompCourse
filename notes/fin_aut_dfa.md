@@ -6,7 +6,7 @@ In this section we start our formal investigations into various models of comput
 
 Sections 1.1
 
-Practice problems (page 83): 1.1, 1.3, 1.4, 1.6, 1.36, 1.37
+Practice problems (page 83): 1.1, 1.3, 1.4, 1.6, 1.12, 1.36, 1.37
 
 ## Finite Automata
 

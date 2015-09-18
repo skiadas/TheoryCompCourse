@@ -32,10 +32,9 @@
     - [DFAs in OCAML](notes/ocaml_dfa.md)
 - Day 2
     - [Regular Languages](notes/fin_aut_dfa.md)
-    - [Examples of Languages from OCAML](notes/ocaml_lang_examples.md)
 - Day 3
-    - Union of regular languages is regular
-    - Implement in OCAML
+    - [Union of regular languages is regular](notes/fin_aut_dfa.md)
+    - [Implementation in OCAML](notes/ocaml_dfa.md)
 - Day 4
     - Non-deterministic automata, examples
     - Implementation in OCAML

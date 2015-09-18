@@ -18,10 +18,15 @@ module type NFA =
       val delta : t -> state list -> elem -> state list
       val deltaStar : t -> state list -> str -> state list
       val accept : t -> str -> bool
+      val isFinal : t -> state -> bool
 
       (* Returns the accepted strings of at most given length *)
       val acceptedStrings : t -> int -> str list
 
+      val union : t -> t -> t
+      val complement : t -> t
+      val concatenate : t -> t -> t
+      val star : t -> t
    end
 
 module Make(A : Alphabet.A) =
@@ -86,5 +91,44 @@ module Make(A : Alphabet.A) =
 
       let acceptedStrings nfa n =
          List.filter (accept nfa) (A.allStringsLeq n)
+
+      let isFinal { nstates; epsdelta; delta; final } s =
+         List.mem s final
+
+      let intUnion l1 l2 = List.sort_uniq Pervasives.compare @@
+            List.append l1 l2
+
+      let union { nstates=nstates1; epsdelta=epsdelta1; delta=delta1; final=final1; }
+                { nstates=nstates2; epsdelta=epsdelta2; delta=delta2; final=final2; } =
+         let (newZero1, newZero2) = (1, nstates1 + 1) in
+         let newEpsDelta n =
+            if n = 0
+            then [newZero1; newZero2]
+            else if n < newZero2
+                 then epsdelta1 (n - newZero1)
+                 else epsdelta2 (n - newZero2) in
+         let newDelta n a =
+            if n = 0
+            then []
+            else if n < newZero2
+                 then delta1 (n - newZero1) a
+                 else delta2 (n - newZero2) a
+         in {
+            nstates = nstates1 + nstates2 + 1;
+            epsdelta = newEpsDelta;
+            delta = newDelta;
+            final = intUnion (List.map (fun n -> n - newZero1) final1)
+                             (List.map (fun n -> n - newZero2) final2);
+         }
+
+      let complement { nstates; epsdelta; delta; final; } =
+         raise Not_found
+
+      let concatenate { nstates=nstates1; epsdelta=epsdelta1; delta=delta1; final=final1; }
+                      { nstates=nstates2; epsdelta=epsdelta2; delta=delta2; final=final2; } =
+         raise Not_found
+
+      let star { nstates; epsdelta; delta; final; } =
+         raise Not_found
 
    end
