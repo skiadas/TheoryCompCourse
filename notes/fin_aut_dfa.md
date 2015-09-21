@@ -22,6 +22,7 @@ The idea of a finite automaton is simple:
 We usually represent finite automata via a **state diagram**:
 
 > In the *state diagram* for a finite automaton, you have:
+>
 > - One "circle" for each state.
 > - For each state arrows going out to other states, with a label on the arrows indicating the inputs for which they are applicable.
 > - An arrow coming from nowhere indicates the *start state*.
@@ -51,10 +52,11 @@ Another practice problem: Describe an automaton that takes as input a string of 
 Eventually we want to have clear unambiguous definitions, so here is a more precise definition of finite automata:
 
 > A **(Deterministic) Finite Automaton** (DFA) is a $5$-tuple $(Q, \Sigma, \delta, q_0, F)$, where:
+>
 > - $Q$ is a finite set, called the *states*,
 > - $\Sigma$ is a finite set, called the *alphabet*,
-> - $\delta\colon Q\times \Sigma \to Q$ is the *transition function*,
-> - $q_0\in Q$ is the *start state*, (in particular $Q$ must be nonempty)
+> - There is a function $\delta\colon Q\times \Sigma \to Q$ called the *transition function*,
+> - There is a special state, $q_0\in Q$ called the *start state*, (in particular $Q$ must be nonempty)
 > - $F\subset Q$ is the set of *accept or final states* (possibly empty)
 
 Question 1: What happens if $F$ is the empty set? What if $F = S$?
@@ -73,6 +75,7 @@ We now discuss the meaning of computation in this setting. Informally we compute
 More formally:
 
 > Suppose $M = (Q, \Sigma, \delta, q_0, F)$ is a DFA.
+>
 > - If $w=w_1w_2\cdots w_n$ is a string, where each $w_i\in\Sigma$, then we say that the DFA $M$ **accepts** the string $w$ if there is a sequence of states $r_0,\ldots,r_n$ such that:
 >     - $r_0 = q_0$ is the start state
 >     - $\delta(r_i, w_{i+1}) = r_{i+1}$, i.e. each new input moves us to the next state
@@ -81,6 +84,17 @@ More formally:
 > - A language is called a **regular language** if there is a DFA that recognizes it.
 
 Note that there might be many DFAs all recognizing the same language. But for a given DFA there is exactly one language it recognizes, namely the language of all strings in $\Sigma$ that the DFA accepts.
+
+Practice problem: Construct DFAs (including writing out the formal definition) for the following languages:
+
+- The language containing no strings at all.
+- The language containing all strings.
+- The language containing exactly the empty string.
+- The language containing exactly one string, namely `"a"`, where 'a' is a specific letter in the alphabet.
+- The language containing all strings `""`, `"a"`, `"aa"`, `"aaa"`, and so on (including the empty string).
+- The language containing all strings `"a"`, `"aa"`, `"aaa"`, and so on (excluding the empty string).
+
+Practice problem: If we have the DFA for a language, what would the DFA for the "complement" language be?
 
 ### The Union of Regular Languages
 

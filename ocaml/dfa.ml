@@ -23,6 +23,12 @@ module type DFA =
 
       val union : t -> t -> t
       val intersect : t -> t -> t
+
+      val emptyLang : t
+      val emptyString : t
+      val oneElem : elem -> t
+      val zeroOrMore : elem -> t
+      val oneOrMore : elem -> t
    end
 
 module Make(A : Alphabet.A) =
@@ -112,5 +118,50 @@ module Make(A : Alphabet.A) =
             final= List.filter isFinal (upTo nstates);
          }
 
+      let emptyLang = {
+         nstates= 2;
+         delta= (fun _ _ -> 1);
+         final= [];
+      }
+
+      let emptyString = {
+         nstates= 2;
+         delta= (fun _ _ -> 1);
+         final= [0];
+      }
+
+      let oneElem a =
+         let delta s el =
+            match (s, el) with
+               (0, _) -> if el = a then 1 else 2
+             | _      -> 2
+         in {
+            nstates= 3;
+            delta= delta;
+            final= [1];
+         }
+
+      let zeroOrMore a =
+         let delta s el =
+            match (s, el) with
+               (0, _) -> if el = a then 0 else 1
+             | _      -> 1
+         in {
+            nstates= 2;
+            delta= delta;
+            final= [0];
+         }
+
+      let oneOrMore a =
+         let delta s el =
+            match (s, el) with
+               (0, _)
+             | (1, _) -> if el = a then 1 else 2
+             | _      -> 2
+         in {
+            nstates= 3;
+            delta= delta;
+            final= [1];
+         }
 
    end

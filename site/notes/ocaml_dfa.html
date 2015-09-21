@@ -57,6 +57,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
       <span class="kw">val</span> union : t -&gt; t -&gt; t
       <span class="kw">val</span> intersect : t -&gt; t -&gt; t
+
+      <span class="kw">val</span> emptyLang : t
+      <span class="kw">val</span> emptyString : t
+      <span class="kw">val</span> oneElem : elem -&gt; t
+      <span class="kw">val</span> zeroOrMore : elem -&gt; t
+      <span class="kw">val</span> oneOrMore : elem -&gt; t
+
    <span class="kw">end</span>
 
 <span class="ot">module</span> Make(<span class="dt">A</span> : Alphabet<span class="kw">.</span><span class="dt">A</span>) : <span class="dt">DFA</span> <span class="kw">with</span> <span class="kw">type</span> elem = A<span class="kw">.</span>elem
@@ -66,6 +73,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Following are methods allowing us to trace the accepting of strings: <code>delta</code> carries out one step of the transition function, <code>deltaStar</code> carries out a whole sequence of steps, and <code>accept</code> determines whether the string is accepted by the dfa.</p>
 <p>Lastly, <code>acceptedStrings</code> returns all strings of length up to a given integer that are accepted by the dfa.</p>
 <p>Finally, two methods implement the construction of the union and intersection of dfas, that we will be discussing in class.</p>
+<p>At the end of the file we include some examples of a few “standard” dfas.</p>
 <p>The implementation of <code>dfa.ml</code> is for the most part straightforward. We represent <code>dfa</code>s as a <em>record type</em>, which we haven’t talked about before but should be straightforward:</p>
 <pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> t = {
     nstates : state;

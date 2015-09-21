@@ -22,4 +22,14 @@ let dfa1 =
 if D.accept dfa1 [0; 1; 1] then print_endline "Works!";;
 if not (D.accept dfa1 [1; 0; 1]) then print_endline "Really works!";;
 let accStrings = D.acceptedStrings dfa1 3;;
-List.iter print_endline (List.map Alphabet.implodeInt accStrings)
+List.iter print_endline (List.map Alphabet.implodeInt accStrings);;
+
+print_endline "Empty language:"
+let dfa2 = D.emptyLang;;
+let accStrings = D.acceptedStrings dfa2 4;;
+print_endline (match accStrings with [] -> "No strings, yey!" | _ -> "Oops, strings!");
+
+print_endline "Language with empty string only:"
+let dfa3 = D.emptyString;;
+let accStrings = D.acceptedStrings dfa3 4;;
+print_endline (match accStrings with [[]] -> "Only empty, yey!" | _ -> "Oops, wrong!");

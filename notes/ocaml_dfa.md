@@ -27,6 +27,13 @@ module type DFA =
 
       val union : t -> t -> t
       val intersect : t -> t -> t
+
+      val emptyLang : t
+      val emptyString : t
+      val oneElem : elem -> t
+      val zeroOrMore : elem -> t
+      val oneOrMore : elem -> t
+
    end
 
 module Make(A : Alphabet.A) : DFA with type elem = A.elem
@@ -42,6 +49,8 @@ Following are methods allowing us to trace the accepting of strings: `delta` car
 Lastly, `acceptedStrings` returns all strings of length up to a given integer that are accepted by the dfa.
 
 Finally, two methods implement the construction of the union and intersection of dfas, that we will be discussing in class.
+
+At the end of the file we include some examples of a few "standard" dfas.
 
 The implementation of `dfa.ml` is for the most part straightforward. We represent `dfa`s as a *record type*, which we haven't talked about before but should be straightforward:
 

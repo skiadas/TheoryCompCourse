@@ -7,6 +7,12 @@ module type NFA =
       (* the various inputs *)
       type elem
       type str
+
+      module D : Dfa.DFA with module A = A
+                          and type state = state
+                          and type elem = elem
+                          and type str = str
+
       type trans = state -> elem -> state list
       type eps_trans = state -> state list
       (* The nfa type *)
@@ -37,6 +43,8 @@ module Make(A : Alphabet.A) =
       type state = int
       type trans = state -> elem -> state list
       type eps_trans = state -> state list
+
+      module D = Dfa.Make(A)
 
       (* State 0 is always the start state *)
       type t = {
@@ -121,14 +129,31 @@ module Make(A : Alphabet.A) =
                              (List.map (fun n -> n - newZero2) final2);
          }
 
-      let complement { nstates; epsdelta; delta; final; } =
-         raise Not_found
 
       let concatenate { nstates=nstates1; epsdelta=epsdelta1; delta=delta1; final=final1; }
                       { nstates=nstates2; epsdelta=epsdelta2; delta=delta2; final=final2; } =
-         raise Not_found
+         let newZero2 = nstates1 in
+         let newEpsDelta n =
+             if n >= newZero2
+             then epsdelta2 (n - newZero2)
+             else if List.mem n final1
+                  then newZero2 :: epsdelta1 n
+                  else epsdelta1 n in
+         let newDelta n a =
+             if n < newZero2
+             then delta1 n a
+             else delta2 (n - newZero2) a
+          in {
+            nstates= nstates1 + nstates2;
+            epsdelta= newEpsDelta;
+            delta= newDelta;
+            final = List.map (fun n -> n + newZero2) final2
+          }
 
       let star { nstates; epsdelta; delta; final; } =
+         raise Not_found
+
+      let complement { nstates; epsdelta; delta; final; } =
          raise Not_found
 
    end

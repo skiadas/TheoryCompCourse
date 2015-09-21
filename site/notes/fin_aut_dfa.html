@@ -29,7 +29,13 @@
 </ul>
 <p>We usually represent finite automata via a <strong>state diagram</strong>:</p>
 <blockquote>
-<p>In the <em>state diagram</em> for a finite automaton, you have: - One “circle” for each state. - For each state arrows going out to other states, with a label on the arrows indicating the inputs for which they are applicable. - An arrow coming from nowhere indicates the <em>start state</em>. - An extra circle around a state indicates it is an <em>accept state</em>.</p>
+<p>In the <em>state diagram</em> for a finite automaton, you have:</p>
+<ul>
+<li>One “circle” for each state.</li>
+<li>For each state arrows going out to other states, with a label on the arrows indicating the inputs for which they are applicable.</li>
+<li>An arrow coming from nowhere indicates the <em>start state</em>.</li>
+<li>An extra circle around a state indicates it is an <em>accept state</em>.</li>
+</ul>
 </blockquote>
 <p>As an example, let us think of inputs being binary numbers (only <span class="math">\(0\)</span> and <span class="math">\(1\)</span> as digits), and we want a finite automaton that detects if the number is divisible by <span class="math">\(3\)</span>. Recall that a number is divisible by <span class="math">\(3\)</span> if and only if the sum of its digits are. Since we see the digits one at a time, we will keep track of the remainder on division by <span class="math">\(3\)</span> at each stage. So:</p>
 <ul>
@@ -51,7 +57,14 @@
 <h3 id="formal-definitions">Formal Definitions</h3>
 <p>Eventually we want to have clear unambiguous definitions, so here is a more precise definition of finite automata:</p>
 <blockquote>
-<p>A <strong>(Deterministic) Finite Automaton</strong> (DFA) is a <span class="math">\(5\)</span>-tuple <span class="math">\((Q, \Sigma, \delta, q_0, F)\)</span>, where: - <span class="math">\(Q\)</span> is a finite set, called the <em>states</em>, - <span class="math">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>, - <span class="math">\(\delta\colon Q\times \Sigma \to Q\)</span> is the <em>transition function</em>, - <span class="math">\(q_0\in Q\)</span> is the <em>start state</em>, (in particular <span class="math">\(Q\)</span> must be nonempty) - <span class="math">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</p>
+<p>A <strong>(Deterministic) Finite Automaton</strong> (DFA) is a <span class="math">\(5\)</span>-tuple <span class="math">\((Q, \Sigma, \delta, q_0, F)\)</span>, where:</p>
+<ul>
+<li><span class="math">\(Q\)</span> is a finite set, called the <em>states</em>,</li>
+<li><span class="math">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>,</li>
+<li>There is a function <span class="math">\(\delta\colon Q\times \Sigma \to Q\)</span> called the <em>transition function</em>,</li>
+<li>There is a special state, <span class="math">\(q_0\in Q\)</span> called the <em>start state</em>, (in particular <span class="math">\(Q\)</span> must be nonempty)</li>
+<li><span class="math">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</li>
+</ul>
 </blockquote>
 <p>Question 1: What happens if <span class="math">\(F\)</span> is the empty set? What if <span class="math">\(F = S\)</span>?</p>
 <p>Question 2: Use this formal definition to describe the automaton for division by <span class="math">\(3\)</span> that we described earlier.</p>
@@ -65,9 +78,29 @@
 </ul>
 <p>More formally:</p>
 <blockquote>
-<p>Suppose <span class="math">\(M = (Q, \Sigma, \delta, q_0, F)\)</span> is a DFA. - If <span class="math">\(w=w_1w_2\cdots w_n\)</span> is a string, where each <span class="math">\(w_i\in\Sigma\)</span>, then we say that the DFA <span class="math">\(M\)</span> <strong>accepts</strong> the string <span class="math">\(w\)</span> if there is a sequence of states <span class="math">\(r_0,\ldots,r_n\)</span> such that: - <span class="math">\(r_0 = q_0\)</span> is the start state - <span class="math">\(\delta(r_i, w_{i+1}) = r_{i+1}\)</span>, i.e. each new input moves us to the next state - <span class="math">\(r_n\in F\)</span>, i.e. the last state is in the special subset of accept states. - We say that the DFA <span class="math">\(M\)</span> <strong>recognizes</strong> the language <span class="math">\(L\)</span>, and we write <span class="math">\(L(M) = L\)</span>, if <span class="math">\(M\)</span> accepts exactly those strings that are in <span class="math">\(L\)</span>. - A language is called a <strong>regular language</strong> if there is a DFA that recognizes it.</p>
+<p>Suppose <span class="math">\(M = (Q, \Sigma, \delta, q_0, F)\)</span> is a DFA.</p>
+<ul>
+<li>If <span class="math">\(w=w_1w_2\cdots w_n\)</span> is a string, where each <span class="math">\(w_i\in\Sigma\)</span>, then we say that the DFA <span class="math">\(M\)</span> <strong>accepts</strong> the string <span class="math">\(w\)</span> if there is a sequence of states <span class="math">\(r_0,\ldots,r_n\)</span> such that:
+<ul>
+<li><span class="math">\(r_0 = q_0\)</span> is the start state</li>
+<li><span class="math">\(\delta(r_i, w_{i+1}) = r_{i+1}\)</span>, i.e. each new input moves us to the next state</li>
+<li><span class="math">\(r_n\in F\)</span>, i.e. the last state is in the special subset of accept states.</li>
+</ul></li>
+<li>We say that the DFA <span class="math">\(M\)</span> <strong>recognizes</strong> the language <span class="math">\(L\)</span>, and we write <span class="math">\(L(M) = L\)</span>, if <span class="math">\(M\)</span> accepts exactly those strings that are in <span class="math">\(L\)</span>.</li>
+<li>A language is called a <strong>regular language</strong> if there is a DFA that recognizes it.</li>
+</ul>
 </blockquote>
 <p>Note that there might be many DFAs all recognizing the same language. But for a given DFA there is exactly one language it recognizes, namely the language of all strings in <span class="math">\(\Sigma\)</span> that the DFA accepts.</p>
+<p>Practice problem: Construct DFAs (including writing out the formal definition) for the following languages:</p>
+<ul>
+<li>The language containing no strings at all.</li>
+<li>The language containing all strings.</li>
+<li>The language containing exactly the empty string.</li>
+<li>The language containing exactly one string, namely <code>&quot;a&quot;</code>, where ‘a’ is a specific letter in the alphabet.</li>
+<li>The language containing all strings <code>&quot;&quot;</code>, <code>&quot;a&quot;</code>, <code>&quot;aa&quot;</code>, <code>&quot;aaa&quot;</code>, and so on (including the empty string).</li>
+<li>The language containing all strings <code>&quot;a&quot;</code>, <code>&quot;aa&quot;</code>, <code>&quot;aaa&quot;</code>, and so on (excluding the empty string).</li>
+</ul>
+<p>Practice problem: If we have the DFA for a language, what would the DFA for the “complement” language be?</p>
 <h3 id="the-union-of-regular-languages">The Union of Regular Languages</h3>
 <p>Regularity of a language (i.e. having a DFA that recognizes it) is preserved under a number of operations. In this section we will focus on the union:</p>
 <blockquote>

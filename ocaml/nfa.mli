@@ -7,6 +7,12 @@ module type NFA =
       (* the various inputs *)
       type elem
       type str
+
+      module D : Dfa.DFA with module A = A
+                          and type state = state
+                          and type elem = elem
+                          and type str = str
+
       type trans = state -> elem -> state list
       type eps_trans = state -> state list
       (* The nfa type *)
