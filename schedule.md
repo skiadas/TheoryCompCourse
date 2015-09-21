@@ -41,7 +41,7 @@
 ## Week  4 (09/28-10/02)
 
 - Day 1
-    - Non-deterministic automata, examples
+    - [Non-deterministic automata, examples](notes/fin_aut_nfas.md)
 - Day 2
     - Implementation in OCAML
 - Day 3

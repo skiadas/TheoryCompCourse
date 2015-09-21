@@ -17,8 +17,9 @@
 <p>In this section we extend our definition of deterministic finite automata to a seemingly more powerful notion, that of non-deterministic finite automata.</p>
 <p>The surprising and wonderful result of this section is that these non-deterministic automata are actually not more powerful; they in fact describe the same set of languages.</p>
 <h2 id="reading">Reading</h2>
-<p>Sections</p>
-<p>Practice problems (page 83):</p>
+<p>Section 1.2 (p. 47-54)</p>
+<p>Practice problems (page 85): 1.7, 1.8, 1.9, 1.10, 1.11, 1.14, 1.16, 1.40, 1.41, 1.42, 1.51</p>
+<p>Challenge: 1.43, 1.44</p>
 <h2 id="motivation-for-non-deterministic-automata">Motivation for non-deterministic automata</h2>
 <p>Finite automata have a certain rigidity to them: At every state and a given input, there is exactly one other state to transition to. This is precisely why they are called “deterministic”.</p>
 <p>But in so many practical situations we encounter non-determinism and are confronted with choices. A good example of this is trying to recognize the concatenation of two regular languages:</p>
@@ -47,14 +48,23 @@
 <p>We say that the NFA <em>recognizes</em> a language <span class="math">\(L\)</span>, if it accepts exactly the strings that are in the language.</p>
 </blockquote>
 <p>So the formal definition has to make two allowances: The insertion of “epsilon steps” in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.</p>
-<p>Before we do that we need one more definition:</p>
+<h2 id="epsilon-closures">Epsilon Closures</h2>
+<p>One concept essential to understanding DFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:</p>
 <blockquote>
-<p>The <strong>epsilon closure</strong> of a set of states <span class="math">\(S\)</span>, denoted <span class="math">\(\textrm{Eps}(S)\)</span> is the set of all states that can be reached from <span class="math">\(S\)</span> via following epsilon transitions. Formally, a state <span class="math">\(s\)</span> is in <span class="math">\(\textrm{Eps}(S)\)</span> if and only if there is a sequence of states <span class="math">\(s_0,s_1,\ldots,s_k\)</span> such that:</p>
+<p>The <strong>epsilon closure</strong> of a set of states <span class="math">\(S\)</span>, denoted <span class="math">\(E(S)\)</span> is the set of all states that can be reached from <span class="math">\(S\)</span> via following epsilon transitions. Formally, a state <span class="math">\(s\)</span> is in <span class="math">\(E(S)\)</span> if and only if there is a sequence of states <span class="math">\(s_0,s_1,\ldots,s_k\)</span> such that:</p>
 <ul>
 <li><span class="math">\(s_0\in S\)</span></li>
 <li><span class="math">\(s_{i+1} = \delta(s_i, \epsilon)\)</span> for all <span class="math">\(i\)</span></li>
 <li><span class="math">\(s_k = s\)</span></li>
 </ul>
 </blockquote>
+<p>To compute the epsilon closure of a set, we can proceed in steps:</p>
+<ul>
+<li>Start with <span class="math">\(S_0 = S\)</span>.</li>
+<li>Compute <span class="math">\(S_1\)</span> by following a single epsilon-step from all points in <span class="math">\(S_0\)</span>.</li>
+<li>Compute <span class="math">\(S_2\)</span> by following a single epsilon-step from all points in <span class="math">\(S_1\)</span>.</li>
+<li>Compute <span class="math">\(S_3\)</span> by following a single epsilon-step from all points in <span class="math">\(S_2\)</span>.</li>
+</ul>
+<p>and so on. Since there is a finite set of states, this process will eventually stabilize. We have then arrived at the epsilon closure <span class="math">\(E(S)\)</span>.</p>
 </body>
 </html>

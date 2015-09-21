@@ -6,9 +6,11 @@ The surprising and wonderful result of this section is that these non-determinis
 
 ## Reading
 
-Sections
+Section 1.2 (p. 47-54)
 
-Practice problems (page 83):
+Practice problems (page 85): 1.7, 1.8, 1.9, 1.10, 1.11, 1.14, 1.16, 1.40, 1.41, 1.42, 1.51
+
+Challenge: 1.43, 1.44
 
 ## Motivation for non-deterministic automata
 
@@ -52,16 +54,22 @@ The meaning of computation with an NFA is similar to that for a DFA, except that
 
 So the formal definition has to make two allowances: The insertion of "epsilon steps" in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.
 
+## Epsilon Closures
 
+One concept essential to understanding DFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:
 
-
-
-
-
-Before we do that we need one more definition:
-
-> The **epsilon closure** of a set of states $S$, denoted $\textrm{Eps}(S)$ is the set of all states that can be reached from $S$ via following epsilon transitions. Formally, a state $s$ is in $\textrm{Eps}(S)$ if and only if there is a sequence of states $s_0,s_1,\ldots,s_k$ such that:
+> The **epsilon closure** of a set of states $S$, denoted $E(S)$ is the set of all states that can be reached from $S$ via following epsilon transitions. Formally, a state $s$ is in $E(S)$ if and only if there is a sequence of states $s_0,s_1,\ldots,s_k$ such that:
 >
 > - $s_0\in S$
 > - $s_{i+1} = \delta(s_i, \epsilon)$ for all $i$
 > - $s_k = s$
+
+To compute the epsilon closure of a set, we can proceed in steps:
+
+- Start with $S_0 = S$.
+- Compute $S_1$ by following a single epsilon-step from all points in $S_0$.
+- Compute $S_2$ by following a single epsilon-step from all points in $S_1$.
+- Compute $S_3$ by following a single epsilon-step from all points in $S_2$.
+
+and so on. Since there is a finite set of states, this process will eventually stabilize. We have then arrived at the epsilon closure $E(S)$.
+
