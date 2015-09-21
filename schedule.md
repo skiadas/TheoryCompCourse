@@ -29,29 +29,30 @@
 ## Week  3 (09/21-09/25)
 
 - Day 1
-    - [DFAs in OCAML](notes/ocaml_dfa.md)
+    - [Deterministic Finite Automata (cont)](notes/fin_aut_dfa.md)
 - Day 2
+    - [DFAs in OCAML](notes/ocaml_dfa.md)
+- Day 3
     - [Regular Languages](notes/fin_aut_dfa.md)
     - [Union of regular languages is regular](notes/fin_aut_dfa.md)
-- Day 3
-    - [Implementation of union in OCAML](notes/ocaml_dfa.md)
 - Day 4
-    - Non-deterministic automata, examples
-    - Implementation in OCAML
-    - DFA equivalent to an NFA
-    - Union / Intersection / Star of regular languages is regular
+    - [Implementation of union in OCAML](notes/ocaml_dfa.md)
 
 ## Week  4 (09/28-10/02)
 
 - Day 1
+    - Non-deterministic automata, examples
+- Day 2
+    - Implementation in OCAML
+- Day 3
+    - DFA equivalent to an NFA
+    - Union / Intersection / Star of regular languages is regular
     - Regular Expressions
     - OCAML implementations
     - RegEx -> NFA
-- Day 2
     - Nonregular languages
     - Pumping Lemma
     - Examples
-- Day 3
     - Catching up
 - Day 4
     - Midterm 1

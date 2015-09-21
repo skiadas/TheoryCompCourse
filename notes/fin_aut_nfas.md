@@ -29,10 +29,39 @@ So we have to make a choice at that point, and we don't know what the right choi
 The idea of non-deterministic automata is simple: We preserve the finite-ness and definite-ness of the states of a DFA, but we become more flexible on the transitions. From a state and on a given next input, you may now transition to 0 or more states. We also allow for "free transitions", called "epsilon-transitions", from a state to another without consuming any input. This way, at any given moment in the computation, our automaton might be in a variety/set of different states, not just one. And on each new input, the automaton would follow that input from all the different states it might have been in, resulting in a new list of possible states. When the computation ends, the automaton would possibly be in any number of possible states, and as long as one of these is an accepting state then the automaton would accept the string.
 
 > A **(Non-deterministic) Finite Automaton** (NFA) is a $5$-tuple $(Q, \Sigma, \delta, q_0, F)$, where:
+>
 > - $Q$ is a finite set, called the *states*,
 > - $\Sigma$ is a finite set, called the *alphabet*, and we use $\Sigma_\epsilon$ to denote the alphabet extended with a new special symbol, $\epsilon$, to indicate no use of input,
 > - $\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)$ is the *transition function*,
 > - $q_0\in Q$ is the *start state*,
 > - $F\subset Q$ is the set of *accept or final states* (possibly empty)
 
-Here $\mathcal{P}(Q)$ denotes the power-set of the set $Q$. In other words the return values of the transition function are whole sets of states, instead of individual states.
+Here $\mathcal{P}(Q)$ denotes the power-set of the set $Q$. In other words the return values of the transition function are whole sets of states, instead of individual states. We often can split the function up in two parts, one that handles the *epsilon transitions*, i.e. transitions on no input at all, and one that handles the normal transitions.
+
+## Computation with an NFA
+
+The meaning of computation with an NFA is similar to that for a DFA, except that we have to allow for epsilon transitions. Intuitively, a string is recognized by an NFA if we can reach a final state in one of all the possible calculations that use the string as input. More formally:
+
+> We say that an NFA recognizes the string $w$, if we can write $w=y_1y_2\cdots y_n$ where each $y_i\in\Sigma_\epsilon$, and we have a sequence of states $r_0,r_1,\ldots,r_n$ such that:
+>
+> $r_0=q_0$ is the start state of the automaton,
+> $r_{i+1} \in \delta(r_i, y_{i+1})$ is one of the possible states to transition to on each next step,
+> $r_n\in F$ is a final state.
+>
+> We say that the NFA *recognizes* a language $L$, if it accepts exactly the strings that are in the language.
+
+So the formal definition has to make two allowances: The insertion of "epsilon steps" in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.
+
+
+
+
+
+
+
+Before we do that we need one more definition:
+
+> The **epsilon closure** of a set of states $S$, denoted $\textrm{Eps}(S)$ is the set of all states that can be reached from $S$ via following epsilon transitions. Formally, a state $s$ is in $\textrm{Eps}(S)$ if and only if there is a sequence of states $s_0,s_1,\ldots,s_k$ such that:
+>
+> - $s_0\in S$
+> - $s_{i+1} = \delta(s_i, \epsilon)$ for all $i$
+> - $s_k = s$

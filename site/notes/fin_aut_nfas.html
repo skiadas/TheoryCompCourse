@@ -29,8 +29,32 @@
 <h2 id="definition-of-non-deterministic-automata">Definition of non-deterministic automata</h2>
 <p>The idea of non-deterministic automata is simple: We preserve the finite-ness and definite-ness of the states of a DFA, but we become more flexible on the transitions. From a state and on a given next input, you may now transition to 0 or more states. We also allow for “free transitions”, called “epsilon-transitions”, from a state to another without consuming any input. This way, at any given moment in the computation, our automaton might be in a variety/set of different states, not just one. And on each new input, the automaton would follow that input from all the different states it might have been in, resulting in a new list of possible states. When the computation ends, the automaton would possibly be in any number of possible states, and as long as one of these is an accepting state then the automaton would accept the string.</p>
 <blockquote>
-<p>A <strong>(Non-deterministic) Finite Automaton</strong> (NFA) is a <span class="math">\(5\)</span>-tuple <span class="math">\((Q, \Sigma, \delta, q_0, F)\)</span>, where: - <span class="math">\(Q\)</span> is a finite set, called the <em>states</em>, - <span class="math">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>, and we use <span class="math">\(\Sigma_\epsilon\)</span> to denote the alphabet extended with a new special symbol, <span class="math">\(\epsilon\)</span>, to indicate no use of input, - <span class="math">\(\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)\)</span> is the <em>transition function</em>, - <span class="math">\(q_0\in Q\)</span> is the <em>start state</em>, - <span class="math">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</p>
+<p>A <strong>(Non-deterministic) Finite Automaton</strong> (NFA) is a <span class="math">\(5\)</span>-tuple <span class="math">\((Q, \Sigma, \delta, q_0, F)\)</span>, where:</p>
+<ul>
+<li><span class="math">\(Q\)</span> is a finite set, called the <em>states</em>,</li>
+<li><span class="math">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>, and we use <span class="math">\(\Sigma_\epsilon\)</span> to denote the alphabet extended with a new special symbol, <span class="math">\(\epsilon\)</span>, to indicate no use of input,</li>
+<li><span class="math">\(\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)\)</span> is the <em>transition function</em>,</li>
+<li><span class="math">\(q_0\in Q\)</span> is the <em>start state</em>,</li>
+<li><span class="math">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</li>
+</ul>
 </blockquote>
-<p>Here <span class="math">\(\mathcal{P}(Q)\)</span> denotes the power-set of the set <span class="math">\(Q\)</span>. In other words the return values of the transition function are whole sets of states, instead of individual states.</p>
+<p>Here <span class="math">\(\mathcal{P}(Q)\)</span> denotes the power-set of the set <span class="math">\(Q\)</span>. In other words the return values of the transition function are whole sets of states, instead of individual states. We often can split the function up in two parts, one that handles the <em>epsilon transitions</em>, i.e. transitions on no input at all, and one that handles the normal transitions.</p>
+<h2 id="computation-with-an-nfa">Computation with an NFA</h2>
+<p>The meaning of computation with an NFA is similar to that for a DFA, except that we have to allow for epsilon transitions. Intuitively, a string is recognized by an NFA if we can reach a final state in one of all the possible calculations that use the string as input. More formally:</p>
+<blockquote>
+<p>We say that an NFA recognizes the string <span class="math">\(w\)</span>, if we can write <span class="math">\(w=y_1y_2\cdots y_n\)</span> where each <span class="math">\(y_i\in\Sigma_\epsilon\)</span>, and we have a sequence of states <span class="math">\(r_0,r_1,\ldots,r_n\)</span> such that:</p>
+<p><span class="math">\(r_0=q_0\)</span> is the start state of the automaton, <span class="math">\(r_{i+1} \in \delta(r_i, y_{i+1})\)</span> is one of the possible states to transition to on each next step, <span class="math">\(r_n\in F\)</span> is a final state.</p>
+<p>We say that the NFA <em>recognizes</em> a language <span class="math">\(L\)</span>, if it accepts exactly the strings that are in the language.</p>
+</blockquote>
+<p>So the formal definition has to make two allowances: The insertion of “epsilon steps” in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.</p>
+<p>Before we do that we need one more definition:</p>
+<blockquote>
+<p>The <strong>epsilon closure</strong> of a set of states <span class="math">\(S\)</span>, denoted <span class="math">\(\textrm{Eps}(S)\)</span> is the set of all states that can be reached from <span class="math">\(S\)</span> via following epsilon transitions. Formally, a state <span class="math">\(s\)</span> is in <span class="math">\(\textrm{Eps}(S)\)</span> if and only if there is a sequence of states <span class="math">\(s_0,s_1,\ldots,s_k\)</span> such that:</p>
+<ul>
+<li><span class="math">\(s_0\in S\)</span></li>
+<li><span class="math">\(s_{i+1} = \delta(s_i, \epsilon)\)</span> for all <span class="math">\(i\)</span></li>
+<li><span class="math">\(s_k = s\)</span></li>
+</ul>
+</blockquote>
 </body>
 </html>
