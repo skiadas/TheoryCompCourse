@@ -42,14 +42,12 @@
 
 - Day 1
     - [Non-deterministic automata, examples](notes/fin_aut_nfas.md)
-- Day 2
     - Implementation in OCAML
-- Day 3
     - DFA equivalent to an NFA
-    - Union / Intersection / Star of regular languages is regular
-    - Regular Expressions
-    - OCAML implementations
+- Day 2
+    - [Regular Expressions](note/regexp.md)
     - RegEx -> NFA
+- Day 3
     - Nonregular languages
     - Pumping Lemma
     - Examples

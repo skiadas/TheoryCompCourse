@@ -1,3 +1,9 @@
+(*
+   Link with:
+
+   ocamlc alphabet.mli alphabet.ml dfa.mli dfa.ml bitset.mli bitset.ml nfa.mli nfa.ml
+
+*)
 module type NFA =
    sig
       (* The type for NFAs *)
@@ -30,9 +36,17 @@ module type NFA =
       val acceptedStrings : t -> int -> str list
 
       val union : t -> t -> t
-      val complement : t -> t
       val concatenate : t -> t -> t
       val star : t -> t
+
+      val emptyLang : t
+      val emptyString : t
+      val oneElem : elem -> t
+      val zeroOrMore : elem -> t
+      val oneOrMore : elem -> t
+
+      val fromDfa: D.t -> t
+      val toDfa: t -> D.t
    end
 
 module Make(A : Alphabet.A) =
@@ -77,6 +91,9 @@ module Make(A : Alphabet.A) =
 
       (* map_flatten: ('a -> 'b list) -> 'a list -> 'b list *)
       let map_flatten f lst = List.flatten @@ List.map f lst
+
+      let nstates { nstates; epsdelta; delta; final } = nstates
+      let final { nstates; epsdelta; delta; final } = final
 
       let epsilonClose { nstates; epsdelta; delta; final } ss =
          let rec takeStep states =
@@ -129,7 +146,6 @@ module Make(A : Alphabet.A) =
                              (List.map (fun n -> n - newZero2) final2);
          }
 
-
       let concatenate { nstates=nstates1; epsdelta=epsdelta1; delta=delta1; final=final1; }
                       { nstates=nstates2; epsdelta=epsdelta2; delta=delta2; final=final2; } =
          let newZero2 = nstates1 in
@@ -151,9 +167,72 @@ module Make(A : Alphabet.A) =
           }
 
       let star { nstates; epsdelta; delta; final; } =
-         raise Not_found
+         let newEpsDelta n =
+            if n = 0
+            then [1]   (* 1 is the original start state *)
+            else List.map ((+) 1) @@ epsdelta (n - 1) in
+         let newDelta n a =
+            if n = 0
+            then []
+            else List.map ((+) 1) @@ delta (n - 1) a
+         in {
+            nstates= nstates + 1;
+            epsdelta= newEpsDelta;
+            delta= newDelta;
+            final= 0 :: (List.map ((+) 1) @@ final);
+         }
 
-      let complement { nstates; epsdelta; delta; final; } =
-         raise Not_found
+      let emptyLang = {
+         nstates= 1;
+         epsdelta= (fun _ -> []);
+         delta= (fun _ _ -> []);
+         final= [];
+      }
+
+      let emptyString = {
+         nstates= 1;
+         epsdelta= (fun _ -> []);
+         delta= (fun _ _ -> []);
+         final= [0];
+      }
+
+      let oneElem a = {
+         nstates= 2;
+         epsdelta= (fun _ -> []);
+         delta= (fun s el -> if s = 0 && el = a then [1] else []);
+         final= [1];
+      }
+
+      let zeroOrMore a = {
+            nstates= 1;
+            epsdelta= (fun _ -> []);
+            delta= (fun _ el -> if el = a then [0] else []);
+            final= [0];
+         }
+
+      let oneOrMore a = {
+         nstates= 2;
+         epsdelta= (fun _ -> []);
+         delta= (fun _ el -> if el = a then [1] else []);
+         final= [1];
+      }
+
+      let fromDfa dfa =
+         let dfaDelta = D.delta dfa
+         in {
+            nstates= D.nstates dfa;
+            epsdelta= (fun _ -> []);
+            delta= (fun n a -> [dfaDelta n a]);
+            final= D.final dfa;
+         }
+
+      let toDfa nfa =
+         let nstates = nstates nfa in
+         let module B = Bitset.Make(struct let n=nstates end) in
+         let newNstates = 1 lsl nstates in
+         let newDelta n a = B.fromList @@ delta nfa (B.toList n) a in
+         let finalAsSet = B.fromList (final nfa) in
+         let isFinal i = B.isEmpty (B.intersect i finalAsSet)
+         in D.make newNstates newDelta (B.getAll isFinal)
 
    end

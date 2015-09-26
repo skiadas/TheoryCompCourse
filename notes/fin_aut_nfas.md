@@ -6,7 +6,7 @@ The surprising and wonderful result of this section is that these non-determinis
 
 ## Reading
 
-Section 1.2 (p. 47-54)
+Section 1.2
 
 Practice problems (page 85): 1.7, 1.8, 1.9, 1.10, 1.11, 1.14, 1.16, 1.40, 1.41, 1.42, 1.51
 
@@ -56,7 +56,7 @@ So the formal definition has to make two allowances: The insertion of "epsilon s
 
 ## Epsilon Closures
 
-One concept essential to understanding DFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:
+One concept essential to understanding NFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:
 
 > The **epsilon closure** of a set of states $S$, denoted $E(S)$ is the set of all states that can be reached from $S$ via following epsilon transitions. Formally, a state $s$ is in $E(S)$ if and only if there is a sequence of states $s_0,s_1,\ldots,s_k$ such that:
 >

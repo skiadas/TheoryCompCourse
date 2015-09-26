@@ -17,7 +17,7 @@
 <p>In this section we extend our definition of deterministic finite automata to a seemingly more powerful notion, that of non-deterministic finite automata.</p>
 <p>The surprising and wonderful result of this section is that these non-deterministic automata are actually not more powerful; they in fact describe the same set of languages.</p>
 <h2 id="reading">Reading</h2>
-<p>Section 1.2 (p. 47-54)</p>
+<p>Section 1.2</p>
 <p>Practice problems (page 85): 1.7, 1.8, 1.9, 1.10, 1.11, 1.14, 1.16, 1.40, 1.41, 1.42, 1.51</p>
 <p>Challenge: 1.43, 1.44</p>
 <h2 id="motivation-for-non-deterministic-automata">Motivation for non-deterministic automata</h2>
@@ -49,7 +49,7 @@
 </blockquote>
 <p>So the formal definition has to make two allowances: The insertion of “epsilon steps” in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.</p>
 <h2 id="epsilon-closures">Epsilon Closures</h2>
-<p>One concept essential to understanding DFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:</p>
+<p>One concept essential to understanding NFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:</p>
 <blockquote>
 <p>The <strong>epsilon closure</strong> of a set of states <span class="math">\(S\)</span>, denoted <span class="math">\(E(S)\)</span> is the set of all states that can be reached from <span class="math">\(S\)</span> via following epsilon transitions. Formally, a state <span class="math">\(s\)</span> is in <span class="math">\(E(S)\)</span> if and only if there is a sequence of states <span class="math">\(s_0,s_1,\ldots,s_k\)</span> such that:</p>
 <ul>

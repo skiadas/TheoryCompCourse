@@ -30,9 +30,18 @@ module type NFA =
       val acceptedStrings : t -> int -> str list
 
       val union : t -> t -> t
-      val complement : t -> t
       val concatenate : t -> t -> t
       val star : t -> t
+
+      val emptyLang : t
+      val emptyString : t
+      val oneElem : elem -> t
+      val zeroOrMore : elem -> t
+      val oneOrMore : elem -> t
+
+      val fromDfa: D.t -> t
+      val toDfa: t -> D.t
+
    end
 
 module Make(A : Alphabet.A) : NFA with type elem = A.elem

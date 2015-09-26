@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="regular-expressions">Regular Expressions</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 1.3</p>
+<p>Practice problems (page 85): 1.18, 1.19, 1.28</p>
+<p>Optional: 1.21</p>
+<h2 id="regular-expressions-1">Regular Expressions</h2>
+<p>Regular expressions are an expressive way to describe languages, especially languages that contain repetitions of patterns. Regular expressions are built out of primitive components.</p>
+<blockquote>
+<p>A <strong>regular expression</strong> <span class="math">\(R\)</span> has one of the following forms:</p>
+<ul>
+<li>The symbol <span class="math">\(a\)</span> where <span class="math">\(a\)</span> is a letter from the alphabet <span class="math">\(\Sigma\)</span>, representing a language that matches only the string on that one symbol.</li>
+<li>The symbol <span class="math">\(\epsilon\)</span>, representing a language that matches just the empty string.</li>
+<li><span class="math">\(\emptyset\)</span>, representing a language that matches nothing.</li>
+<li><span class="math">\(R_1 \cup R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the strings of the language of <span class="math">\(R_1\)</span> as well as those of the language of <span class="math">\(R_2\)</span>.</li>
+<li><span class="math">\(R_1 \circ R_2\)</span>, or also <span class="math">\(R_1 | R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the concatenations of strings of the languages represented by <span class="math">\(R_1\)</span> and <span class="math">\(R_2\)</span>.</li>
+<li><span class="math">\(R^*\)</span>, where <span class="math">\(R\)</span> is a regular expression. Represents the Kleene star of the language represented by <span class="math">\(R\)</span>.</li>
+</ul>
+</blockquote>
+<p>This is perhaps the first example of a <strong>recursive or inductive definition</strong>, where a new item of a certain type can be built from previously-constructed items. We of course have already seen this idea in OCAML’s type system.</p>
+<p>For example, we can denote the language that contains any string on the letters <span class="math">\(a\)</span>, <span class="math">\(b\)</span>, <span class="math">\(c\)</span>, but that starts with either <span class="math">\(a\)</span> or <span class="math">\(b\)</span>, by:</p>
+<p><span class="math">\[(a|b)(a|b|c)^*\]</span></p>
+<p>Regular languages are available on almost any programming language, and they are used when scanning through text. The rules for what a token/valid-language-element constitutes on most programming languages can be expressed via regular expressions. Regular expressions used in practice usually involve a number of conveniences, including:</p>
+<ul>
+<li>Notation for ranges, e.g. <span class="math">\([a-z]\)</span> denotes all letters</li>
+<li>Special escape sequences to denote for example “all whitespace characters”</li>
+<li>A “plus” operator to indicate at least one occurence of something (the Kleene star allows 0 occurences)</li>
+<li>A “question mark” operator to indicate the optional matching of an item.</li>
+<li>Storing parts of a “match” in a variable that can then be referenced later on.</li>
+<li>Special character for indicating matching “a single input of anything”. You can think of this as a union of all the elements.</li>
+</ul>
+<p>The remarkable fact that we will build towards is that regular expressions have the same expressive power as DFAs/NFAs:</p>
+<blockquote>
+<p>A language is regular, i.e. recognized by a DFA/NFA, if and only if it can be expressed via a regular expression.</p>
+</blockquote>
+<p>There are two directions to this, and one is easy:</p>
+<blockquote>
+<p>Given a regular expression describing a language, we can construct a corresponding NFA recognizing that same language. So any language represented by a regular expression is a regular language.</p>
+</blockquote>
+<p>This is easy to see:</p>
+<ul>
+<li>We have already seen in our section on NFAs how to create NFAs/DFAs describing the empty language, the language containing just the empty string, and the language matching exactly the string consisting of one specific element. These are our main building blocks.</li>
+<li>We have also seen how given two NFAs for two languages, we can form NFAs for their union and their concatenation, as well as how to form the NFA for the Kleene star of a language. This covers all the cases for regular expression.</li>
+</ul>
+<p>Exercise: Use this idea to build the NFA for the regular expression <code>(a\cup b)^*aba(a\cup b)^*</code>. Make sure to follow the general instructions for concatenation, without taking shortcuts.</p>
+<p>The converse is also true but harder to show:</p>
+<blockquote>
+<p>For every regular language there is a regular expression describing it.</p>
+</blockquote>
+<p>We will skip the proof of this, but those interested can find the details on pages 69 through 76. The key step in the proof is the introduction of the concept of <strong>generalized nondeterministic finite automata</strong>, where transitions are “tagged” by a regular expression, and you follow that transition by consuming a part of the input taht matches that expression. An initial such automaton is created trivially from an NFA that recognizes that language, and that NFA is then slowly contracted one state at a time, at the same time making the transition regular expressions more complex. The final result consists effectively of a start state and an accept state, connected via a regular expression that then describes the language.</p>
+</body>
+</html>
