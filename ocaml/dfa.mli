@@ -14,6 +14,9 @@ module type DFA =
 
       val make : int -> (state -> elem -> state) -> state list -> t
 
+      val nstates: t -> int
+      val final: t -> state list
+
       val delta : t -> state -> elem -> state
       val deltaStar : t -> state -> str -> state
       val accept : t -> str -> bool
@@ -34,6 +37,9 @@ module type DFA =
       val zeroOrMore : elem -> t
       (* DFA representing the language containing 1 or more occurences of a single element *)
       val oneOrMore : elem -> t
+
+      val print : t -> unit
+
    end
 
 module Make(A : Alphabet.A) : DFA with module A = A

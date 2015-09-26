@@ -1,3 +1,8 @@
+(*
+   Compile with:
+
+   ocamlc alphabet.mli alphabet.ml dfa.mli dfa.ml
+*)
 exception InvalidDFA
 
 module type DFA =
@@ -14,6 +19,9 @@ module type DFA =
 
       val make : int -> (state -> elem -> state) -> state list -> t
 
+      val nstates: t -> int
+      val final: t -> state list
+
       val delta : t -> state -> elem -> state
       val deltaStar : t -> state -> str -> state
       val accept : t -> str -> bool
@@ -29,6 +37,8 @@ module type DFA =
       val oneElem : elem -> t
       val zeroOrMore : elem -> t
       val oneOrMore : elem -> t
+
+      val print : t -> unit
    end
 
 module Make(A : Alphabet.A) =
@@ -68,6 +78,9 @@ module Make(A : Alphabet.A) =
             }
          in if validate res then res else raise InvalidDFA
 
+
+      let nstates { nstates; delta; final } = nstates
+      let final { nstates; delta; final } = final
       let delta { nstates; delta; final } = delta
 
       let deltaStar dfa st es =
@@ -119,8 +132,8 @@ module Make(A : Alphabet.A) =
          }
 
       let emptyLang = {
-         nstates= 2;
-         delta= (fun _ _ -> 1);
+         nstates= 1;
+         delta= (fun _ _ -> 0);
          final= [];
       }
 
@@ -163,5 +176,21 @@ module Make(A : Alphabet.A) =
             delta= delta;
             final= [1];
          }
+
+      let print { nstates; delta; final } =
+         let sep = String.make 40 '=' in
+         let elems= A.allElems in
+         let printTransition s el =
+               Printf.printf "--(%s)--> %d\n" (A.elemToString el) (delta s el) in
+         let isFinal s = if List.mem s final then "(* FINAL *)" else ""
+         in begin
+            print_endline sep;
+            for state = 0 to pred nstates do
+               Printf.printf "STATE %d %s\n" state (isFinal state);
+               List.iter (printTransition state) elems;
+               print_endline ""
+            done;
+            print_endline sep
+         end
 
    end

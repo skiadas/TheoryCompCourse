@@ -5,6 +5,7 @@ module type ElemsType =
       type elem
       val compare  : elem -> elem -> int
       val allElems : elem list
+      val toString : elem -> string
    end
 
 module type A =
@@ -14,6 +15,7 @@ module type A =
       (* type for a string of elements *)
       type t = elem list
 
+      val elemToString : elem -> string
       val elemCompare : elem -> elem -> int
       val compare : t -> t -> int
 
@@ -43,6 +45,7 @@ module Make(Elems : ElemsType) =
       (* type for a string of elements *)
       type t = elem list
 
+      let elemToString = Elems.toString
       let elemCompare = Elems.compare
 
       let allElems = List.sort_uniq Elems.compare Elems.allElems
@@ -148,6 +151,7 @@ module MakeInts(I: sig val allElems: int list end) =
             type elem = int
             let compare = compare
             let allElems = I.allElems
+            let toString = string_of_int
          end)
 
 module Binary = MakeInts(struct let allElems = [0; 1] end)
@@ -158,6 +162,7 @@ module MakeChars(C: sig val allElems: char list end) =
             type elem = char
             let compare = compare
             let allElems = C.allElems
+            let toString = String.make 1
          end)
 
 module Chars2 = MakeChars(struct let allElems = ['a'; 'b'] end)

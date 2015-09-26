@@ -5,6 +5,7 @@ module type ElemsType =
       type elem
       val compare  : elem -> elem -> int
       val allElems : elem list
+      val toString : elem -> string
    end
 
 module type A =
@@ -14,6 +15,7 @@ module type A =
       (* type for a string of elements *)
       type t = elem list
 
+      val elemToString : elem -> string
       val elemCompare : elem -> elem -> int
       val compare : t -> t -> int
 

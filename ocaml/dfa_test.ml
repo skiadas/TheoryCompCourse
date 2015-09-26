@@ -33,3 +33,5 @@ print_endline "Language with empty string only:"
 let dfa3 = D.emptyString;;
 let accStrings = D.acceptedStrings dfa3 4;;
 print_endline (match accStrings with [[]] -> "Only empty, yey!" | _ -> "Oops, wrong!");
+
+D.print dfa1;;
