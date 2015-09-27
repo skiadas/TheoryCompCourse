@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="lexers-in-programming-languages">Lexers in Programming Languages</h1>
+<h2 id="reading">Reading</h2>
+<p>Some optional links:</p>
+<ul>
+<li><a href="http://caml.inria.fr/pub/docs/manual-ocaml/lexyacc.html">Info on OCAML’s lex/yacc</a></li>
+<li><a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Lexing.html">The Lexing module</a></li>
+<li><a href="http://flex.sourceforge.net/">Flex source page — C-code lexer</a></li>
+<li><a href="https://lagunita.stanford.edu/courses/Engineering/Compilers/Fall2014/about">Stanford Compilers MOOC</a> an excellent free online course to learn the basics of compiler design</li>
+</ul>
+<h2 id="stages-in-a-compiler">Stages in a Compiler</h2>
+<p>The theory of finite automata and regular expression is the essential ingredient of standard lexical analysis tools, typically called <strong>Lexers</strong>.</p>
+<p>Briefly a program when processed by a compiler goes through the following phases:</p>
+<dl>
+<dt>Lexical Analysis</dt>
+<dd>During lexical analysis we take the input text file, and identify the <em>lexemes</em>, or tokens, i.e. the individual “words” that form the program. Users typically describe these lexemes via regular expressions, and the <strong>Lexer</strong> is a program that takes this description and produces a DFA that drives this separation of the text in lexemes. The module produced by the lexer can then be included in the other steps.
+</dd>
+<dt>Syntactic Analysis</dt>
+<dd>During syntactic analysis we take this stream of lexemes produced by the lexical analysis phase, and turn these into a more abstract form, typically called the <em>abstract syntax tree</em> (AST). This is effectively the step in normal language that takes the words and forms them into sentences. Tools called “parser generators” produce a module that performs this step based on descriptions for context-free-languages that we will see in the future.
+</dd>
+<dt>Semantic Analysis</dt>
+<dd>During semantic analysis we analyze the AST produced by the syntactic analysis step, to determine the “meaning” of the individual parts. This could include for example type-checking.
+</dd>
+<dt>Intermediate Code Generation</dt>
+<dd>Typically a next step is to turn the AST into some intermediate language code, with a small set of instructions. This represention is agnostic to the computer architecture, but is close enough that generating machine code from it is relatively easy.
+</dd>
+<dt>Code Optimization</dt>
+<dd>A number of techniques exist to try to optimize the intermediate code, storing often-used computations, removing steps that can be avoided, inlining some function calls and others. In modern compilers, this step constitutes the bulk of the compiler’s work.
+</dd>
+<dt>Code Generation</dt>
+<dd>At this stage the intermediate language code is turned into machine instructions and is written into an executable file, or typically assembly code. This step will depend on the specific processor architecture used and what processor instructions are available.
+</dd>
+</dl>
+<p>For the time being, we will only concern ourselves with the lexical analysis portion. We will take a glimpse at the syntactic analysis/parsing portion when we cover context-free grammars.</p>
+<h2 id="lexical-analysis-and-lexers">Lexical Analysis and lexers</h2>
+<p>A lexer expects as input a file that is in a very specific form, which differs from language to language, but in general shares some features. Here is how a sample file might look like for ocamllex (this file resides in <code>ocaml/parsing/lexer.mll</code>):</p>
+<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">open</span> Lexing
+
+<span class="kw">exception</span> <span class="dt">Eof</span>
+
+<span class="kw">type</span> tokens = <span class="dt">INT</span> <span class="kw">of</span> <span class="dt">int</span>
+            | <span class="dt">FLOAT</span> <span class="kw">of</span> float
+            | <span class="dt">LPAREN</span>
+            | <span class="dt">RPAREN</span>
+            | <span class="dt">PLUS</span>
+            | <span class="dt">MINUS</span>
+            | <span class="dt">TIMES</span>
+            | <span class="dt">DIVIDE</span>
+
+<span class="kw">let</span> print_token tk =
+   <span class="kw">match</span> tk <span class="kw">with</span>
+      <span class="dt">INT</span> i   -&gt; <span class="st">&quot;INT &quot;</span> ^ string_of_int i
+    | <span class="dt">FLOAT</span> f -&gt; <span class="st">&quot;FLOAT &quot;</span> ^ string_of_float f
+    | <span class="dt">LPAREN</span>  -&gt; <span class="st">&quot;LPAREN&quot;</span>
+    | <span class="dt">RPAREN</span>  -&gt; <span class="st">&quot;RPAREN&quot;</span>
+    | <span class="dt">PLUS</span>    -&gt; <span class="st">&quot;PLUS&quot;</span>
+    | <span class="dt">MINUS</span>   -&gt; <span class="st">&quot;MINUS&quot;</span>
+    | <span class="dt">TIMES</span>   -&gt; <span class="st">&quot;TIMES&quot;</span>
+    | <span class="dt">DIVIDE</span>  -&gt; <span class="st">&quot;DIVIDE&quot;</span>
+
+}
+
+<span class="kw">let</span> digit = [<span class="ch">&#39;0&#39;</span>-<span class="ch">&#39;9&#39;</span>]
+<span class="kw">let</span> <span class="dt">int</span> = <span class="ch">&#39;-&#39;</span>? digit+
+<span class="kw">let</span> frac = <span class="ch">&#39;.&#39;</span> digit*
+<span class="kw">let</span> exp = [<span class="ch">&#39;e&#39;</span> <span class="ch">&#39;E&#39;</span>] [<span class="ch">&#39;-&#39;</span> <span class="ch">&#39;+&#39;</span>]? digit+
+<span class="kw">let</span> float = digit* frac? exp?
+<span class="kw">let</span> white = [<span class="ch">&#39; &#39;</span> <span class="ch">&#39;\t&#39;</span>]+
+<span class="kw">let</span> newline = <span class="ch">&#39;\r&#39;</span> | <span class="ch">&#39;\n&#39;</span> | <span class="st">&quot;</span><span class="ch">\r\n</span><span class="st">&quot;</span>
+
+rule read = parse
+   | white { read lexbuf }
+   | newline { read lexbuf }
+   | <span class="dt">int</span> <span class="kw">as</span> i { <span class="dt">INT</span> (int_of_string i) }
+   | float <span class="kw">as</span> f { <span class="dt">FLOAT</span> (float_of_string f) }
+   | <span class="ch">&#39;(&#39;</span>  { <span class="dt">LPAREN</span> }
+   | <span class="ch">&#39;)&#39;</span>  { <span class="dt">RPAREN</span> }
+   | <span class="ch">&#39;+&#39;</span>  { <span class="dt">PLUS</span> }
+   | <span class="ch">&#39;-&#39;</span>  { <span class="dt">MINUS</span> }
+   | <span class="ch">&#39;/&#39;</span>  { <span class="dt">DIVIDE</span> }
+   | eof  { raise <span class="dt">Eof</span> }</code></pre>
+<p>These files typically look like OCAML files, but with some specific and different syntax rules.</p>
+<p>In this case there is a first section of the file enclosed in braces, called the preamble. We can set up some initial instructions here. For us these are opening the <code>Lexing</code> module so we have easy access to its methods (i.e. we could write <code>foo</code> instead of <code>Lexing.foo</code> some times), and specifying the type of the tokens we want to produce (we can call the type anything we want of course).</p>
+<p>I have also included here a method that produces a string representation of the token, for printing purposes. Both this method and the type declaration could have gone into a separate ml or mli file instead, and then loaded in.</p>
+<p>Following the preamble is a series of <code>let</code> statements for providing shortcuts of regular expressions. The right-hand-side of these let statements is not normal OCAML code, but instead a regular expression following the description in <a href="http://caml.inria.fr/pub/docs/manual-ocaml/lexyacc.html">section 12.2.4 of the manual</a>. You can use these bindings in future let statements.</p>
+<p>Following that is a <code>rule</code>, specifying a function, in this case called <code>read</code>, that would receive as input the stream of input. That function does a pattern match based the various regular expressions. In braces we describe what should happen in each case (they should all return the same type, in our case <code>tokens</code>). There are two rules:</p>
+<ul>
+<li>Whichever regular expression matches the longest string of input will apply.</li>
+<li>If there is a tie, two regular expressions matching the same length, the one that appears first applies (so for instance keywords need to go before identifiers in a language compiler).</li>
+</ul>
+<p>We “compile” this set of instructions:</p>
+<pre><code>$ ocamllex lexer.mll
+16 states, 354 transitions, table size 1512 bytes</code></pre>
+<p>And we get a file <code>lexer.ml</code> that tends to not be very readable, but contains instructions for carrying out the produced DFA. As you can see, we get some information about that DFA.</p>
+<p>You can see a short execution of this lexer by looking into the <code>driver1.ml</code> file, and compiling and running it.</p>
+</body>
+</html>

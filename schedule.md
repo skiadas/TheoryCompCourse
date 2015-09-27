@@ -45,14 +45,14 @@
     - Implementation in OCAML
     - DFA equivalent to an NFA
 - Day 2
-    - [Regular Expressions](note/regexp.md)
+    - [Regular Expressions](notes/regexp.md)
     - RegEx -> NFA
 - Day 3
-    - Nonregular languages
-    - Pumping Lemma
+    - [Nonregular languages and the Pumping Lemma](notes/nonregular.md)
     - Examples
     - Catching up
 - Day 4
+    - [Lexers](notes/lexers.md)
     - Midterm 1
 
 ## Week  5 (10/05-10/09)
