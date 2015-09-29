@@ -19,6 +19,7 @@
 - Day 1
     - [Alphabets, strings, substrings, empty string, lexicographic ordering](notes/alphabet.md)
     - [Alphabet and friends in OCAML](notes/ocaml_alphabet.md)
+    - [Assignment 2](assignments/2.md)
 - Day 2
     - [Languages, examples, constructions](notes/languages.md)
 - Day 3
@@ -37,6 +38,7 @@
     - [Union of regular languages is regular](notes/fin_aut_dfa.md)
 - Day 4
     - [Implementation of union in OCAML](notes/ocaml_dfa.md)
+    - [Assignment 3](assignments/3.md)
 
 ## Week  4 (09/28-10/02)
 
@@ -49,7 +51,7 @@
     - RegEx -> NFA
 - Day 3
     - [Nonregular languages and the Pumping Lemma](notes/nonregular.md)
-    - Examples
+    - [Assignment 4](assignments/4.md)
     - Catching up
 - Day 4
     - [Lexers](notes/lexers.md)
@@ -58,7 +60,7 @@
 ## Week  5 (10/05-10/09)
 
 - Day 1
-    - Context Free Grammars
+    - [Context Free Grammars](notes/cfg.md)
     - Examples of derivations
 - Day 2
     - Programming examples of CFGs
