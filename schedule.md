@@ -45,51 +45,51 @@
 - Day 1
     - [Non-deterministic automata, examples](notes/fin_aut_nfas.md)
     - Implementation in OCAML
-    - DFA equivalent to an NFA
 - Day 2
+    - [DFA equivalent to an NFA](notes/fin_aut_nfas.md)
+- Day 3
     - [Regular Expressions](notes/regexp.md)
     - RegEx -> NFA
-- Day 3
+- Day 4
     - [Nonregular languages and the Pumping Lemma](notes/nonregular.md)
     - [Assignment 4](assignments/4.md)
     - Catching up
-- Day 4
-    - [Lexers](notes/lexers.md)
-    - Midterm 1
 
 ## Week  5 (10/05-10/09)
 
 - Day 1
+    - [Lexers](notes/lexers.md)
+- Day 2
     - [Context Free Grammars](notes/cfg.md)
     - Examples of derivations
-- Day 2
+- Day 3
+    - Midterm 1
+- Day 4
     - Programming examples of CFGs
     - Ambiguous grammars
-- Day 3
-    - Chomsky Normal Forms
-- Day 4
-    - PushDown Automata definition
 
 ## Week  6 (10/12-10/16)
 
 - Day 1
+    - Chomsky Normal Forms
+- Day 2
+    - PushDown Automata definition
+- Day 3
     - PDAs more examples
     - OCAML implementation
-- Day 2
-    - CFG -> PDA
-- Day 3
-    - PDA -> CFG
 - Day 4
-    - Non-context-free grammars
-    - Pumping lemma for CFGs
+    - CFG -> PDA
+    - PDA -> CFG
 
 ## Week  7 (10/19-10/23)
 
 - Day 1
     - Fall Break
 - Day 2
-    - Brief intro to parsers
+    - Non-context-free grammars
+    - Pumping lemma for CFGs
 - Day 3
+    - Brief intro to parsers
     - More on parsers?
 - Day 4
     - Turing Machines

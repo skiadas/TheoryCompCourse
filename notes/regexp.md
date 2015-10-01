@@ -18,8 +18,8 @@ Regular expressions are an expressive way to describe languages, especially lang
 > - The symbol $a$ where $a$ is a letter from the alphabet $\Sigma$, representing a language that matches only the string on that one symbol.
 > - The symbol $\epsilon$, representing a language that matches just the empty string.
 > - $\emptyset$, representing a language that matches nothing.
-> - $R_1 \cup R_2$, where $R_1$, $R_2$ are already-formed regular expressions. Represents a language containing the strings of the language of $R_1$ as well as those of the language of $R_2$.
-> - $R_1 \circ R_2$, or also $R_1 | R_2$, where $R_1$, $R_2$ are already-formed regular expressions. Represents a language containing the concatenations of strings of the languages represented by $R_1$ and $R_2$.
+> - $R_1 \cup R_2$, or also $R_1 | R_2$, where $R_1$, $R_2$ are already-formed regular expressions. Represents a language containing the strings of the language of $R_1$ as well as those of the language of $R_2$.
+> - $R_1 \circ R_2$, or also $R_1R_2$, where $R_1$, $R_2$ are already-formed regular expressions. Represents a language containing the concatenations of strings of the languages represented by $R_1$ and $R_2$.
 > - $R^*$, where $R$ is a regular expression. Represents the Kleene star of the language represented by $R$.
 
 This is perhaps the first example of a **recursive or inductive definition**, where a new item of a certain type can be built from previously-constructed items. We of course have already seen this idea in OCAML's type system.
@@ -28,7 +28,7 @@ For example, we can denote the language that contains any string on the letters 
 
 $$(a|b)(a|b|c)^*$$
 
-Regular languages are available on almost any programming language, and they are used when scanning through text. The rules for what a token/valid-language-element constitutes on most programming languages can be expressed via regular expressions. Regular expressions used in practice usually involve a number of conveniences, including:
+Regular expressions are available on almost any programming language, and they are used when scanning through text. The rules for what a token/valid-language-element constitutes on most programming languages can be expressed via regular expressions. Regular expressions used in practice usually involve a number of conveniences, including:
 
 - Notation for ranges, e.g. $[a-z]$ denotes all letters
 - Special escape sequences to denote for example "all whitespace characters"

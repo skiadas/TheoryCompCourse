@@ -26,15 +26,15 @@
 <li>The symbol <span class="math">\(a\)</span> where <span class="math">\(a\)</span> is a letter from the alphabet <span class="math">\(\Sigma\)</span>, representing a language that matches only the string on that one symbol.</li>
 <li>The symbol <span class="math">\(\epsilon\)</span>, representing a language that matches just the empty string.</li>
 <li><span class="math">\(\emptyset\)</span>, representing a language that matches nothing.</li>
-<li><span class="math">\(R_1 \cup R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the strings of the language of <span class="math">\(R_1\)</span> as well as those of the language of <span class="math">\(R_2\)</span>.</li>
-<li><span class="math">\(R_1 \circ R_2\)</span>, or also <span class="math">\(R_1 | R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the concatenations of strings of the languages represented by <span class="math">\(R_1\)</span> and <span class="math">\(R_2\)</span>.</li>
+<li><span class="math">\(R_1 \cup R_2\)</span>, or also <span class="math">\(R_1 | R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the strings of the language of <span class="math">\(R_1\)</span> as well as those of the language of <span class="math">\(R_2\)</span>.</li>
+<li><span class="math">\(R_1 \circ R_2\)</span>, or also <span class="math">\(R_1R_2\)</span>, where <span class="math">\(R_1\)</span>, <span class="math">\(R_2\)</span> are already-formed regular expressions. Represents a language containing the concatenations of strings of the languages represented by <span class="math">\(R_1\)</span> and <span class="math">\(R_2\)</span>.</li>
 <li><span class="math">\(R^*\)</span>, where <span class="math">\(R\)</span> is a regular expression. Represents the Kleene star of the language represented by <span class="math">\(R\)</span>.</li>
 </ul>
 </blockquote>
 <p>This is perhaps the first example of a <strong>recursive or inductive definition</strong>, where a new item of a certain type can be built from previously-constructed items. We of course have already seen this idea in OCAML’s type system.</p>
 <p>For example, we can denote the language that contains any string on the letters <span class="math">\(a\)</span>, <span class="math">\(b\)</span>, <span class="math">\(c\)</span>, but that starts with either <span class="math">\(a\)</span> or <span class="math">\(b\)</span>, by:</p>
 <p><span class="math">\[(a|b)(a|b|c)^*\]</span></p>
-<p>Regular languages are available on almost any programming language, and they are used when scanning through text. The rules for what a token/valid-language-element constitutes on most programming languages can be expressed via regular expressions. Regular expressions used in practice usually involve a number of conveniences, including:</p>
+<p>Regular expressions are available on almost any programming language, and they are used when scanning through text. The rules for what a token/valid-language-element constitutes on most programming languages can be expressed via regular expressions. Regular expressions used in practice usually involve a number of conveniences, including:</p>
 <ul>
 <li>Notation for ranges, e.g. <span class="math">\([a-z]\)</span> denotes all letters</li>
 <li>Special escape sequences to denote for example “all whitespace characters”</li>
