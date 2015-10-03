@@ -19,7 +19,7 @@
 <p>Sections 2.1</p>
 <p>Practice problems (page 128): 2.1, 2.3, 2.4, 2.5, 2.9, 2.16, 2.17, 2.19, 2.27, 2.28</p>
 <h2 id="context-free-grammars-1">Context-Free Grammars</h2>
-<p>Context-free grammars are based on a series of <strong>productions</strong> or <strong>substitution rules</strong>. These productions can contain <strong>terminals</strong> as well as <strong>variables</strong> or <strong>non-terminals</strong>. There is also a start variable. For example here is a grammar that reads palindromes (say the alphabet consists of only the letters <code>a</code> and <code>b</code>:</p>
+<p>Context-free grammars are based on a series of <strong>productions</strong> or <strong>substitution rules</strong>. These productions can contain <strong>terminals</strong> as well as <strong>variables</strong> or <strong>non-terminals</strong>. There is also a start variable. For example here is a grammar that reads palindromes (say the alphabet consists of only the letters <code>a</code> and <code>b</code>):</p>
 <pre><code>S -&gt; aa
 S -&gt; bb
 S -&gt; aSa
@@ -27,15 +27,14 @@ S -&gt; bSb</code></pre>
 <p>So in this case we have two terminal symbols, <code>a</code> and <code>b</code>, and one non-terminal <code>S</code>, which is also the start variable. Each “production” has a non-terminal on the left and a sequence of terminals and non-terminals on the right. That production essentially tells us that one way to obtain something of “type” S is by having the elements on the right.</p>
 <p>We establish the a string is in the language if we can “produce” it via a series of such productions, starting from the start variable S. For example, the strings <code>aa</code> and <code>bb</code> are in the language because of the first two productions. But the string <code>abba</code> is also in the language because of the production <code>S -&gt; aSa</code> and the fact that the S in the right-hand side can be obtained via hte production <code>S -&gt; bb</code>.</p>
 <p>A sequence of such productions is called a <strong>derivation</strong>. We usually visualize it via a <strong>parse tree</strong>, where each node represents a production tagged by the left-hand side of the production, and the node’s leaves are the elements in the right-hand side of that production.</p>
+<p>Note that in the above example we could simplify the grammar if we have a epsilon on the right side, representing the act of replacing <code>S</code> with nothing at all. This will also capture the empty string, which should be considered a palindrome:</p>
+<pre><code>S -&gt; epsilon
+S -&gt; aSa
+S -&gt; bSb</code></pre>
 <p>Before we see a formal definition of context-free grammars, let us look at one more example. Here is a specification for a context-free language for a limited set of arithmetic expressions. The “alphabet” in this case is all digits, parentheses, and the symbols for addition and multiplication.</p>
-<pre><code>S -&gt; N
-S -&gt; S + S
-S -&gt; S * S
-S -&gt; ( S )
-N -&gt; 0 | P
-N -&gt; PN
-P -&gt; 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
-<p>The terminals are exactly the elements in the alphabet. We have 3 “non-terminals”, namely S, N and P. S represents an “expression”, “N” represents a number, and P represents the positive digits. We have also used a vertical line to separate productions from the same left-side. For instance the “production” <code>N -&gt; 0 | P</code> stands for the two productions <code>N -&gt; 0</code> and <code>N -&gt; P</code>.</p>
+<pre><code>S -&gt; N | S + S | S * S | ( S )
+N -&gt; x|y</code></pre>
+<p>The terminals are exactly the elements in the alphabet. We have 3 “non-terminals”, namely S, N and P. S represents an “expression”, “N” represents a number (and we don’t explicitly look for a number but instead the variable names <code>x</code>, <code>y</code>, maybe representing integers and floating point numbers respectively). We have also used a vertical line to separate productions from the same left-side. For instance the “production” <code>N -&gt; x|y</code> stands for the two productions <code>N -&gt; x</code> and <code>N -&gt; y</code>.</p>
 <p>Question: Is the “string” <code>x + x * x</code> derived from this grammar? Is that possible in more than one way? Draw the corresponding parse trees.</p>
 <p>Let us look at a formal definition:</p>
 <blockquote>
@@ -46,7 +45,7 @@ P -&gt; 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code></pre>
 <li><span class="math">\(R\)</span> is a finite set of <strong>rules</strong>, each rule consisting of a variable and a string of variables and terminals, or more formally <span class="math">\[R\subset V\times (V\cup\Sigma)^*\]</span></li>
 <li>A <strong>start variable</strong> <span class="math">\(S\in V\)</span>.</li>
 </ol>
-<p>If <span class="math">\(u,v,w\in (V\cup\Sigma)^*\)</span> are strings of terminals and variables, and <span class="math">\(A\to w\)</span> is a rule (i.e. <span class="math">\((A,w)\in R\)</span>), then we say that <span class="math">\(uAv\)</span> **yields <span class="math">\(uwv\)</span>, and we write <span class="math">\(uAv\Rightarrow uwv\)</span>.</p>
+<p>If <span class="math">\(u,v,w\in (V\cup\Sigma)^*\)</span> are strings of terminals and variables, and <span class="math">\(A\to w\)</span> is a rule (i.e. <span class="math">\((A,w)\in R\)</span>), then we say that <span class="math">\(uAv\)</span> <strong>yields</strong> <span class="math">\(uwv\)</span>, and we write <span class="math">\(uAv\Rightarrow uwv\)</span>.</p>
 <p>We say that <span class="math">\(u\)</span> <strong>derives</strong> <span class="math">\(v\)</span>, and write <span class="math">\(u\Rightarrow^* v\)</span>, if there is a sequence of one or more strings <span class="math">\(u_1,\ldots,u_k\)</span> where <span class="math">\[u\Rightarrow u_1 \Rightarrow u_2 \Rightarrow \cdots \Rightarrow u_k\Rightarrow v\]</span></p>
 <p>The <strong>language of the grammar</strong> is <span class="math">\[L=\left\{w\in\Sigma^*\mid S\Rightarrow^* w \right\}\]</span></p>
 </blockquote>
@@ -113,13 +112,35 @@ x + T * F
 x + F * F
 x + x * F
 x + x * x</code></pre>
+<h3 id="cfg-from-a-regular-language">CFG from a regular language</h3>
+<p>It is easy to show that a regular language is also context-free. There are two approaches:</p>
+<ul>
+<li>Look at the DFA for the language.
+<ul>
+<li>Make a variable/nonterminal <span class="math">\(R_i\)</span> for each state <span class="math">\(i\)</span> of the DFA.</li>
+<li>If there is a transition <span class="math">\(\delta(i, a) = j\)</span> in the DFA add a production rule <span class="math">\(R_i \to a R_j\)</span>.</li>
+<li>Add a production rule <span class="math">\(R_i\to \epsilon\)</span> for each accept state in the DFA.</li>
+<li>The start variable is the one corresponding to the start state of the DFA.</li>
+</ul></li>
+<li>Start from a regular expression for the language.
+<ul>
+<li>For each “regular expression piece” <span class="math">\(r\)</span> we have a variable/nonterminal <span class="math">\(R_r\)</span>.</li>
+<li>The start variable corresponds to the overall regular expression as one piece.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is a union of two others <span class="math">\(s\)</span> and <span class="math">\(t\)</span>, add an appropriate rule <span class="math">\(R_r\to R_s | R_t\)</span>.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is a concatenation of two others <span class="math">\(s\)</span> and <span class="math">\(t\)</span>, add an appropriate rule <span class="math">\(R_r\to R_s R_t\)</span>.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is the Kleene star of a regular expression <span class="math">\(s\)</span>, add the rules <span class="math">\(R_r\to \epsilon |R_rR_s\)</span>.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is just a terminal <span class="math">\(x\)</span>, add a rule <span class="math">\(R_r\to x\)</span>.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is for the empty string <span class="math">\(\epsilon\)</span>, add a rule <span class="math">\(R_r\to\epsilon\)</span>.</li>
+<li>If a regular expression <span class="math">\(r\)</span> is for the empty language <span class="math">\(\emptyset\)</span>, we do not any rule. The lack of a rule means that if we end up with this variable, we cannot get rid of it, and hence no strings will be produced.</li>
+</ul></li>
+</ul>
 <h3 id="chomsky-normal-form">Chomsky Normal form</h3>
 <p>It is occasionally convenient to bring all CTGs to a “normalized” form. This is called the <strong>Chomsky Normal Form</strong>.</p>
 <blockquote>
-<p>A grammar is in a Chomsky Normal Form if every rule is of the form: <span class="math">\[A \to BC\]</span> <span class="math">\[A \to a\]</span> <span class="math">\[S\to\epsilon\]</span> i.e. the right-hand side is either a single terminal symbol or two non-terminal symbols, and we also allow the rule that derives the empty string from <span class="math">\(S\)</span>, if that is in the language.</p>
+<p>A grammar is in a Chomsky Normal Form if every rule is of the form: <span class="math">\[A \to BC\]</span> <span class="math">\[A \to a\]</span> <span class="math">\[S\to\epsilon\]</span> i.e. the right-hand side is either a single terminal symbol or two non-terminal symbols, and we also allow the rule that derives the empty string from <span class="math">\(S\)</span>, if that is in the language. But no other variables can derive <span class="math">\(\epsilon\)</span>.</p>
 <p>Any language that is recognized by a CFG can also be recognized by a CFG in CNF.</p>
 </blockquote>
-<p>Let us discuss the proof of this fact. The idea is simple: Replace rules from the original language with simpler rules, while patching up the language to preserve the language. There are three steps:</p>
+<p>Let us discuss the proof of this fact. The idea is simple: Replace rules from the original language with simpler rules, while patching up the grammar to preserve the language. There are three steps:</p>
 <ol style="list-style-type: decimal">
 <li>Add new start variable.</li>
 <li>Eliminate <span class="math">\(\epsilon\)</span>-rules <span class="math">\(A\to \epsilon\)</span>.</li>
@@ -127,7 +148,7 @@ x + x * x</code></pre>
 <li>Finally we convert the remaining rules.</li>
 </ol>
 <p>Let’s take it one step at a time, first of all by adding a new start variable <span class="math">\(S_0\)</span> and a rule <span class="math">\(S_0\to S\)</span>. This ensures that the start variable is not used anywhere else (i.e. doesn’t appear on the right-hand-side of any production).</p>
-<p>Now we want to remove all <span class="math">\(\epsilon\)</span>-rules. The idea is simple: If there is a rule <span class="math">\(A\to\epsilon\)</span>, then we find all rules where there is an <span class="math">\(A\)</span> in the right-hand side, then add a rule that is just like that one but with the <span class="math">\(A\)</span> removed (this might amount to more rules if <span class="math">\(A\)</span> appeared more than once in the same rule). Finally, we remove the <span class="math">\(A\to \epsilon\)</span> rule.</p>
+<p>Now we want to remove all <span class="math">\(\epsilon\)</span>-rules. The idea is simple: If there is a rule <span class="math">\(A\to\epsilon\)</span>, then we find all rules where there is an <span class="math">\(A\)</span> in the right-hand side, then add a rule that is just like that one but with the <span class="math">\(A\)</span> removed (this might amount to more than one new rule if <span class="math">\(A\)</span> appeared more than once in the same rule). Finally, we remove the <span class="math">\(A\to \epsilon\)</span> rule.</p>
 <p>Next, we want to eliminate unit rules. If there is a rule <span class="math">\(A\to B\)</span>, then we look for all rules of the form <span class="math">\(B\to u\)</span>, and for each we add a rule <span class="math">\(A\to u\)</span>, unless we had previously removed that rule. We can then remove the <span class="math">\(A\to B\)</span> rule.</p>
 <p>Lastly, we consider other types of rules. For instance suppose we have a rule <span class="math">\(A\to u_1u_2u_3\ldots u_k\)</span>, where <span class="math">\(k\geq 3\)</span> and each <span class="math">\(u_i\)</span> is a variable or symbol. Then we can replace this rule with a sequence of rules: <span class="math">\(A\to u_1A_1\)</span>, <span class="math">\(A_1\to u_2A_2\)</span>, , <span class="math">\(A_{k-2}\to u_{k-1}u_k\)</span>. Here <span class="math">\(A_1\)</span>, <span class="math">\(A_{k-1}\)</span> are newly introduced variables.</p>
 <p>If we have a rule <span class="math">\(A\to u_1u_2\)</span> where <span class="math">\(u_1\)</span> and <span class="math">\(u_2\)</span> are variables or terminals, and one of them is a terminal, then we replace that terminal with a rule like <span class="math">\(A_1\to u_2\)</span>, adjusting the original rule.</p>
@@ -137,19 +158,19 @@ T -&gt; T*F | F
 F -&gt; x</code></pre>
 <p>We start by adding a new first state:</p>
 <pre><code>S_0 -&gt; S
-S -&gt; S+T | T
-T -&gt; T*F | F
-F -&gt; x</code></pre>
+S   -&gt; S+T | T
+T   -&gt; T*F | F
+F   -&gt; x</code></pre>
 <p>We would next remove any <span class="math">\(\epsilon\)</span> rules, we don’t have any here. Next we need to remove “unit rules”. We have three such rules: <code>S-&gt;T</code> and <code>T-&gt;F</code> and the <code>S_0-&gt;S</code> we added. We start with <code>S-&gt;T</code>. We look at all derivations <code>T-&gt;u</code> and add ones of the form <code>S-&gt;u</code>. And we remove the <code>S-&gt;T</code> term.</p>
 <pre><code>S_0 -&gt; S
-S -&gt; S+T | T*F | F
-T -&gt; T*F | F
-F -&gt; x</code></pre>
+S   -&gt; S+T | T*F | F
+T   -&gt; T*F | F
+F   -&gt; x</code></pre>
 <p>Next we do the same for the rule <code>T-&gt;F</code>. We need for each rule <code>F-&gt;u</code> to add a rule <code>T-&gt;u</code>:</p>
 <pre><code>S_0 -&gt; S
-S -&gt; S+T | T*F | F
-T -&gt; T*F | x
-F -&gt; x</code></pre>
+S   -&gt; S+T | T*F | F
+T   -&gt; T*F | x
+F   -&gt; x</code></pre>
 <p>Now we have the rule <code>S-&gt;F</code> that was created along the way:</p>
 <pre><code>S_0 -&gt; S
 S   -&gt; S+T | T*F | x

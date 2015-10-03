@@ -56,7 +56,7 @@
 <li>We have already seen in our section on NFAs how to create NFAs/DFAs describing the empty language, the language containing just the empty string, and the language matching exactly the string consisting of one specific element. These are our main building blocks.</li>
 <li>We have also seen how given two NFAs for two languages, we can form NFAs for their union and their concatenation, as well as how to form the NFA for the Kleene star of a language. This covers all the cases for regular expression.</li>
 </ul>
-<p>Exercise: Use this idea to build the NFA for the regular expression <code>(a\cup b)^*aba(a\cup b)^*</code>. Make sure to follow the general instructions for concatenation, without taking shortcuts.</p>
+<p>Exercise: Use this idea to build the NFA for the regular expression <code>(a|b)^*aba(a|b)^*</code>. Make sure to follow the general instructions for concatenation, without taking shortcuts.</p>
 <p>The converse is also true but harder to show:</p>
 <blockquote>
 <p>For every regular language there is a regular expression describing it.</p>

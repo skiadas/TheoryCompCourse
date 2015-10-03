@@ -63,7 +63,7 @@
     - [Context Free Grammars](notes/cfg.md)
     - Examples of derivations
 - Day 3
-    - Midterm 1
+    - Midterm 1 ([study guide](notes/midterm1_study_guide.md))
 - Day 4
     - Programming examples of CFGs
     - Ambiguous grammars
@@ -73,13 +73,12 @@
 - Day 1
     - Chomsky Normal Forms
 - Day 2
-    - PushDown Automata definition
+    - [Pushdown Automata definition](notes/pushdown_automata.md)
 - Day 3
     - PDAs more examples
-    - OCAML implementation
+    - [CFG -> PDA](notes/cfg_pda.md)
 - Day 4
-    - CFG -> PDA
-    - PDA -> CFG
+    - [PDA -> CFG](notes/cfg_pda.md)
 
 ## Week  7 (10/19-10/23)
 

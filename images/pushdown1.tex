@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\begin{document}
+\begin{tikzpicture}[scale=3,
+   state/.style={circle, radius=0.14},
+   final/.style={radius=0.1}]
+   \node (q0) at (1,1) [draw, state] {$q_0$};
+   \node (q1) at (2,1) [draw, state, final] {$q_1$};
+   \draw (q1) circle[final];
+   \draw (0.5,1)[->] -- (q0);
+   \draw (q0)[->] -- node[above]{$\epsilon,\epsilon\to \epsilon$} (q1);
+   \draw (q0)[->] .. controls +(-0.3,0.6) and +(0.3,0.6) .. node[above]{$x,\epsilon\to x$} (q0);
+   \draw (q1)[->]  .. controls +(-0.3,0.6) and +(0.3,0.6) .. node[above]{$y,x\to \epsilon$} (q1);
+\end{tikzpicture}
+\end{document}
