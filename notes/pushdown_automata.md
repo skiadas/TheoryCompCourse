@@ -2,9 +2,11 @@
 
 ## Reading
 
-Sections 2.2
+Section 2.2
 
-Practice problems (page ):
+Practice problems (page 128): 2.7, 2.10, 2.11, 2.12, 2.13, 2.18
+
+Challenge: 2.20, 2.25
 
 ## Pushdown Automata
 

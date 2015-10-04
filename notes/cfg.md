@@ -4,9 +4,9 @@ Context-free grammars are a much more powerful computation framework than regula
 
 ## Reading
 
-Sections 2.1
+Section 2.1
 
-Practice problems (page 128): 2.1, 2.3, 2.4, 2.5, 2.9, 2.16, 2.17, 2.19, 2.27, 2.28
+Practice problems (page 128): 2.1, 2.3, 2.4, 2.5, 2.6, 2.9, 2.14, 2.15, 2.16, 2.17, 2.19, 2.21, 2.22, 2.23, 2.27, 2.28
 
 ## Context-Free Grammars
 
