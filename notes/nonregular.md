@@ -76,7 +76,7 @@ Now let us look at a formal proof:
 - Let $x=s_1s_2\cdots s_{j-1}$, $y=s_j\cdots s_{l-1}$, $z = s_l\cdots s_n$. Then of course $w=xyz$.
 - We observe that $xz$ would also be accepted by the automaton, using the states $r_0,\ldots,r_{j-1},r_j=r_l,r_{l+1},\ldots, r_n$.
 - $xy^2z$ would be accepted, using the states $r_0,\ldots,r_j,\ldots,r_l=r_j,r_{j+1},\ldots, r_l,r_{l+1},\ldots,r_n$.
-- Similarly the strings $xy^iz^ would be accepted, by repeating the strings $r_{j+1},\ldots,r_l$ an appropriate number of times.
+- Similarly the strings $xy^iz$ would be accepted, by repeating the strings $r_{j+1},\ldots,r_l$ an appropriate number of times.
 - It is clear that $|y|>0$ and that $|xy| = l-1 \leq p$.
 
 Question: Can it happen that $x$ or $z$ is empty? Can they both be empty?

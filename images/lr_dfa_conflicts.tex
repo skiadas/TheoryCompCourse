@@ -1,9 +1,9 @@
 % DFA for an LR parser
 \documentclass{article}
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing,backgrounds,positioning,fit,petri}
 \begin{document}
-\begin{tikzpicture}[scale=3,
+\begin{tikzpicture}[scale=3, >=Stealth,
    state/.style={rectangle, text width=50, thick},
    final/.style={ultra thick}]
    \node (q1) at (2,7) [draw, state] {State 1\\

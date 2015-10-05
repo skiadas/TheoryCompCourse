@@ -529,4 +529,13 @@ A -> xA|eps
 B -> xBy|eps
 ```
 
-Compute the first and follow sets, and the DFA for LR-parsers of this grammar, and show that there are reduce/reduce conflicts. Explain their presence.
+Compute the first and follow sets, and the DFA for LR-parsers of this grammar, and show determine any conflicts that are present, and the reason for their presence.
+
+Exercise: Do the same for the following grammar for conditional expressions. We use angle brackets here to denote the nonterminals, as our terminals are whole words:
+
+```
+<start> ::= <boolexp>
+<boolexp> ::= TRUE | FALSE
+            | IF <boolexp> THEN <boolexp>
+            | IF <boolexp> THEN <boolexp> ELSE <boolexp>
+```

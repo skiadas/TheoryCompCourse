@@ -396,6 +396,11 @@ E                  x, (               ), *, +, $</code></pre>
 <pre><code>S -&gt; A|B
 A -&gt; xA|eps
 B -&gt; xBy|eps</code></pre>
-<p>Compute the first and follow sets, and the DFA for LR-parsers of this grammar, and show that there are reduce/reduce conflicts. Explain their presence.</p>
+<p>Compute the first and follow sets, and the DFA for LR-parsers of this grammar, and show determine any conflicts that are present, and the reason for their presence.</p>
+<p>Exercise: Do the same for the following grammar for conditional expressions. We use angle brackets here to denote the nonterminals, as our terminals are whole words:</p>
+<pre><code>&lt;start&gt; ::= &lt;boolexp&gt;
+&lt;boolexp&gt; ::= TRUE | FALSE
+            | IF &lt;boolexp&gt; THEN &lt;boolexp&gt;
+            | IF &lt;boolexp&gt; THEN &lt;boolexp&gt; ELSE &lt;boolexp&gt;</code></pre>
 </body>
 </html>

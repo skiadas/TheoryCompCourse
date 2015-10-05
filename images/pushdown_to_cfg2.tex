@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing,backgrounds,positioning,fit,petri}
 \begin{document}
-\begin{tikzpicture}[scale=3,
+\begin{tikzpicture}[scale=3, >=Stealth,
    state/.style={circle, radius=0.14},
    final/.style={radius=0.18}]
    \node (q0) at (1,1) [draw, state] {$q_\textrm{start}$};
