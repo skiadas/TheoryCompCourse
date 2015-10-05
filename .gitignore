@@ -5,3 +5,5 @@ sml/*
 *.cmo
 *.cmx
 *.o
+*.aux
+*.log

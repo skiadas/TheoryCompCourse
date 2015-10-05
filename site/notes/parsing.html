@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="basics-of-parsing">Basics of Parsing</h1>
+<p>In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).</p>
+<p>Resources:</p>
+<h2 id="first-and-follow-sets">First and Follow Sets</h2>
+<p>Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:</p>
+<blockquote>
+<p>For a symbol <span class="math">\(X\)</span> is a CFG:</p>
+<ul>
+<li>The <strong>first set</strong> of <span class="math">\(X\)</span>, written <span class="math">\(\textrm{FIRST}(X)\)</span>, is the set of all <em>terminals</em> (including <span class="math">\(\epsilon\)</span>) that can appear as the first element in a string derived from <span class="math">\(X\)</span>. For the case of <span class="math">\(\epsilon\)</span>, we only included it if the symbol <span class="math">\(X\)</span> can derive the empty string.</li>
+<li>The <strong>follow set</strong> of <span class="math">\(X\)</span>, written <span class="math">\(\textrm{FOLLOW}(X)\)</span>, is the set of all <em>terminals</em> (not including <span class="math">\(\epsilon\)</span> but including the end-of-input marker <span class="math">\(\$\)</span>) that can immediately follow <span class="math">\(X\)</span> in a <em>sentenial form</em>. A <strong>sentenial form</strong> is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentenial forms are valid intermediate results on the way to deriving a string in the language.</li>
+</ul>
+</blockquote>
+<p>The first sets are computed via a “closure” property, described by the following rules:</p>
+<blockquote>
+<p>Construction of first sets</p>
+<ol style="list-style-type: decimal">
+<li>If <span class="math">\(X\)</span> is a terminal, then <span class="math">\(\textrm{FIRST}(X) = \{X\}\)</span> contains only that terminal.</li>
+<li>If <span class="math">\(X\to\epsilon\)</span> is a production rule, then <span class="math">\(\epsilon\in\textrm{FIRST}(X)\)</span>.</li>
+<li>If <span class="math">\(X\to Y_1Y_2\cdots Y_k\)</span>, then:
+<ul>
+<li><span class="math">\(\textrm{FIRST}(Y_1)\subset\textrm{FIRST}(X)\)</span></li>
+<li>If <span class="math">\(\epsilon\in \textrm{FIRST}(Y_1)\)</span> then <span class="math">\(\textrm{FIRST}(Y_2)\subset\textrm{FIRST}(X)\)</span>.</li>
+<li>If <span class="math">\(\epsilon\in \textrm{FIRST}(Y_1)\)</span> and <span class="math">\(\epsilon\in \textrm{FIRST}(Y_2)\)</span> then <span class="math">\(\textrm{FIRST}(Y_2)\subset\textrm{FIRST}(X)\)</span>.</li>
+<li>More generally, if <span class="math">\(\epsilon\)</span> is in the first set of the symbols <span class="math">\(Y_1,Y_2,\cdots,Y_{i-1}\)</span>, then <span class="math">\(\textrm{FIRST}(Y_i)\subset\textrm{FIRST}(X)\)</span>.</li>
+</ul></li>
+</ol>
+</blockquote>
+<p>We follow these rules repeatedly until the sets no longer change.</p>
+<p>We will illustrate this in the example of simple algebraic expressions. The alphabet is <span class="math">\(\sigma=\{x, +, *, (, )\}\)</span>, where <span class="math">\(x\)</span> represents the location of a number (the actual numerical value is usually communicated via other means).</p>
+<pre><code>S -&gt; E
+E -&gt; E + T | T
+T -&gt; T * F | F
+F -&gt; x | ( E )</code></pre>
+<p>To find the first sets, we start by considering the terminals, and setting their first sets. For simplicity we will only worry about the nonterminals from now on.</p>
+<p>We start with the rules for <span class="math">\(F\)</span>. Looking at its two productions, we can determine that <span class="math">\(x\)</span> and the open parenthesis must be in the first set of <span class="math">\(F\)</span>.</p>
+<p>We next look at the rules for <span class="math">\(T\)</span>. The first rule has <span class="math">\(T\)</span> on its left-hand side, telling us that the first set of <span class="math">\(T\)</span> will contain everything in the first set of <span class="math">\(T\)</span>, not very helpful. But the second rule tells us that the first set of <span class="math">\(T\)</span> will contain anything in the first set of <span class="math">\(F\)</span>, which so far is the elements <span class="math">\(x\)</span> and open parenthesis.</p>
+<p>The same logic would apply to E, and then to S. So in this case all 4 terminals have the same first set, namely <span class="math">\(x\)</span> or parentheses. It makes sense, since these are the only two valid starts on an expression.</p>
+<p>If we try to look at any of the rules again, we don’t get any new entries. Some times there is more work involved. In our case, the final list of first sets is:</p>
+<pre><code>Symbol            First Set
+--------          -----------
+S                 x, C
+E                 x, C
+T                 x, C
+F                 x, (</code></pre>
+<p>Now we will discuss follow sets, which are built based on similar ideas:</p>
+<blockquote>
+<p>Construction of follow sets</p>
+<ol style="list-style-type: decimal">
+<li><span class="math">\(\$\in\textrm{FOLLOW(S)}\)</span>.</li>
+<li>If there is a production rule <span class="math">\(A\to \alpha B \beta\)</span>, then <span class="math">\(\textrm{FIRST}(\beta)\subset\textrm{FOLLOW}(B)\)</span>.</li>
+<li>If there is a production rule <span class="math">\(A\to \alpha B \beta\)</span>, where <span class="math">\(\beta=\epsilon\)</span> or <span class="math">\(\epsilon\subset\textrm{FIRST}(\beta)\)</span>, then <span class="math">\(\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)\)</span>. This is because if we can reduce everything following <span class="math">\(B\)</span> to <span class="math">\(\epsilon\)</span>, then the production for <span class="math">\(A\)</span> ends in <span class="math">\(B\)</span>, so anything that can follow an <span class="math">\(A\)</span> can also follow a <span class="math">\(B\)</span>.</li>
+</ol>
+</blockquote>
+<p>Let us illustrate this process in our example. We start with the rule for <span class="math">\(S\)</span>: <span class="math">\(S\to E\)</span>. The third rule above tells us to add to the follow set of <span class="math">\(E\)</span> anything in the follow set of <span class="math">\(S\)</span>, namely <span class="math">\(\$\)</span>.</p>
+<p>Next we look at the rules for <span class="math">\(E\)</span>. It seems they tell us that everything in the follow set of <span class="math">\(E\)</span> must be in the follow set of <span class="math">\(T\)</span>. And similarly from the rules for <span class="math">\(T\)</span> we find that everytihng in the follow set of <span class="math">\(T\)</span> must be in the follow set of <span class="math">\(F\)</span>. So we add the end symbol to them.</p>
+<p>Now we come to the rules for <span class="math">\(F\)</span>. One says that <span class="math">\(F\to x\)</span>, and that has no useful information for us. The other says <span class="math">\(F\to (E)\)</span>, which tells us by rule <span class="math">\(1\)</span> above that the closing parenthesis is in the follow set of <span class="math">\(E\)</span> (and hence also in the follow sets of <span class="math">\(T\)</span> and <span class="math">\(F\)</span>). This gives us the final table:</p>
+<pre><code>Symbol            First Set               Follow Set
+--------          -----------             -----------
+S                 x, C                    $
+E                 x, C                    $, )
+T                 x, C                    $, )
+F                 x, (                    $, )</code></pre>
+<p>We have not yet fully accounted for the rules <code>E-&gt;E+T</code> and <code>T-&gt;T*F</code>. It is clear that <code>E</code> may be followed by a plus, and <code>T</code> may be followed by a star. These transfer to the other sets as appropriate.</p>
+<pre><code>Symbol            First Set               Follow Set
+--------          -----------             -----------
+S                 x, C                    $
+E                 x, C                    $, +, )
+T                 x, C                    $, +, *, )
+F                 x, (                    $, +, *, )</code></pre>
+<p>As a second example, let us consider implementing a grammar for “Polish notation”. Polish notation places the operators in front of the two operands. For example instead of writing: <code>(5 + 6) * 7</code> it would write <code>* + 5 6 7</code>. On the other hand <code>5 + 6 * 7</code> would have been <code>+ 5 * 6 7</code>. The awesome thing about Polish notation is that it is unambiguous, no parentheses are needed (though perhaps we would feel more comfortable writing the last expression for instance as <code>(+ 5 (* 6 7))</code>, which is the LISP/Racket programming language style). Let us see how the grammar would look like (we use different symbols to visually distinguish it from the earlier work, using <code>P</code> for “Polish expression”, and <span class="math">\(y\)</span> for the variable representing numbers):</p>
+<pre><code>S -&gt; P
+P -&gt; + P P | * P P | y</code></pre>
+<p>Hm, exciting! Let us try to compute the first and follow sets in this example. The language alphabet is <code>y,+,*</code>, so they are each their own first sets.</p>
+<ul>
+<li>The rule <code>P -&gt; y</code> tells us that <code>y</code> is in the first set of <code>P</code>.</li>
+<li>The rules <code>+ O O</code> and <code>* O O</code> tell us that <code>+,*</code> are in the first set of <code>P</code>.</li>
+<li>The rule <code>S -&gt; P</code> tells us that everything in the first set of <code>P</code> is in the first set of <code>S</code>.</li>
+</ul>
+<p>So we end up with:</p>
+<pre><code>Symbol            First Set
+--------          -----------
+S                 y, +, *
+P                 y, +, *</code></pre>
+<p>Okay perhaps it was not all that exciting at the end of the day.</p>
+<p>Now let us look at follow sets:</p>
+<ul>
+<li><code>$</code> is in the follow set of <span class="math">\(S\)</span>.</li>
+<li>The rule <code>P -&gt; + P P</code> says, looking at the two <code>P</code>s at the end and thinking of this rule as a <span class="math">\(A\to \alpha P \beta\)</span>, that anything in the first set of <code>P</code> (the second of those two <code>P</code>s) must be in the follow set of <code>P</code> (the first of those two <code>P</code>s). Same for the other rule.</li>
+<li>Since <code>S\to P</code>, anything in the follow set of <code>S</code> is in the follow set of <code>P</code>.</li>
+</ul>
+<p>So we end up with:</p>
+<pre><code>Symbol            First Set               Follow Set
+--------          -----------             -----------
+S                 y, +, *                 $
+P                 y, +, *                 y, +, *, $</code></pre>
+<h2 id="ll-parsers">LL-parsers</h2>
+<p>The idea of LL-parsers is simple, and closely follows the pushdown automaton we built from a grammar. In essence:</p>
+<ul>
+<li>We place the end-of-stack symbol and the start symbol into the stack.</li>
+<li>We repeat the following steps until we encounter the end-of-stack symbol:
+<ul>
+<li>We look at the top of the stack. If it is a terminal symbol, then we match it to the next symbol in the input string and pop it, at the same time advancing in the input.</li>
+<li>If it is a non-terminal symbol we pop it, choose a production rule for that symbol and push in the stack all the symbols in the right-hand side of the production, starting from the rightmost symbol (so at the top of the stack we would have the left-most of those symbols).</li>
+</ul></li>
+<li>When we encounter the end-of-stack symbol, we determine the input we have received so far as a valid result, and possibly start the process anew for the remaining input.</li>
+</ul>
+<p>This is considered a top-down approach: As we imagine the resulting parse tree, we start from the top and decide what rule to expand it to, then proceed to do the same for each child node. So we build the parse tree from the top and move towards the bottom.</p>
+<p>Of course you will now wonder: How do we choose which production rule to use at any given time? If we choose the wrong one we will get stuck. There are two approaches:</p>
+<ul>
+<li>Make sure there is at any given time only one applicable production rule (deterministic pushdown automaton). This is quite limiting, not many grammars fit this model.</li>
+<li>Perform <strong>lookahead</strong>, where we peek at the next one or more input tokens and use those to decide what to do next. For instance in the case of the Polish expressions grammar, we don’t now when we see a <code>P</code> which rule to follow next, but peeking at the next input symbol helps us out: If it is <code>+</code> then we use the rule <code>P -&gt; + P P</code>, if it is <code>*</code> we use <code>P -&gt; * P P</code> and if it is <code>y</code> we use <code>P -&gt; y</code>. The fact that the first set of <code>P</code> consists of only these three terminals tells us that this is what we expect to see next in our input; anything else would be an error (e.g. end-of-input symbol indicating an error like <code>+ 2</code> without a second term).</li>
+</ul>
+<p>These parsers are called LL(k) parsers, where <span class="math">\(k\)</span> indicates the number of lookahead symbols required, LL(0) being the case of no lookahead at all and LL(1) being the case we just examined for the Polish notation. A grammar is called LL(k) if it gives rise to an unambiguous (deterministic) LL(k) parser. A language is LL(k) if it has a grammar that is LL(k).</p>
+<p>The first L in “LL” refers to the fact that these parsers process their input from left to right, while the second refers to the fact that they trace a leftmost derivation of the parse tree. These parsers are also often described as <em>predictive</em>, since they need at any given time to “predict” which rule would be the correct one to apply. This contrasts them with the LR parsers that we will discuss shortly.</p>
+<p>The information needed for implementing an LL(k) parser is typically stored in a “parse table”, whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large <span class="math">\(k\)</span> we could have a very large number of columns). The entry in the table describes the rewrite rule. For our Polish notation example, the parse table would look as follows:</p>
+<pre><code>Nonterminal      y       +       *       $ (end of string)
+-----------     ---     ---     ---     ---
+S                P       P       P      error
+P                y      + P P   * P P   error</code></pre>
+<p>Before moving on, let us revisit the arithmetic expressions example we start with. We are already seeing a case where LL(k) parsers are not sufficient. Essentially, the problem is that we have no way of choosing which of the rules <span class="math">\(E\to E+T\)</span> and <span class="math">\(E\to T\)</span> is the correct one to apply next, namely whether the expression is just one term of the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that “plus” is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.</p>
+<p>In general this is a difficulty that LL(k) parsers have with what are known as <strong>left-recursive grammars</strong>, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression <code>E\to E+T</code> above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.</p>
+<p>Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as <span class="math">\(E\to T + E\)</span>, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. We can rewrite such a grammar as follows:</p>
+<pre><code>S -&gt; E
+E -&gt; T A
+A -&gt; eps | + T A</code></pre>
+<p>Take a moment to make sure you understand that this did not change the associativity.</p>
+<p>Here’s how the overall grammar would look like, after we also fix terms:</p>
+<pre><code>S -&gt; E
+E -&gt; T A
+A -&gt; eps | + T A
+T -&gt; F B
+B -&gt; eps | * F B
+F -&gt; x | ( E )</code></pre>
+<p>Exercise: Compute the first and follow sets for this grammar. You should end up with the following table:</p>
+<pre><code>Symbol            First Set               Follow Set
+--------          -----------             -----------
+S                 x, (                    $
+E                 x, (                    ), $
+A                 eps, +                  ), $
+T                 x, (                    ), +, $
+B                 eps, *                  ), +, $
+F                 x, (                    ), +, *, $</code></pre>
+<p>Let us now attempt to build an LL(1) table for this grammar. We have one new interesting case to consider, because of epsilon production rules like <span class="math">\(A\to\epsilon\)</span>. We apply such a rule if the lookahead symbol could follow <span class="math">\(A\)</span>. Omitted entries indicate error.</p>
+<pre><code>Symbol      x       +       *        (       )      $ (end of string)
+------     ---     ---     ---      ---     ---    ---
+S           E       -       -        E       -      -
+E          T A      -       -       T A      -      -
+A           -     + T A     -        -      eps    eps
+T          F B      -       -       F B      -      -
+B           -      eps    * F B      -      eps    eps
+F           x       -       -       (E)      -      -</code></pre>
+<p>As long as we do not encounter any conflicts (e.g. two rules both claiming the same spot), we have an LL(1) parser.</p>
+<blockquote>
+<p>Exercise: Consider the language <span class="math">\(L=\{x^n\mid n\geq 0\}\cup\{x^ny^n\mid n\geq 0\}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Construct a CFG for it. Three non-terminals should suffice.</li>
+<li>Construct the first and follow sets for the grammar you created.</li>
+<li>Compute a LL-parse table and discuss the conflict that arises.</li>
+</ol>
+<p>This language is not LL(k) for any <span class="math">\(k\)</span>. Try to explain why (it is not just that your grammar is not LL(k), it’s that there <em>cannot</em> be a LL(k) grammar for this language).</p>
+</blockquote>
+<h2 id="lr-parsers">LR-parsers</h2>
+<p>The LL parsers we just described essentially carry out the pushdown automaton we built from a CFG back when we were trying to establish the correspondence between PDAs and CFGs, which looked something like this:</p>
+<div class="figure">
+<img src="images/pushdown_to_cfg2.png" alt="PDA for LL parsers" />
+<p class="caption">PDA for LL parsers</p>
+</div>
+<p>So after we place the empty-stack symbol and the start symbol onto the stack, we perform a series of steps that are all either removing a terminal from the stack if it matches the input, or replacing the nonterminal at the top of the stack with a production rule for it.</p>
+<p>There is another PDA that can serve a similar purpose, but it works in a somewhat “dual” way: It can push terminals onto the stack, and if it finds the right-hand side of a production rule at the top spots of the stack then it can replace it with the nonterminal on the left-hand side of the rule. Graphically this would look something like this:</p>
+<div class="figure">
+<img src="images/pushdown_to_cfg3.png" alt="PDA for LR parsers" />
+<p class="caption">PDA for LR parsers</p>
+</div>
+<p>This turns out to correspond to a bottom-up approach in building the parse tree. We first build the child nodes of a production rule, then replace them with the parent node. This results in a “rightmost” derivation, hence the “R” in “LR”.</p>
+<p>The key observation is this:</p>
+<blockquote>
+<p>At any given time, the stack of an LR parser contains part of the right-hand side of a production rule. These possible states of the stack can be coded into a DFA.</p>
+</blockquote>
+<p>As an example, let us consider how the stack would track the expression <code>+ * y y y</code> from the Polish notation example, before we build more of the theory:</p>
+<pre><code>Input          Stack        What happened
+-----          -----        -------------
++*yyy          $            start
+*yyy           $+           push +
+yyy            $+*          push *
+yy             $+*y         push y
+yy             $+*P         P -&gt; y
+y              $+*Py        push y
+y              $+*PP        P -&gt; y
+y              $+P          P -&gt; * P P
+eps            $+Py         push y
+eps            $+PP         P -&gt; y
+eps            $P           P -&gt; + P P
+eps            $S           S -&gt; P
+eps            $            push S and advance to end/accept</code></pre>
+<p>We need a way to discuss in general the idea that “we have seen a part of the right-hand side of a rule”. For that we need a new definition:</p>
+<blockquote>
+<ul>
+<li><p>An <strong>item</strong> is a production rule with a specific marker on somewhere amongst the right-hand side symbols. The marker is typically denoted by a dot. For instance the production rule <code>P-&gt;+PP</code> gives rise to 4 items: <code>P-&gt;.+PP</code>, <code>P-&gt;+.PP</code>, <code>P-&gt;+P.P</code>, <code>P-&gt;+PP.</code>.</p>
+An “item” suggests that we are working towards matching this rule, and we have so far matched the symbols on the left of the dot. These symbols are waiting comfortably at the top of the stack for the rule to be completed. So items effectively represent “stages”. An item with the marker all the way to the left is said to be in <em>initial form</em>, one with the marker all the way to the right is said to be in <em>terminal form</em>. Items in terminal form are ready to be replaced by the left-hand side of the production rule.</li>
+<li><p>An <strong>item set</strong> is a set of items that has had a “closure” operation performed on it as follows: For any of the items in the set, if there is a nonterminal appearing to the right of the marker, then we add items in initial form for all productions rules for that nonterminal.</p></li>
+</ul>
+<p>We create a DFA of item sets as follows:</p>
+<ul>
+<li>Start with the item set for <span class="math">\(S&#39;\to .S\)</span>, where <span class="math">\(S&#39;\)</span> is a newly added start state (closures need to be added as described above). This is the start state for the DFA.</li>
+<li><p>As long as new item sets are produced by it, repeat the following process:</p>
+<ol style="list-style-type: decimal">
+<li>Choose a symbol (terminal or nonterminal) that appears to the right of a marker in an item in one of the item sets.</li>
+<li>Consider all items in that item set with that symbol after a marker, and advance the marker for them past that symbol.</li>
+<li>The previous step gave us some new items. Compute the closure of this item set as described earlier. This is a new state for the DFA, if it hasn’t been created already.</li>
+<li>Add a transition from the original item set to this “new” (or possibly existing) item set, on input that nonterminal.</li>
+</ol></li>
+<li><p>Any state that contains items in terminal form is an accept state.</p></li>
+</ul>
+</blockquote>
+<p>Let us carry this process out for our arithmetic expressions grammar, which we repeat here for convenience (with the added new state):</p>
+<pre><code>S&#39; -&gt; S
+S -&gt; E
+E -&gt; E + T | T
+T -&gt; T * F | F
+F -&gt; x | ( E )</code></pre>
+<p>To build the start state, we form the item set for the item <code>S'-&gt;.S</code>. For that, we need to look at production rules for <code>S</code> and add those in, as well as rules that start from the <code>E</code> that <code>S</code> gives rise to, and the <code>T</code> that the <code>E</code> gives rise to, and the <code>F</code> that the <code>T</code> gives rise to. So we have a lot of items:</p>
+<pre><code>S&#39; -&gt; .S
+S  -&gt; .E
+E  -&gt; .T
+E  -&gt; .E+T
+T  -&gt; .F
+T  -&gt; .T*F
+F  -&gt; .x
+F  -&gt; .(E)</code></pre>
+<p>All these together form one state in the DFA, the start state. We will number it as <span class="math">\(1\)</span>. This reflects all the possibilities when we are the beginning of a “valid” string, on what we could expect next. We could expect an <code>S</code> if it has been formed, or an <code>E</code> or a <code>T</code>, or an <code>F</code>, or an <code>x</code> or an open parenthesis. These are all valid ways to start a string.</p>
+<p>From state 1, we consider various possibilities for moving the marker. The simplest one is if we see an <code>S</code>. We find all items that have an <code>S</code> after the marker, and there’s only one such. So we start an item set from <code>S'-&gt; S.</code> and we would add other items if we had nonterminals to the right of the dot, but we don’t. So the second item set, numbered 2, would consist of only <code>S'-&gt; S.</code>, and we can transition to it from state 1. This is also an accept state, as it has an item in terminal form. There are no transitions out from that state.</p>
+<p>We do the same for an input of <code>E</code>, resulting in the two items <code>S-&gt;E.</code> and <code>E-&gt;E.+T</code>. This is state 3, and it is also an accept state.</p>
+<p>From state 3 we can transition on a “plus”, to a state that has the item <code>E-&gt;E+.T</code> as well as all initial items produced by <code>P</code>. This is state 4, and contains the following:</p>
+<pre><code>E -&gt; E+.T
+T -&gt; .F
+T -&gt; .T*F
+F -&gt; .x
+F -&gt; .(E)</code></pre>
+<p>We continue in this manner. Here is the resulting DFA:</p>
+<div class="figure">
+<img src="images/lr_dfa.png" alt="DFA for LR parser" />
+<p class="caption">DFA for LR parser</p>
+</div>
+<p>As another example, here is the DFA for the polish notation grammar:</p>
+<div class="figure">
+<img src="images/lr_dfa_polish.png" alt="DFA for Polish notation" />
+<p class="caption">DFA for Polish notation</p>
+</div>
+<p>Exercise: Understand the regular language that these DFAs recognize.</p>
+<p>Now that we have seen this DFA generated by the item sets as described above, we will see how it relates to the LR parser.</p>
+<p>Essentially the DFA keeps track of the progress that the parser is making towards productions, based on what is in its stack. It is convenient to add the state numbers in the stack to keep track of our progress. This way you can always look at the top of the stack and see what state you are in, and act accordingly.</p>
+<p>Let us illustrate all this in the example of the string <code>+*yyy</code> in the polish notation. We start the PDA with the “empty stack symbol” in the stack, and in state 1, and we push the symbol 1 on the stack to remember this fact.</p>
+<pre><code>+*yyy    $1                 start</code></pre>
+<p>Next our parser reads the input <code>+</code>, and pushes it onto the stack. At the same time it inspects that it is now in state 1, and follows the DFA from state 1 and on input <code>+</code> to arrive at state 5:</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               push +</code></pre>
+<p>Next we see read the input <code>*</code> and look at where the DFA would go from state 5 and on input <code>*</code>, and it goes to state 6:</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               push +
+yyy      $1+5*6             push *</code></pre>
+<p>Next we read input <code>y</code>, push it and transition to state 4. These “moves” are called <strong>shifts</strong>, so we will start using the term.</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               shift +
+yyy      $1+5*6             shift *
+yy       $1+5*6y4           shift y</code></pre>
+<p>Now we are at state 4. There are no transitions from it, so we can’t “read” any more input. It is instead what we call a <strong>reduce</strong> state. we have fully matched the rule <code>P-&gt;y</code>, so we need to dig into the stack, pop the <code>y</code> and add a <code>P</code> in its place. Before the <code>y</code> we were at state 6, so we now follow <code>P</code> from that state in the DFA to get to state 8.</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               shift +
+yyy      $1+5*6             shift *
+yy       $1+5*6y4           shift y
+yy       $1+5*6P8           reduce 4</code></pre>
+<p>State 8 is not a reduce state, so we shift the next input, <code>y</code>, and transition to State 4. We then reduce it, put a <code>P</code> in the stack and transition to state 10 because of it:</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               shift +
+yyy      $1+5*6             shift *
+yy       $1+5*6y4           shift y
+yy       $1+5*6P8           reduce 4
+y        $1+5*6P8y4         shift y
+y        $1+5*6P8P10        reduce 4</code></pre>
+<p>That is a reduce state, so we reduce it, using up the two <code>P</code>s and the <code>*</code>, and going back to state 5, followed by pushing P on the stack and transitioning to state 7:</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               shift +
+yyy      $1+5*6             shift *
+yy       $1+5*6y4           shift y
+yy       $1+5*6P8           reduce 4
+y        $1+5*6P8y4         shift y
+y        $1+5*6P8P10        reduce 4
+y        $1+5P7             reduce 10</code></pre>
+<p>We now push our last symbol, <code>y</code>, onto the stack, shifting to state 4, then reduce that to get a P and transition to state 9, then reduce that to end up with a <code>P</code> from state 1, to state 3. That is followed by reducing <span class="math">\(P\)</span> to <span class="math">\(S\)</span> and making it to state 2, and at that point we can accept.</p>
+<pre><code>+*yyy    $1                 start
+*yyy     $1+5               shift +
+yyy      $1+5*6             shift *
+yy       $1+5*6y4           shift y
+yy       $1+5*6P8           reduce 4
+y        $1+5*6P8y4         shift y
+y        $1+5*6P8P10        reduce 4
+y        $1+5P7             reduce 10
+         $1+5P7y4           shift 7
+         $1+5P7P9           reduce 4
+         $1P3               reduce 9
+         $1S2               reduce 3</code></pre>
+<p>As an illustration, we will carry out the same steps for the equivalent arithmetic expression <code>x*x+x</code>.</p>
+<pre><code>x*x+x       $1
+*x+x        $1x8          shift x
+*x+x        $1F7          reduce 8
+*x+x        $1T5          reduce 7</code></pre>
+<p>Now we arrive at our first case of a problem. We have a reduce state, 5, but we could also shift from it. Which one should the parser do?</p>
+<p>This is what we call a <strong>shift/reduce conflict</strong>. In some cases we can resolve these by looking at our follow sets, and doing a 1-token lookahead. The gist of it is that we should only reduce if we have a hope of continuing successfully, namely if the next input token is in the follow set of the nonterminal we are about to create with the reduction. In this case we would be creating an <code>E</code>, whose follow set consists of the terminals <code>$, +, )</code>. Since the next terminal is a <code>*</code>, we should not reduce, as we would be stuck (in other words, we are not ready for an <code>E</code> to be formed).</p>
+<p>A true shift/reduce conflict exists only in the case where the next terminal is both a valid terminal for shifting and in the follow set for the corresponding reduction, leaving us with a hard choice to make. We will see an example later. In this case however, we proceed with shifting:</p>
+<pre><code>x*x+x       $1
+*x+x        $1x8          shift x
+*x+x        $1F7          reduce 8
+*x+x        $1T5          reduce 7
+x+x         $1T5*6        shift *
++x          $1T5*6x8      shift x
++x          $1T5*6F11     reduce 8
++x          $1T5          reduce 11</code></pre>
+<p>Now we are in the same predicament, at state 5, but now the lookahead symbol is a <code>+</code>, in the follow set. It is also not a symbol that we can shift. We therefore will reduce:</p>
+<pre><code>x*x+x       $1
+*x+x        $1x8          shift x
+*x+x        $1F7          reduce 8
+*x+x        $1T5          reduce 7
+x+x         $1T5*6        shift *
++x          $1T5*6x8      shift x
++x          $1T5*6F11     reduce 8
++x          $1T5          reduce 11
++x          $1E3          reduce 5</code></pre>
+<p>Now we are presented with a similar problem on state 3. We can reduce to <code>S</code>, or we can shift on a <code>+</code>. Since <code>+</code> is not in the follow set of <code>S</code>, there is no conflict and we proceed by shifting.</p>
+<pre><code>x*x+x       $1
+*x+x        $1x8          shift x
+*x+x        $1F7          reduce 8
+*x+x        $1T5          reduce 7
+x+x         $1T5*6        shift *
++x          $1T5*6x8      shift x
++x          $1T5*6F11     reduce 8
++x          $1T5          reduce 11
++x          $1E3          reduce 5
+x           $1E3+4        shift +
+            $1E3+4x8      shift x
+            $1E3+4F7      reduce 8
+            $1E3+4T10     reduce 7</code></pre>
+<p>Another possibility for shift/reduce conflict. The shifting makes sense on a <code>*</code>, the reduction makes sense on the follow set of <code>E</code>, which luckily does not contain <code>*</code>. In our case the lookahead is <code>$</code> (end of input), so we want to reduce. We then land back at our state 3 conflict, which we now reduce because of the lookahead. This lands us on state 2, our accept state. And this completes the computation.</p>
+<pre><code>x*x+x       $1
+*x+x        $1x8          shift x
+*x+x        $1F7          reduce 8
+*x+x        $1T5          reduce 7
+x+x         $1T5*6        shift *
++x          $1T5*6x8      shift x
++x          $1T5*6F11     reduce 8
++x          $1T5          reduce 11
++x          $1E3          reduce 5
+x           $1E3+4        shift +
+            $1E3+4x8      shift x
+            $1E3+4F7      reduce 8
+            $1E3+4T10     reduce 7
+            $1E3          reduce 10
+            $1S2          reduce 3</code></pre>
+<h3 id="conflicts">Conflicts</h3>
+<p>When we construct the table of transitions for the DFA for a grammar, there are a couple of conflicts that can occur:</p>
+<ul>
+<li><strong>shift/reduce conflicts</strong> we saw already, though we will see them more in this example. They occur when on the same lookahead we can both shift and reduce. They are often caused by a lack of specificity in the associativity or precedence of operators.</li>
+<li><strong>reduce/reduce conflicts</strong> we have not seen yet. They occur when on the same lookahead we have two different reduce rules that we can follow. These usually indicate problems in the grammar, usually requiring some rewrites. The root cause is often that we ask the parser to commit to a choice too soon.</li>
+</ul>
+<p>Let us see these conflicts in action. Suppose we attempt a simplified arithmetic expression language, that tries to do away with the <code>T</code> and <code>F</code> nonterminals:</p>
+<pre><code>S -&gt; E
+E -&gt; E + E | E * E | (E) | x</code></pre>
+<p>We start by computing first and follow sets. Do this first on your own:</p>
+<pre><code>Nonterminal        First set          Follow set
+-----------        -----------        -----------
+S                  x, (               $
+E                  x, (               ), *, +, $</code></pre>
+<p>Here is the DFA of the item sets:</p>
+<div class="figure">
+<img src="images/lr_dfa_conflicts.png" alt="DFA for grammar with conflicts" />
+<p class="caption">DFA for grammar with conflicts</p>
+</div>
+<p>Let us consider all the conflicts present, starting with state 3. On state 3 we don’t have a shift-reduce conflict, since the final set of <code>S</code>, namely <code>$</code>, does not conflict with the shift options.</p>
+<p>State 7 has some true conflicts. First, on input symbol <code>+</code> it has a shift/reduce conflict. It can either choose to reduce the term <code>E+E</code> it has seen so far into an <code>E</code>, or else it can shift to the plus, ending with <code>E+E+</code> on the stack, and planning to match the second <code>E</code> with another <code>E</code> later on. Essentially this is the question of associativity of the operator. Choosing to reduce makes the operator left-associative, choosing to shift makes the operator right-associative. Most parser generators allow us to specify this choice, rather than requiring us to rewrite the grammar.</p>
+<p>State 7 also has a conflict on input <code>*</code>. In this case it has the choice of first doing the addition, and doing a multiplication further down, or going for the multiplication first. This is a question of precedence of operators; shifting indicates that multiplication takes precedence, reducing means addition takes precedence. On state 8 and input <code>+</code> these roles are reversed. Again, most parser generators will allow you to specify precedence of tokens, and will use that precedence to automatically resolve such conflicts.</p>
+<p>Exercise: Consider the grammar:</p>
+<pre><code>S -&gt; A|B
+A -&gt; xA|eps
+B -&gt; xBy|eps</code></pre>
+<p>Compute the first and follow sets, and the DFA for LR-parsers of this grammar, and show that there are reduce/reduce conflicts. Explain their presence.</p>
+</body>
+</html>

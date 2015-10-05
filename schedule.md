@@ -85,31 +85,30 @@
 - Day 1
     - Fall Break
 - Day 2
+    - [Pumping lemma for CFGs](notes/pumping_cfg.md)
     - Non-context-free grammars
-    - Pumping lemma for CFGs
 - Day 3
-    - Brief intro to parsers
-    - More on parsers?
+    - [Basics of Parsing, First/Follow sets](notes/parsing.md)
 - Day 4
-    - Turing Machines
+    - [Basics of Parsing, LL(k) parsers](notes/parsing.md)
 
 ## Week  8 (10/26-10/30)
 
 - Day 1
-    - Turing Recognizable vs Turing Decidable languages
+    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
 - Day 2
-    - Multitape / Nondeterministic Turing machines
+    - yacc
 - Day 3
-    - The Church-Turing thesis, algorithms
+    - Turing Machines
 - Day 4
-    - Decidable Problems, for regular languages
+    - Turing Recognizable vs Turing Decidable languages
 
 ## Week  9 (11/02-11/06)
 
 - Day 1
-    - The Halting Problem
+    - Multitape / Nondeterministic Turing machines
 - Day 2
-    - Undecidability of Halting Problem
+    - The Church-Turing thesis, algorithms
 - Day 3
     - Catching up
 - Day 4
@@ -118,26 +117,29 @@
 ## Week 10 (11/09-11/13)
 
 - Day 1
-    - Reducibility
+    - Decidable Problems, for regular languages
 - Day 2
-    - Regularity of languages is undecidable
+    - The Halting Problem
 - Day 3
-    - Time Complexity classes
+    - Undecidability of Halting Problem
 - Day 4
-    - The class P
+    - Reducibility
 
 ## Week 11 (11/16-11/20)
 
 - Day 1
-    - The class NP
+    - Regularity of languages is undecidable
 - Day 2
-    - P vs NP, NP-complete problems
+    - Time Complexity classes
 - Day 3
+    - The class P
 - Day 4
+    - The class NP
 
 ## Week 12 (11/23-11/27)
 
 - Day 1
+    - P vs NP, NP-complete problems
 - Day 2
     - Thanksgiving Break
 - Day 3
