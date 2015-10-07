@@ -16,6 +16,12 @@
 <h1 id="basics-of-parsing">Basics of Parsing</h1>
 <p>In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).</p>
 <p>Resources:</p>
+<ul>
+<li>“Theory of Computation: Formal Languages, Automata and Complexity”, by Brookshear. Similar to our book, but goes a bit more into parsing questions.</li>
+<li><a href="http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html">ocamllex/ocamlyacc documentation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Yacc">YACC</a></li>
+<li><a href="https://www.gnu.org/software/bison/">Bison</a> is the GNU version of the YACC parser.</li>
+</ul>
 <h2 id="first-and-follow-sets">First and Follow Sets</h2>
 <p>Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:</p>
 <blockquote>

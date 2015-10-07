@@ -4,6 +4,11 @@ In this section we introduce the basics of parsing theory. A deeper treatment wo
 
 Resources:
 
+- "Theory of Computation: Formal Languages, Automata and Complexity", by Brookshear. Similar to our book, but goes a bit more into parsing questions.
+- [ocamllex/ocamlyacc documentation](http://caml.inria.fr/pub/docs/manual-ocaml-4.00/manual026.html)
+- [YACC](https://en.wikipedia.org/wiki/Yacc)
+- [Bison](https://www.gnu.org/software/bison/) is the GNU version of the YACC parser.
+
 ## First and Follow Sets
 
 Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:

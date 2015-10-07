@@ -4,7 +4,7 @@
    ocamlc -o driver1 lexer.cmo driver1.ml
 *)
 (* let res = Lexer.read (Lexing.from_channel stdin) *)
-let lexbuf = Lexing.from_string "2+3"
+let lexbuf = Lexing.from_string "2+3*(1+2 *3)"
 in try
       while true do
          let res = Lexer.read lexbuf
