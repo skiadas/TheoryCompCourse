@@ -60,18 +60,19 @@
 - Day 1
     - [Lexers](notes/lexers.md)
 - Day 2
-    - [Context Free Grammars](notes/cfg.md)
-    - Examples of derivations
+    - Review
 - Day 3
     - Midterm 1 ([study guide](notes/midterm1_study_guide.md))
 - Day 4
-    - Programming examples of CFGs
+    - [Context Free Grammars](notes/cfg.md)
+    - Examples of derivations
     - Ambiguous grammars
 
 ## Week  6 (10/12-10/16)
 
 - Day 1
-    - Chomsky Normal Forms
+    - Programming examples of CFGs
+    - [Chomsky Normal Forms](notes/cfg.md)
 - Day 2
     - [Pushdown Automata definition](notes/pushdown_automata.md)
 - Day 3
