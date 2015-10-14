@@ -175,7 +175,7 @@ It is easy to show that a regular language is also context-free. There are two a
 
 ### Chomsky Normal form
 
-It is occasionally convenient to bring all CTGs to a "normalized" form. This is called the **Chomsky Normal Form**.
+It is occasionally convenient to bring all CFGs to a "normalized" form. This is called the **Chomsky Normal Form**.
 
 > A grammar is in a Chomsky Normal Form if every rule is of the form:
 > $$A \to BC$$
@@ -202,81 +202,156 @@ Lastly, we consider other types of rules. For instance suppose we have a rule $A
 
 If we have a rule $A\to u_1u_2$ where $u_1$ and $u_2$ are variables or terminals, and one of them is a terminal, then we replace that terminal with a rule like $A_1\to u_2$, adjusting the original rule.
 
-Let us follow this method in the example of a small arithmetic expression grammar:
+Let us follow this method in the example of a small arithmetic expression grammar, which we expand a little to allow for digits/numbers/signs:
 
 ```
-S -> S+T | T
+E -> E+T | T
 T -> T*F | F
-F -> x
+F -> YN
+N -> D | ND
+D -> 0 | 1
+Y -> + | - | epsilon
 ```
 
 We start by adding a new first state:
 
 ```
-S_0 -> S
-S   -> S+T | T
-T   -> T*F | F
-F   -> x
+S -> E
+E -> E+T | T
+T -> T*F | F
+F -> YN
+N -> D | ND
+D -> 0 | 1
+Y -> + | - | epsilon
 ```
 
-We would next remove any $\epsilon$ rules, we don't have any here. Next we need to remove "unit rules". We have three such rules: `S->T` and `T->F` and the `S_0->S` we added. We start with `S->T`. We look at all derivations `T->u` and add ones of the form `S->u`. And we remove the `S->T` term.
+We will next remove any $\epsilon$ rules, namely the rule `Y -> epsilon`. To remove it, we need to go into all the places where `Y` was being used, and replace its possible occurences with $\epsilon$. We then remove the `Y -> epsilon` rule. This leads us to:
+
 
 ```
-S_0 -> S
-S   -> S+T | T*F | F
-T   -> T*F | F
-F   -> x
+S -> E
+E -> E+T | T
+T -> T*F | F
+F -> YN | N
+N -> D | ND
+D -> 0 | 1
+Y -> + | -
+```
+
+Next we need to remove "unit rules". We have a number of such rules: `E->T` and `T->F`, `S->E`, `F->N`, `N->D`. We start with `E->T`. We look at all derivations `T->u` and add ones of the form `E->u`. And we remove the `E->T` term.
+
+```
+S -> E
+E -> E+T | T*F | F
+T -> T*F | F
+F -> YN | N
+N -> D | ND
+D -> 0 | 1
+Y -> + | -
 ```
 
 Next we do the same for the rule `T->F`. We need for each rule `F->u` to add a rule `T->u`:
 
 ```
-S_0 -> S
-S   -> S+T | T*F | F
-T   -> T*F | x
-F   -> x
+S -> E
+E -> E+T | T*F | F
+T -> T*F | YN | N
+F -> YN | N
+N -> D | ND
+D -> 0 | 1
+Y -> + | -
 ```
 
-Now we have the rule `S->F` that was created along the way:
+Now we have the rule `E->F` that was created along the way:
 
 ```
-S_0 -> S
-S   -> S+T | T*F | x
-T   -> T*F | x
-F   -> x
+S -> E
+E -> E+T | T*F | YN | N
+T -> T*F | YN | N
+F -> YN | N
+N -> D | ND
+D -> 0 | 1
+Y -> + | -
 ```
 
-Next we have the rule `S_0 -> S`. We need to look at rules `S->u` and add `S_0->u` rules:
+Now let's look back at the rule `N->D`, which is perhaps where we should have started. We find all productions of `D`, and add rules to `N` for them:
 
 ```
-S_0 -> S+T | T*F | x
-S   -> S+T | T*F | x
-T   -> T*F | x
-F   -> x
+S -> E
+E -> E+T | T*F | YN | N
+T -> T*F | YN | N
+F -> YN | N
+N -> ND | 0 | 1
+D -> 0 | 1
+Y -> + | -
 ```
+
+Now we do the same for the rule `F->N`:
+
+```
+S -> E
+E -> E+T | T*F | YN | N
+T -> T*F | YN | N
+F -> YN | ND | 0 | 1
+N -> ND | 0 | 1
+D -> 0 | 1
+Y -> + | -
+```
+
+Next is the rule `T->N`, and after it `E->N`:
+
+```
+S -> E
+E -> E+T | T*F | YN | ND | 0 | 1
+T -> T*F | YN | ND | 0 | 1
+F -> YN | ND | 0 | 1
+N -> ND | 0 | 1
+D -> 0 | 1
+Y -> + | -
+```
+
+Lastly, we have the rule `S->E`. We need to look at rules `E->u` and add `S->u` rules:
+
+```
+S -> E+T | T*F | YN | ND | 0 | 1
+E -> E+T | T*F | YN | ND | 0 | 1
+T -> T*F | YN | ND | 0 | 1
+F -> YN | ND | 0 | 1
+N -> ND | 0 | 1
+D -> 0 | 1
+Y -> + | -
+```
+
+This finishes the first phase, leaving us on the right with either terminals or rules that have at least two elements.
 
 Next we need to look at all rules that have more than two elements, and break them down. We have many such rules. We will try to avoid duplication by reusing "added variables" where appropriate. A computer would probably not do that on a first pass (but could do so on a second pass).
 
 ```
-S_0 -> SA_1 | TA_2 | x
-S   -> SA_1 | TA_2 | x
-T   -> TA_2 | x
+S   -> EA_1 | TA_2 | YN | ND | 0 | 1
+E   -> EA_2 | TA_2 | YN | ND | 0 | 1
+T   -> TA_2 | YN | ND | 0 | 1
+F   -> YN | ND | 0 | 1
+N   -> ND | 0 | 1
+D   -> 0 | 1
+Y   -> + | -
 A_1 -> +T
 A_2 -> *F
-F   -> x
 ```
 
 Now we have to work on the terms that have two elements on the right side, but some of those are terminals. We again will avoid duplicates:
 
 ```
-S_0 -> SA_1 | TA_2 | x
-S   -> SA_1 | TA_2 | x
-T   -> TA_2 | x
+S   -> EA_1 | TA_2 | YN | ND | 0 | 1
+E   -> EA_2 | TA_2 | YN | ND | 0 | 1
+T   -> TA_2 | YN | ND | 0 | 1
+F   -> YN | ND | 0 | 1
+N   -> ND | 0 | 1
+D   -> 0 | 1
+Y   -> + | -
 A_1 -> PT
 A_2 -> MF
 P   -> +
 M   -> *
-F   -> x
 ```
 
 And there you have it! A Chomsky Normal form grammar! Simpler terms, but a lot harder to reason about.
@@ -284,7 +359,7 @@ And there you have it! A Chomsky Normal form grammar! Simpler terms, but a lot h
 Exercise: Do the same to the following grammar, that expresses palindromes:
 
 ```
-S -> aSa | bSb | epsilon
+S -> aSa | bSb | a | b | epsilon
 ```
 
 If you avoid duplication you should end up with 4 new variables in addition to the new start state.

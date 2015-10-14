@@ -135,7 +135,7 @@ x + x * x</code></pre>
 </ul></li>
 </ul>
 <h3 id="chomsky-normal-form">Chomsky Normal form</h3>
-<p>It is occasionally convenient to bring all CTGs to a “normalized” form. This is called the <strong>Chomsky Normal Form</strong>.</p>
+<p>It is occasionally convenient to bring all CFGs to a “normalized” form. This is called the <strong>Chomsky Normal Form</strong>.</p>
 <blockquote>
 <p>A grammar is in a Chomsky Normal Form if every rule is of the form: <span class="math">\[A \to BC\]</span> <span class="math">\[A \to a\]</span> <span class="math">\[S\to\epsilon\]</span> i.e. the right-hand side is either a single terminal symbol or two non-terminal symbols, and we also allow the rule that derives the empty string from <span class="math">\(S\)</span>, if that is in the language. But no other variables can derive <span class="math">\(\epsilon\)</span>.</p>
 <p>Any language that is recognized by a CFG can also be recognized by a CFG in CNF.</p>
@@ -152,54 +152,111 @@ x + x * x</code></pre>
 <p>Next, we want to eliminate unit rules. If there is a rule <span class="math">\(A\to B\)</span>, then we look for all rules of the form <span class="math">\(B\to u\)</span>, and for each we add a rule <span class="math">\(A\to u\)</span>, unless we had previously removed that rule. We can then remove the <span class="math">\(A\to B\)</span> rule.</p>
 <p>Lastly, we consider other types of rules. For instance suppose we have a rule <span class="math">\(A\to u_1u_2u_3\ldots u_k\)</span>, where <span class="math">\(k\geq 3\)</span> and each <span class="math">\(u_i\)</span> is a variable or symbol. Then we can replace this rule with a sequence of rules: <span class="math">\(A\to u_1A_1\)</span>, <span class="math">\(A_1\to u_2A_2\)</span>, , <span class="math">\(A_{k-2}\to u_{k-1}u_k\)</span>. Here <span class="math">\(A_1\)</span>, <span class="math">\(A_{k-1}\)</span> are newly introduced variables.</p>
 <p>If we have a rule <span class="math">\(A\to u_1u_2\)</span> where <span class="math">\(u_1\)</span> and <span class="math">\(u_2\)</span> are variables or terminals, and one of them is a terminal, then we replace that terminal with a rule like <span class="math">\(A_1\to u_2\)</span>, adjusting the original rule.</p>
-<p>Let us follow this method in the example of a small arithmetic expression grammar:</p>
-<pre><code>S -&gt; S+T | T
+<p>Let us follow this method in the example of a small arithmetic expression grammar, which we expand a little to allow for digits/numbers/signs:</p>
+<pre><code>E -&gt; E+T | T
 T -&gt; T*F | F
-F -&gt; x</code></pre>
+F -&gt; YN
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | - | epsilon</code></pre>
 <p>We start by adding a new first state:</p>
-<pre><code>S_0 -&gt; S
-S   -&gt; S+T | T
-T   -&gt; T*F | F
-F   -&gt; x</code></pre>
-<p>We would next remove any <span class="math">\(\epsilon\)</span> rules, we don’t have any here. Next we need to remove “unit rules”. We have three such rules: <code>S-&gt;T</code> and <code>T-&gt;F</code> and the <code>S_0-&gt;S</code> we added. We start with <code>S-&gt;T</code>. We look at all derivations <code>T-&gt;u</code> and add ones of the form <code>S-&gt;u</code>. And we remove the <code>S-&gt;T</code> term.</p>
-<pre><code>S_0 -&gt; S
-S   -&gt; S+T | T*F | F
-T   -&gt; T*F | F
-F   -&gt; x</code></pre>
+<pre><code>S -&gt; E
+E -&gt; E+T | T
+T -&gt; T*F | F
+F -&gt; YN
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | - | epsilon</code></pre>
+<p>We will next remove any <span class="math">\(\epsilon\)</span> rules, namely the rule <code>Y -&gt; epsilon</code>. To remove it, we need to go into all the places where <code>Y</code> was being used, and replace its possible occurences with <span class="math">\(\epsilon\)</span>. We then remove the <code>Y -&gt; epsilon</code> rule. This leads us to:</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T
+T -&gt; T*F | F
+F -&gt; YN | N
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Next we need to remove “unit rules”. We have a number of such rules: <code>E-&gt;T</code> and <code>T-&gt;F</code>, <code>S-&gt;E</code>, <code>F-&gt;N</code>, <code>N-&gt;D</code>. We start with <code>E-&gt;T</code>. We look at all derivations <code>T-&gt;u</code> and add ones of the form <code>E-&gt;u</code>. And we remove the <code>E-&gt;T</code> term.</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | F
+T -&gt; T*F | F
+F -&gt; YN | N
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
 <p>Next we do the same for the rule <code>T-&gt;F</code>. We need for each rule <code>F-&gt;u</code> to add a rule <code>T-&gt;u</code>:</p>
-<pre><code>S_0 -&gt; S
-S   -&gt; S+T | T*F | F
-T   -&gt; T*F | x
-F   -&gt; x</code></pre>
-<p>Now we have the rule <code>S-&gt;F</code> that was created along the way:</p>
-<pre><code>S_0 -&gt; S
-S   -&gt; S+T | T*F | x
-T   -&gt; T*F | x
-F   -&gt; x</code></pre>
-<p>Next we have the rule <code>S_0 -&gt; S</code>. We need to look at rules <code>S-&gt;u</code> and add <code>S_0-&gt;u</code> rules:</p>
-<pre><code>S_0 -&gt; S+T | T*F | x
-S   -&gt; S+T | T*F | x
-T   -&gt; T*F | x
-F   -&gt; x</code></pre>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | F
+T -&gt; T*F | YN | N
+F -&gt; YN | N
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Now we have the rule <code>E-&gt;F</code> that was created along the way:</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | YN | N
+T -&gt; T*F | YN | N
+F -&gt; YN | N
+N -&gt; D | ND
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Now let’s look back at the rule <code>N-&gt;D</code>, which is perhaps where we should have started. We find all productions of <code>D</code>, and add rules to <code>N</code> for them:</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | YN | N
+T -&gt; T*F | YN | N
+F -&gt; YN | N
+N -&gt; ND | 0 | 1
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Now we do the same for the rule <code>F-&gt;N</code>:</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | YN | N
+T -&gt; T*F | YN | N
+F -&gt; YN | ND | 0 | 1
+N -&gt; ND | 0 | 1
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Next is the rule <code>T-&gt;N</code>, and after it <code>E-&gt;N</code>:</p>
+<pre><code>S -&gt; E
+E -&gt; E+T | T*F | YN | ND | 0 | 1
+T -&gt; T*F | YN | ND | 0 | 1
+F -&gt; YN | ND | 0 | 1
+N -&gt; ND | 0 | 1
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>Lastly, we have the rule <code>S-&gt;E</code>. We need to look at rules <code>E-&gt;u</code> and add <code>S-&gt;u</code> rules:</p>
+<pre><code>S -&gt; E+T | T*F | YN | ND | 0 | 1
+E -&gt; E+T | T*F | YN | ND | 0 | 1
+T -&gt; T*F | YN | ND | 0 | 1
+F -&gt; YN | ND | 0 | 1
+N -&gt; ND | 0 | 1
+D -&gt; 0 | 1
+Y -&gt; + | -</code></pre>
+<p>This finishes the first phase, leaving us on the right with either terminals or rules that have at least two elements.</p>
 <p>Next we need to look at all rules that have more than two elements, and break them down. We have many such rules. We will try to avoid duplication by reusing “added variables” where appropriate. A computer would probably not do that on a first pass (but could do so on a second pass).</p>
-<pre><code>S_0 -&gt; SA_1 | TA_2 | x
-S   -&gt; SA_1 | TA_2 | x
-T   -&gt; TA_2 | x
+<pre><code>S   -&gt; EA_1 | TA_2 | YN | ND | 0 | 1
+E   -&gt; EA_2 | TA_2 | YN | ND | 0 | 1
+T   -&gt; TA_2 | YN | ND | 0 | 1
+F   -&gt; YN | ND | 0 | 1
+N   -&gt; ND | 0 | 1
+D   -&gt; 0 | 1
+Y   -&gt; + | -
 A_1 -&gt; +T
-A_2 -&gt; *F
-F   -&gt; x</code></pre>
+A_2 -&gt; *F</code></pre>
 <p>Now we have to work on the terms that have two elements on the right side, but some of those are terminals. We again will avoid duplicates:</p>
-<pre><code>S_0 -&gt; SA_1 | TA_2 | x
-S   -&gt; SA_1 | TA_2 | x
-T   -&gt; TA_2 | x
+<pre><code>S   -&gt; EA_1 | TA_2 | YN | ND | 0 | 1
+E   -&gt; EA_2 | TA_2 | YN | ND | 0 | 1
+T   -&gt; TA_2 | YN | ND | 0 | 1
+F   -&gt; YN | ND | 0 | 1
+N   -&gt; ND | 0 | 1
+D   -&gt; 0 | 1
+Y   -&gt; + | -
 A_1 -&gt; PT
 A_2 -&gt; MF
 P   -&gt; +
-M   -&gt; *
-F   -&gt; x</code></pre>
+M   -&gt; *</code></pre>
 <p>And there you have it! A Chomsky Normal form grammar! Simpler terms, but a lot harder to reason about.</p>
 <p>Exercise: Do the same to the following grammar, that expresses palindromes:</p>
-<pre><code>S -&gt; aSa | bSb | epsilon</code></pre>
+<pre><code>S -&gt; aSa | bSb | a | b | epsilon</code></pre>
 <p>If you avoid duplication you should end up with 4 new variables in addition to the new start state.</p>
 </body>
 </html>
