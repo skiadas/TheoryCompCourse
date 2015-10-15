@@ -29,7 +29,7 @@ In OCAML we could implement a stack by simply using a list, where new elements a
 
 The idea of pushdown automata is similar to that of finite automata:
 
-- We have a set of states we can be at. And we transition between them.
+- We have a finite set of states we can be at. And we transition between them.
 - One state is the start state. Zero or more states are the accept states.
 - What changes is the idea that there is a stack. The transitions get more complicated:
     - A transition depends on 3 things: The state we are in, the input we will consume, if any, and the element at the top of the stack that we will pop, if any (we can choose not to consume anything from the stack).
