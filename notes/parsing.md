@@ -13,12 +13,12 @@ Resources:
 
 Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:
 
-> For a symbol $X$ is a CFG:
+> For a symbol $X$ in a CFG:
 >
 > - The **first set** of $X$, written $\textrm{FIRST}(X)$, is the set of all *terminals* (including $\epsilon$) that can appear as the first element in a string derived from $X$. For the case of $\epsilon$, we only included it if the symbol $X$ can derive the empty string.
 > - The **follow set** of $X$, written $\textrm{FOLLOW}(X)$, is the set of all *terminals* (not including $\epsilon$ but including the end-of-input marker $\$$) that can immediately follow $X$ in a *sentenial form*. A **sentenial form** is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentenial forms are valid intermediate results on the way to deriving a string in the language.
 
-The first sets are computed via a "closure" property, described by the following rules:
+The first sets are computed via a "closure" process, described by the following rules:
 
 > Construction of first sets
 >
@@ -54,9 +54,9 @@ If we try to look at any of the rules again, we don't get any new entries. Some 
 ```
 Symbol            First Set
 --------          -----------
-S                 x, C
-E                 x, C
-T                 x, C
+S                 x, (
+E                 x, (
+T                 x, (
 F                 x, (
 ```
 
@@ -66,7 +66,7 @@ Now we will discuss follow sets, which are built based on similar ideas:
 >
 > 1. $\$\in\textrm{FOLLOW(S)}$.
 > 2. If there is a production rule $A\to \alpha B \beta$, then $\textrm{FIRST}(\beta)\subset\textrm{FOLLOW}(B)$.
-> 3. If there is a production rule $A\to \alpha B \beta$, where $\beta=\epsilon$ or $\epsilon\subset\textrm{FIRST}(\beta)$, then $\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)$. This is because if we can reduce everything following $B$ to $\epsilon$, then the production for $A$ ends in $B$, so anything that can follow an $A$ can also follow a $B$.
+> 3. If there is a production rule $A\to \alpha B \beta$, where $\beta=\epsilon$ or $\epsilon\in\textrm{FIRST}(\beta)$, then $\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)$. This is because if we can reduce everything following $B$ to $\epsilon$, then the production for $A$ ends in $B$, so anything that can follow an $A$ can also follow a $B$.
 
 Let us illustrate this process in our example. We start with the rule for $S$: $S\to E$. The third rule above tells us to add to the follow set of $E$ anything in the follow set of $S$, namely $\$$.
 
@@ -77,9 +77,9 @@ Now we come to the rules for $F$. One says that $F\to x$, and that has no useful
 ```
 Symbol            First Set               Follow Set
 --------          -----------             -----------
-S                 x, C                    $
-E                 x, C                    $, )
-T                 x, C                    $, )
+S                 x, (                    $
+E                 x, (                    $, )
+T                 x, (                    $, )
 F                 x, (                    $, )
 ```
 
@@ -88,9 +88,9 @@ We have not yet fully accounted for the rules `E->E+T` and `T->T*F`. It is clear
 ```
 Symbol            First Set               Follow Set
 --------          -----------             -----------
-S                 x, C                    $
-E                 x, C                    $, +, )
-T                 x, C                    $, +, *, )
+S                 x, (                    $
+E                 x, (                    $, +, )
+T                 x, (                    $, +, *, )
 F                 x, (                    $, +, *, )
 ```
 
@@ -104,7 +104,7 @@ P -> + P P | * P P | y
 Hm, exciting! Let us try to compute the first and follow sets in this example. The language alphabet is `y,+,*`, so they are each their own first sets.
 
 - The rule `P -> y` tells us that `y` is in the first set of `P`.
-- The rules `+ O O` and `* O O` tell us that `+,*` are in the first set of `P`.
+- The rules `+ P P` and `* P P` tell us that `+,*` are in the first set of `P`.
 - The rule `S -> P` tells us that everything in the first set of `P` is in the first set of `S`.
 
 So we end up with:
@@ -148,7 +148,7 @@ This is considered a top-down approach: As we imagine the resulting parse tree, 
 Of course you will now wonder: How do we choose which production rule to use at any given time? If we choose the wrong one we will get stuck. There are two approaches:
 
 - Make sure there is at any given time only one applicable production rule (deterministic pushdown automaton). This is quite limiting, not many grammars fit this model.
-- Perform **lookahead**, where we peek at the next one or more input tokens and use those to decide what to do next. For instance in the case of the Polish expressions grammar, we don't now when we see a `P` which rule to follow next, but peeking at the next input symbol helps us out: If it is `+` then we use the rule `P -> + P P`, if it is `*` we use `P -> * P P` and if it is `y` we use `P -> y`. The fact that the first set of `P` consists of only these three terminals tells us that this is what we expect to see next in our input; anything else would be an error (e.g. end-of-input symbol indicating an error like `+ 2` without a second term).
+- Perform **lookahead**, where we peek at the next one or more input tokens and use those to decide what to do next. For instance in the case of the Polish expressions grammar, we don't know when we see a `P` which rule to follow next, but peeking at the next input symbol helps us out: If it is `+` then we use the rule `P -> + P P`, if it is `*` we use `P -> * P P` and if it is `y` we use `P -> y`. The fact that the first set of `P` consists of only these three terminals tells us that this is what we expect to see next in our input; anything else would be an error (e.g. end-of-input symbol indicating an error like `+ 2` without a second term).
 
 These parsers are called LL(k) parsers, where $k$ indicates the number of lookahead symbols required, LL(0) being the case of no lookahead at all and LL(1) being the case we just examined for the Polish notation. A grammar is called LL(k) if it gives rise to an unambiguous (deterministic) LL(k) parser. A language is LL(k) if it has a grammar that is LL(k).
 
@@ -165,7 +165,7 @@ P                y      + P P   * P P   error
 
 Before moving on, let us revisit the arithmetic expressions example we start with. We are already seeing a case where LL(k) parsers are not sufficient. Essentially, the problem is that we have no way of choosing which of the rules $E\to E+T$ and $E\to T$ is the correct one to apply next, namely whether the expression is just one term of the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that "plus" is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.
 
-In general this is a difficulty that LL(k) parsers have with what are known as **left-recursive grammars**, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression `E\to E+T` above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.
+In general this is a difficulty that LL(k) parsers have with what are known as **left-recursive grammars**, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression `E->E+T` above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.
 
 Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as $E\to T + E$, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. We can rewrite such a grammar as follows:
 
@@ -216,6 +216,11 @@ F           x       -       -       (E)      -      -
 
 As long as we do not encounter any conflicts (e.g. two rules both claiming the same spot), we have an LL(1) parser.
 
+> Exercise: Considerthe palindrome grammar we discussed earlier.
+>
+> 1. Comput the first and follow sets.
+> 2. Build the LL(1) parser table for this grammar, and explain the conflicts that arise.
+
 > Exercise: Consider the language $L=\{x^n\mid n\geq 0\}\cup\{x^ny^n\mid n\geq 0\}$.
 >
 > 1. Construct a CFG for it. Three non-terminals should suffice.
@@ -238,7 +243,7 @@ There is another PDA that can serve a similar purpose, but it works in a somewha
 
 This turns out to correspond to a bottom-up approach in building the parse tree. We first build the child nodes of a production rule, then replace them with the parent node. This results in a "rightmost" derivation, hence the "R" in "LR".
 
-The key observation is this:
+The key observation (which will become clear later) is this:
 
 > At any given time, the stack of an LR parser contains part of the right-hand side of a production rule. These possible states of the stack can be coded into a DFA.
 
@@ -261,6 +266,8 @@ eps            $P           P -> + P P
 eps            $S           S -> P
 eps            $            push S and advance to end/accept
 ```
+
+You will notice that we have violated one of the rules of the stack: In order to see that we have a `* P P` in the stack, we actually have to look 3 places deep. We will discuss later how to get around this problem.
 
 We need a way to discuss in general the idea that "we have seen a part of the right-hand side of a rule". For that we need a new definition:
 

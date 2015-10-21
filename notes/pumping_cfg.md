@@ -40,7 +40,7 @@ Now all these elements along the way must be non-terminals, as they are the only
 
 Now we think of the derivations that correspond to this parse tree. We must have first a derivation
 $$S \Rightarrow^* uRz$$
-where we've expanded all other derivation steps except the one with top node the first occurence of $R$ (and those below it). Now if we example the derivation that has at its top this $R$, it produces another $R$ somewhere inside it, so there is some derivation:
+where we've expanded all other derivation steps except the one with top node the first occurence of $R$ (and those below it). Now if we expand the derivation that has at its top this $R$, it produces another $R$ somewhere inside it, so there is some derivation:
 $$R \Rightarrow^* vRy$$
 Finally, the inner $R$ also has a certain derivation that results in a string $x$:
 $$R \Rightarrow^* x$$

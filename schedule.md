@@ -77,9 +77,8 @@
     - [Pushdown Automata definition](notes/pushdown_automata.md)
 - Day 3
     - PDAs more examples
-    - [CFG -> PDA](notes/cfg_pda.md)
 - Day 4
-    - [PDA -> CFG](notes/cfg_pda.md)
+    - [CFG -> PDA](notes/cfg_pda.md)
 
 ## Week  7 (10/19-10/23)
 

@@ -10,7 +10,7 @@ Challenge: 2.20, 2.25
 
 ## Pushdown Automata
 
-Pushdown automata are also some times called "stack machines". They are an extension of finite automata, where are allowed a "stack" to store information. We should start with a quick reminder on stacks:
+Pushdown automata are also some times called "stack machines". They are an extension of finite automata, where we are allowed a "stack" to store information. We should start with a quick reminder on stacks:
 
 ### Stacks
 
