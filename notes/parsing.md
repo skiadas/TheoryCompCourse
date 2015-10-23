@@ -68,7 +68,7 @@ Now we will discuss follow sets, which are built based on similar ideas:
 > 2. If there is a production rule $A\to \alpha B \beta$, then $\textrm{FIRST}(\beta)\subset\textrm{FOLLOW}(B)$.
 > 3. If there is a production rule $A\to \alpha B \beta$, where $\beta=\epsilon$ or $\epsilon\in\textrm{FIRST}(\beta)$, then $\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)$. This is because if we can reduce everything following $B$ to $\epsilon$, then the production for $A$ ends in $B$, so anything that can follow an $A$ can also follow a $B$.
 
-Let us illustrate this process in our example. We start with the rule for $S$: $S\to E$. The third rule above tells us to add to the follow set of $E$ anything in the follow set of $S$, namely $\$$.
+Let us illustrate this process in our example. We start with the rule for $S$: $S -> E$. The third rule above tells us to add to the follow set of $E$ anything in the follow set of $S$, namely $\$$.
 
 Next we look at the rules for $E$. It seems they tell us that everything in the follow set of $E$ must be in the follow set of $T$. And similarly from the rules for $T$ we find that everytihng in the follow set of $T$ must be in the follow set of $F$. So we add the end symbol to them.
 
@@ -157,17 +157,42 @@ The first L in "LL" refers to the fact that these parsers process their input fr
 The information needed for implementing an LL(k) parser is typically stored in a "parse table", whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large $k$ we could have a very large number of columns). The entry in the table describes the rewrite rule. For our Polish notation example, the parse table would look as follows:
 
 ```
-Nonterminal      y       +       *       $ (end of string)
------------     ---     ---     ---     ---
-S                P       P       P      error
-P                y      + P P   * P P   error
+Nonterminal     y        +          *           $ (end of string)
+-----------     ---      ------     -------     -------
+S               P        P          P           error
+P               y        + P P      * P P       error
+```
+
+And here are the steps that the LL-parser would follow:
+
+```
+Input        Stack      What happened
+----------   ---------  ---------------
++*yyy        $S         start
++*yyy        $P         S -> P
++*yyy        $PP+       P -> +PP
+*yyy         $PP        read +
+*yyy         $PPP*      P -> *PP
+yyy          $PPP       read *
+yyy          $PPy       P -> y
+yy           $PP        read y
+yy           $Py        P -> y
+y            $P         read y
+y            $y         P -> y
+eps          $          read y
+```
+
+The steps above follow a left-most derivation, namely:
+
+```
+S -> P -> +PP -> +*PPP -> +*yPP -> +*yyP -> +*yyy
 ```
 
 Before moving on, let us revisit the arithmetic expressions example we start with. We are already seeing a case where LL(k) parsers are not sufficient. Essentially, the problem is that we have no way of choosing which of the rules $E\to E+T$ and $E\to T$ is the correct one to apply next, namely whether the expression is just one term of the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that "plus" is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.
 
 In general this is a difficulty that LL(k) parsers have with what are known as **left-recursive grammars**, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression `E->E+T` above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.
 
-Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as $E\to T + E$, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. We can rewrite such a grammar as follows:
+Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as $E\to T + E$, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. Instead, we can rewrite such a grammar as follows:
 
 ```
 S -> E
@@ -216,7 +241,7 @@ F           x       -       -       (E)      -      -
 
 As long as we do not encounter any conflicts (e.g. two rules both claiming the same spot), we have an LL(1) parser.
 
-> Exercise: Considerthe palindrome grammar we discussed earlier.
+> Exercise: Consider the palindrome grammar we discussed earlier.
 >
 > 1. Comput the first and follow sets.
 > 2. Build the LL(1) parser table for this grammar, and explain the conflicts that arise.

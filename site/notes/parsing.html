@@ -72,7 +72,7 @@ F                 x, (</code></pre>
 <li>If there is a production rule <span class="math">\(A\to \alpha B \beta\)</span>, where <span class="math">\(\beta=\epsilon\)</span> or <span class="math">\(\epsilon\in\textrm{FIRST}(\beta)\)</span>, then <span class="math">\(\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)\)</span>. This is because if we can reduce everything following <span class="math">\(B\)</span> to <span class="math">\(\epsilon\)</span>, then the production for <span class="math">\(A\)</span> ends in <span class="math">\(B\)</span>, so anything that can follow an <span class="math">\(A\)</span> can also follow a <span class="math">\(B\)</span>.</li>
 </ol>
 </blockquote>
-<p>Let us illustrate this process in our example. We start with the rule for <span class="math">\(S\)</span>: <span class="math">\(S\to E\)</span>. The third rule above tells us to add to the follow set of <span class="math">\(E\)</span> anything in the follow set of <span class="math">\(S\)</span>, namely <span class="math">\(\$\)</span>.</p>
+<p>Let us illustrate this process in our example. We start with the rule for <span class="math">\(S\)</span>: <span class="math">\(S -&gt; E\)</span>. The third rule above tells us to add to the follow set of <span class="math">\(E\)</span> anything in the follow set of <span class="math">\(S\)</span>, namely <span class="math">\(\$\)</span>.</p>
 <p>Next we look at the rules for <span class="math">\(E\)</span>. It seems they tell us that everything in the follow set of <span class="math">\(E\)</span> must be in the follow set of <span class="math">\(T\)</span>. And similarly from the rules for <span class="math">\(T\)</span> we find that everytihng in the follow set of <span class="math">\(T\)</span> must be in the follow set of <span class="math">\(F\)</span>. So we add the end symbol to them.</p>
 <p>Now we come to the rules for <span class="math">\(F\)</span>. One says that <span class="math">\(F\to x\)</span>, and that has no useful information for us. The other says <span class="math">\(F\to (E)\)</span>, which tells us by rule <span class="math">\(1\)</span> above that the closing parenthesis is in the follow set of <span class="math">\(E\)</span> (and hence also in the follow sets of <span class="math">\(T\)</span> and <span class="math">\(F\)</span>). This gives us the final table:</p>
 <pre><code>Symbol            First Set               Follow Set
@@ -134,13 +134,30 @@ P                 y, +, *                 y, +, *, $</code></pre>
 <p>These parsers are called LL(k) parsers, where <span class="math">\(k\)</span> indicates the number of lookahead symbols required, LL(0) being the case of no lookahead at all and LL(1) being the case we just examined for the Polish notation. A grammar is called LL(k) if it gives rise to an unambiguous (deterministic) LL(k) parser. A language is LL(k) if it has a grammar that is LL(k).</p>
 <p>The first L in “LL” refers to the fact that these parsers process their input from left to right, while the second refers to the fact that they trace a leftmost derivation of the parse tree. These parsers are also often described as <em>predictive</em>, since they need at any given time to “predict” which rule would be the correct one to apply. This contrasts them with the LR parsers that we will discuss shortly.</p>
 <p>The information needed for implementing an LL(k) parser is typically stored in a “parse table”, whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large <span class="math">\(k\)</span> we could have a very large number of columns). The entry in the table describes the rewrite rule. For our Polish notation example, the parse table would look as follows:</p>
-<pre><code>Nonterminal      y       +       *       $ (end of string)
------------     ---     ---     ---     ---
-S                P       P       P      error
-P                y      + P P   * P P   error</code></pre>
+<pre><code>Nonterminal     y        +          *           $ (end of string)
+-----------     ---      ------     -------     -------
+S               P        P          P           error
+P               y        + P P      * P P       error</code></pre>
+<p>And here are the steps that the LL-parser would follow:</p>
+<pre><code>Input        Stack      What happened
+----------   ---------  ---------------
++*yyy        $S         start
++*yyy        $P         S -&gt; P
++*yyy        $PP+       P -&gt; +PP
+*yyy         $PP        read +
+*yyy         $PPP*      P -&gt; *PP
+yyy          $PPP       read *
+yyy          $PPy       P -&gt; y
+yy           $PP        read y
+yy           $Py        P -&gt; y
+y            $P         read y
+y            $y         P -&gt; y
+eps          $          read y</code></pre>
+<p>The steps above follow a left-most derivation, namely:</p>
+<pre><code>S -&gt; P -&gt; +PP -&gt; +*PPP -&gt; +*yPP -&gt; +*yyP -&gt; +*yyy</code></pre>
 <p>Before moving on, let us revisit the arithmetic expressions example we start with. We are already seeing a case where LL(k) parsers are not sufficient. Essentially, the problem is that we have no way of choosing which of the rules <span class="math">\(E\to E+T\)</span> and <span class="math">\(E\to T\)</span> is the correct one to apply next, namely whether the expression is just one term of the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that “plus” is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.</p>
 <p>In general this is a difficulty that LL(k) parsers have with what are known as <strong>left-recursive grammars</strong>, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression <code>E-&gt;E+T</code> above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.</p>
-<p>Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as <span class="math">\(E\to T + E\)</span>, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. We can rewrite such a grammar as follows:</p>
+<p>Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as <span class="math">\(E\to T + E\)</span>, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. Instead, we can rewrite such a grammar as follows:</p>
 <pre><code>S -&gt; E
 E -&gt; T A
 A -&gt; eps | + T A</code></pre>
@@ -172,7 +189,7 @@ B           -      eps    * F B      -      eps    eps
 F           x       -       -       (E)      -      -</code></pre>
 <p>As long as we do not encounter any conflicts (e.g. two rules both claiming the same spot), we have an LL(1) parser.</p>
 <blockquote>
-<p>Exercise: Considerthe palindrome grammar we discussed earlier.</p>
+<p>Exercise: Consider the palindrome grammar we discussed earlier.</p>
 <ol style="list-style-type: decimal">
 <li>Comput the first and follow sets.</li>
 <li>Build the LL(1) parser table for this grammar, and explain the conflicts that arise.</li>

@@ -98,7 +98,7 @@ Now we build a CFG for such an automaton.
     - For any states $p,q,r,s\in Q$ and stack symbol $t\in\Gamma$ and elements $a,b\in \Sigma_\epsilon$, if $(r,t)\in \delta(p,a,\epsilon)$ and $(q,\epsilon)\in \delta(s,b,t)$, then we add a rule: $$A_{p,q}\to a A_{r,s} b$$
     This rule indicates that if there is a transition to state $r$ from state $p$ on input $t$ and by pushing $t$ to the stack, and a way to go from state $r$ to state $s$ without an overall change in the stack, expressed via the non-terminal $A_{r, s}$, and finally a transition from $s$ to $q$ with input $b$ and that pops the symbol $t$ from the stack, then the combination of these 3 steps is a way to go from $p$ to $q$ without changing the stack.
 
-Before we proceed to prove the claim, we will look at an example, namelt the automaton that recognized the language consisting of a number of $x$'s followed by no more than an equal number of $y$'s. In order to accomodate our conditions above, some states need to be added:
+Before we proceed to prove the claim, we will look at an example, namely the automaton that recognized the language consisting of a number of $x$'s followed by no more than an equal number of $y$'s. In order to accomodate our conditions above, some states need to be added:
 
 ![A simple pushdown automaton](images/pda_to_cfg1.png)
 
