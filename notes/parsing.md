@@ -154,7 +154,9 @@ These parsers are called LL(k) parsers, where $k$ indicates the number of lookah
 
 The first L in "LL" refers to the fact that these parsers process their input from left to right, while the second refers to the fact that they trace a leftmost derivation of the parse tree. These parsers are also often described as *predictive*, since they need at any given time to "predict" which rule would be the correct one to apply. This contrasts them with the LR parsers that we will discuss shortly.
 
-The information needed for implementing an LL(k) parser is typically stored in a "parse table", whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large $k$ we could have a very large number of columns). The entry in the table describes the rewrite rule. For our Polish notation example, the parse table would look as follows:
+The information needed for implementing an LL(k) parser is typically stored in a "parse table", whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large $k$ we could have a very large number of columns). The entry in the table describes the rewrite rule. For LL(1) parse tables, the construction essentially follows the process for finding first sets. Every new element we add to a first set gives rise to an entry in the table, based on the rewrite rule used to deduce it. If we find that we are "rediscovering" an element, that means there is a conflict with two rules matching the same "next symbol". The parser would not know which one to pick.
+
+For our Polish notation example, the LL(1) parse table would look as follows:
 
 ```
 Nonterminal     y        +          *           $ (end of string)
@@ -243,7 +245,7 @@ As long as we do not encounter any conflicts (e.g. two rules both claiming the s
 
 > Exercise: Consider the palindrome grammar we discussed earlier.
 >
-> 1. Comput the first and follow sets.
+> 1. Compute the first and follow sets.
 > 2. Build the LL(1) parser table for this grammar, and explain the conflicts that arise.
 
 > Exercise: Consider the language $L=\{x^n\mid n\geq 0\}\cup\{x^ny^n\mid n\geq 0\}$.

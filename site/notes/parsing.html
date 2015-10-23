@@ -133,7 +133,8 @@ P                 y, +, *                 y, +, *, $</code></pre>
 </ul>
 <p>These parsers are called LL(k) parsers, where <span class="math">\(k\)</span> indicates the number of lookahead symbols required, LL(0) being the case of no lookahead at all and LL(1) being the case we just examined for the Polish notation. A grammar is called LL(k) if it gives rise to an unambiguous (deterministic) LL(k) parser. A language is LL(k) if it has a grammar that is LL(k).</p>
 <p>The first L in “LL” refers to the fact that these parsers process their input from left to right, while the second refers to the fact that they trace a leftmost derivation of the parse tree. These parsers are also often described as <em>predictive</em>, since they need at any given time to “predict” which rule would be the correct one to apply. This contrasts them with the LR parsers that we will discuss shortly.</p>
-<p>The information needed for implementing an LL(k) parser is typically stored in a “parse table”, whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large <span class="math">\(k\)</span> we could have a very large number of columns). The entry in the table describes the rewrite rule. For our Polish notation example, the parse table would look as follows:</p>
+<p>The information needed for implementing an LL(k) parser is typically stored in a “parse table”, whose rows correspond to different nonterminal symbols and whose columns correspond to the various possible lookahead (so for a large <span class="math">\(k\)</span> we could have a very large number of columns). The entry in the table describes the rewrite rule. For LL(1) parse tables, the construction essentially follows the process for finding first sets. Every new element we add to a first set gives rise to an entry in the table, based on the rewrite rule used to deduce it. If we find that we are “rediscovering” an element, that means there is a conflict with two rules matching the same “next symbol”. The parser would not know which one to pick.</p>
+<p>For our Polish notation example, the LL(1) parse table would look as follows:</p>
 <pre><code>Nonterminal     y        +          *           $ (end of string)
 -----------     ---      ------     -------     -------
 S               P        P          P           error
@@ -191,7 +192,7 @@ F           x       -       -       (E)      -      -</code></pre>
 <blockquote>
 <p>Exercise: Consider the palindrome grammar we discussed earlier.</p>
 <ol style="list-style-type: decimal">
-<li>Comput the first and follow sets.</li>
+<li>Compute the first and follow sets.</li>
 <li>Build the LL(1) parser table for this grammar, and explain the conflicts that arise.</li>
 </ol>
 </blockquote>
