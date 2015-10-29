@@ -90,25 +90,25 @@
 - Day 3
     - [Basics of Parsing, First/Follow sets](notes/parsing.md)
 - Day 4
-    - [Basics of Parsing, LL(k) parsers](notes/parsing.md)
+    - [Basics of Parsing, First/Follow sets](notes/parsing.md)
 
 ## Week  8 (10/26-10/30)
 
 - Day 1
-    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
+    - [Basics of Parsing, LL(k) parsers](notes/parsing.md)
 - Day 2
-    - yacc
+    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
 - Day 3
-    - Turing Machines
+    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
 - Day 4
-    - Turing Recognizable vs Turing Decidable languages
+    - [Turing Machines](notes/turing.md)
 
 ## Week  9 (11/02-11/06)
 
 - Day 1
-    - Multitape / Nondeterministic Turing machines
+    - Turing Recognizable vs Turing Decidable languages
 - Day 2
-    - The Church-Turing thesis, algorithms
+    - Multitape / Nondeterministic Turing machines
 - Day 3
     - Catching up
 - Day 4
@@ -117,29 +117,29 @@
 ## Week 10 (11/09-11/13)
 
 - Day 1
-    - Decidable Problems, for regular languages
+    - The Church-Turing thesis, algorithms
 - Day 2
-    - The Halting Problem
+    - Decidable Problems, for regular languages
 - Day 3
-    - Undecidability of Halting Problem
+    - The Halting Problem
 - Day 4
-    - Reducibility
+    - Undecidability of Halting Problem
 
 ## Week 11 (11/16-11/20)
 
 - Day 1
-    - Regularity of languages is undecidable
+    - Reducibility
 - Day 2
-    - Time Complexity classes
+    - Regularity of languages is undecidable
 - Day 3
-    - The class P
+    - Time Complexity classes
 - Day 4
-    - The class NP
+    - The class P
 
 ## Week 12 (11/23-11/27)
 
 - Day 1
-    - P vs NP, NP-complete problems
+    - The class NP
 - Day 2
     - Thanksgiving Break
 - Day 3
@@ -150,6 +150,7 @@
 ## Week 13 (12/01-12/04)
 
 - Day 1
+    - P vs NP, NP-complete problems
 - Day 2
 - Day 3
 - Day 4

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="turing-machines">Turing Machines</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 3.1</p>
+<p>Practice problems (page 159): 3.5, 3.8, 3.15</p>
+<h2 id="turing-machines-1">Turing Machines</h2>
+<p>Turing Machines (TM) are a computational structure that is quite a step up from pushdown automata in terms of capabilities. In fact in a certain sense they are strong enough to capture the idea of computation in general.</p>
+<p>Here are some comparisons between Turing Machines and PDAs/DFAs:</p>
+<ul>
+<li>There is no separate input and stack space. There is a single infinitely long “tape”, which is initially populated by the input string.</li>
+<li>The TM can freely move along the tape in either direction. It is not restricted by input order and stack discipline.</li>
+<li>Like DFAs and PDAs, the TM has a finite set of states that dictate its options.</li>
+<li>The TM’s transition function is deterministic. We will in fact prove that adding nondeterminism does not increase the TM’s computational power.</li>
+<li>The TM has special “accept” and “reject” states, and the computation ends the moment those are entered.</li>
+<li>The computation can go on forever. For CFGs in Chomsky Normal form there are bounds to the number of steps needed to reach a string of a given length. Nothing equivalent holds for TMs.</li>
+</ul>
+<p>Turing Machines operate on an infinitely long tape, and at any given time the machine is pointing at some location in the tape, and is at some state. To transition, it can make a move left or right.</p>
+<p>Here is the formal definition:</p>
+<blockquote>
+<p><strong>Turing Machines</strong></p>
+<p>A <strong>Turing Machine</strong> is a 7-tuple <span class="math">\((Q, \Sigma, \Gamma, \delta, q_0, q_{\textrm{accept}}, q_{\textrm{reject}})\)</span> where:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math">\(Q\)</span> is a finite nonempty set of states.</li>
+<li><span class="math">\(\Sigma\)</span> is a finite <strong>input alphabet</strong>, not containg a special “blank symbol”.</li>
+<li><span class="math">\(\Gamma\)</span> is a finite <strong>tape alphabet</strong>, containing <span class="math">\(\Sigma \subset \Gamma\)</span> and a special <strong>blank symbol</strong> <span class="math">\(\sqcup\)</span> representing the lack of a value at that location in the “tape”.</li>
+<li><span class="math">\(\delta\colon Q\times\Gamma \to Q\times\Gamma\times \{L, R\}\)</span> is a transition function. Based on the value at the current location in the tape, as well as the current state, the automaton can change the value at the location, switch to a new state, and also move the pointer/head to the left or to the right (L/R).</li>
+<li><span class="math">\(q_0\in Q\)</span> is a start state.</li>
+<li><span class="math">\(q_{\textrm{accept}}\in Q\)</span> is the accept state</li>
+<li><span class="math">\(q_{\textrm{reject}}\in Q\)</span> is the reject state, <em>distinct</em> from <span class="math">\(q_{\textrm{accept}}\)</span>.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>Computation in a Turing Machine</p>
+<ul>
+<li>The initial input to the machine is placed at the leftmost <span class="math">\(n\)</span> squares of the tape. The rest of the tape is filled with the blank symbol.</li>
+<li>The TM starts at the state <span class="math">\(q_0\)</span>, and with the marker pointing at the leftmost location.</li>
+<li>The TM follows the rules dictated by the transition function <span class="math">\(\delta\)</span>, until it reaches the accept or reject states.</li>
+<li>If the TM ever tries to move to the left of the leftmost square, it just stays in that square.</li>
+</ul>
+</blockquote>
+<p>We often describe Turing machines more informally than listing states and transitions, by describing the steps to be performed, with an understanding that if needed we could write down states and transitions to carry out those steps. Let us look at an example of such an informal description:</p>
+<blockquote>
+<p>Design a TM that recognizes the language <span class="math">\(L=\left\{w\#w \mid w\in\{0,1\}^*\right\}\)</span>.</p>
+</blockquote>
+<p>You will recall that this was one of the languages that pushdown automata could not handle.</p>
+<p>Here’s how this TM could go:</p>
+<ol style="list-style-type: decimal">
+<li>We assume that our tape alphabet <span class="math">\(\Gamma\)</span> contains “dotted” versions of our symbols, <span class="math">\(\dot 0, \dot 1\)</span>. We can use those to mark locations.</li>
+<li>At the beginning we are the leftmost element. We replace it with a dotted version of it, and move to a state that remembers what that value was and searches for the <span class="math">\(\#\)</span> marker.</li>
+<li>After we reach the marker, we look at the location after it and whether it matched the value from the other side, that we were keeping track of. If it does not, then we move to reject state. If it does, we mark the location, either via a dotted version of the value or via an x.</li>
+<li>Now we move left till we find the <span class="math">\(\#\)</span> marker, then keep moving till we find the dotted value. We move to the value after it, (i.e. the first non-dotted value), dot that and remember it, then move to find its partner on the right side.</li>
+<li>We continue this back and forth until the point that we have looked at all the elements before the <span class="math">\(\#\)</span> marker. This means we have matched everything to the left of the <span class="math">\(\#\)</span> marker with the corresponding spots on the right.</li>
+<li>All that is left is to travel to the right past all the x-ed out values, and see if the next thing is the blank, or if there are still more values out there. If it is blank, it means we have matched the string before <span class="math">\(\#\)</span> with the string after it, and so we move to accept. If not, we move to reject.</li>
+</ol>
+<p>We could imagine using a dozen or so different states to carry out the above steps.</p>
+<p>Let us try a variation:</p>
+<blockquote>
+<p>Design a TM that recognizes the language <span class="math">\(L=\left\{ww \mid w\in\{0,1\}^*\right\}\)</span>.</p>
+</blockquote>
+<p>In this instance we don’t have the marker to separate the two words. We will need to find the middle of the string ourselves.</p>
+<ol style="list-style-type: decimal">
+<li>Start at the leftmost element, dot it, and start moving right till you find the other end.</li>
+<li>Dot that element, and move left till you find that previously dotted element. dot the one after it.</li>
+<li>Keep going back and forth marking the elements you have seen, one on each end.</li>
+<li>When we reach the middle area, we can detect if the string had odd length: We just dotted the middle element as belonging to the left half of the string, and when we go right to find an undotted element there isn’t one remaining. We can transition to a reject state right away in this case.</li>
+<li>Otherwise we have determined the string has even length, and we are standing at the beginning of the right half of it. We can now proceed in two ways:</li>
+<li>One way is to undot that element and remember what it is, then move all the way at the beginning of the string (should have dotted that first element in a more special way) and see if it matches, and if it does cross it out. Then take the next element, cross it out and remember it and look for it on the second half of the string, and so on.</li>
+<li>Another alternative is to insert a new marker at that middle position. We can then “shift” the second half of the string one square to the right, as follows:
+<ul>
+<li>Place the marker, and remember what was there before, move to the right.</li>
+<li>Place in that square the element you are remembering, and remember the new element, move to the right.</li>
+<li>Keep doing that until you have arrived at the blank symbol, marking the end of the string. You then insert that last element, and transition to whatever you need to do next.</li>
+<li>Now our string has obtained the form described in the previous problem, so we can use the same method we used for that one.</li>
+</ul></li>
+</ol>
+<p>This idea of reusing a previously constructed TM as a helper is a key tool in the methodology of Turing Machines.</p>
+<p>Before we move on to more examples, there is one important distinction we need to make.</p>
+<blockquote>
+<p>A TM on a given input can result in one of three outcomes: <em>accept</em>, <em>reject</em> or <em>loop</em>. A <strong>loop</strong> means that the machine goes on forever, and never reaches an accept or reject state. Unlike with DFAs and PDAs, it is not at all easy to detect the cases where the TM will loop.</p>
+<p>We say that a TM <strong>recognizes</strong> a language <span class="math">\(L\)</span>, if the TM results in <em>accept</em> for all strings in the language, and not in accept for all strings not in the language. So it may be the case that the TM results in a loop for some strings not in the language, and that is OK. We say that the language <span class="math">\(L\)</span> is <strong>Turing-recognizable</strong>, if there is a TM recognizing it.</p>
+<p>We say that a TM <strong>decides</strong> a language <span class="math">\(L\)</span>, if the TM results in <em>accept</em> for all strings in the language and in <em>reject</em> for all strings not in the language. In other words, the TM never loops. Such a TM is called a <strong>decider</strong>. We call a language <span class="math">\(L\)</span> <strong>Turing-decidable</strong>, or just <strong>decidable</strong>, if some Turing machine decides it.</p>
+</blockquote>
+<p>It should be clear that every decidable language is recognizable. The interesting fact is that the converse is not true: There are languages that are recognizable, but not decidable. The examples we have seen above are examples of decidable languages.</p>
+<blockquote>
+<p>Practice: Describe TMs that decide the following languages:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math">\(A = \{ a^nb^nc^n\mid n\geq 0 \}\)</span></li>
+<li><span class="math">\(B = \{ a^ib^jc^k\mid 0 \leq i \leq j \leq k \}\)</span></li>
+<li><span class="math">\(C = \{ a^ib^j\mid i\textrm{ is a positive multiple of }j \}\)</span></li>
+<li><span class="math">\(D = \{ w\#t \mid w,t\in\{a,b\}^*,\, w\textrm{ is a substring of }t\}\)</span></li>
+<li><span class="math">\(E = \{ w\in\{0,1\}^* \mid \textrm{equal number of }0\textrm{s, }1\textrm{s}\}\)</span></li>
+</ol>
+</blockquote>
+<h2 id="turing-machine-variants">Turing Machine Variants</h2>
+<p>The remarkable fact about Turing Machines is that they are remarkably robust: Any variant we try turns out to have the same computational power as Turing Machines.</p>
+<h3 id="stay-option">Stay option</h3>
+<p>A first simple variant is to allow three posible “moves”, instead of just left and right. There is also a S move, for staying at the same location.</p>
+<p>This of course isn’t a considerable change: We can replace any “stay” move with a combination of a right move and a left move.</p>
+<p>The essence of showing a variant is equivalent with the basic definition is to simulate one with the other.</p>
+<h3 id="multitape-machines">Multitape machines</h3>
+<p>A more adventurous variant is one where we use multiple tapes. Each tape has its own head for reading and writing. Initially the input is all in the first tape, and the remaining tapes are blank. The transition function would depend on the values at all heads (at all the tapes), and will update all tapes at once: <span class="math">\[\delta\colon Q\times\Gamma^k\to Q\times\Gamma^k\times\{L,R(,S)\}^k\]</span></p>
+<p>It is clear that this notion is at least as strong as that of normal TMs. We will in fact show that multitape TMs are not stronger than normal TMs.</p>
+<blockquote>
+<p>Every multitape Turing Machine has an equivalent single-tape Turing Machine.</p>
+</blockquote>
+</body>
+</html>
