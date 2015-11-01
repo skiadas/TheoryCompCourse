@@ -91,6 +91,7 @@
     - [Basics of Parsing, First/Follow sets](notes/parsing.md)
 - Day 4
     - [Basics of Parsing, First/Follow sets](notes/parsing.md)
+    - [Assignment 5](assignments/5.md)
 
 ## Week  8 (10/26-10/30)
 
@@ -102,15 +103,16 @@
     - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
 - Day 4
     - [Turing Machines](notes/turing.md)
+    - [Assignment 6](assignments/6.md)
 
 ## Week  9 (11/02-11/06)
 
 - Day 1
-    - Turing Recognizable vs Turing Decidable languages
+    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
 - Day 2
-    - Multitape / Nondeterministic Turing machines
-- Day 3
     - Catching up
+- Day 3
+    - [Assignment 7](assignments/7.md)
 - Day 4
     - Midterm 2
 

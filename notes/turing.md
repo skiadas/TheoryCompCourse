@@ -4,7 +4,9 @@
 
 Section 3.1
 
-Practice problems (page 159): 3.5, 3.8, 3.15
+Practice problems (page 159): 3.5, 3.8, 3.15, 3.22
+
+Challenge: 3.19, 3.20
 
 ## Turing Machines
 
@@ -112,9 +114,78 @@ The essence of showing a variant is equivalent with the basic definition is to s
 ### Multitape machines
 
 A more adventurous variant is one where we use multiple tapes. Each tape has its own head for reading and writing. Initially the input is all in the first tape, and the remaining tapes are blank. The transition function would depend on the values at all heads (at all the tapes), and will update all tapes at once:
-$$\delta\colon Q\times\Gamma^k\to Q\times\Gamma^k\times\{L,R(,S)\}^k$$
+$$\delta\colon Q\times\Gamma^k\to Q\times\Gamma^k\times\{L,R,S\}^k$$
 
 It is clear that this notion is at least as strong as that of normal TMs. We will in fact show that multitape TMs are not stronger than normal TMs.
 
 > Every multitape Turing Machine has an equivalent single-tape Turing Machine.
 
+The construction is instructive. The main idea is for our single-tape TM to emulate the operations of the multi-tape TM:
+
+- We will store the contents of all the tapes in the multi-tape TM into a single tape.
+    - Since at any given time only finitely many entries in the tape can be non-blank, this is possible.
+    - Need a new symbol (say \#) to separate the tapes.
+    - Initial contents would look like \#100110101\#$\sqcup$\#$\sqcup$\#$\sqcup$\#$\sqcup$\#$\sqcup$\#
+- We use specially dotted versions of symbols to keep track of the heads in each tape of the multi-tape machine. So initially the tape starts with $\#\dot{1}00110101\#\dot\sqcup\#\dot\sqcup\#\dot\sqcup\#\dot\sqcup\#\dot\sqcup\#$
+- In order to take a "step":
+    - Go through and read the dotted items. Finitely many possibilities, so we can keep track of all the combinations via different states.
+    - Once all dotted items are read, use the multitape transition function to determine what to do next.
+    - Based on that multitape transition function, go through our single tape and update the values on the dotted items, and also move the dots as dictated by the L/R values from the transition.
+- If the multi-tape TM enters an accept/reject state, then so does the single-tape TM.
+- Otherwise it continues to emulate the multi-tape TM.
+
+### Non-deterministic Turing Machines
+
+A non-deterministic Turing Machine is, as with previous notions of non-determinism, one whose transitions contain multiple alternatives. So the transition function looks like:
+$$\delta\colon Q\times\Gamma\to \mathcal{P}\left(Q\times\Gamma\times\{L,R\}\right)$$
+
+Such a Turing Machine accepts if any computation branch results in an accept state. It does not reject when it meets a reject state. It will only reject if it has exhausted all computation paths without reaching an accept state.
+
+It may appear as if this variant will give us more power, but that turns out not to be the case:
+
+> Every non-deterministic Turing Machine has an equivalent deterministic Turing Machine
+
+We will instead show that a non-deterministic Turing Machine is equivalent to a multi-tape Turing Machine with 3 tapes.
+
+First some preparations. We can make the non-determinism a bit more concrete. Note that the set $Q\times\Gamma$ is finite in size, and for each of those "states of the TM" the corresponding options provided by the transition function are finitely many. We fix an order for these options, and number them. This way we can imagine a sequence of numbers like `13211` to suggest a specific path of computation: "From our start configuration we chose the first of the available options, then from the options we had at that state we chose the third one, and from the options we had at that location we chose the second one, and so on". We can imagine all these options represented by a tree, whose nodes represent steps in the computation, and where each node has children corresponding to the different options provided by the transition function $\delta$ for the configuration described by that node.
+
+Effectively what we want to do is explore all paths of this "computation tree", in search of an accept or reject result. We have to be careful however: A depth-first traversal of the tree might get us down an infinite path from which we might never escape, even though an accept path might have existed down another direction in the tree. For that reason we take a breadth first approach: We take only one step at each of the possible states we might be in, resulting in a new set of possible states, before moving deeper in. Essentially we try all ways of say doing 3 steps from the start state, before we try any of the ways of doing 4 steps.
+
+Now we are ready to describe the construction in more detail. The construction involves 3 tapes:
+
+- The first tape contains the unaltered input to the TM. It uses the alphabet $\Sigma$ of the language we are working with.
+- The second tape is used to carry out a "emulation" of a particular path down the non-deterministic TM's computation tree. It uses the alphabet $\Gamma$ of the non-deterministic machine we are trying to emulate.
+- The third tape is used to keep track of the path in the tree that we are currently exploring.
+
+The computation goes as follows:
+
+1. "Advance" the path in the third tape.
+    - Increase the last number in the tape, representing the last leg of the previous computation. Since we just finished exploring that "child", we want to now move to its sibling.
+    - If that number has exceeded the number of children at that point, reset it to 1 then move to the previous entry in the tape (its parent) and advance that, looking at *its* sibling. Keep moving up the tree (earlier in the tape) as needed.
+    - If we end up increasing the first number in the tape past the number of children at that level, this means that we have exhausted all trees of the given depth, and we need to increase the depth: Move to the first non-blank entry in the tape and put `1` in.
+2. "Emulate" the path currently indicated by the third tape.
+    - Move the head of the third tape at the beginning
+    - Clear the second tape, and write the input from the first tape in it. Place the head of the second tape at the beginning
+    - Following the (finite) path described by the third tape, and the instructions at the corresponding configurations of the non-deterministic machine, emulate on the second tape the work that the non-deterministic machine would have done.
+    - If you run into the accept state of the non-deterministic machine, then report accepting. If we run into a reject state, treat it as a loop and move on to the next path.
+3. Go back to 1 and repeat
+
+So essentially every time the deterministic TM wants to take a step, it has to reset to the nondeterministic TM to the "beginning", and repeat all the steps that had been taken up to that point, then follow them with one more step. Then resets back to the beginning to explore another option, and so on and so forth. It is a much slower process, but we are not currently concerned with speed, only with feasibility.
+
+So this way, if the non-deterministic TM would have reached an accept state, it would have done so in a finite number of steps, say $n$ steps, so it would have corresponded to some path of depth $n$ in the computation tree. This is a path that the deterministic TM will explore in one of its first $2^n$ loops through the steps 1-3 above.
+
+This essentially completes the proof.
+
+From this we have some consequences:
+
+> A language is Turing-recognizable if and only if there is a non-deterministic Turing Machine that recognizes it.
+
+Decidability is a bit trickier:
+
+> A non-deterministic TM is called a decider if all branches of the computation tree halt on all inputs. It is then said to "accept" an input string if there is at least one branch that ends in the accept state.
+
+Consider how you would modify the above construction in order to prove the following:
+
+> A non-deterministic TM that is a decider has an equivalent deterministic TM that is a decider.
+>
+> A language is Turing-decidable if and only if there is a non-deterministic Turing Machine that decides it.
