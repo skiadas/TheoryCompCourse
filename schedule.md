@@ -108,40 +108,41 @@
 ## Week  9 (11/02-11/06)
 
 - Day 1
-    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
+    - [Turing Machines, examples](notes/turing.md)
 - Day 2
-    - Catching up
+    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
 - Day 3
-    - [Assignment 7](assignments/7.md)
+    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
 - Day 4
-    - Midterm 2
+    - The Church-Turing thesis, algorithms
+    - [Assignment 7](assignments/7.md)
 
 ## Week 10 (11/09-11/13)
 
 - Day 1
-    - The Church-Turing thesis, algorithms
-- Day 2
     - Decidable Problems, for regular languages
+- Day 2
+    - Catching up
 - Day 3
-    - The Halting Problem
+    - Midterm 2 ([study guide](notes/midterm2_study_guide.md))
 - Day 4
-    - Undecidability of Halting Problem
+    - The Halting Problem
 
 ## Week 11 (11/16-11/20)
 
 - Day 1
-    - Reducibility
+    - Undecidability of Halting Problem
 - Day 2
-    - Regularity of languages is undecidable
+    - Reducibility
 - Day 3
-    - Time Complexity classes
+    - Regularity of languages is undecidable
 - Day 4
-    - The class P
+    - Time Complexity classes
 
 ## Week 12 (11/23-11/27)
 
 - Day 1
-    - The class NP
+    - The class P
 - Day 2
     - Thanksgiving Break
 - Day 3
@@ -152,8 +153,9 @@
 ## Week 13 (12/01-12/04)
 
 - Day 1
-    - P vs NP, NP-complete problems
+    - The class NP
 - Day 2
+    - P vs NP, NP-complete problems
 - Day 3
 - Day 4
 
