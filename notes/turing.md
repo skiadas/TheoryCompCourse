@@ -2,7 +2,7 @@
 
 ## Reading
 
-Section 3.1
+Section 3.1, 3.2
 
 Practice problems (page 159): 3.5, 3.8, 3.15, 3.22
 

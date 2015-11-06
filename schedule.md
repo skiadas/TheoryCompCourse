@@ -114,7 +114,7 @@
 - Day 3
     - [Multitape / Nondeterministic Turing machines](notes/turing.md)
 - Day 4
-    - The Church-Turing thesis, algorithms
+    - [Some Decidable Problems](notes/decidable.md)
     - [Assignment 7](assignments/7.md)
 
 ## Week 10 (11/09-11/13)
