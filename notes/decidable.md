@@ -4,9 +4,9 @@
 
 Section 4.1
 
-Practice problems (page 159):
+Practice problems (page 182): 4.1, 4.2, 4.3, 4.4 (two ways), 4.9, 4.10, 4.11, 4.12 (careful), 4.13, 4.16
 
-Challenge:
+Challenge: 4.14, 4.23, 4.24, 4.27
 
 ## Decidable Languages
 
