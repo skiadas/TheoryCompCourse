@@ -125,8 +125,14 @@
 <blockquote>
 <p>There is no TM that can decide, given two CFGs, whether they recognize the same language or not.</p>
 </blockquote>
-<p>Exercise: Look back at your proof of why the equivalence problem for regular languages/DFAs was decidable. What goes wrong when we try to apply the same method to CFGs/CFLs?</p>
-<p>Exercise: It is easy to see that the language <span class="math">\(L=\left\{\langle A,B\rangle\mid a,b\textrm{ are CFGs such that }L(A)\neq L(B) \right\}\)</span> is Turing-recognizable. How would that go?</p>
+<p>Exercise:</p>
+<ol style="list-style-type: decimal">
+<li>Look back at your proof of why the equivalence problem for regular languages/DFAs was decidable. What goes wrong when we try to apply the same method to CFGs/CFLs?</li>
+<li>It is easy to see that the language <span class="math">\(L=\left\{\langle A,B\rangle\mid A,B\textrm{ are CFGs such that }L(A)\neq L(B) \right\}\)</span> is Turing-recognizable. How would that go?</li>
+<li>Is the language <span class="math">\(L\)</span> above the complement of the language <span class="math">\(\textrm{EQ}_{\textrm{CFG}}\)</span>?</li>
+<li>Is the complement of <span class="math">\(\textrm{EQ}_{\textrm{CFG}}\)</span> recognizable?</li>
+<li>Is it true, that if a language <span class="math">\(L\)</span> and its complement are both Turing-recognizable, then <span class="math">\(L\)</span> is decidable?</li>
+</ol>
 <p>We now proceed to discuss the other two problems:</p>
 <blockquote>
 <p>The acceptance problem for CFGs is decidable.</p>
@@ -145,7 +151,7 @@
 <li>Check only those derivations in this new CFG consisting of 2n-1 steps.</li>
 <li>If you find the string in one of those, accept. If you do not, reject.</li>
 </ul>
-<p>This has profound implications for computing: All programming languages are codified in terms of a CFG specifying the valid syntax for programs in a language. In order to run any program in a programming language, a programming being essentially just a string of input from some alphabet, we need to parse it according to the CFG from the language. The fact that the acceptance problem is decidable tells us that this is indeed doable. Although the method described above would likely be too slow to be of practical use.</p>
+<p>This has profound implications for computing: All programming languages are codified in terms of a CFG specifying the valid syntax for programs in a language. In order to run any program in a programming language, a program being essentially just a string of input from some alphabet, we need to parse it according to the CFG from the language. The fact that the acceptance problem is decidable tells us that this is indeed doable. Although the method described above would likely be too slow to be of practical use.</p>
 <p>Before moving on, let us consider an important consequence of this result:</p>
 <blockquote>
 <p>Every CFL is decidable.</p>

@@ -136,9 +136,13 @@ We will discover that the answer to the first two questions is Yes, but the answ
 
 > There is no TM that can decide, given two CFGs, whether they recognize the same language or not.
 
-Exercise: Look back at your proof of why the equivalence problem for regular languages/DFAs was decidable. What goes wrong when we try to apply the same method to CFGs/CFLs?
+Exercise:
 
-Exercise: It is easy to see that the language $L=\left\{\langle A,B\rangle\mid a,b\textrm{ are CFGs such that }L(A)\neq L(B) \right\}$ is Turing-recognizable. How would that go?
+1. Look back at your proof of why the equivalence problem for regular languages/DFAs was decidable. What goes wrong when we try to apply the same method to CFGs/CFLs?
+2. It is easy to see that the language $L=\left\{\langle A,B\rangle\mid A,B\textrm{ are CFGs such that }L(A)\neq L(B) \right\}$ is Turing-recognizable. How would that go?
+3. Is the language $L$ above the complement of the language $\textrm{EQ}_{\textrm{CFG}}$?
+4. Is the complement of $\textrm{EQ}_{\textrm{CFG}}$ recognizable?
+4. Is it true, that if a language $L$ and its complement are both Turing-recognizable, then $L$ is decidable?
 
 We now proceed to discuss the other two problems:
 
@@ -161,7 +165,7 @@ So now this gives us a way to deal with the acceptance problem:
 - Check only those derivations in this new CFG consisting of 2n-1 steps.
 - If you find the string in one of those, accept. If you do not, reject.
 
-This has profound implications for computing: All programming languages are codified in terms of a CFG specifying the valid syntax for programs in a language. In order to run any program in a programming language, a programming being essentially just a string of input from some alphabet, we need to parse it according to the CFG from the language. The fact that the acceptance problem is decidable tells us that this is indeed doable. Although the method described above would likely be too slow to be of practical use.
+This has profound implications for computing: All programming languages are codified in terms of a CFG specifying the valid syntax for programs in a language. In order to run any program in a programming language, a program being essentially just a string of input from some alphabet, we need to parse it according to the CFG from the language. The fact that the acceptance problem is decidable tells us that this is indeed doable. Although the method described above would likely be too slow to be of practical use.
 
 Before moving on, let us consider an important consequence of this result:
 
@@ -191,4 +195,3 @@ Here is how the Turing Machine might go:
     - Go through each production rule in the language.
     - If the RHS of that production rule consists entirely of marked items, then also mark the nonterminal on the LHS.
 - Check if the nonterminal you wanted to examine is marked. Marked nonterminals are exactly those that have the potential of producing a string of terminals. In our specific problem, the nonterminal we would check is the start variable.
-

@@ -114,19 +114,19 @@
 - Day 3
     - [Multitape / Nondeterministic Turing machines](notes/turing.md)
 - Day 4
-    - [Some Decidable Problems](notes/decidable.md)
+    - [Decidable Problems, Regular Languages](notes/decidable.md)
     - [Assignment 7](assignments/7.md)
 
 ## Week 10 (11/09-11/13)
 
 - Day 1
-    - Decidable Problems, for regular languages
+    - [Decidable Problems, CFLs](notes/decidable.md)
 - Day 2
     - Catching up
 - Day 3
     - Midterm 2 ([study guide](notes/midterm2_study_guide.md))
 - Day 4
-    - The Halting Problem
+    - [The Halting Problem](notes/halting.md)
 
 ## Week 11 (11/16-11/20)
 
