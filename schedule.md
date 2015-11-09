@@ -131,6 +131,7 @@
 ## Week 11 (11/16-11/20)
 
 - Day 1
+    - [Assignment 8](assignments/8.md)
     - Undecidability of Halting Problem
 - Day 2
     - Reducibility

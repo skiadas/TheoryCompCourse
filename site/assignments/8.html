@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-8">Assignment 8<span class="small"> (<a href="8.pdf" title="8">pdf</a>)</span></h1>
+<p>In the following questions, “show” means to describe, to at a fairly high level (no need to go down to the transition-function and state level), the Turing machine that carries out the required task.</p>
+<ol style="list-style-type: decimal">
+<li>Suppose that <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are two decidable languages.
+<ol style="list-style-type: lower-alpha">
+<li>Show that the complement of <span class="math">\(A\)</span> is decidable.</li>
+<li>Show that their union is decidable.</li>
+<li>Show that their intersection is decidable.</li>
+<li>Show that their concatenation is decidable.</li>
+<li>Show that the Kleene star <span class="math">\(A^*\)</span> is decidable.</li>
+</ol></li>
+<li>Suppose that <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are Turing-recognizable languages.
+<ol style="list-style-type: lower-alpha">
+<li>Show that their union is Turing-recognizable.</li>
+<li>Show that their intersection is Turing-recognizable.</li>
+<li>Show that their concatenation is Turing-recognizable.</li>
+<li>Show that the Kleene star <span class="math">\(A^*\)</span> is Turing-recognizable.</li>
+</ol></li>
+<li>Suppose <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are two languages, and <span class="math">\(B\subset A\)</span>. Assume further that <span class="math">\(A\)</span> is decidable. Recall that we denote by <span class="math">\(A^c\)</span> the complement of <span class="math">\(A\)</span>.
+<ol style="list-style-type: lower-alpha">
+<li>Show that <span class="math">\(B^c\)</span> is Turing-recognizable if and only if <span class="math">\(A\cap B^c\)</span> is Turing-recognizable. (Hint for one direction: <span class="math">\(B^c = A^c \cup (A\cap B^c)\)</span>).</li>
+<li>Show that <span class="math">\(B^c\)</span> is decidable if and only if <span class="math">\(A\cap B^c\)</span> is decidable.</li>
+</ol></li>
+<li>Consider a Turing Machine with at least 4 tapes, and on the first two tapes we have two binary numbers stored, with their least significant digit at the left-most position. So for example <span class="math">\(6\)</span> would be stored as <span class="math">\(011\)</span>. Describe in some detail the following two parts of a Turing Machine:
+<ol style="list-style-type: lower-alpha">
+<li>A part that writes in the third tape the result of adding the two numbers together.</li>
+<li>A part that writes in the fourth tape the result of multiplying the two numbers together. You can use the previous part along the way, and you can also use more tapes if you need them.</li>
+</ol></li>
+</ol>
+</body>
+</html>
