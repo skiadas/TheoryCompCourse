@@ -15,7 +15,7 @@ The pumping lemma for context-free languages is a bit more complicated:
 > If A is a context-free language, then there is a number $p$, so that any string $s\in A$ of length at least $p$ may be divided into $5$ pieces $s=uvxyz$ so that:
 >
 > 1. $uv^ixy^iz\in A$ for all $i\geq 0$,
-> 2. $|vy|\geq 0$,
+> 2. $|vy| > 0$,
 > 3. $|vxy|\leq p$.
 
 So instead of having a single piece that can be pumped, it has two pieces that are "pumped together". Condition 2 says that at least one of the strings $v,y$ is non-empty.
