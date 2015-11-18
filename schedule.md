@@ -134,16 +134,16 @@
     - [Assignment 8](assignments/8.md)
     - [The Halting Problem](notes/halting.md)
 - Day 2
-    - [Reducibility](notes/reducibility.md)
+    - [The Halting Problem (cont)](notes/halting.md)
 - Day 3
-    - [Reducibility (cont)](notes/reducibility.md)
+    - [Reducibility](notes/reducibility.md)
 - Day 4
-    - Time Complexity classes
+    - [Reducibility (cont)](notes/reducibility.md)
 
 ## Week 12 (11/23-11/27)
 
 - Day 1
-    - The class P
+    - Time Complexity classes
 - Day 2
     - Thanksgiving Break
 - Day 3
@@ -154,10 +154,11 @@
 ## Week 13 (12/01-12/04)
 
 - Day 1
-    - The class NP
+    - The class P
 - Day 2
-    - P vs NP, NP-complete problems
+    - The class NP
 - Day 3
+    - P vs NP, NP-complete problems
 - Day 4
 
 ## Week 14 (12/07-12/11)
