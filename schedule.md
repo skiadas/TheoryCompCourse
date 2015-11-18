@@ -132,11 +132,11 @@
 
 - Day 1
     - [Assignment 8](assignments/8.md)
-    - Undecidability of Halting Problem
+    - [The Halting Problem](notes/halting.md)
 - Day 2
-    - Reducibility
+    - [Reducibility](notes/reducibility.md)
 - Day 3
-    - Regularity of languages is undecidable
+    - [Reducibility (cont)](notes/reducibility.md)
 - Day 4
     - Time Complexity classes
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="reducibility">Reducibility</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 5.1</p>
+<h2 id="reducibility-in-general">Reducibility in general</h2>
+<p>So far we have established essentially problems that are Turing-recognizable not decidable: <span class="math">\(A_\textrm{TM}\)</span> and <span class="math">\(\textrm{NONSELFACC}\)</span>. In this section we will build many more, using the idea of reducibility:</p>
+<blockquote>
+<p>A <strong>reduction</strong> is in general a way of converting one problem to another problem in such a way that a solution to the second problem can be used to solve the first problem.</p>
+<p>In our context, problems are represented by languages, and we will say for languages <span class="math">\(A\)</span> and <span class="math">\(B\)</span> that <em><span class="math">\(A\)</span> reduces to <span class="math">\(B\)</span></em> if we can use a solution of <span class="math">\(B\)</span> to provide a solution for <span class="math">\(A\)</span>.</p>
+<p>Essentially reducibility says that if <span class="math">\(A\)</span> reduces to <span class="math">\(B\)</span>, then solving <span class="math">\(A\)</span> cannot possibly be harder than solving <span class="math">\(B\)</span>.</p>
+</blockquote>
+<p>We already used this idea: <span class="math">\(\textrm{NONSELFACC}\)</span> reduces to <span class="math">\(A_\textrm{TM}\)</span>: If we have a decider (i.e. a “solution”) to <span class="math">\(A_\textrm{TM}\)</span>, then we could use it to get a decider (a “solution”) for <span class="math">\(\textrm{NONSELFACC}\)</span>. Since that is not possible (<span class="math">\(\textrm{NONSELFACC}\)</span> is undecidable), we used this idea to show that <span class="math">\(A_\textrm{TM}\)</span> is undecidable.</p>
+<p>Informally we can say:</p>
+<blockquote>
+<p>If a language <span class="math">\(A\)</span> reduces to a language <span class="math">\(B\)</span> then:</p>
+<ul>
+<li>If <span class="math">\(B\)</span> is decidable, then <span class="math">\(A\)</span> is also decidable.</li>
+<li>If <span class="math">\(A\)</span> is undecidable, then <span class="math">\(B\)</span> is also undecidable.</li>
+</ul>
+</blockquote>
+<p>We will extend this idea, to show many languages to be undecidable by reducing <span class="math">\(A_\textrm{TM}\)</span> to them.</p>
+<h3 id="the-actual-halting-problem">The actual Halting problem</h3>
+<p>The actual Halting Problem language consists of all pairs of a Turing Machine and an input, such that the TM halts on that input:</p>
+<blockquote>
+<p><span class="math">\[\textrm{HALT}_\textrm{TM} = \left\{\langle M, w\rangle \mid M\textrm{ is a TM and halts on }w\right\}\]</span></p>
+</blockquote>
+<p>We will now show this language is undecidable. We will do so by reducing $A_ to it:</p>
+<ol style="list-style-type: decimal">
+<li>Suppose that <span class="math">\(\textrm{HALT}_\textrm{TM}\)</span> was decidable, and let us say <span class="math">\(H\)</span> is a decider for it.</li>
+<li>We will use <span class="math">\(H\)</span> to build a decider for <span class="math">\(A_\textrm{TM}\)</span> as follows.</li>
+<li>On input a pair of a TM <span class="math">\(M\)</span> and input <span class="math">\(w\)</span>:
+<ul>
+<li>Run <span class="math">\(H\)</span> on input that pair <span class="math">\(\langle M,w\rangle\)</span>.</li>
+<li>If <span class="math">\(H\)</span> rejects, that means <span class="math">\(M\)</span> would loop on input <span class="math">\(w\)</span>, so we reject.</li>
+<li>If <span class="math">\(H\)</span> accepts, then it is safe to actually run <span class="math">\(M\)</span> on input <span class="math">\(w\)</span>.</li>
+<li>If <span class="math">\(M\)</span> accepts the input <span class="math">\(w\)</span>, then we also accept. If it rejects then we also reject.</li>
+</ul></li>
+<li>This is a decider for <span class="math">\(A_\textrm{TM}\)</span>.</li>
+</ol>
+<h3 id="the-emptyness-problem">The Emptyness problem</h3>
+<p>We will now show the undecidability of the emptyness problem for Turing Machines:</p>
+<blockquote>
+<p><span class="math">\[E_\textrm{TM} = \left\{\langle M\rangle\mid M\textrm{ is a TM and }L(M)=\emptyset \right\}\]</span></p>
+</blockquote>
+<p>We will prove it is undecidable in a very similar fashion, by reducing <span class="math">\(A_\textrm{TM}\)</span> to it:</p>
+<ol style="list-style-type: decimal">
+<li>Suppose that <span class="math">\(E_\textrm{TM}\)</span> is decidable, and say <span class="math">\(D\)</span> is a decider for it.</li>
+<li>We will use it to construct a decider for <span class="math">\(A_\textrm{TM}\)</span>.</li>
+<li>We start by considering a pair <span class="math">\(\langle M,w\rangle\)</span> of a TM and an input string <span class="math">\(w\)</span>.</li>
+<li>Using <span class="math">\(M\)</span> and <span class="math">\(w\)</span>, we now build a new TM <span class="math">\(N\)</span> that does the following:
+<ul>
+<li>If it is given an input string that does not match <span class="math">\(w\)</span>, it rejects right away.</li>
+<li>If its input string is <span class="math">\(w\)</span>, then it runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span> and returns that result.</li>
+</ul></li>
+<li>Finally, we feed this new TM <span class="math">\(N\)</span> to <span class="math">\(D\)</span> (rather, we feed <span class="math">\(\langle N\rangle\)</span> to <span class="math">\(D\)</span>).</li>
+<li>If <span class="math">\(D\)</span> accepts, this means that there are no strings that <span class="math">\(N\)</span> would accept.
+<ul>
+<li>But the only string that <span class="math">\(N\)</span> could accept is <span class="math">\(w\)</span>, so we are saying it doesn’t accept that either.</li>
+<li>So it must not be the case, that <span class="math">\(N\)</span> on input <span class="math">\(w\)</span> accepts.</li>
+<li>But <span class="math">\(N\)</span> was simulating <span class="math">\(M\)</span> on input <span class="math">\(w\)</span>, so it must not be the case that <span class="math">\(M\)</span> accepts on input <span class="math">\(w\)</span>.</li>
+<li>Therefore we can reject the pair <span class="math">\(\langle M,w\rangle\)</span> from <span class="math">\(A_\textrm{TM}\)</span> and we are done.</li>
+</ul></li>
+<li>If <span class="math">\(D\)</span> rejects, this means that there must have been at least one string that <span class="math">\(N\)</span> would accept.
+<ul>
+<li>But the only such possible string is <span class="math">\(w\)</span>, so it must be the case that <span class="math">\(N\)</span> accepts <span class="math">\(w\)</span>.</li>
+<li>But <span class="math">\(N\)</span> simulates <span class="math">\(M\)</span> on <span class="math">\(w\)</span>, so it must be the case that <span class="math">\(M\)</span> accepts <span class="math">\(w\)</span>.</li>
+<li>So we can accept the pair <span class="math">\(\langle M,w\rangle\)</span> as belonging to <span class="math">\(A_\textrm{TM}\)</span> and we are done.</li>
+</ul></li>
+<li>We just built a decider for <span class="math">\(A_\textrm{TM}\)</span>, which is a contradiction.</li>
+</ol>
+<p>A key step in the above of course is that one should be able to actually construct <span class="math">\(N\)</span> from <span class="math">\(M\)</span> and <span class="math">\(w\)</span>. Think of how that would go.</p>
+<h3 id="the-regularity-problem">The regularity problem</h3>
+<p>Here is another problem that we will show as undecidable, by showing that <span class="math">\(A_\textrm{TM}\)</span> reduces to it. It is very instructive, in that the proof generalizes to many situations.</p>
+<blockquote>
+<p><span class="math">\[\textrm{REGULAR}_\textrm{TM} =\left\{\langle M\rangle\mid M\textrm{ is a TM and }L(M)\textrm{ is a regular language }\right\}\]</span></p>
+</blockquote>
+<p>So this language consists of the representations of those Turing machines whose language is a regular language. We will prove this language to be undecidable.</p>
+<p>We describe now the proof. It follows started reducibility steps for a while.</p>
+<ol style="list-style-type: decimal">
+<li>We assume that <span class="math">\(\textrm{REGULAR}_\textrm{TM}\)</span> was decidable, and let us denote by <span class="math">\(R\)</span> its decider.</li>
+<li>We will also fix a non-regular language <span class="math">\(L\)</span>, for instance <span class="math">\(L=\left\{0^nq^n\mid n\geq 0\right\}\)</span>.</li>
+<li>We need to use <span class="math">\(R\)</span> to build a decider for <span class="math">\(A_\textrm{TM}\)</span>. This decider operates as follows:</li>
+<li>Given the input <span class="math">\(\langle M, w\rangle\)</span> of a TM and a string for it, we build a new TM, <span class="math">\(N\)</span>, as follows:
+<ul>
+<li>If given input <span class="math">\(x\in L\)</span>, then <span class="math">\(N\)</span> accepts.</li>
+<li>If given input a string <span class="math">\(x\not\in\L\)</span>, then <span class="math">\(N\)</span> runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span> and returns what <span class="math">\(M\)</span> would return.</li>
+</ul></li>
+<li>Before we move on let us figure out the language of <span class="math">\(N\)</span>.
+<ul>
+<li>If <span class="math">\(M\)</span> accepts <span class="math">\(w\)</span>, then the language of <span class="math">\(N\)</span> will be <span class="math">\(\Sigma^*\)</span>, all strings. This is a regular language.</li>
+<li>If <span class="math">\(M\)</span> does not accept <span class="math">\(w\)</span>, then the language of <span class="math">\(N\)</span> will be <span class="math">\(L\)</span>, which is non-regular.</li>
+</ul></li>
+<li>Now we run <span class="math">\(R\)</span> on input the string representation of this new TM <span class="math">\(\langle N\rangle\)</span>.
+<ul>
+<li>If <span class="math">\(R\)</span> on input <span class="math">\(\langle N\rangle\)</span> accepts, then this means that the language recognized by <span class="math">\(N\)</span> is regular. But then from step 5 this means that <span class="math">\(M\)</span> better be accepting <span class="math">\(w\)</span>, and we have answered the <span class="math">\(A_\textrm{TM}\)</span> question for the pair <span class="math">\(\langle M, w\rangle\)</span> in the affirmative.</li>
+<li>If <span class="math">\(R\)</span> on input <span class="math">\(\langle N\rangle\)</span> rejects, then this means that the language recognized by <span class="math">\(N\)</span> is not regular, so by step 5 it means that <span class="math">\(M\)</span> should not accept <span class="math">\(w\)</span>, and we have answered the question in the negative.</li>
+</ul></li>
+<li>We have just demonstrated a decider for <span class="math">\(A_\textrm{TM}\)</span>, which is a contradiction.</li>
+</ol>
+<p>This idea extends to a tremendous degree, to what is known as Rice’s theorem:</p>
+<blockquote>
+<p><strong>Rice’s Theorem</strong></p>
+<p>Suppose that <span class="math">\(P\)</span> is a “property” on Turing Machines (so for each TM <span class="math">\(M\)</span> we have that <span class="math">\(P(M)\)</span> is either true or false), such that:</p>
+<ul>
+<li><span class="math">\(P\)</span> is a non-trivial property, i.e. there are some TM’s that belong to it (<span class="math">\(P(M)\)</span> true) and some TM’s that don’t belong to it (<span class="math">\(P(M)\)</span> false).</li>
+<li><span class="math">\(P\)</span> only depends on the language <span class="math">\(L(M)\)</span> of the TM, i.e. if <span class="math">\(L(M_1) = L(M_2)\)</span> then <span class="math">\(P(M_1) = P(M_2)\)</span>.</li>
+</ul>
+<p>Then the language <span class="math">\(\left\{\langle M\rangle \mid P(M)\textrm{ is true}\right\}\)</span> is undecidable. We often simply define this language by <span class="math">\(P\)</span> itself: We think of a property as defining a subset of all Turing Machines, by picking out those TMs for which the property is true.</p>
+<p>In simpler terms, “Every non-trivial property of Turing Machines is undecidable”.</p>
+</blockquote>
+<p>Look at problem 5.28 and its solution for an idea.</p>
+<h3 id="equivalence-of-tms">Equivalence of TMs</h3>
+<p>Finally, we show that the problem of equivalence of TMs is undecidable, by reducing <span class="math">\(E_\textrm{TM}\)</span> to it. In general, we don’t always have to reduce <span class="math">\(A_\textrm{TM}\)</span> to the problem we are trying to prove is undecidable. Reducing any already-known-to-be-undecidable problem to our target problem would work just as well.</p>
+<blockquote>
+<p><span class="math">\[\textrm{EQ}_\textrm{TM} = \left\{\langle M_1,M_2\rangle\mid L(M_1)=L(M_2)\right\}\]</span></p>
+</blockquote>
+<p>This language is also undecidable. Our proof can proceed as follows. Suppose that it was not, and that <span class="math">\(D\)</span> was a decider for it. We will build a decider for <span class="math">\(E_\textrm{TM}\)</span> as follows:</p>
+<ol style="list-style-type: decimal">
+<li>First, make a TM <span class="math">\(N\)</span> that simply rejects all input, so <span class="math">\(L(N)=\emptyset\)</span>.</li>
+<li>Now given a TM <span class="math">\(M\)</span>, we need to decide if its language is empty.</li>
+<li>All we need to do is run <span class="math">\(D\)</span> on the pair <span class="math">\(\langle M, N\rangle\)</span>.</li>
+<li>We have a decider for <span class="math">\(E_\textrm{TM}\)</span>!</li>
+</ol>
+</body>
+</html>
