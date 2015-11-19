@@ -89,15 +89,15 @@
 <p><span class="math">\[\textrm{REGULAR}_\textrm{TM} =\left\{\langle M\rangle\mid M\textrm{ is a TM and }L(M)\textrm{ is a regular language }\right\}\]</span></p>
 </blockquote>
 <p>So this language consists of the representations of those Turing machines whose language is a regular language. We will prove this language to be undecidable.</p>
-<p>We describe now the proof. It follows started reducibility steps for a while.</p>
+<p>We describe now the proof. It follows standard reducibility steps for a while.</p>
 <ol style="list-style-type: decimal">
-<li>We assume that <span class="math">\(\textrm{REGULAR}_\textrm{TM}\)</span> was decidable, and let us denote by <span class="math">\(R\)</span> its decider.</li>
-<li>We will also fix a non-regular language <span class="math">\(L\)</span>, for instance <span class="math">\(L=\left\{0^nq^n\mid n\geq 0\right\}\)</span>.</li>
+<li>We assume that <span class="math">\(\textrm{REGULAR}_\textrm{TM}\)</span> is decidable, and let us denote by <span class="math">\(R\)</span> its decider.</li>
+<li>We will also fix a non-regular language <span class="math">\(L\)</span>, for instance <span class="math">\(L=\left\{0^n1^n\mid n\geq 0\right\}\)</span>.</li>
 <li>We need to use <span class="math">\(R\)</span> to build a decider for <span class="math">\(A_\textrm{TM}\)</span>. This decider operates as follows:</li>
 <li>Given the input <span class="math">\(\langle M, w\rangle\)</span> of a TM and a string for it, we build a new TM, <span class="math">\(N\)</span>, as follows:
 <ul>
 <li>If given input <span class="math">\(x\in L\)</span>, then <span class="math">\(N\)</span> accepts.</li>
-<li>If given input a string <span class="math">\(x\not\in\L\)</span>, then <span class="math">\(N\)</span> runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span> and returns what <span class="math">\(M\)</span> would return.</li>
+<li>If given input a string <span class="math">\(x\not\in L\)</span>, then <span class="math">\(N\)</span> runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span> and returns what <span class="math">\(M\)</span> would return.</li>
 </ul></li>
 <li>Before we move on let us figure out the language of <span class="math">\(N\)</span>.
 <ul>

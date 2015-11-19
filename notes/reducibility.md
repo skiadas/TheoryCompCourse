@@ -78,14 +78,14 @@ Here is another problem that we will show as undecidable, by showing that $A_\te
 
 So this language consists of the representations of those Turing machines whose language is a regular language. We will prove this language to be undecidable.
 
-We describe now the proof. It follows started reducibility steps for a while.
+We describe now the proof. It follows standard reducibility steps for a while.
 
-1. We assume that $\textrm{REGULAR}_\textrm{TM}$ was decidable, and let us denote by $R$ its decider.
-2. We will also fix a non-regular language $L$, for instance $L=\left\{0^nq^n\mid n\geq 0\right\}$.
+1. We assume that $\textrm{REGULAR}_\textrm{TM}$ is decidable, and let us denote by $R$ its decider.
+2. We will also fix a non-regular language $L$, for instance $L=\left\{0^n1^n\mid n\geq 0\right\}$.
 3. We need to use $R$ to build a decider for $A_\textrm{TM}$. This decider operates as follows:
 4. Given the input $\langle M, w\rangle$ of a TM and a string for it, we build a new TM, $N$, as follows:
     - If given input $x\in L$, then $N$ accepts.
-    - If given input a string $x\not\in\L$, then $N$ runs $M$ on $w$ and returns what $M$ would return.
+    - If given input a string $x\not\in L$, then $N$ runs $M$ on $w$ and returns what $M$ would return.
 5. Before we move on let us figure out the language of $N$.
     - If $M$ accepts $w$, then the language of $N$ will be $\Sigma^*$, all strings. This is a regular language.
     - If $M$ does not accept $w$, then the language of $N$ will be $L$, which is non-regular.
