@@ -70,6 +70,8 @@ We will prove it is undecidable in a very similar fashion, by reducing $A_\textr
 
 A key step in the above of course is that one should be able to actually construct $N$ from $M$ and $w$. Think of how that would go.
 
+Question: Is $E_\textrm{TM}$ Turing-recognizable? co-Turing-recognizable?
+
 ### The regularity problem
 
 Here is another problem that we will show as undecidable, by showing that $A_\textrm{TM}$ reduces to it. It is very instructive, in that the proof generalizes to many situations.
@@ -121,3 +123,5 @@ This language is also undecidable. Our proof can proceed as follows. Suppose tha
 2. Now given a TM $M$, we need to decide if its language is empty.
 3. All we need to do is run $D$ on the pair $\langle M, N\rangle$.
 4. We have a decider for $E_\textrm{TM}$!
+
+We will later show that this language is not Turing-recognizable, and also not co-Turing-recognizable.
