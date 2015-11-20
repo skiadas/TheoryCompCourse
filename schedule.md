@@ -143,6 +143,7 @@
 ## Week 12 (11/23-11/27)
 
 - Day 1
+    - [Assignment 9](assignments/9.md)
     - Time Complexity classes
 - Day 2
     - Thanksgiving Break
