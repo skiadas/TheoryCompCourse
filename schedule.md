@@ -138,7 +138,7 @@
 - Day 3
     - [Reducibility](notes/reducibility.md)
 - Day 4
-    - [Reducibility (cont)](notes/reducibility.md)
+    - [Mapping Reducibility](notes/mapping_reducibility.md)
 
 ## Week 12 (11/23-11/27)
 

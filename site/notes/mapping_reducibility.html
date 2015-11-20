@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="mapping-reducibility">Mapping Reducibility</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 5.3</p>
+<p>Practice problems (page 211): 5.2, 5.4, 5.5, 5.6, 5.7, 5.9, 5.13, 5.22, 5.28</p>
+<p>Challenge: 5.16, 5.24</p>
+<h2 id="mapping-reducibility-1">Mapping Reducibility</h2>
+<p>Mapping reducibility is a specific formulation of the generic idea of reducibility, revolving around the idea of functions, or “maps”:</p>
+<blockquote>
+<p>A function <span class="math">\(f\colon \Sigma^*\to\Sigma^*\)</span> is called a <strong>computable function</strong> if there is a some Turing Machine <span class="math">\(M\)</span> that on each input <span class="math">\(w\)</span> halts with just <span class="math">\(f(w)\)</span> on the tape.</p>
+</blockquote>
+<p>You can think of most arithmetic operations for starters as computable functions, whose input consists of an appropriate concatenation of the two numbers, and whose output is the sum of the two numbers (and if the input is of another form then the result doesn’t matter). The computable functions we will mostly consider take as inputs the string representations of Turing Machines and return the string representations of other Turing Machines that have a desired behavior.</p>
+<p>Note that we do not care about the state that the Turing Machine ends up at, only that it halts and does not loop.</p>
+<p>Now we can define mapping reducibility:</p>
+<blockquote>
+<p>A language <span class="math">\(A\)</span> is said to be <strong>mapping reducible</strong> to a langauge <span class="math">\(B\)</span>, and we write <span class="math">\(A\leq_m B\)</span>, if there is a computable function <span class="math">\(f\colon \Sigma^*\to \Sigma^*\)</span> where for every <span class="math">\(w\)</span> we have:</p>
+<p><span class="math">\[w\in A\textrm{ if and only if }f(w)\in B\]</span> We then say that <span class="math">\(f\)</span> is a <strong>reduction</strong> of <span class="math">\(A\)</span> to <span class="math">\(B\)</span>.</p>
+<p>An important consequence of this definition is that if <span class="math">\(A\leq_m B\)</span> then we also have <span class="math">\(\bar A\leq_m\bar B\)</span>.</p>
+</blockquote>
+<p>Let us look at an example of this: In our recent proofs we built the following mapping reduction: <span class="math">\[f\colon A_\textrm{TM}\to E_\textrm{TM}\]</span> as follows:</p>
+<p>If <span class="math">\(w=\langle M, w\rangle\)</span> is the representation of a TM and a string for it, then <span class="math">\(f(w) = \langle N\rangle\)</span> where <span class="math">\(N\)</span> is the Turing Machine that on input <span class="math">\(x\)</span> rejects unless <span class="math">\(x=w\)</span> and in that case runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span>.</p>
+<p>If <span class="math">\(w\)</span> is not of this special form, then we assign to <span class="math">\(f(w)\)</span> some value that is not in <span class="math">\(E_\textrm{TM}\)</span>, say for instance the empty string.</p>
+<p>We now have to show that <span class="math">\(w\in A_\textrm{TM}\)</span> if and only if <span class="math">\(f(w)\in E_\textrm{TM}\)</span>. This is in fact exactly what we did in the proof that <span class="math">\(E_\textrm{TM}\)</span> is undecidable.</p>
+<p>In fact most of the proofs we saw previously are examples of mapping reductions.</p>
+<p>A lot of our previous proofs can be formalized in the following:</p>
+<blockquote>
+<p>If <span class="math">\(A\leq_m B\)</span>, then:</p>
+<ul>
+<li>If <span class="math">\(B\)</span> is decidable, then <span class="math">\(A\)</span> is decidable</li>
+<li>If <span class="math">\(A\)</span> is undecidable, then <span class="math">\(B\)</span> is undecidable</li>
+</ul>
+</blockquote>
+<p>The proof is straightforward: Suppose that <span class="math">\(D\)</span> is a decider for <span class="math">\(B\)</span>. We build a decider for <span class="math">\(A\)</span> as follows:</p>
+<ul>
+<li>Suppose <span class="math">\(f\)</span> is the reduction of <span class="math">\(A\)</span> to <span class="math">\(B\)</span>.</li>
+<li>Given an input <span class="math">\(w\)</span>, compute <span class="math">\(f(w)\)</span>.</li>
+<li>Now run <span class="math">\(D\)</span> on <span class="math">\(f(w)\)</span> and return the result.</li>
+<li>This is a decider for <span class="math">\(A\)</span>, since <span class="math">\(D\)</span> accepts <span class="math">\(f(w)\)</span> if and only if <span class="math">\(f(w)\in B\)</span> if and only if <span class="math">\(w\in A\)</span>.</li>
+</ul>
+<p>Mapping reduction also works for Turing-recognizability. The same proof above suffices.</p>
+<blockquote>
+<p>If <span class="math">\(A\leq_m B\)</span>, then:</p>
+<ul>
+<li>If <span class="math">\(B\)</span> is Turing-recognizable, then <span class="math">\(A\)</span> is Turing-recognizable</li>
+<li>If <span class="math">\(A\)</span> is not Turing-recognizable, then <span class="math">\(B\)</span> is not Turing-recognizable</li>
+</ul>
+</blockquote>
+<p>We are going to use this approach to prove the following:</p>
+<blockquote>
+<p><span class="math">\(\textrm{EQ}_{TM}\)</span> is neither Turing-recognizable nor co-Turing-recognizable.</p>
+</blockquote>
+<p>We prove this via two mapping reductions:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math">\(A_\textrm{TM}\leq_m\overline{\textrm{EQ}_\textrm{TM}}\)</span></li>
+<li><span class="math">\(A_\textrm{TM}\leq_m\textrm{EQ}_\textrm{TM}\)</span></li>
+</ol>
+<p>By thinking of the complements in both of those reductions, the frist one tells us that <span class="math">\(\textrm{EQ}_\textrm{TM}\)</span> is not Turing-recognizable, while the second tells us that <span class="math">\(\overline{\textrm{EQ}_\textrm{TM}}\)</span> is not Turing-recognizable.</p>
+<p>Let us start with the first mapping reduction:</p>
+<ul>
+<li>We need to build a computable function <span class="math">\(f\)</span> that on input <span class="math">\(\langle M, w\rangle\)</span> will produce a pair of machines so that <span class="math">\(M\)</span> accepting <span class="math">\(w\)</span> should be equivalent to the two machines not recognizing the same language.</li>
+<li>Here is how we will do that: <span class="math">\(M_1\)</span> will be the Machine that rejects all input.</li>
+<li><span class="math">\(M_2\)</span> is the machine that on any input runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span> and returns the result.</li>
+<li>This pair <span class="math">\(\langle M_1, M_2\rangle\)</span> is the result of <span class="math">\(f\)</span>.</li>
+</ul>
+<p>So <span class="math">\(M_2\)</span> is either the empty language (hence equal to <span class="math">\(M_1\)</span>), if <span class="math">\(M\)</span> doesn’t accept <span class="math">\(w\)</span>, or it is all strings (hence not equal to <span class="math">\(M_1\)</span>) if <span class="math">\(M\)</span> accepts <span class="math">\(w\)</span>.</p>
+<p>So <span class="math">\(\langle M,w\rangle\in A_\textrm{TM}\)</span> if and only if <span class="math">\(f(\langle M,w\rangle)\in \overline{\textrm{EQ}_\textrm{TM}}\)</span></p>
+<p>The second mapping reduction is very similar: use as <span class="math">\(M_1\)</span> a Turing-Machine that accepts all input.</p>
+</body>
+</html>
