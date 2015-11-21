@@ -14,12 +14,32 @@
 </head>
 <body>
 <h1 id="assignment-9">Assignment 9<span class="small"> (<a href="9.pdf" title="9">pdf</a>)</span></h1>
-<p>In the following problems, the statement “determine the complexity of the language …” means to determine for that language if it is: a. decidable, b. Turing-recognizable but not decidable, c. co-Turing-recognizable but not decidable, d. neither Turing-recognizable nor co-Turing-recognizable.</p>
 <ol style="list-style-type: decimal">
-<li>Consider the language <span class="math">\(\textrm{ALL}_\textrm{DFA}\)</span> consisting of the string representations of all DFAs <span class="math">\(D\)</span> such that <span class="math">\(L(D) = \Sigma^*\)</span> is the language of all strings in the alphabet (the alphabet defined by that <span class="math">\(D\)</span>). Determine the complexity of this language.</li>
-<li>Consider the language <span class="math">\(L = \left\{\langle M, N\rangle\mid M,N\textrm{ are TMs and }L(M) \cap L(N) = \emptyset \right\}\)</span>. Determine the complexity of this language.</li>
-<li>Consider the language <span class="math">\(L = \left\{\langle M, w\rangle\mid M\textrm{ is TM and does not halt on }w\right\}\)</span>. Determine the complexity of this language.</li>
-<li>Consider the language <span class="math">\(L = \left\{\langle M\mid M\textrm{ is TM and }L(M)\textrm{ is decidable} \right\}\)</span>. Determine the complexity of this language. (Note: <span class="math">\(L(M)\)</span> being decidable is not the same as saying <span class="math">\(M\)</span> is a decider)</li>
+<li>Consider the language <span class="math">\(\textrm{ALL}_\textrm{DFA}\)</span> consisting of the string representations of all DFAs <span class="math">\(D\)</span> such that <span class="math">\(L(D) = \Sigma^*\)</span> is the language of all strings in the alphabet (the alphabet defined by that <span class="math">\(D\)</span>). Show that this is a decidable language.</li>
+<li>Consider the language <span class="math">\(L = \left\{\langle M, N\rangle\mid M,N\textrm{ are TMs and }L(M) \cup L(N) = \emptyset \right\}\)</span>.
+<ol style="list-style-type: lower-alpha">
+<li>Show that <span class="math">\(L\)</span> is not decidable.</li>
+<li>Show that <span class="math">\(L\)</span> is co-Turing-recognizable.</li>
+<li>Show that <span class="math">\(L\)</span> is not Turing-recognizable.</li>
+</ol></li>
+<li>Consider the language <span class="math">\(L = \left\{\langle M, w\rangle\mid M\textrm{ is TM and does not halt on }w\right\}\)</span>. Determine which of the following classifications is the correct one for <span class="math">\(L\)</span>:
+<ul>
+<li>decidable</li>
+<li>Turing-recognizable but not decidable</li>
+<li>co-Turing-recognizable but not decidable</li>
+<li>neither Turing-recognizable nor co-Turing-recognizable.</li>
+</ul></li>
+<li>True or False (provide proof or counter-example as appropriate):
+<ol style="list-style-type: lower-alpha">
+<li>If <span class="math">\(A\subset B\)</span> are two languages, then if <span class="math">\(A\)</span> is decidable then <span class="math">\(B\)</span> is also decidable.</li>
+<li>If <span class="math">\(A\subset B\)</span> are two languages, then if <span class="math">\(B\)</span> is decidable then <span class="math">\(A\)</span> is also decidable.</li>
+</ol></li>
+<li>Suppose <span class="math">\(A\)</span> is a decidable language, and consider the language <span class="math">\(L_A=\left\{\langle M, w\rangle\mid M\textrm{ is a TM and it accepts }w\textrm{ and what is left on the tape at that point is an element of }A\right\}\)</span>. For each of the following determine if it is true or false. Provide proof or counter-example as appropriate.
+<ol style="list-style-type: lower-alpha">
+<li>For every decidable language <span class="math">\(A\)</span>, we have <span class="math">\(L_A\)</span> is Turing-recognizable.</li>
+<li>For every decidable language <span class="math">\(A\)</span>, we have <span class="math">\(L_A\)</span> is decidable.</li>
+<li>There is a decidable language <span class="math">\(A\)</span> for which <span class="math">\(L_A\)</span> is decidable.</li>
+</ol></li>
 </ol>
 </body>
 </html>
