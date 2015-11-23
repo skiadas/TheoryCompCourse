@@ -4,7 +4,7 @@
 
 Section 5.3
 
-Practice problems (page 211): 5.2, 5.4, 5.5, 5.6, 5.7, 5.9, 5.13, 5.22, 5.28
+Practice problems (page 211): 5.2, 5.4, 5.5, 5.6, 5.7, 5.9, 5.13, 5.22, 5.23, 5.28
 
 Challenge: 5.16, 5.24
 

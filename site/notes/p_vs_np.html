@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-classes-p-and-np">The classes P and NP</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 7.2</p>
+<p>Practice problems (page 294):</p>
+<h2 id="the-class-p">The class P</h2>
+<p>Computational problems are considered “tractable”, if their running time in polynomial. While a polynomial can grow with <span class="math">\(n\)</span>, it does so in much more reasonable ways than an exponential.</p>
+<blockquote>
+<p>The class <span class="math">\(P\)</span> consists of all languages that are decidable in polynomial time by a deterministic single-tape Turing Machine.</p>
+</blockquote>
+<p>A number of well-known problems belong to the class <span class="math">\(P\)</span>, and looking back at algorithms you have learned in your other classes you can find more examples.</p>
+<p>We will now consider several popular members of the class <span class="math">\(P\)</span></p>
+<h3 id="the-path-problem">The Path problem</h3>
+<p>The path problem is represented by the language:</p>
+<blockquote>
+<p><span class="math">\[\textrm{PATH} = \left\{\langle G, s, t\rangle\mid G\textrm{ is a directed graph and has a directed path from }s\textrm{ to }t\right\}\]</span></p>
+<p><span class="math">\[\textrm{PATH}\in P\]</span></p>
+</blockquote>
+<p>One relevant question is how we represent the graph <span class="math">\(G\)</span>. There are various ways, and they all involve space polynomial in the number of nodes <span class="math">\(n\)</span>. Since the class <span class="math">\(P\)</span> is effectively invariant under such transformations, we can consider <span class="math">\(n\)</span> to be the “size” of our problem.</p>
+<p>A “naive” approach to solving this problem would attempt to consider all possible “paths”, which are <span class="math">\(m^m\)</span> if we denote by <span class="math">\(m\)</span> the number of edges. This would not be polynomial (<span class="math">\(m\)</span> is essentially <span class="math">\(O(n^2)\)</span>).</p>
+<p>But of course there are more efficient ways, essentially involving marking of the vertices:</p>
+<ol style="list-style-type: decimal">
+<li>Start by marking the vertex <span class="math">\(s\)</span>.</li>
+<li>Repeat until nothing new is marked:
+<ul>
+<li>Go through the edge list.</li>
+<li>If the source is marked and the target is not, mark the target.</li>
+</ul></li>
+<li>See if <span class="math">\(t\)</span> is marked.</li>
+</ol>
+<p>Clearly the time-intensive portion is the second part. It will have to run once for each vertex (because each time it must mark a new vertex or we are done), and it takes time <span class="math">\(O(m)\)</span> to run through the edge list. So it’s total running time is <span class="math">\(O(n^3)\)</span>, polynomial.</p>
+<h3 id="relatively-prime-numbers">Relatively prime numbers</h3>
+<p>Another popular polynomial-time problem is the determination of whether two numbers are relatively prime or not. An important consideration here is the size of the input.</p>
+<blockquote>
+<p>A number <span class="math">\(N\)</span> is stored in base <span class="math">\(2\)</span> using <span class="math">\(n=O(\log N)\)</span> space, by simply using the base-2 representation of <span class="math">\(N\)</span>.</p>
+</blockquote>
+<p>Now consider the problem:</p>
+<blockquote>
+<p><span class="math">\[\textrm{RELPRIME} = \left\{\langle x, y\rangle\mid x,y\textrm{ are relatively prime }\right\}\]</span></p>
+<p><span class="math">\[\textrm{RELPRIME}\in P\]</span></p>
+</blockquote>
+<p>The size of the input is here <span class="math">\(O(\log N)\)</span> where <span class="math">\(N\)</span> is the largest of the two numbers. This is important to keep in mind. For instance a naive approach would be to go through each number <span class="math">\(d\)</span> up to <span class="math">\(x,y\)</span> and divide into them to see if it is a common factor. But this would take too long: There are in general <span class="math">\(O(N)\)</span> such numbers, and <span class="math">\(N=2^{O(n)}\)</span> is exponential in the size of the input. Essentially, it would take too long.</p>
+<p>Instead we will perform the well-known Euclidean division algorithm:</p>
+<blockquote>
+<p><span class="math">\(E\)</span> = On input <span class="math">\(\langle x, y\rangle\)</span>:</p>
+<p>A. Repeat until <span class="math">\(y = 0\)</span>: 1. Compute <span class="math">\(x = x \bmod y\)</span> 2. Swap <span class="math">\(x\)</span> and <span class="math">\(y\)</span> B. The resulting <span class="math">\(x\)</span> is the greatest common divisor of <span class="math">\(x,y\)</span>. If it is <span class="math">\(1\)</span> then we accept, otherwise we reject.</p>
+</blockquote>
+<p>The key intuition here is that each repetition is effectively cutting the size of the inputs <span class="math">\(x,y\)</span> by at least a half every second time through the loop. So the number of A steps needed is <span class="math">\(O(\log N)\)</span>. Each of those steps is also polynomial in <span class="math">\(\log N\)</span>, the length of the representations of <span class="math">\(x,y\)</span>.</p>
+<p>TODO: Work in progress</p>
+</body>
+</html>

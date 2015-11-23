@@ -144,7 +144,7 @@
 
 - Day 1
     - [Assignment 9](assignments/9.md)
-    - Time Complexity classes
+    - [Mapping Reducibility (cont)](notes/mapping_reducibility.md)
 - Day 2
     - Thanksgiving Break
 - Day 3
@@ -155,16 +155,18 @@
 ## Week 13 (12/01-12/04)
 
 - Day 1
-    - The class P
+    - [Time Complexity](notes/time_complexity.md)
 - Day 2
-    - The class NP
+    - [Time Complexity for different Models](notes/time_complexity.md)
 - Day 3
-    - P vs NP, NP-complete problems
+    - [The P and NP classes. P](notes/p_vs_np.md)
 - Day 4
+    - [The P and NP classes. NP](notes/p_vs_np.md)
 
 ## Week 14 (12/07-12/11)
 
 - Day 1
+    - P vs NP, NP-complete problems
 - Day 2
 - Day 3
 - Day 4
