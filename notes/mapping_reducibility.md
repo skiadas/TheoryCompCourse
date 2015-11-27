@@ -69,7 +69,7 @@ We prove this via two mapping reductions:
 1. $A_\textrm{TM}\leq_m\overline{\textrm{EQ}_\textrm{TM}}$
 2. $A_\textrm{TM}\leq_m\textrm{EQ}_\textrm{TM}$
 
-By thinking of the complements in both of those reductions, the frist one tells us that $\textrm{EQ}_\textrm{TM}$ is not Turing-recognizable, while the second tells us that $\overline{\textrm{EQ}_\textrm{TM}}$ is not Turing-recognizable.
+By thinking of the complements in both of those reductions, the first one tells us that $\textrm{EQ}_\textrm{TM}$ is not Turing-recognizable, while the second tells us that $\overline{\textrm{EQ}_\textrm{TM}}$ is not Turing-recognizable.
 
 Let us start with the first mapping reduction:
 
