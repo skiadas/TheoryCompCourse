@@ -67,17 +67,17 @@ Here is a first attempt at a Turing Machine that decides this problem:
 
 > $M_1$: On input string $w$:
 >
-> A. Scan the tape and reject if a $0$ is found to the right of a $1$.
-> B. Repeat if both $0$s and $1$s remain on the tape:
+> a. Scan the tape and reject if a $0$ is found to the right of a $1$.
+> b. Repeat if both $0$s and $1$s remain on the tape:
 >     1. Scan across the tape, crossing off a single $0$ and a single $1$.
-> C. If $0$s or $1$s remain after all pairs have been crossed off, reject. Otherwise accept.
+> c. If $0$s or $1$s remain after all pairs have been crossed off, reject. Otherwise accept.
 
 Now we need to determine the running time of this TM.
 
-- Part A takes $n = O(n)$ steps, as it requires a single pass through the input.
-- Each time Part B1 is performed, it requires a pass through at least half the input, for $n/2 = O(n)$ steps.
-- This will be repeated for $n/2 = O(n)$ times, effectively once for each $0$ in the list. So the total running time for this part B is $O(n)O(n) = O(n^2)$.
-- Part C requires a single pass through the list, for another $O(n)$ steps.
+- Part a takes $n = O(n)$ steps, as it requires a single pass through the input.
+- Each time Part b1 is performed, it requires a pass through at least half the input, for $n/2 = O(n)$ steps.
+- This will be repeated for $n/2 = O(n)$ times, effectively once for each $0$ in the list. So the total running time for this part b is $O(n)O(n) = O(n^2)$.
+- Part c requires a single pass through the list, for another $O(n)$ steps.
 - So the total running time would be $O(n) + O(n^2) + O(n) = O(n^2)$. The running time is completely dominated by the expensive second step.
 
 So this tells us that the language $A$ is in $\textrm{TIME}(n^2)$.
@@ -86,13 +86,13 @@ The question now is whether there is a faster TM for the same problem. In fact, 
 
 > $M_2$: On input string $w$:
 >
-> A. Scan the tape and reject if a $0$ is found to the right of a $1$.
-> B. Repeat as long as some $0$s and some $1$s remain on the tape:
+> a. Scan the tape and reject if a $0$ is found to the right of a $1$.
+> b. Repeat as long as some $0$s and some $1$s remain on the tape:
 >     1. Scan across the tape, ensuring that the parity of the remaining number of $0$s and $1$s is the same (i.e. both odd or both even). If it is not, reject
 >     2. Make another pass through the tape, crossing every other $0$ starting from the first one, and similarly crossing every other $1$ starting from the first one.
-> C. If $0$s or $1$s remain after all pairs have been crossed off, reject. Otherwise accept.
+> c. If $0$s or $1$s remain after all pairs have been crossed off, reject. Otherwise accept.
 
-This turns out to be much faster, for a running time of $O(n\log n)$. The key part is an estimate of the number of steps needed to perform part $B$. Every pass through the steps in $B$ reduces the number of viable numbers by half. So step $B$ is going to be repeated for a number of times $k$ so that $n \approx 2^k$, in other words $k=O(\log n)$. Since each pass requires time $O(n)$, the overall time it takes to get through the second phase is $O(n\log n)$. So the time complexity for the whole TM is $O(n) + O(n\log n) + O(n) = O(n\log n)$.
+This turns out to be much faster, for a running time of $O(n\log n)$. The key part is an estimate of the number of steps needed to perform part $b$. Every pass through the steps in $b$ reduces the number of viable numbers by half. So step $b$ is going to be repeated for a number of times $k$ so that $n \approx 2^k$, in other words $k=O(\log n)$. Since each pass requires time $O(n)$, the overall time it takes to get through the second phase is $O(n\log n)$. So the time complexity for the whole TM is $O(n) + O(n\log n) + O(n) = O(n\log n)$.
 
 In other words, we actually have shown that the language $A$ is in $\textrm{TIME}(n\log n)$. In fact it turns out that this result cannot be improved further.
 

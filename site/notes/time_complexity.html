@@ -58,23 +58,38 @@
 <p>Here is a first attempt at a Turing Machine that decides this problem:</p>
 <blockquote>
 <p><span class="math">\(M_1\)</span>: On input string <span class="math">\(w\)</span>:</p>
-<p>A. Scan the tape and reject if a <span class="math">\(0\)</span> is found to the right of a <span class="math">\(1\)</span>. B. Repeat if both <span class="math">\(0\)</span>s and <span class="math">\(1\)</span>s remain on the tape: 1. Scan across the tape, crossing off a single <span class="math">\(0\)</span> and a single <span class="math">\(1\)</span>. C. If <span class="math">\(0\)</span>s or <span class="math">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Scan the tape and reject if a <span class="math">\(0\)</span> is found to the right of a <span class="math">\(1\)</span>.</li>
+<li>Repeat if both <span class="math">\(0\)</span>s and <span class="math">\(1\)</span>s remain on the tape:
+<ol style="list-style-type: decimal">
+<li>Scan across the tape, crossing off a single <span class="math">\(0\)</span> and a single <span class="math">\(1\)</span>.</li>
+</ol></li>
+<li>If <span class="math">\(0\)</span>s or <span class="math">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</li>
+</ol>
 </blockquote>
 <p>Now we need to determine the running time of this TM.</p>
 <ul>
-<li>Part A takes <span class="math">\(n = O(n)\)</span> steps, as it requires a single pass through the input.</li>
-<li>Each time Part B1 is performed, it requires a pass through at least half the input, for <span class="math">\(n/2 = O(n)\)</span> steps.</li>
-<li>This will be repeated for <span class="math">\(n/2 = O(n)\)</span> times, effectively once for each <span class="math">\(0\)</span> in the list. So the total running time for this part B is <span class="math">\(O(n)O(n) = O(n^2)\)</span>.</li>
-<li>Part C requires a single pass through the list, for another <span class="math">\(O(n)\)</span> steps.</li>
+<li>Part a takes <span class="math">\(n = O(n)\)</span> steps, as it requires a single pass through the input.</li>
+<li>Each time Part b1 is performed, it requires a pass through at least half the input, for <span class="math">\(n/2 = O(n)\)</span> steps.</li>
+<li>This will be repeated for <span class="math">\(n/2 = O(n)\)</span> times, effectively once for each <span class="math">\(0\)</span> in the list. So the total running time for this part b is <span class="math">\(O(n)O(n) = O(n^2)\)</span>.</li>
+<li>Part c requires a single pass through the list, for another <span class="math">\(O(n)\)</span> steps.</li>
 <li>So the total running time would be <span class="math">\(O(n) + O(n^2) + O(n) = O(n^2)\)</span>. The running time is completely dominated by the expensive second step.</li>
 </ul>
 <p>So this tells us that the language <span class="math">\(A\)</span> is in <span class="math">\(\textrm{TIME}(n^2)\)</span>.</p>
 <p>The question now is whether there is a faster TM for the same problem. In fact, there is:</p>
 <blockquote>
 <p><span class="math">\(M_2\)</span>: On input string <span class="math">\(w\)</span>:</p>
-<p>A. Scan the tape and reject if a <span class="math">\(0\)</span> is found to the right of a <span class="math">\(1\)</span>. B. Repeat as long as some <span class="math">\(0\)</span>s and some <span class="math">\(1\)</span>s remain on the tape: 1. Scan across the tape, ensuring that the parity of the remaining number of <span class="math">\(0\)</span>s and <span class="math">\(1\)</span>s is the same (i.e. both odd or both even). If it is not, reject 2. Make another pass through the tape, crossing every other <span class="math">\(0\)</span> starting from the first one, and similarly crossing every other <span class="math">\(1\)</span> starting from the first one. C. If <span class="math">\(0\)</span>s or <span class="math">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Scan the tape and reject if a <span class="math">\(0\)</span> is found to the right of a <span class="math">\(1\)</span>.</li>
+<li>Repeat as long as some <span class="math">\(0\)</span>s and some <span class="math">\(1\)</span>s remain on the tape:
+<ol style="list-style-type: decimal">
+<li>Scan across the tape, ensuring that the parity of the remaining number of <span class="math">\(0\)</span>s and <span class="math">\(1\)</span>s is the same (i.e. both odd or both even). If it is not, reject</li>
+<li>Make another pass through the tape, crossing every other <span class="math">\(0\)</span> starting from the first one, and similarly crossing every other <span class="math">\(1\)</span> starting from the first one.</li>
+</ol></li>
+<li>If <span class="math">\(0\)</span>s or <span class="math">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</li>
+</ol>
 </blockquote>
-<p>This turns out to be much faster, for a running time of <span class="math">\(O(n\log n)\)</span>. The key part is an estimate of the number of steps needed to perform part <span class="math">\(B\)</span>. Every pass through the steps in <span class="math">\(B\)</span> reduces the number of viable numbers by half. So step <span class="math">\(B\)</span> is going to be repeated for a number of times <span class="math">\(k\)</span> so that <span class="math">\(n \approx 2^k\)</span>, in other words <span class="math">\(k=O(\log n)\)</span>. Since each pass requires time <span class="math">\(O(n)\)</span>, the overall time it takes to get through the second phase is <span class="math">\(O(n\log n)\)</span>. So the time complexity for the whole TM is <span class="math">\(O(n) + O(n\log n) + O(n) = O(n\log n)\)</span>.</p>
+<p>This turns out to be much faster, for a running time of <span class="math">\(O(n\log n)\)</span>. The key part is an estimate of the number of steps needed to perform part <span class="math">\(b\)</span>. Every pass through the steps in <span class="math">\(b\)</span> reduces the number of viable numbers by half. So step <span class="math">\(b\)</span> is going to be repeated for a number of times <span class="math">\(k\)</span> so that <span class="math">\(n \approx 2^k\)</span>, in other words <span class="math">\(k=O(\log n)\)</span>. Since each pass requires time <span class="math">\(O(n)\)</span>, the overall time it takes to get through the second phase is <span class="math">\(O(n\log n)\)</span>. So the time complexity for the whole TM is <span class="math">\(O(n) + O(n\log n) + O(n) = O(n\log n)\)</span>.</p>
 <p>In other words, we actually have shown that the language <span class="math">\(A\)</span> is in <span class="math">\(\textrm{TIME}(n\log n)\)</span>. In fact it turns out that this result cannot be improved further.</p>
 <p>Interestingly, adding more tapes significantly increases our power: In this case this problem can be easily solved in time <span class="math">\(O(n)\)</span> using a 2-tape machine.</p>
 <p>Exercise: Show this. Design a <span class="math">\(O(n)\)</span>-time 2-tape TM that decides the language <span class="math">\(A\)</span>.</p>
