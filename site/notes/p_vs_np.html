@@ -60,6 +60,24 @@
 <p>A. Repeat until <span class="math">\(y = 0\)</span>: 1. Compute <span class="math">\(x = x \bmod y\)</span> 2. Swap <span class="math">\(x\)</span> and <span class="math">\(y\)</span> B. The resulting <span class="math">\(x\)</span> is the greatest common divisor of <span class="math">\(x,y\)</span>. If it is <span class="math">\(1\)</span> then we accept, otherwise we reject.</p>
 </blockquote>
 <p>The key intuition here is that each repetition is effectively cutting the size of the inputs <span class="math">\(x,y\)</span> by at least a half every second time through the loop. So the number of A steps needed is <span class="math">\(O(\log N)\)</span>. Each of those steps is also polynomial in <span class="math">\(\log N\)</span>, the length of the representations of <span class="math">\(x,y\)</span>.</p>
-<p>TODO: Work in progress</p>
+<h3 id="context-free-languages-are-in-p">Context Free Languages are in P</h3>
+<blockquote>
+<p>If <span class="math">\(L\)</span> is a context free language, then it belongs to the complexity class <span class="math">\(P\)</span>.</p>
+</blockquote>
+<p>We will only outline the proof here, and refer to the book for details. We start by considering a CFG in Chomsky Normal Form for the language. Then we know that if we want to derive a string of length <span class="math">\(n\)</span>, we will require exactly <span class="math">\(2n-1\)</span> steps in our derivation.</p>
+<p>One naive approach therefore would be to try out all derivations of <span class="math">\(2n-1\)</span> steps, but this turns out to not be polynomial in <span class="math">\(n\)</span>.</p>
+<p>The solution involves the idea of <strong>dynamic programming</strong>, whereupon we store the results of “smaller” problems to avoid having to repeat them. The idea goes as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Given a target word <span class="math">\(w=w_1w_2\cdots w_n\)</span>.</li>
+<li>We will progressively fill up an <span class="math">\(n\times n\)</span> table, whose <span class="math">\((i,j)\)</span> entry contains the totality of variables that can derive the substring <span class="math">\(w_iw_{i+1}\cdots w_j\)</span>. Only one half of the table will need to be filled.</li>
+<li>The diagonal corresponds to the individual substrings <span class="math">\(w_i\)</span> consisting of one character. We can fill those in by a quick scan of the production rules to find any productions <span class="math">\(A\to w_i\)</span>.</li>
+<li>For other <span class="math">\((i,j)\)</span> entries: Consider all splits of the substring <span class="math">\(w_iw_{i+1}\cdots w_j\)</span>, and for each split consider for each rule <span class="math">\(A\to BC\)</span> whether <span class="math">\(B\)</span> can produce the first part of the split and <span class="math">\(C\)</span> can produce the second part. Then <span class="math">\(A\)</span> can produce the substring.</li>
+<li>Repeat this with <span class="math">\(i,j\)</span> pairs progressively further from each other (so we fill from the main diagonal and going outwards, one diagonal at a time).</li>
+<li><span class="math">\(w\)</span> is in <span class="math">\(L\)</span> if and only if the start variable <span class="math">\(S\)</span> is in the <span class="math">\((1,n)\)</span>-th entry.</li>
+</ol>
+<p>To examine the the complexity of this process, the dominant step is <span class="math">\(4\)</span>. There are in the order of <span class="math">\(O(n^2)\)</span> times that step <span class="math">\(4\)</span> will need to be repeated. It also takes <span class="math">\(O(n)\)</span> time to do step <span class="math">\(4\)</span> (the number of non-terminals in the grammar is constant, and step <span class="math">\(4\)</span> requires at most that number times <span class="math">\(n\)</span> steps). A total running time of <span class="math">\(O(n^3)\)</span>.</p>
+<h2 id="the-class-np">The class NP</h2>
+<p>The class <span class="math">\(NP\)</span> consists of problems that are “verifiable in polynomial time”. What this means is that it might not be possible to determine in polynomial time, given an instance, whether it is</p>
+<p>TODO</p>
 </body>
 </html>

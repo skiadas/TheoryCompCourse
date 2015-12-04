@@ -63,5 +63,27 @@ Instead we will perform the well-known Euclidean division algorithm:
 
 The key intuition here is that each repetition is effectively cutting the size of the inputs $x,y$ by at least a half every second time through the loop. So the number of A steps needed is $O(\log N)$. Each of those steps is also polynomial in $\log N$, the length of the representations of $x,y$.
 
+### Context Free Languages are in P
 
-TODO: Work in progress
+> If $L$ is a context free language, then it belongs to the complexity class $P$.
+
+We will only outline the proof here, and refer to the book for details. We start by considering a CFG in Chomsky Normal Form for the language. Then we know that if we want to derive a string of length $n$, we will require exactly $2n-1$ steps in our derivation.
+
+One naive approach therefore would be to try out all derivations of $2n-1$ steps, but this turns out to not be polynomial in $n$.
+
+The solution involves the idea of **dynamic programming**, whereupon we store the results of "smaller" problems to avoid having to repeat them. The idea goes as follows:
+
+1. Given a target word $w=w_1w_2\cdots w_n$.
+2. We will progressively fill up an $n\times n$ table, whose $(i,j)$ entry contains the totality of variables that can derive the substring $w_iw_{i+1}\cdots w_j$. Only one half of the table will need to be filled.
+3. The diagonal corresponds to the individual substrings $w_i$ consisting of one character. We can fill those in by a quick scan of the production rules to find any productions $A\to w_i$.
+4. For other $(i,j)$ entries: Consider all splits of the substring $w_iw_{i+1}\cdots w_j$, and for each split consider for each rule $A\to BC$ whether $B$ can produce the first part of the split and $C$ can produce the second part. Then $A$ can produce the substring.
+5. Repeat this with $i,j$ pairs progressively further from each other (so we fill from the main diagonal and going outwards, one diagonal at a time).
+6. $w$ is in $L$ if and only if the start variable $S$ is in the $(1,n)$-th entry.
+
+To examine the the complexity of this process, the dominant step is $4$. There are in the order of $O(n^2)$ times that step $4$ will need to be repeated. It also takes $O(n)$ time to do step $4$ (the number of non-terminals in the grammar is constant, and step $4$ requires at most that number times $n$ steps). A total running time of $O(n^3)$.
+
+## The class NP
+
+The class $NP$ consists of problems that are "verifiable in polynomial time". What this means is that it might not be possible to determine in polynomial time, given an instance, whether it is
+
+TODO
