@@ -80,10 +80,46 @@ The solution involves the idea of **dynamic programming**, whereupon we store th
 5. Repeat this with $i,j$ pairs progressively further from each other (so we fill from the main diagonal and going outwards, one diagonal at a time).
 6. $w$ is in $L$ if and only if the start variable $S$ is in the $(1,n)$-th entry.
 
-To examine the the complexity of this process, the dominant step is $4$. There are in the order of $O(n^2)$ times that step $4$ will need to be repeated. It also takes $O(n)$ time to do step $4$ (the number of non-terminals in the grammar is constant, and step $4$ requires at most that number times $n$ steps). A total running time of $O(n^3)$.
+To examine the complexity of this process, the dominant step is $4$. There are in the order of $O(n^2)$ times that step $4$ will need to be repeated. It also takes $O(n)$ time to do step $4$ (the number of non-terminals in the grammar is constant, and step $4$ requires at most that number times $n$ steps). A total running time of $O(n^3)$.
 
 ## The class NP
 
-The class $NP$ consists of problems that are "verifiable in polynomial time". What this means is that it might not be possible to determine in polynomial time, given an instance, whether it is
+The class $NP$ consists of problems that are "verifiable in polynomial time". What this means is that it might not be possible to determine in polynomial time, given a string, whether it is an instance of the language, but it might be possible to verify that if we are provided some more "evidence".
 
-TODO
+One of the most important such problems is the *Hamiltonian Path* problem HAMPATH, consisting of all representations of triples $\langle G,s,t\rangle$ where $G$ is a directed graph that contains a Hamiltonian path from $s$ to $t$. A Hamiltonian path is one that passes through all vertices exactly once.
+
+Noone knows a polynomial-time way to determine if a triple as above is in HAMPATH or not. However, it would be possible, if someone provided us with such a path, to verify that it is indeed a Hamiltonian path. In that sense, this problem is verifiable in polynomial time.
+
+Another problem, called COMPOSITE, consists of all integers that are the product of two smaller integers. It is much easier to verify that a number is composite if you are given the two factors, as opposed to having to find them first.
+
+These ideas lead us to the following formal definition:
+
+> A **verifier** for a language $A$ is an algorithm $V$ such that:
+> $$A=\left\{w\mid V\textrm{ accepts }\langle w,c\rangle\textrm{ for some string }c\right\}$$
+> We measure the time of the verifier in terms of the length of the string $w$. A **polynomial time verifier** runs in polynomial time in the length of $w$. A language is called **polynomially verifiable** if it has a polynomial time verifier.
+>
+> The string $c$ is often called a **certificate** or **proof** of membership in $A$, or sometimes a witness.
+
+> NP is the class of all languages that have polynomial time verifiers.
+>
+> The term stands for **nondeterministic polynomial time**, because there is an alternative characterization using non-deterministic polynomial time Turing machines. The certificate effectively amounts to the non-deterministic machine taking some deterministic steps first to write the correct certificate on the tape.
+
+> A language is in NP if and only if it is decided by some nondeterministic polynomial time Turing machine.
+
+We leave the details to the reader. They are outlined at page 266 of the book.
+
+It should be clear that every language in P is also in NP. Whether they are equal is at this point unknown, and considered one of the hardest questions in theoretical computer science:
+
+> It is not known whether $P=NP$ or whether $P\neq NP$.
+
+### Some NP problems
+
+We already considered two NP problems earlier, HAMPATH and COMPOSITE. We will now look at some more:
+
+$$\textrm{CLIQUE} = \left\{\langle G,k\rangle\mid G\textrm{ a graph with a }k-\textrm{clique}\right\}$$
+
+A $k$-clique is a set of points that are all adjacent to each other.
+
+It is easy to see that this problem is in NP: All we need as a certificate is the set of $k$ vertices that form a clique, and then it is easy to verify that there is the right number of them and that they have all required edges.
+
+$$\textrm{SUBSET-SUM}$$
