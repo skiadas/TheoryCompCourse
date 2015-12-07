@@ -173,5 +173,5 @@
 - Day 3
     - [More NP-complete problems](notes/np_complete.md)
 - Day 4
-    - Review
+    - Review. [Final study guide](notes/midterm3_study_guide.md)
 
