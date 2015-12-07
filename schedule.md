@@ -167,9 +167,11 @@
 ## Week 14 (12/07-12/11)
 
 - Day 1
-    - P vs NP, NP-complete problems
+    - [NP-complete problems](notes/np_complete.md)
 - Day 2
+    - [The Cook-Levin Theorem](notes/np_complete.md)
 - Day 3
+    - [More NP-complete problems](notes/np_complete.md)
 - Day 4
-
+    - Review
 

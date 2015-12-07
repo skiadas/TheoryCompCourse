@@ -2,9 +2,11 @@
 
 ## Reading
 
-Section 7.2
+Sections 7.2, 7.3
 
-Practice problems (page 294):
+Practice problems (page 294): 7.7, 7.8, 7.9 (DO THIS ONE), 7.10, 7.11, 7.12 (read about "fast exponentiation if you get stuck"), 7.14, 7.15
+
+Optional problem (for students with math background): 7.18
 
 ## The class P
 
@@ -56,10 +58,10 @@ Instead we will perform the well-known Euclidean division algorithm:
 
 > $E$ = On input $\langle x, y\rangle$:
 >
-> A. Repeat until $y = 0$:
+> a. Repeat until $y = 0$:
 >     1. Compute $x = x \bmod y$
 >     2. Swap $x$ and $y$
-> B. The resulting $x$ is the greatest common divisor of $x,y$. If it is $1$ then we accept, otherwise we reject.
+> b. The resulting $x$ is the greatest common divisor of $x,y$. If it is $1$ then we accept, otherwise we reject.
 
 The key intuition here is that each repetition is effectively cutting the size of the inputs $x,y$ by at least a half every second time through the loop. So the number of A steps needed is $O(\log N)$. Each of those steps is also polynomial in $\log N$, the length of the representations of $x,y$.
 
@@ -123,3 +125,4 @@ A $k$-clique is a set of points that are all adjacent to each other.
 It is easy to see that this problem is in NP: All we need as a certificate is the set of $k$ vertices that form a clique, and then it is easy to verify that there is the right number of them and that they have all required edges.
 
 $$\textrm{SUBSET-SUM}$$
+consists of all pairs $\langle S, t\rangle$, where $S$ is a set of $n$ numbers, $t$ is a number, and there is a subset of the list of numbers that adds up to $t$.
