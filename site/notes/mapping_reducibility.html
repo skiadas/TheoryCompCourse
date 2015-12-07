@@ -31,7 +31,7 @@
 <p><span class="math">\[w\in A\textrm{ if and only if }f(w)\in B\]</span> We then say that <span class="math">\(f\)</span> is a <strong>reduction</strong> of <span class="math">\(A\)</span> to <span class="math">\(B\)</span>.</p>
 <p>An important consequence of this definition is that if <span class="math">\(A\leq_m B\)</span> then we also have <span class="math">\(\bar A\leq_m\bar B\)</span>.</p>
 </blockquote>
-<p>Let us look at an example of this: In our recent proofs we built the following mapping reduction: <span class="math">\[f\colon A_\textrm{TM}\to E_\textrm{TM}\]</span> as follows:</p>
+<p>Let us look at an example of this: In our recent proofs we built the following mapping reduction: <span class="math">\[f\colon A_\textrm{TM}\to \bar E_\textrm{TM}\]</span> as follows:</p>
 <p>If <span class="math">\(w=\langle M, w\rangle\)</span> is the representation of a TM and a string for it, then <span class="math">\(f(w) = \langle N\rangle\)</span> where <span class="math">\(N\)</span> is the Turing Machine that on input <span class="math">\(x\)</span> rejects unless <span class="math">\(x=w\)</span> and in that case runs <span class="math">\(M\)</span> on <span class="math">\(w\)</span>.</p>
 <p>If <span class="math">\(w\)</span> is not of this special form, then we assign to <span class="math">\(f(w)\)</span> some value that is not in <span class="math">\(E_\textrm{TM}\)</span>, say for instance the empty string.</p>
 <p>We now have to show that <span class="math">\(w\in A_\textrm{TM}\)</span> if and only if <span class="math">\(f(w)\in E_\textrm{TM}\)</span>. This is in fact exactly what we did in the proof that <span class="math">\(E_\textrm{TM}\)</span> is undecidable.</p>

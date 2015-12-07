@@ -28,7 +28,7 @@ Now we can define mapping reducibility:
 > An important consequence of this definition is that if $A\leq_m B$ then we also have $\bar A\leq_m\bar B$.
 
 Let us look at an example of this: In our recent proofs we built the following mapping reduction:
-$$f\colon A_\textrm{TM}\to E_\textrm{TM}$$
+$$f\colon A_\textrm{TM}\to \bar E_\textrm{TM}$$
 as follows:
 
 If $w=\langle M, w\rangle$ is the representation of a TM and a string for it, then $f(w) = \langle N\rangle$ where $N$ is the Turing Machine that on input $x$ rejects unless $x=w$ and in that case runs $M$ on $w$.
