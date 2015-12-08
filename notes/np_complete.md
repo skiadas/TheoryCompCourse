@@ -138,4 +138,6 @@ The Cook-Levin theorem shows that there is a in fact an NP-complete language, na
 
 We look at SAT for now. We have already seen that it is in NP.
 
+The book has a very detailed proof of this theorem. The idea is based on considering a non-deterministic Turing machine that decides a language $A\in NP$ in $n^k$ time, and builds a formula that captures the computation, using the idea of a tableau. The details, which you should study, are on pages 277 through 282.
+
 
