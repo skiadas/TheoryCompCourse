@@ -4,7 +4,9 @@
 
 Section 7.4
 
-Practice problems (page 294):
+Practice problems (page 294): 7.5, 7.17, 7.27
+
+Challenge problems: 7.28, 7.29, 7.36, 7.37
 
 ## NP-complete problems
 
