@@ -5,3 +5,4 @@ Course website for CS335 Theory of Computation at [Hanover College](http://www.h
 
 - [Syllabus](syllabus.md)
 - [Schedule](schedule.md)
+- [Notes](notes.md)
