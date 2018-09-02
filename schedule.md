@@ -1,177 +1,321 @@
 # Schedule
 
-## Week 1 (09/07-9/11)
+## Week 1 (09/03-9/07)
 
-- Day 1
-    - [Introduction to Theory of Computation](notes/theory_intro.md)
-    - [Introduction to OCAML](notes/ocaml_intro.md)
-    - [Assignment 1](assignments/1.md)
-- Day 2
-    - [OCAML basics](notes/ocaml_basics.md)
-- Day 3
-    - [OCAML basics (cont)](notes/ocaml_basics.md)
-- Day 4
-    - [OCAML basics (cont)](notes/ocaml_basics.md)
-    - [OCAML example: sets as lists (optional)](notes/ocaml_sets.md)
+### Day 1
 
-## Week  2 (09/14-09/18)
+Goals
+  ~ - Understand the different kinds of problems we would investigate, with Python examples.
+    - Understand what "Python programs" we will consider in this class.
+    - Practice with string representations of standard kinds of inputs.
 
-- Day 1
-    - [Alphabets, strings, substrings, empty string, lexicographic ordering](notes/alphabet.md)
-    - [Alphabet and friends in OCAML](notes/ocaml_alphabet.md)
-    - [Assignment 2](assignments/2.md)
-- Day 2
-    - [Languages, examples, constructions](notes/languages.md)
-- Day 3
-    - [Languages, examples, constructions](notes/languages.md)
-- Day 4
-    - [Deterministic Finite Automata](notes/fin_aut_dfa.md)
+Chapter 1
+  ~ - Introduction to Theory of Computation
+    - Different kinds of problems
 
-## Week  3 (09/21-09/25)
+Activity 1
+  ~ - Discuss examples of tractable/intractable/uncomputable problems.
+    - We decide to brute-force an encryption scheme that uses a 200-bit key. This means we must check $2^{200}$ different keys. If it takes us about 30 computer instructions to test a key, and we can execute 300 billion instructions per second, how much time would it take us to test all keys?
 
-- Day 1
-    - [Deterministic Finite Automata (cont)](notes/fin_aut_dfa.md)
-- Day 2
-    - [DFAs in OCAML](notes/ocaml_dfa.md)
-- Day 3
-    - [Regular Languages](notes/fin_aut_dfa.md)
-    - [Union of regular languages is regular](notes/fin_aut_dfa.md)
-- Day 4
-    - [Implementation of union in OCAML](notes/ocaml_dfa.md)
-    - [Assignment 3](assignments/3.md)
+Chapter 2
+  ~ - Basics of Python programs
+    - What is a SISO Python program?
+    - Input and Output of a program.
+    - Practice programs:
+        - Runs forever
+        - Throws exception
+        - Given a string containing a list of numbers, add the numbers up.
+    - Exercise 2.5
+    - When are programs equivalent? Examples of different but equivalent programs.
+    - Decision programs.
+    - Exercise 2.7
 
-## Week  4 (09/28-10/02)
+Activity 2
+  ~ - How can we allow a SISO program to process the following kinds of inputs:
+        - Two strings of predetermined length (say each of length 20).
+        - Two strings of non-predetermined length.
+        - Three strings of non-predetermined length.
+        - A list of an arbitrary number of integers.
+        - A list of an arbitrary number of strings.
 
-- Day 1
-    - [Non-deterministic automata, examples](notes/fin_aut_nfas.md)
-    - Implementation in OCAML
-- Day 2
-    - [DFA equivalent to an NFA](notes/fin_aut_nfas.md)
-- Day 3
-    - [Regular Expressions](notes/regexp.md)
-    - RegEx -> NFA
-- Day 4
-    - [Nonregular languages and the Pumping Lemma](notes/nonregular.md)
-    - [Assignment 4](assignments/4.md)
-    - Catching up
+### Day 2
 
-## Week  5 (10/05-10/09)
+Goals
+  ~ - Understand the fact that programs are simply strings and can be inputs to other programs.
+    - Understand the difference between running a program and reasoning about a program's execution.
+    - Understand the limitations of programming languages by showing there are programs that cannot exist.
 
-- Day 1
-    - [Lexers](notes/lexers.md)
-- Day 2
-    - Review
-- Day 3
-    - Midterm 1 ([study guide](notes/midterm1_study_guide.md))
-- Day 4
-    - [Context Free Grammars](notes/cfg.md)
-    - Examples of derivations
-    - Ambiguous grammars
+Chapter 3
+  ~ - Programs as input to other programs.
+    - Examples of decision programs: `containsGaga`, `yes`, `longerThan1K`, `maybeLoop`.
+    - The program `yesOnString`. Try at various inputs.
+    - The program `yesOnSelf`. Try with input the above programs, as well as itself.
+    - The program `notYesOnSelf`. Try with input the above programs, a well as itself.
+    - Consequences of this section's results on our ability to find bugs in programs.
 
-## Week  6 (10/12-10/16)
+Activity 3
+  ~ - Python offers a command `exec`. Can we use it to implement the behavior described by `yesOnString`?
+    - Discuss definitions of programs `noOnString`, `noOnSelf`.
+    - How do `noOnSelf` and `notYesOnSelf` differ?
+    - Is a similar conclusion possible for `noOnSelf` as for `notYesOnSelf`?
+    - Exercise 3.3
 
-- Day 1
-    - Programming examples of CFGs
-    - [Chomsky Normal Forms](notes/cfg.md)
-- Day 2
-    - [Pushdown Automata definition](notes/pushdown_automata.md)
-- Day 3
-    - PDAs more examples
-- Day 4
-    - [CFG -> PDA](notes/cfg_pda.md)
+Homework 1
+  ~ 3.2, 3.10, 3.11
 
-## Week  7 (10/19-10/23)
+## Week  2 (09/10-09/14)
 
-- Day 1
-    - Fall Break
-- Day 2
-    - [Pumping lemma for CFGs](notes/pumping_cfg.md)
-    - Non-context-free grammars
-- Day 3
-    - [Basics of Parsing, First/Follow sets](notes/parsing.md)
-- Day 4
-    - [Basics of Parsing, First/Follow sets](notes/parsing.md)
-    - [Assignment 5](assignments/5.md)
+### Day 1
 
-## Week  8 (10/26-10/30)
+Goals
+  ~ - Understand the terms Alphabet, Language, String, in the Theory of Computation context.
+    - Learn the basic terminology related to computational problems
 
-- Day 1
-    - [Basics of Parsing, LL(k) parsers](notes/parsing.md)
-- Day 2
-    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
-- Day 3
-    - [Basics of Parsing, LR(k) parsers](notes/parsing.md)
-- Day 4
-    - [Turing Machines](notes/turing.md)
-    - [Assignment 6](assignments/6.md)
+Chapter 4 (4.1-4.3)
+  ~ - Alphabets, Strings, Formal Languages
+    - Exercise 4.3
+    - Various examples of languages and language constructions
+        - Empty/All, containing empty string only, Python/Java programs
+        - union/intersection/complement/concatenation/Kleene
+    - Graphs as Strings
+    - Computational problems:
+        - inputs, solutions, positive and negative instances
+        - Describe the SHORTESTPATH problem
+        - Kinds of computational problems: search, optimization, threshold, function, decision
+        - General problems vs decision problems
 
-## Week  9 (11/02-11/06)
+Activity 4
+  ~ - Describe three formal languages that are sufficiently different from those listed in the book.
+    - 4.11, 4.13, 4.15
+    - The problem GREATER takes as input a number, and has a solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
+    - The problem FACTOR takes as input a number. If the number is composite, then the solution is all of the number's non-trivial divisors. If the number is prime, the solution is "no". This can be described as a "search" problem. Express it as a search problem by specifying a predicated function.
+    - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
 
-- Day 1
-    - [Turing Machines, examples](notes/turing.md)
-- Day 2
-    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
-- Day 3
-    - [Multitape / Nondeterministic Turing machines](notes/turing.md)
-- Day 4
-    - [Decidable Problems, Regular Languages](notes/decidable.md)
-    - [Assignment 7](assignments/7.md)
+TODO: Need something more?
 
-## Week 10 (11/09-11/13)
+### Day 2
 
-- Day 1
-    - [Decidable Problems, CFLs](notes/decidable.md)
-- Day 2
-    - Catching up
-- Day 3
-    - Midterm 2 ([study guide](notes/midterm2_study_guide.md))
-- Day 4
-    - [The Halting Problem](notes/halting.md)
+Goals
+  ~ - Understand what it formally means to solve a problem.
+    - Understand the difference between decidable and recognizable languages.
 
-## Week 11 (11/16-11/20)
+Sections 4.4, 4.5
+  ~ - What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.
+    - What is the difference between deciding and recognizing a language?
 
-- Day 1
-    - [Assignment 8](assignments/8.md)
-    - [The Halting Problem](notes/halting.md)
-- Day 2
-    - [The Halting Problem (cont)](notes/halting.md)
-- Day 3
-    - [Reducibility](notes/reducibility.md)
-- Day 4
-    - [Mapping Reducibility](notes/mapping_reducibility.md)
+Activity 5
+  ~ - Write a Python program that *decides* the language of all prime numbers.
+    - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
+    - Write a Python program that *decides* the language that contains all strings in the alphabets that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
 
-## Week 12 (11/23-11/27)
+Homework 2
+  ~ 4.12, 4.19, 4.20, 4.25, Bonus: 4.26
 
-- Day 1
-    - [Mapping Reducibility (cont)](notes/mapping_reducibility.md)
-- Day 2
-    - Thanksgiving Break
-- Day 3
-    - Thanksgiving Break
-- Day 4
-    - Thanksgiving Break
+## Week  3 (09/17-09/21)
 
-## Week 13 (12/01-12/04)
+### Day 1
 
-- Day 1
-    - [Assignment 9](assignments/9.md)
-    - [Time Complexity](notes/time_complexity.md)
-- Day 2
-    - [Time Complexity for different Models](notes/time_complexity.md)
-- Day 3
-    - [The P and NP classes. P](notes/p_vs_np.md)
-- Day 4
-    - [Assignment 10](assignments/10.md)
-    - [The P and NP classes. NP](notes/p_vs_np.md)
+Goals
+  ~ - Understand the definition of a Turing machine
+    - Understand the graphical representation of a Turing machine
+    - Be able to follow the execution of a Turing machine on a given input
 
-## Week 14 (12/07-12/11)
+Section 5.1
+  ~ - Definition of a Turing machine: alphabet, states, transition functions
+    - Transition function can be thought of as a combination of: new state function, new symbol function, direction function
+    - What different final states can we have in a Turing machine? Are any of them required?
+    - What is the difference between *looping* and *halting*?
+    - What Turing machines do we call *transducers* and which do we call *accepters*? Are those the only kinds of Turing machines?
+    - Abbreviated notation for state diagrams.
 
-- Day 1
-    - [NP-complete problems](notes/np_complete.md)
-- Day 2
-    - [The Cook-Levin Theorem](notes/np_complete.md)
-- Day 3
-    - [More NP-complete problems](notes/np_complete.md)
-- Day 4
-    - Review. [Final study guide](notes/midterm3_study_guide.md)
+Activity 6
+  ~ - Write a Turing machine that searches for the first C that occurs in the string and changes it to a G, then halts. If it arrives at the end of the input without finding a C, then it inserts a C and halts.
+    - Our alphabet contains only the letters C, G, T, A and the special letter x. Write a Turing machine that inserts an x at the beginning of the input, shifting all other letters to the right, and also inserts an x at the end of the input.
+    - Consider the alphabet consisting of only the binary digits 0, 1. Consider the input as a number with the least significant digit being at the beginning of the tape. So if the number was 8, the tape would start with "001" with the first 0 being at the start of the tape. Write a Turing machine that would change the tape so that the final output is the number incremented by 1. So in the example above the output would be "101". And if we had started with "101" as input, then the output would be "011" etc.
+
+### Day 2
+
+Goals
+  ~ - Understand how a Turing machine can use the tape to remember an unbounded amount of information.
+    - Understand how a Turing machine can be used as a component/subprogram in another Turing machine.
+
+Section 5.2
+  ~ - A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first.
+    - Study the `binaryIncrementer` machine.
+    - Practice: Define and construct a `binaryDecrementer` machine.
+    - Understand how `binaryIncrementer` and `shiftInteger` come together to produce a `incrementWithOverflow`.
+    - Understand the construction of the `countCs` Turing machine.
+
+Activity 7
+  ~ - Modify the `countCs` Turing machine to count the occurence of `CA` pairs instead.
+    - Write a Turing machine compares two numbers as follows:
+        - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110xx010x".
+        - Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.
+        - Your machine must terminate in one of three states signifying whether the first number is larger than, equal to, or smaller than the second number.
+
+Homework 3
+  ~ 5.3, 5.5, 5.6, 5.7
+
+## Week  4 (09/24-09/28)
+
+### Day 1
+
+Goals
+  ~ - Understand how two-tape and multi-tape machines have the same power as one-tape machines.
+    - Understand how a "random access" Turing machine has the same power as our simple one-tape Turing machine.
+    - Understand how a Python program can simulate a Turing machine.
+
+Sections 5.3-5.7
+  ~ - A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine.
+    - A multi-tape single-head Turing machine can be simulated in the same way.
+    - A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine, by using twice the number of tapes, and using the second set of tapes to keep track of the locations of the multiple heads.
+    - Describe how a *random-access* Turing machine operates, and how to simulate it with a multi-tape Turing machine.
+    - Describe how the parts of a modern computer map to elements of a random-access Turing machine.
+    - How can a Python program be used to simulate a Turing machine?
+
+Activity 8
+  ~ - Implement countCs as a two-tape two-head Turing machine.
+    - Implement countCs as a two-tape single-head Turing machine.
+    - Describe a two-tape Turing machine that contains a string in one tape and an integer in the other tape. The machine then must count that many spots into the string as indicated by the integer.
+
+
+### Day 2
+
+Goals
+  ~ - Practice the use of JFLAP to build and test Turing machines.
+
+Activity 9
+  ~ - Use JFLAP to build a single-tape Turing machine that appends a z at the end of the input.
+    - Use JFLAP to build a single-tape Turing machine that prepends a z at the beginning of the input and shifts everythign else to the right. Assume the alphabet consists of the characters x,y,z,0,1.
+
+Homework 4
+  ~ 5.10, 5.13
+
+## Week  5 (10/01-10/05)
+
+### Day 1
+
+    - **Midterm 1**
+
+### Day 2
+
+Goals
+  ~ - Understand the idea of *universal computer programs* and *universal Turing machines*.
+    - Be able to explain how a universal Turing machine would function.
+    - Familiarize yourself with programs that alter other programs.
+    - Use a universal computer program to produce programs that are recognizable but not decidable.
+
+Sections 6.1, 6.2, 6.4, 6.5 (6.3 optional)
+  ~ - Describe instances you are familiar with of programs executing other programs.
+    - Understand the program `universal.py` and how it works.
+    - Describe how a universal Turing machine would operate.
+    - Describe the "simulate-and-alter" technique for changing a program's behavior.
+    - Describe the input-ignoring program in Figure 6.9.
+    - Show that YesOnString is recognizable.
+
+Activity 10
+  ~ - Construct a program that demonstrates that the language CrashOnString is recognizable.
+    - Show that if two languages are recognizable, then so is their intersection. Assume you have two programs that recognize the two languages, and built a program that recognizes their intersection.
+
+Homework 6
+  ~ 6.3, 6.9, 6.10
+
+## Week  6 (10/08-10/12)
+
+### Day 1
+
+- 7
+
+### Day 2
+
+- 7, 8
+
+
+## Week  7 (10/15-10/19)
+
+### Day 1
+
+- Fall Break
+
+### Day 2
+
+- 8
+
+
+## Week  8 (10/22-10/26)
+
+### Day 1
+
+- 9
+
+### Day 2
+
+- 9
+
+
+## Week  9 (10/29-11/02)
+
+### Day 1
+
+- 9
+
+### Day 2
+
+- 10
+
+
+## Week 10 (11/05-11/09)
+
+### Day 1
+
+- **Midterm 2**
+
+### Day 2
+
+- 10, 11
+
+
+## Week 11 (11/12-11/16)
+
+### Day 1
+
+- 11
+
+### Day 2
+
+- 12
+
+
+## Week 12 (11/19-11/23)
+
+### Day 1
+
+- 12
+
+### Day 2
+
+- Thanksgiving Break
+
+
+## Week 13 (11/26-11/30)
+
+### Day 1
+
+- 13
+
+### Day 2
+
+- 13
+
+
+## Week 14 (12/03-12/07)
+
+### Day 1
+
+- 14
+
+### Day 2
+
+- 14
+
 

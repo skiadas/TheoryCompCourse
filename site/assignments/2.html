@@ -8,41 +8,59 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
-<h1 id="assignment-2">Assignment 2<span class="small"> (<a href="2.pdf" title="2">pdf</a>)</span></h1>
+<h1 id="assignment-2">Assignment 2</h1>
 <p>There is a helpful file for this assignment in the <code>ocaml</code> folder, titled <code>language.ml</code>. You will find instructions on how to run it there. You can implement your answers to questions 3-5 there and test them. Don’t forget to do <code>git pull</code> at the main directory with the Theory stuff.</p>
 <ol style="list-style-type: decimal">
-<li>We want to consider a function that takes as arguments two other functions <span class="math">\(f\)</span> and <span class="math">\(g\)</span>, and return their composition. So taking as inputs <span class="math">\(f\)</span>, <span class="math">\(g\)</span> and a value <span class="math">\(x\)</span>, our function would compute <span class="math">\(g (f x)\)</span>. Write down the type that this function should have (it will likely need to use three parametric types <code>'a</code>, <code>'b</code>, <code>'c</code>).  </li>
+<li>We want to consider a function that takes as arguments two other functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, and return their composition. So taking as inputs <span class="math inline">\(f\)</span>, <span class="math inline">\(g\)</span> and a value <span class="math inline">\(x\)</span>, our function would compute <span class="math inline">\(g (f x)\)</span>. Write down the type that this function should have (it will likely need to use three parametric types <code>'a</code>, <code>'b</code>, <code>'c</code>).  </li>
 <li>Using <code>List.fold_left</code>, write a function that expects to be given a list of floating point numbers and returns the maximum of them (and returns the special number <code>neg_infinity</code> for an empty list). The body of the function can consist of just one line with about 35 characters, but you can opt for longer solutions if you prefer.  </li>
-<li><p>In our section on languages, we discussed describing a language as a predicate <code>string -&gt; bool</code>. Supposing <code>val f : string -&gt; bool</code> and <code>val g : string -&gt; bool</code> are describing two such languages <span class="math">\(A\)</span> and <span class="math">\(B\)</span>, write functions that would correspond to their intersection. In other words you need to describe functions that are given as input functions <code>f</code>, and <code>g</code> and return a function that takes in a string. So your definitions can look like one of the following forms (remember currying):</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> intersect f g =
-    <span class="kw">fun</span> s -&gt; ... <span class="co">(* testing that s belongs to both languages described by f, g *)</span></code></pre>
+<li><p>In our section on languages, we discussed describing a language as a predicate <code>string -&gt; bool</code>. Supposing <code>val f : string -&gt; bool</code> and <code>val g : string -&gt; bool</code> are describing two such languages <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, write functions that would correspond to their intersection. In other words you need to describe functions that are given as input functions <code>f</code>, and <code>g</code> and return a function that takes in a string. So your definitions can look like one of the following forms (remember currying):</p>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> intersect f g =
+    <span class="kw">fun</span> s -&gt; ... <span class="co">(* testing that s belongs to both languages described by f, g *)</span></code></pre></div>
 <p>or</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> intersect f g s =
-    ... <span class="co">(* same as the dots above *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> intersect f g s =
+    ... <span class="co">(* same as the dots above *)</span></code></pre></div>
  </li>
 <li>The same question but for the union.  </li>
 <li><p>The same question but for the concatenation (it’s a bit harder).  </p></li>

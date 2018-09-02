@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -42,58 +42,58 @@
 <p>Let us leave it at that for now.</p>
 <p>But let us exemplify some of our difficulties with the following two examples:</p>
 <blockquote>
-<p>The language <span class="math">\[C = \left\{w\mid w\textrm{ has equal number of 0s and 1s }\right\}\]</span> is not regular. But the language <span class="math">\[D = \left\{w\mid w\textrm{ has equal number of 01s and 10s }\right\}\]</span> in fact is regular.</p>
+<p>The language <span class="math display">\[C = \left\{w\mid w\textrm{ has equal number of 0s and 1s }\right\}\]</span> is not regular. But the language <span class="math display">\[D = \left\{w\mid w\textrm{ has equal number of 01s and 10s }\right\}\]</span> in fact is regular.</p>
 </blockquote>
 <p>Take a moment to ponder why that is.</p>
 <h2 id="the-pumping-lemma-for-regular-languages">The Pumping Lemma for regular languages</h2>
 <p>In this section we will establish a nice relatively easy-to-test requirement for a language to be regular. This would allow us to exhibit many languages as non-regular. It is known as the <em>pumping lemma</em>. It essentially says that if the language has a string of a certain length, then we can produce infinitely many strings of a certain form that must also be in the language.</p>
-<p>In this section we will make extensive use of the notation <span class="math">\(|x|\)</span> to denote the length of the string <span class="math">\(x\)</span>.</p>
+<p>In this section we will make extensive use of the notation <span class="math inline">\(|x|\)</span> to denote the length of the string <span class="math inline">\(x\)</span>.</p>
 <blockquote>
 <p><strong>Pumping Lemma</strong> for regular languages.</p>
-<p>If <span class="math">\(A\)</span> is a regular language, then there is a number <span class="math">\(p\)</span>, called the <strong>pumping length</strong>, so that if <span class="math">\(s\)</span> is any string in <span class="math">\(A\)</span> with length at least <span class="math">\(p\)</span>, then we can break <span class="math">\(s\)</span> in three parts as <span class="math">\[s = xyz\]</span> so that:</p>
+<p>If <span class="math inline">\(A\)</span> is a regular language, then there is a number <span class="math inline">\(p\)</span>, called the <strong>pumping length</strong>, so that if <span class="math inline">\(s\)</span> is any string in <span class="math inline">\(A\)</span> with length at least <span class="math inline">\(p\)</span>, then we can break <span class="math inline">\(s\)</span> in three parts as <span class="math display">\[s = xyz\]</span> so that:</p>
 <ol style="list-style-type: decimal">
-<li>for each <span class="math">\(i\geq 0\)</span> we have that <span class="math">\(xy^iz\in A\)</span>,</li>
-<li><span class="math">\(|y| &gt; 0\)</span> (<span class="math">\(y\)</span> is nonempty),</li>
-<li><span class="math">\(|xy| \leq p\)</span>.</li>
+<li>for each <span class="math inline">\(i\geq 0\)</span> we have that <span class="math inline">\(xy^iz\in A\)</span>,</li>
+<li><span class="math inline">\(|y| &gt; 0\)</span> (<span class="math inline">\(y\)</span> is nonempty),</li>
+<li><span class="math inline">\(|xy| \leq p\)</span>.</li>
 </ol>
 </blockquote>
 <p>Here’s the idea of the proof:</p>
 <ul>
-<li>Since <span class="math">\(A\)</span> is a regular langauge, there is some DFA that recognizes the language. Let’s say that it has <span class="math">\(p\)</span> states.</li>
-<li>We start on state <span class="math">\(q_0\)</span>, and as we trace the string <span class="math">\(s\)</span> through the DFA we must pass through at least <span class="math">\(p+1\)</span> states (including the start state).</li>
-<li>But there are only <span class="math">\(p\)</span> distinct states, so it must be the case that as we trace the string <span class="math">\(s\)</span> through the DFA, it passes through the same state at two distinct instances.</li>
-<li>Looking at the points at which this occurs is what allows us to break the string up into the three parts <span class="math">\(xyz\)</span>: <span class="math">\(x\)</span> gets us to that repeated state for the first time, <span class="math">\(y\)</span> does a loop and takes us back to that state, then <span class="math">\(z\)</span> continues to the end.</li>
-<li>Then we can use any number of <span class="math">\(y\)</span>s, and they would just amount to us doing more loops at that state, or no loop at all. In any case we can continue with the <span class="math">\(z\)</span> part to arrive at a final state. So all the strings <span class="math">\(xy^iz\)</span> are in the language.</li>
+<li>Since <span class="math inline">\(A\)</span> is a regular langauge, there is some DFA that recognizes the language. Let’s say that it has <span class="math inline">\(p\)</span> states.</li>
+<li>We start on state <span class="math inline">\(q_0\)</span>, and as we trace the string <span class="math inline">\(s\)</span> through the DFA we must pass through at least <span class="math inline">\(p+1\)</span> states (including the start state).</li>
+<li>But there are only <span class="math inline">\(p\)</span> distinct states, so it must be the case that as we trace the string <span class="math inline">\(s\)</span> through the DFA, it passes through the same state at two distinct instances.</li>
+<li>Looking at the points at which this occurs is what allows us to break the string up into the three parts <span class="math inline">\(xyz\)</span>: <span class="math inline">\(x\)</span> gets us to that repeated state for the first time, <span class="math inline">\(y\)</span> does a loop and takes us back to that state, then <span class="math inline">\(z\)</span> continues to the end.</li>
+<li>Then we can use any number of <span class="math inline">\(y\)</span>s, and they would just amount to us doing more loops at that state, or no loop at all. In any case we can continue with the <span class="math inline">\(z\)</span> part to arrive at a final state. So all the strings <span class="math inline">\(xy^iz\)</span> are in the language.</li>
 </ul>
 <p>Now let us look at a formal proof:</p>
 <ul>
-<li>Let <span class="math">\(M=(Q,\Sigma, \delta, q_0, F)\)</span> be a DFA that recognizes the language <span class="math">\(A\)</span>, and <span class="math">\(p\)</span> be the size of <span class="math">\(Q\)</span>.</li>
-<li>Let <span class="math">\(s=s_1s_2\cdots s_n\)</span> be a string in <span class="math">\(A\)</span>, with <span class="math">\(n\geq p\)</span>.</li>
-<li>Since <span class="math">\(M\)</span> recognizes the string, there are states <span class="math">\(r_0\)</span>, <span class="math">\(r_1\)</span>, , <span class="math">\(r_n\)</span> such that:
+<li>Let <span class="math inline">\(M=(Q,\Sigma, \delta, q_0, F)\)</span> be a DFA that recognizes the language <span class="math inline">\(A\)</span>, and <span class="math inline">\(p\)</span> be the size of <span class="math inline">\(Q\)</span>.</li>
+<li>Let <span class="math inline">\(s=s_1s_2\cdots s_n\)</span> be a string in <span class="math inline">\(A\)</span>, with <span class="math inline">\(n\geq p\)</span>.</li>
+<li>Since <span class="math inline">\(M\)</span> recognizes the string, there are states <span class="math inline">\(r_0\)</span>, <span class="math inline">\(r_1\)</span>, , <span class="math inline">\(r_n\)</span> such that:
 <ul>
-<li><span class="math">\(r_0 = q_0\)</span>,</li>
-<li><span class="math">\(r_{i+1} = \delta(r_i, s_{i+1})\)</span> for all <span class="math">\(i=0,\ldots,n-1\)</span>,</li>
-<li><span class="math">\(r_n\in F\)</span>.</li>
+<li><span class="math inline">\(r_0 = q_0\)</span>,</li>
+<li><span class="math inline">\(r_{i+1} = \delta(r_i, s_{i+1})\)</span> for all <span class="math inline">\(i=0,\ldots,n-1\)</span>,</li>
+<li><span class="math inline">\(r_n\in F\)</span>.</li>
 </ul></li>
-<li>There are <span class="math">\(n+1\)</span> of the <span class="math">\(r_i\)</span>’s, and only <span class="math">\(p\)</span> distinct states, so some <span class="math">\(2\)</span> of the <span class="math">\(r_i\)</span> must be the same. Let us say the first one of these is <span class="math">\(r_j\)</span>, and the next one is <span class="math">\(r_l\)</span> (there might be more, we pick the last). Note that <span class="math">\(l\leq p+1\)</span>.</li>
-<li>Let <span class="math">\(x=s_1s_2\cdots s_{j-1}\)</span>, <span class="math">\(y=s_j\cdots s_{l-1}\)</span>, <span class="math">\(z = s_l\cdots s_n\)</span>. Then of course <span class="math">\(w=xyz\)</span>.</li>
-<li>We observe that <span class="math">\(xz\)</span> would also be accepted by the automaton, using the states <span class="math">\(r_0,\ldots,r_{j-1},r_j=r_l,r_{l+1},\ldots, r_n\)</span>.</li>
-<li><span class="math">\(xy^2z\)</span> would be accepted, using the states <span class="math">\(r_0,\ldots,r_j,\ldots,r_l=r_j,r_{j+1},\ldots, r_l,r_{l+1},\ldots,r_n\)</span>.</li>
-<li>Similarly the strings <span class="math">\(xy^iz\)</span> would be accepted, by repeating the strings <span class="math">\(r_{j+1},\ldots,r_l\)</span> an appropriate number of times.</li>
-<li>It is clear that <span class="math">\(|y|&gt;0\)</span> and that <span class="math">\(|xy| = l-1 \leq p\)</span>.</li>
+<li>There are <span class="math inline">\(n+1\)</span> of the <span class="math inline">\(r_i\)</span>’s, and only <span class="math inline">\(p\)</span> distinct states, so some <span class="math inline">\(2\)</span> of the <span class="math inline">\(r_i\)</span> must be the same. Let us say the first one of these is <span class="math inline">\(r_j\)</span>, and the next one is <span class="math inline">\(r_l\)</span> (there might be more, we pick the last). Note that <span class="math inline">\(l\leq p+1\)</span>.</li>
+<li>Let <span class="math inline">\(x=s_1s_2\cdots s_{j-1}\)</span>, <span class="math inline">\(y=s_j\cdots s_{l-1}\)</span>, <span class="math inline">\(z = s_l\cdots s_n\)</span>. Then of course <span class="math inline">\(w=xyz\)</span>.</li>
+<li>We observe that <span class="math inline">\(xz\)</span> would also be accepted by the automaton, using the states <span class="math inline">\(r_0,\ldots,r_{j-1},r_j=r_l,r_{l+1},\ldots, r_n\)</span>.</li>
+<li><span class="math inline">\(xy^2z\)</span> would be accepted, using the states <span class="math inline">\(r_0,\ldots,r_j,\ldots,r_l=r_j,r_{j+1},\ldots, r_l,r_{l+1},\ldots,r_n\)</span>.</li>
+<li>Similarly the strings <span class="math inline">\(xy^iz\)</span> would be accepted, by repeating the strings <span class="math inline">\(r_{j+1},\ldots,r_l\)</span> an appropriate number of times.</li>
+<li>It is clear that <span class="math inline">\(|y|&gt;0\)</span> and that <span class="math inline">\(|xy| = l-1 \leq p\)</span>.</li>
 </ul>
-<p>Question: Can it happen that <span class="math">\(x\)</span> or <span class="math">\(z\)</span> is empty? Can they both be empty?</p>
+<p>Question: Can it happen that <span class="math inline">\(x\)</span> or <span class="math inline">\(z\)</span> is empty? Can they both be empty?</p>
 <h3 id="using-the-pumping-lemma">Using the pumping lemma</h3>
-<p>Let us see how the pumping lemma can help us show that a language is non-regular. As an example we will take the language <span class="math">\(A=\{ 0^n1^n\mid n\geq 0 \}\)</span> described earlier. The idea applies in many situations:</p>
+<p>Let us see how the pumping lemma can help us show that a language is non-regular. As an example we will take the language <span class="math inline">\(A=\{ 0^n1^n\mid n\geq 0 \}\)</span> described earlier. The idea applies in many situations:</p>
 <ol style="list-style-type: decimal">
-<li>Suppose <span class="math">\(A\)</span> was regular. Then it would have a pumping length <span class="math">\(p\)</span>.</li>
-<li>Consider an appropriate string from the language. In this case we will consider the string <span class="math">\(s=0^p1^p\)</span>.</li>
-<li>Apply the pumping lemma: This string <span class="math">\(s\)</span> can be written as <span class="math">\(s=xyz\)</span> with the aforementioned conditions.</li>
-<li>The condition <span class="math">\(|xy|\leq p\)</span> can help us say something about <span class="math">\(y\)</span>. In this case <span class="math">\(y\)</span> must consist of all zeros.</li>
-<li>The fact that the strings <span class="math">\(xy^iz\)</span> must all be in the language usually leads to a contradiction now. In our case, <span class="math">\(xy^2z\)</span> has more zeros than <span class="math">\(xyz\)</span>, but the same number of ones. That is not possible given that <span class="math">\(xy^z\)</span> is supposed to also be in <span class="math">\(A\)</span>.</li>
-<li>The fact that we arrived at a contradiction tells us that the language <span class="math">\(A\)</span> must not be regular.</li>
+<li>Suppose <span class="math inline">\(A\)</span> was regular. Then it would have a pumping length <span class="math inline">\(p\)</span>.</li>
+<li>Consider an appropriate string from the language. In this case we will consider the string <span class="math inline">\(s=0^p1^p\)</span>.</li>
+<li>Apply the pumping lemma: This string <span class="math inline">\(s\)</span> can be written as <span class="math inline">\(s=xyz\)</span> with the aforementioned conditions.</li>
+<li>The condition <span class="math inline">\(|xy|\leq p\)</span> can help us say something about <span class="math inline">\(y\)</span>. In this case <span class="math inline">\(y\)</span> must consist of all zeros.</li>
+<li>The fact that the strings <span class="math inline">\(xy^iz\)</span> must all be in the language usually leads to a contradiction now. In our case, <span class="math inline">\(xy^2z\)</span> has more zeros than <span class="math inline">\(xyz\)</span>, but the same number of ones. That is not possible given that <span class="math inline">\(xy^z\)</span> is supposed to also be in <span class="math inline">\(A\)</span>.</li>
+<li>The fact that we arrived at a contradiction tells us that the language <span class="math inline">\(A\)</span> must not be regular.</li>
 </ol>
-<p>Note that the exact same proof can be used also for the language <span class="math">\(C = \left\{w\mid w\textrm{ has equal number of 0s and 1s }\right\}\)</span>.</p>
+<p>Note that the exact same proof can be used also for the language <span class="math inline">\(C = \left\{w\mid w\textrm{ has equal number of 0s and 1s }\right\}\)</span>.</p>
 <p>The book has a lot of excellent examples. Study them!</p>
 </body>
 </html>

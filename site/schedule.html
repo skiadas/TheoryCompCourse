@@ -7,299 +7,379 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
 <h1 id="schedule">Schedule</h1>
-<h2 id="week-1-0907-911">Week 1 (09/07-9/11)</h2>
+<h2 id="week-1-0903-907">Week 1 (09/03-9/07)</h2>
+<h3 id="day-1">Day 1</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand the different kinds of problems we would investigate, with Python examples.</li>
+<li>Understand what “Python programs” we will consider in this class.</li>
+<li>Practice with string representations of standard kinds of inputs.</li>
+</ul>
+</dd>
+<dt>Chapter 1</dt>
+<dd><ul>
+<li>Introduction to Theory of Computation</li>
+<li>Different kinds of problems</li>
+</ul>
+</dd>
+<dt>Activity 1</dt>
+<dd><ul>
+<li>Discuss examples of tractable/intractable/uncomputable problems.</li>
+<li>We decide to brute-force an encryption scheme that uses a 200-bit key. This means we must check <span class="math inline">\(2^{200}\)</span> different keys. If it takes us about 30 computer instructions to test a key, and we can execute 300 billion instructions per second, how much time would it take us to test all keys?</li>
+</ul>
+</dd>
+<dt>Chapter 2</dt>
+<dd><ul>
+<li>Basics of Python programs</li>
+<li>What is a SISO Python program?</li>
+<li>Input and Output of a program.</li>
+<li>Practice programs:
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/theory_intro.html">Introduction to Theory of Computation</a></li>
-<li><a href="notes/ocaml_intro.html">Introduction to OCAML</a></li>
-<li><a href="assignments/1.html">Assignment 1</a></li>
+<li>Runs forever</li>
+<li>Throws exception</li>
+<li>Given a string containing a list of numbers, add the numbers up.</li>
 </ul></li>
-<li>Day 2
+<li>Exercise 2.5</li>
+<li>When are programs equivalent? Examples of different but equivalent programs.</li>
+<li>Decision programs.</li>
+<li>Exercise 2.7</li>
+</ul>
+</dd>
+<dt>Activity 2</dt>
+<dd><ul>
+<li>How can we allow a SISO program to process the following kinds of inputs:
 <ul>
-<li><a href="notes/ocaml_basics.html">OCAML basics</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/ocaml_basics.html">OCAML basics (cont)</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/ocaml_basics.html">OCAML basics (cont)</a></li>
-<li><a href="notes/ocaml_sets.html">OCAML example: sets as lists (optional)</a></li>
+<li>Two strings of predetermined length (say each of length 20).</li>
+<li>Two strings of non-predetermined length.</li>
+<li>Three strings of non-predetermined length.</li>
+<li>A list of an arbitrary number of integers.</li>
+<li>A list of an arbitrary number of strings.</li>
 </ul></li>
 </ul>
-<h2 id="week-2-0914-0918">Week 2 (09/14-09/18)</h2>
+</dd>
+</dl>
+<h3 id="day-2">Day 2</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand the fact that programs are simply strings and can be inputs to other programs.</li>
+<li>Understand the difference between running a program and reasoning about a program’s execution.</li>
+<li>Understand the limitations of programming languages by showing there are programs that cannot exist.</li>
+</ul>
+</dd>
+<dt>Chapter 3</dt>
+<dd><ul>
+<li>Programs as input to other programs.</li>
+<li>Examples of decision programs: <code>containsGaga</code>, <code>yes</code>, <code>longerThan1K</code>, <code>maybeLoop</code>.</li>
+<li>The program <code>yesOnString</code>. Try at various inputs.</li>
+<li>The program <code>yesOnSelf</code>. Try with input the above programs, as well as itself.</li>
+<li>The program <code>notYesOnSelf</code>. Try with input the above programs, a well as itself.</li>
+<li>Consequences of this section’s results on our ability to find bugs in programs.</li>
+</ul>
+</dd>
+<dt>Activity 3</dt>
+<dd><ul>
+<li>Python offers a command <code>exec</code>. Can we use it to implement the behavior described by <code>yesOnString</code>?</li>
+<li>Discuss definitions of programs <code>noOnString</code>, <code>noOnSelf</code>.</li>
+<li>How do <code>noOnSelf</code> and <code>notYesOnSelf</code> differ?</li>
+<li>Is a similar conclusion possible for <code>noOnSelf</code> as for <code>notYesOnSelf</code>?</li>
+<li>Exercise 3.3</li>
+</ul>
+</dd>
+<dt>Homework 1</dt>
+<dd>3.2, 3.10, 3.11
+</dd>
+</dl>
+<h2 id="week-2-0910-0914">Week 2 (09/10-09/14)</h2>
+<h3 id="day-1-1">Day 1</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand the terms Alphabet, Language, String, in the Theory of Computation context.</li>
+<li>Learn the basic terminology related to computational problems</li>
+</ul>
+</dd>
+<dt>Chapter 4 (4.1-4.3)</dt>
+<dd><ul>
+<li>Alphabets, Strings, Formal Languages</li>
+<li>Exercise 4.3</li>
+<li>Various examples of languages and language constructions
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/alphabet.html">Alphabets, strings, substrings, empty string, lexicographic ordering</a></li>
-<li><a href="notes/ocaml_alphabet.html">Alphabet and friends in OCAML</a></li>
-<li><a href="assignments/2.html">Assignment 2</a></li>
+<li>Empty/All, containing empty string only, Python/Java programs</li>
+<li>union/intersection/complement/concatenation/Kleene</li>
 </ul></li>
-<li>Day 2
+<li>Graphs as Strings</li>
+<li>Computational problems:
 <ul>
-<li><a href="notes/languages.html">Languages, examples, constructions</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/languages.html">Languages, examples, constructions</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/fin_aut_dfa.html">Deterministic Finite Automata</a></li>
+<li>inputs, solutions, positive and negative instances</li>
+<li>Describe the SHORTESTPATH problem</li>
+<li>Kinds of computational problems: search, optimization, threshold, function, decision</li>
+<li>General problems vs decision problems</li>
 </ul></li>
 </ul>
-<h2 id="week-3-0921-0925">Week 3 (09/21-09/25)</h2>
+</dd>
+<dt>Activity 4</dt>
+<dd><ul>
+<li>Describe three formal languages that are sufficiently different from those listed in the book.</li>
+<li>4.11, 4.13, 4.15</li>
+<li>The problem GREATER takes as input a number, and has a solutions all numbers that are greater than this number. Is this a computational problem according to our definition?</li>
+<li>The problem FACTOR takes as input a number. If the number is composite, then the solution is all of the number’s non-trivial divisors. If the number is prime, the solution is “no”. This can be described as a “search” problem. Express it as a search problem by specifying a predicated function.</li>
+<li>Define “threshold”, “optimization” and “decision” versions of the previous problem that have an analogous computational difficulty.</li>
+</ul>
+</dd>
+</dl>
+<p>TODO: Need something more?</p>
+<h3 id="day-2-1">Day 2</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand what it formally means to solve a problem.</li>
+<li>Understand the difference between decidable and recognizable languages.</li>
+</ul>
+</dd>
+<dt>Sections 4.4, 4.5</dt>
+<dd><ul>
+<li>What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.</li>
+<li>What is the difference between deciding and recognizing a language?</li>
+</ul>
+</dd>
+<dt>Activity 5</dt>
+<dd><ul>
+<li>Write a Python program that <em>decides</em> the language of all prime numbers.</li>
+<li>Write Python programs that <em>decide</em> the empty language and the language consisting of just the empty string, respectively.</li>
+<li>Write a Python program that <em>decides</em> the language that contains all strings in the alphabets that have “matching parentheses”, meaning that every “open parenthesis” is going to be matched by a “close parenthesis”. The strings can contain any other letters inbetween.</li>
+</ul>
+</dd>
+<dt>Homework 2</dt>
+<dd>4.12, 4.19, 4.20, 4.25, Bonus: 4.26
+</dd>
+</dl>
+<h2 id="week-3-0917-0921">Week 3 (09/17-09/21)</h2>
+<h3 id="day-1-2">Day 1</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand the definition of a Turing machine</li>
+<li>Understand the graphical representation of a Turing machine</li>
+<li>Be able to follow the execution of a Turing machine on a given input</li>
+</ul>
+</dd>
+<dt>Section 5.1</dt>
+<dd><ul>
+<li>Definition of a Turing machine: alphabet, states, transition functions</li>
+<li>Transition function can be thought of as a combination of: new state function, new symbol function, direction function</li>
+<li>What different final states can we have in a Turing machine? Are any of them required?</li>
+<li>What is the difference between <em>looping</em> and <em>halting</em>?</li>
+<li>What Turing machines do we call <em>transducers</em> and which do we call <em>accepters</em>? Are those the only kinds of Turing machines?</li>
+<li>Abbreviated notation for state diagrams.</li>
+</ul>
+</dd>
+<dt>Activity 6</dt>
+<dd><ul>
+<li>Write a Turing machine that searches for the first C that occurs in the string and changes it to a G, then halts. If it arrives at the end of the input without finding a C, then it inserts a C and halts.</li>
+<li>Our alphabet contains only the letters C, G, T, A and the special letter x. Write a Turing machine that inserts an x at the beginning of the input, shifting all other letters to the right, and also inserts an x at the end of the input.</li>
+<li>Consider the alphabet consisting of only the binary digits 0, 1. Consider the input as a number with the least significant digit being at the beginning of the tape. So if the number was 8, the tape would start with “001” with the first 0 being at the start of the tape. Write a Turing machine that would change the tape so that the final output is the number incremented by 1. So in the example above the output would be “101”. And if we had started with “101” as input, then the output would be “011” etc.</li>
+</ul>
+</dd>
+</dl>
+<h3 id="day-2-2">Day 2</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand how a Turing machine can use the tape to remember an unbounded amount of information.</li>
+<li>Understand how a Turing machine can be used as a component/subprogram in another Turing machine.</li>
+</ul>
+</dd>
+<dt>Section 5.2</dt>
+<dd><ul>
+<li>A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first.</li>
+<li>Study the <code>binaryIncrementer</code> machine.</li>
+<li>Practice: Define and construct a <code>binaryDecrementer</code> machine.</li>
+<li>Understand how <code>binaryIncrementer</code> and <code>shiftInteger</code> come together to produce a <code>incrementWithOverflow</code>.</li>
+<li>Understand the construction of the <code>countCs</code> Turing machine.</li>
+</ul>
+</dd>
+<dt>Activity 7</dt>
+<dd><ul>
+<li>Modify the <code>countCs</code> Turing machine to count the occurence of <code>CA</code> pairs instead.</li>
+<li>Write a Turing machine compares two numbers as follows:
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/fin_aut_dfa.html">Deterministic Finite Automata (cont)</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/ocaml_dfa.html">DFAs in OCAML</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/fin_aut_dfa.html">Regular Languages</a></li>
-<li><a href="notes/fin_aut_dfa.html">Union of regular languages is regular</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/ocaml_dfa.html">Implementation of union in OCAML</a></li>
-<li><a href="assignments/3.html">Assignment 3</a></li>
+<li>The numbers are provided in binary form from highest significant number to lowest, separated by x’s and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: “x110xx010x”.</li>
+<li>Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.</li>
+<li>Your machine must terminate in one of three states signifying whether the first number is larger than, equal to, or smaller than the second number.</li>
 </ul></li>
 </ul>
-<h2 id="week-4-0928-1002">Week 4 (09/28-10/02)</h2>
-<ul>
-<li>Day 1
-<ul>
-<li><a href="notes/fin_aut_nfas.html">Non-deterministic automata, examples</a></li>
-<li>Implementation in OCAML</li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/fin_aut_nfas.html">DFA equivalent to an NFA</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/regexp.html">Regular Expressions</a></li>
-<li>RegEx -&gt; NFA</li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/nonregular.html">Nonregular languages and the Pumping Lemma</a></li>
-<li><a href="assignments/4.html">Assignment 4</a></li>
-<li>Catching up</li>
-</ul></li>
+</dd>
+<dt>Homework 3</dt>
+<dd>5.3, 5.5, 5.6, 5.7
+</dd>
+</dl>
+<h2 id="week-4-0924-0928">Week 4 (09/24-09/28)</h2>
+<h3 id="day-1-3">Day 1</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand how two-tape and multi-tape machines have the same power as one-tape machines.</li>
+<li>Understand how a “random access” Turing machine has the same power as our simple one-tape Turing machine.</li>
+<li>Understand how a Python program can simulate a Turing machine.</li>
 </ul>
-<h2 id="week-5-1005-1009">Week 5 (10/05-10/09)</h2>
-<ul>
-<li>Day 1
-<ul>
-<li><a href="notes/lexers.html">Lexers</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li>Review</li>
-</ul></li>
-<li>Day 3
-<ul>
-<li>Midterm 1 (<a href="notes/midterm1_study_guide.html">study guide</a>)</li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/cfg.html">Context Free Grammars</a></li>
-<li>Examples of derivations</li>
-<li>Ambiguous grammars</li>
-</ul></li>
+</dd>
+<dt>Sections 5.3-5.7</dt>
+<dd><ul>
+<li>A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine.</li>
+<li>A multi-tape single-head Turing machine can be simulated in the same way.</li>
+<li>A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine, by using twice the number of tapes, and using the second set of tapes to keep track of the locations of the multiple heads.</li>
+<li>Describe how a <em>random-access</em> Turing machine operates, and how to simulate it with a multi-tape Turing machine.</li>
+<li>Describe how the parts of a modern computer map to elements of a random-access Turing machine.</li>
+<li>How can a Python program be used to simulate a Turing machine?</li>
 </ul>
-<h2 id="week-6-1012-1016">Week 6 (10/12-10/16)</h2>
-<ul>
-<li>Day 1
-<ul>
-<li>Programming examples of CFGs</li>
-<li><a href="notes/cfg.html">Chomsky Normal Forms</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/pushdown_automata.html">Pushdown Automata definition</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li>PDAs more examples</li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/cfg_pda.html">CFG -&gt; PDA</a></li>
-</ul></li>
+</dd>
+<dt>Activity 8</dt>
+<dd><ul>
+<li>Implement countCs as a two-tape two-head Turing machine.</li>
+<li>Implement countCs as a two-tape single-head Turing machine.</li>
+<li>Describe a two-tape Turing machine that contains a string in one tape and an integer in the other tape. The machine then must count that many spots into the string as indicated by the integer.</li>
 </ul>
-<h2 id="week-7-1019-1023">Week 7 (10/19-10/23)</h2>
+</dd>
+</dl>
+<h3 id="day-2-3">Day 2</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Practice the use of JFLAP to build and test Turing machines.</li>
+</ul>
+</dd>
+<dt>Activity 9</dt>
+<dd><ul>
+<li>Use JFLAP to build a single-tape Turing machine that appends a z at the end of the input.</li>
+<li>Use JFLAP to build a single-tape Turing machine that prepends a z at the beginning of the input and shifts everythign else to the right. Assume the alphabet consists of the characters x,y,z,0,1.</li>
+</ul>
+</dd>
+<dt>Homework 4</dt>
+<dd>5.10, 5.13
+</dd>
+</dl>
+<h2 id="week-5-1001-1005">Week 5 (10/01-10/05)</h2>
+<h3 id="day-1-4">Day 1</h3>
+<pre><code>- **Midterm 1**</code></pre>
+<h3 id="day-2-4">Day 2</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand the idea of <em>universal computer programs</em> and <em>universal Turing machines</em>.</li>
+<li>Be able to explain how a universal Turing machine would function.</li>
+<li>Familiarize yourself with programs that alter other programs.</li>
+<li>Use a universal computer program to produce programs that are recognizable but not decidable.</li>
+</ul>
+</dd>
+<dt>Sections 6.1, 6.2, 6.4, 6.5 (6.3 optional)</dt>
+<dd><ul>
+<li>Describe instances you are familiar with of programs executing other programs.</li>
+<li>Understand the program <code>universal.py</code> and how it works.</li>
+<li>Describe how a universal Turing machine would operate.</li>
+<li>Describe the “simulate-and-alter” technique for changing a program’s behavior.</li>
+<li>Describe the input-ignoring program in Figure 6.9.</li>
+<li>Show that YesOnString is recognizable.</li>
+</ul>
+</dd>
+<dt>Activity 10</dt>
+<dd><ul>
+<li>Construct a program that demonstrates that the language CrashOnString is recognizable.</li>
+<li>Show that if two languages are recognizable, then so is their intersection. Assume you have two programs that recognize the two languages, and built a program that recognizes their intersection.</li>
+</ul>
+</dd>
+<dt>Homework 6</dt>
+<dd>6.3, 6.9, 6.10
+</dd>
+</dl>
+<h2 id="week-6-1008-1012">Week 6 (10/08-10/12)</h2>
+<h3 id="day-1-5">Day 1</h3>
 <ul>
-<li>Day 1
+<li>7</li>
+</ul>
+<h3 id="day-2-5">Day 2</h3>
+<ul>
+<li>7, 8</li>
+</ul>
+<h2 id="week-7-1015-1019">Week 7 (10/15-10/19)</h2>
+<h3 id="day-1-6">Day 1</h3>
 <ul>
 <li>Fall Break</li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/pumping_cfg.html">Pumping lemma for CFGs</a></li>
-<li>Non-context-free grammars</li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/parsing.html">Basics of Parsing, First/Follow sets</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/parsing.html">Basics of Parsing, First/Follow sets</a></li>
-<li><a href="assignments/5.html">Assignment 5</a></li>
-</ul></li>
 </ul>
-<h2 id="week-8-1026-1030">Week 8 (10/26-10/30)</h2>
+<h3 id="day-2-6">Day 2</h3>
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/parsing.html">Basics of Parsing, LL(k) parsers</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/parsing.html">Basics of Parsing, LR(k) parsers</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/parsing.html">Basics of Parsing, LR(k) parsers</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/turing.html">Turing Machines</a></li>
-<li><a href="assignments/6.html">Assignment 6</a></li>
-</ul></li>
+<li>8</li>
 </ul>
-<h2 id="week-9-1102-1106">Week 9 (11/02-11/06)</h2>
+<h2 id="week-8-1022-1026">Week 8 (10/22-10/26)</h2>
+<h3 id="day-1-7">Day 1</h3>
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/turing.html">Turing Machines, examples</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/turing.html">Multitape / Nondeterministic Turing machines</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/turing.html">Multitape / Nondeterministic Turing machines</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/decidable.html">Decidable Problems, Regular Languages</a></li>
-<li><a href="assignments/7.html">Assignment 7</a></li>
-</ul></li>
+<li>9</li>
 </ul>
-<h2 id="week-10-1109-1113">Week 10 (11/09-11/13)</h2>
+<h3 id="day-2-7">Day 2</h3>
 <ul>
-<li>Day 1
-<ul>
-<li><a href="notes/decidable.html">Decidable Problems, CFLs</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li>Catching up</li>
-</ul></li>
-<li>Day 3
-<ul>
-<li>Midterm 2 (<a href="notes/midterm2_study_guide.html">study guide</a>)</li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/halting.html">The Halting Problem</a></li>
-</ul></li>
+<li>9</li>
 </ul>
-<h2 id="week-11-1116-1120">Week 11 (11/16-11/20)</h2>
+<h2 id="week-9-1029-1102">Week 9 (10/29-11/02)</h2>
+<h3 id="day-1-8">Day 1</h3>
 <ul>
-<li>Day 1
-<ul>
-<li><a href="assignments/8.html">Assignment 8</a></li>
-<li><a href="notes/halting.html">The Halting Problem</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/halting.html">The Halting Problem (cont)</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/reducibility.html">Reducibility</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="notes/mapping_reducibility.html">Mapping Reducibility</a></li>
-</ul></li>
+<li>9</li>
 </ul>
-<h2 id="week-12-1123-1127">Week 12 (11/23-11/27)</h2>
+<h3 id="day-2-8">Day 2</h3>
 <ul>
-<li>Day 1
+<li>10</li>
+</ul>
+<h2 id="week-10-1105-1109">Week 10 (11/05-11/09)</h2>
+<h3 id="day-1-9">Day 1</h3>
 <ul>
-<li><a href="notes/mapping_reducibility.html">Mapping Reducibility (cont)</a></li>
-</ul></li>
-<li>Day 2
+<li><strong>Midterm 2</strong></li>
+</ul>
+<h3 id="day-2-9">Day 2</h3>
+<ul>
+<li>10, 11</li>
+</ul>
+<h2 id="week-11-1112-1116">Week 11 (11/12-11/16)</h2>
+<h3 id="day-1-10">Day 1</h3>
+<ul>
+<li>11</li>
+</ul>
+<h3 id="day-2-10">Day 2</h3>
+<ul>
+<li>12</li>
+</ul>
+<h2 id="week-12-1119-1123">Week 12 (11/19-11/23)</h2>
+<h3 id="day-1-11">Day 1</h3>
+<ul>
+<li>12</li>
+</ul>
+<h3 id="day-2-11">Day 2</h3>
 <ul>
 <li>Thanksgiving Break</li>
-</ul></li>
-<li>Day 3
-<ul>
-<li>Thanksgiving Break</li>
-</ul></li>
-<li>Day 4
-<ul>
-<li>Thanksgiving Break</li>
-</ul></li>
 </ul>
-<h2 id="week-13-1201-1204">Week 13 (12/01-12/04)</h2>
+<h2 id="week-13-1126-1130">Week 13 (11/26-11/30)</h2>
+<h3 id="day-1-12">Day 1</h3>
 <ul>
-<li>Day 1
-<ul>
-<li><a href="assignments/9.html">Assignment 9</a></li>
-<li><a href="notes/time_complexity.html">Time Complexity</a></li>
-</ul></li>
-<li>Day 2
-<ul>
-<li><a href="notes/time_complexity.html">Time Complexity for different Models</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/p_vs_np.html">The P and NP classes. P</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li><a href="assignments/10.html">Assignment 10</a></li>
-<li><a href="notes/p_vs_np.html">The P and NP classes. NP</a></li>
-</ul></li>
+<li>13</li>
 </ul>
-<h2 id="week-14-1207-1211">Week 14 (12/07-12/11)</h2>
+<h3 id="day-2-12">Day 2</h3>
 <ul>
-<li>Day 1
+<li>13</li>
+</ul>
+<h2 id="week-14-1203-1207">Week 14 (12/03-12/07)</h2>
+<h3 id="day-1-13">Day 1</h3>
 <ul>
-<li><a href="notes/np_complete.html">NP-complete problems</a></li>
-</ul></li>
-<li>Day 2
+<li>14</li>
+</ul>
+<h3 id="day-2-13">Day 2</h3>
 <ul>
-<li><a href="notes/np_complete.html">The Cook-Levin Theorem</a></li>
-</ul></li>
-<li>Day 3
-<ul>
-<li><a href="notes/np_complete.html">More NP-complete problems</a></li>
-</ul></li>
-<li>Day 4
-<ul>
-<li>Review. <a href="notes/midterm3_study_guide.html">Final study guide</a></li>
-</ul></li>
+<li>14</li>
 </ul>
 </body>
 </html>

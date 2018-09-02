@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -19,26 +19,26 @@
 <dt>Course</dt>
 <dd>CS335 Theory of Computation
 </dd>
-<dt>Instructor</dt>
-<dd>Charilaos Skiadas (skiadas at hanover dot edu)
+<dt>Instructors</dt>
+<dd>Charilaos Skiadas, Barb Wahl
 </dd>
 <dt>Term</dt>
-<dd>Fall 2015-2016
+<dd>Fall 2018-2019
 </dd>
 <dt>Office</dt>
-<dd>SCH 121C
+<dd>SCH 111 / LYN 108
 </dd>
 <dt>Office Hours</dt>
-<dd>MW 2pm-4pm, R 2pm-3pm, and by appointment.
+<dd>MWW 9:30pm-10:30pm in SCH 111 (Skiadas), and by appointment.
 </dd>
 <dt>Book</dt>
-<dd><em>Introduction to the Theory of Computation</em>, 2nd ed, by Michael Sipser
+<dd><em>What can be computed</em>, 1st ed, by John MacCormick
 </dd>
 <dt>Websites</dt>
 <dd><a href="http://skiadas.github.io/TheoryCompCourse/site/">for notes</a>.
 </dd>
 <dt>Class times</dt>
-<dd>MWRF 1pm-2pm in SCH120.
+<dd>TR 10:00am-11:45am in LYN120A.
 </dd>
 </dl>
 <h2 id="course-description">Course Description</h2>
@@ -46,37 +46,36 @@
 <ul>
 <li>What do we mean by computing something?</li>
 <li>What are the limits to what is computable?</li>
-<li>What other questions are important in that regard (space, time)?</li>
-<li>What can be computed under certain imposed space/time limits? What cannot?</li>
+<li>Are there things that we can prove are not computable?</li>
+<li>How does our choice of computation engine determine what can and cannot be computable?</li>
+<li>Can we identify problems that are computable but not in a reasonable amount of time? How would we define that to begin with?</li>
 </ul>
-<p>As a simple example, are there things that a theoretical computer with infinite storage can do, that our limited-storage computers cannot?</p>
-<p>Along the way, we will encounter many different constructs, that form various levels towards the goal of understanding computability.</p>
-<p>This course is much more rigorous than most Computer Science courses. A strong background in logic and proofs is expected. Even though we will spend some time illustrating many of our ideas via programming assignments, the bulk of the class will be a theoretical study of these concepts and the construction of proofs of theorems regarding these concepts.</p>
+<p>This course is much more rigorous than most Computer Science courses. A certain level of familiarity with logic and proofs is expected. Even though we will often use Python programs as a vehicle to explore the topics of computation, a lot of the discussion and statements will appear to be quite theoretical in nature. For instance we will explore the fact that there are certain problems that we can prove are unsolvable.</p>
 <p>At the end of this course you:</p>
 <ul>
 <li>will have become familiar with various descriptions of what it means to <em>compute</em> something.</li>
-<li>will have developed a solid foundation on various kinds of automata and their relation to computation.</li>
-<li>will have taken your first steps into understanding what process programming language compilers follow when reading a computer program.</li>
+<li>will have developed a solid foundation on various kinds of computation engines and their abilities and limitations.</li>
 <li>will be able to articulate the fundamental issues regarding computability and its limits.</li>
-<li>will have developed an appreciation for the power of formal language in expressing concepts.</li>
+<li>will be able to distinguish problems based on their computational difficulty.</li>
 </ul>
 <h2 id="course-components">Course Components</h2>
 <h3 id="reading-notes-and-practice-problems">Reading Notes and Practice Problems</h3>
 <p>On the website you will find a <a href="http://skiadas.github.io/TheoryCompCourse/site/schedule.html">schedule</a> with links to documents for each class day. In those documents you will find notes for the day’s lesson, a reading assignment, and a list of practice problems. You should work on those practice problems, and ask any questions you have about them. You do not have to turn the problems in.</p>
-<h3 id="class-attendance">Class Attendance</h3>
+<h3 id="class-participation">Class Participation</h3>
 <p>You are expected to attend every class meeting, including labs. You are only allowed to miss 3 classes without excuse. From that point on, every unexcused absence will result in a reduction of your final score by one percentage point, up to a total of 5 points. Excused absences should be arranged in advance, and backed by appropriate documentation. Emergencies will be dealt with on an individual basis. There are very few reasons that would qualify as an excuse for an absence.</p>
+<p>There will also be numerous in-class group activities that you will be asked to participate in, that contribute towards your class participation grade.</p>
 <h3 id="homework-assignments">Homework Assignments</h3>
-<p>There will be regular homework assignments about 2 per week. There will also be a list of problems that you are expected to solve but not turn in. Questions on the exams tend to be similar to the homework problems, so it is to your advantage to really <em>understand</em> the homework, and not merely “do it” or copy it just to get it turned in. Homework assignments are 20% of your final grade.</p>
+<p>There will be regular homework assignments about once per week (in addition to the practice problems mentioned earlier). Questions on the exams tend to be similar to the homework problems, so it is to your advantage to really <em>understand</em> the homework, and not merely “do it” or copy it just to get it turned in. Homework assignments are 20% of your final grade.</p>
 <h3 id="exams">Exams</h3>
 <p>There will be two midterms, on Friday, October 2th and Friday, November 6th, and a final/3rd midterm during finals week. <strong>You have to be here for the exams</strong>. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.</p>
 <h3 id="getting-help">Getting Help</h3>
 <ul>
-<li>You should never hesitate to ask me questions. I will never think any less of anyone for asking a question. Stop by my office hours or just email me your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.</li>
-<li>You are allowed, and in fact encouraged, to work together and help each other regarding the notes and the practice problems. However, I strongly encourage you to try the problems out on your own first before talking to someone about them.</li>
+<li>You should never hesitate to ask us questions. We will never think any less of anyone for asking a question. Stop by our office hours or just email us your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.</li>
+<li>You are allowed, and in fact encouraged, to work together and help each other regarding the notes and the practice problems. However, we strongly encourage you to try the problems out on your own first before talking to someone about them.</li>
 <li>You may discuss homework problems with others, but only after you have spent some time trying them on your own. And in any event the submitted work must be your own! So even though you may talk to others about the problem, when you sit down to write the answers you should be on your own.</li>
 </ul>
 <h2 id="grading">Grading</h2>
-<p>Your final grade depends on class attendance, homework, project, quizzes, midterms and the final, as follows:</p>
+<p>Your final grade depends on class participation, homework, and three exams, as follows:</p>
 <table>
 <thead>
 <tr class="header">
@@ -86,24 +85,24 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">Attendance</td>
-<td align="right">5%</td>
+<td align="right">Participation</td>
+<td align="right">10%</td>
 </tr>
 <tr class="even">
 <td align="right">Homework</td>
-<td align="right">20%</td>
-</tr>
-<tr class="odd">
-<td align="right">Worst Midterm</td>
-<td align="right">15%</td>
-</tr>
-<tr class="even">
-<td align="right">Middle Midterm</td>
 <td align="right">25%</td>
 </tr>
 <tr class="odd">
-<td align="right">Best Midterm</td>
-<td align="right">35%</td>
+<td align="right">Worst Exam</td>
+<td align="right">15%</td>
+</tr>
+<tr class="even">
+<td align="right">Middle Exam</td>
+<td align="right">20%</td>
+</tr>
+<tr class="odd">
+<td align="right">Best Exam</td>
+<td align="right">30%</td>
 </tr>
 </tbody>
 </table>

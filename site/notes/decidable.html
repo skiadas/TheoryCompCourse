@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -23,7 +23,7 @@
 <h3 id="string-representations-of-objects">String representations of objects</h3>
 <p>We need a way to turn the objects we are interested in working with into some strings, which can then be:</p>
 <ol style="list-style-type: decimal">
-<li>considered as elements of a language <span class="math">\(L\)</span></li>
+<li>considered as elements of a language <span class="math inline">\(L\)</span></li>
 <li>considered as the input to a Turing Machine</li>
 </ol>
 <p>The key observation was that there might be many different representations of a type of object, what is important is that we fix one, and that it is well defined and specified.</p>
@@ -33,14 +33,14 @@
 <li>distinct objects will result in distinct strings, and</li>
 <li>we can describe an algorithm for determining if a given string is a representation of an object under this encoding</li>
 </ul>
-<p>The string corresponding to an object <span class="math">\(G\)</span> under such an encoding will be denoted by <span class="math">\(\langle G\rangle\)</span>.</p>
+<p>The string corresponding to an object <span class="math inline">\(G\)</span> under such an encoding will be denoted by <span class="math inline">\(\langle G\rangle\)</span>.</p>
 </blockquote>
 <p>All encodings for the same object would be fundamentally interchangeable. What is important is that we fix one encoding.</p>
 <p>We briefly discussed a number of such encoding for graphs:</p>
 <ul>
 <li>Listing all edges as pairs of numbered vertices</li>
 <li>Listing for each vertex the set of vertices connected to it</li>
-<li>Filling out the full <span class="math">\(n\times n\)</span> adjacency matrix for the graph</li>
+<li>Filling out the full <span class="math inline">\(n\times n\)</span> adjacency matrix for the graph</li>
 <li>And many more, as well as variations of the above by using e.g. brackets instead of parentheses.</li>
 </ul>
 <p>Of particular interest for us will be encodings of the kinds of objects we have encountered so far. For instance imagine the encoding of a DFA:</p>
@@ -65,18 +65,18 @@
 <p>Exercise: We can imagine a similar process for an NFA. What would change?</p>
 <h3 id="decidable-languages-related-to-dfasnfas">Decidable Languages related to DFAs/NFAs</h3>
 <p>We can now consider some languages related to these DFAs. We can for instance imagine the language:</p>
-<p><span class="math">\[L = \{\langle\textrm{A}\rangle\mid A\textrm{ is a DFA}\}\]</span></p>
-<p>Essentially the steps we described above tell us that this language <span class="math">\(L\)</span> is decidable: Given an arbitrary string, we can tell if it has the form specified above.</p>
+<p><span class="math display">\[L = \{\langle\textrm{A}\rangle\mid A\textrm{ is a DFA}\}\]</span></p>
+<p>Essentially the steps we described above tell us that this language <span class="math inline">\(L\)</span> is decidable: Given an arbitrary string, we can tell if it has the form specified above.</p>
 <p>Here is a more interesting language:</p>
-<p><span class="math">\[A_\textrm{DFA} = \left\{\langle B,w\rangle\mid B\textrm{ is a DFA that accepts on input string }w \right\}\]</span></p>
+<p><span class="math display">\[A_\textrm{DFA} = \left\{\langle B,w\rangle\mid B\textrm{ is a DFA that accepts on input string }w \right\}\]</span></p>
 <p>So this is the language of all pairs of a DFA and an input string, such that the DFA accepts the string.</p>
 <p>Asking that this language be decidable is the same thing as asking: Can we write an algorithm that given a DFA and an input string can decide if the DFA accepts the string or not? We will call this the <strong>acceptance problem</strong> for DFAs.</p>
 <p>The answer is obviously yes: We run the DFA on the string, and see what ends up happening.</p>
 <p>But let us be a bit more precise in our use of the term “run”:</p>
 <ul>
 <li>Use a 3-tape Turing Machine.</li>
-<li>Given the input <span class="math">\(\langle B,w\rangle\)</span>, we first make sure it is of the correct format (B has to be a DFA).</li>
-<li>We write the string <span class="math">\(w\)</span> into the second tape, and write/keep the DFA B in the first tape.</li>
+<li>Given the input <span class="math inline">\(\langle B,w\rangle\)</span>, we first make sure it is of the correct format (B has to be a DFA).</li>
+<li>We write the string <span class="math inline">\(w\)</span> into the second tape, and write/keep the DFA B in the first tape.</li>
 <li>We find the start state and write it into the third tape.</li>
 <li>We then simulate the DFA operations:
 <ol style="list-style-type: decimal">
@@ -92,24 +92,24 @@
 <li>We go back to step 1.</li>
 </ol></li>
 </ul>
-<p>In the future we will abbreviate this even more to simply say that we “simulate B on input <span class="math">\(w\)</span>”.</p>
-<p>It is clear by part 3 above that this Turing Machine is a decider: It will terminate when the tape 2 reaches the end of the string <span class="math">\(w\)</span>. So we have:</p>
+<p>In the future we will abbreviate this even more to simply say that we “simulate B on input <span class="math inline">\(w\)</span>”.</p>
+<p>It is clear by part 3 above that this Turing Machine is a decider: It will terminate when the tape 2 reaches the end of the string <span class="math inline">\(w\)</span>. So we have:</p>
 <blockquote>
-<p>The language <span class="math">\(A_{\textrm{DFA}}\)</span> is Turing-decidable. In other words, the problem of determining if a DFA accepts a certain string is a decidable problem.</p>
+<p>The language <span class="math inline">\(A_{\textrm{DFA}}\)</span> is Turing-decidable. In other words, the problem of determining if a DFA accepts a certain string is a decidable problem.</p>
 </blockquote>
-<p>Exercise: What about the language <span class="math">\(A_{\textrm{NFA}}\)</span> that does the same thing but for an NFA?</p>
+<p>Exercise: What about the language <span class="math inline">\(A_{\textrm{NFA}}\)</span> that does the same thing but for an NFA?</p>
 <p>We could model this perhaps via a deterministic Turing Machine, but there is a simple way: Convert the NFA to a DFA. So the construction might go something like this:</p>
 <ul>
-<li>Given an input <span class="math">\(\langle N,w\rangle\)</span> where <span class="math">\(N\)</span> is an NFA.</li>
-<li>Construct the DFA <span class="math">\(D\)</span> that is equivalent to <span class="math">\(N\)</span>.</li>
-<li>Call upon the TM that detects if <span class="math">\(D\)</span> accepts on input <span class="math">\(w\)</span>. Return its result.</li>
+<li>Given an input <span class="math inline">\(\langle N,w\rangle\)</span> where <span class="math inline">\(N\)</span> is an NFA.</li>
+<li>Construct the DFA <span class="math inline">\(D\)</span> that is equivalent to <span class="math inline">\(N\)</span>.</li>
+<li>Call upon the TM that detects if <span class="math inline">\(D\)</span> accepts on input <span class="math inline">\(w\)</span>. Return its result.</li>
 </ul>
 <p>This is an important idea: We reduce our problem to a previously solve problem. We use previously constructed TMs as “subroutines”, or if you prefer as helper functions which we can call on to do part of the work.</p>
 <blockquote>
-<p>Exercise: Consider the language: <span class="math">\[E_{\textrm{DFA}} = \left\{\langle A\rangle\mid A\textrm{ is a DFA and }L(A)\neq\emptyset\right\}\]</span> In other words, the language contains all DFAs that have at least one string that they accept. Is this language decidable? Can you describe the Turing Machine that decides it? We will call this the <strong>emptyness problem</strong> for DFAs.</p>
+<p>Exercise: Consider the language: <span class="math display">\[E_{\textrm{DFA}} = \left\{\langle A\rangle\mid A\textrm{ is a DFA and }L(A)\neq\emptyset\right\}\]</span> In other words, the language contains all DFAs that have at least one string that they accept. Is this language decidable? Can you describe the Turing Machine that decides it? We will call this the <strong>emptyness problem</strong> for DFAs.</p>
 </blockquote>
 <blockquote>
-<p>Exercise: Consider the language: <span class="math">\[EQ_\textrm{DFA} = \left\{\langle A,B\rangle\mid A,B\textrm{ are DFAs and }L(A)=L(B)\right\}\]</span> In other words the input to this language is a pair of DFAs that both recognize the same language. Is this language decidable? We will call this the <strong>equivalence problem</strong> for DFAs.</p>
+<p>Exercise: Consider the language: <span class="math display">\[EQ_\textrm{DFA} = \left\{\langle A,B\rangle\mid A,B\textrm{ are DFAs and }L(A)=L(B)\right\}\]</span> In other words the input to this language is a pair of DFAs that both recognize the same language. Is this language decidable? We will call this the <strong>equivalence problem</strong> for DFAs.</p>
 <p>Hint: Try to use the answer to the previous problem.</p>
 </blockquote>
 <h3 id="decidable-problems-concerning-cfls">Decidable Problems concerning CFLs</h3>
@@ -128,22 +128,22 @@
 <p>Exercise:</p>
 <ol style="list-style-type: decimal">
 <li>Look back at your proof of why the equivalence problem for regular languages/DFAs was decidable. What goes wrong when we try to apply the same method to CFGs/CFLs?</li>
-<li>It is easy to see that the language <span class="math">\(L=\left\{\langle A,B\rangle\mid A,B\textrm{ are CFGs such that }L(A)\neq L(B) \right\}\)</span> is Turing-recognizable. How would that go?</li>
-<li>Is the language <span class="math">\(L\)</span> above the complement of the language <span class="math">\(\textrm{EQ}_{\textrm{CFG}}\)</span>?</li>
-<li>Is the complement of <span class="math">\(\textrm{EQ}_{\textrm{CFG}}\)</span> recognizable?</li>
-<li>Is it true, that if a language <span class="math">\(L\)</span> and its complement are both Turing-recognizable, then <span class="math">\(L\)</span> is decidable?</li>
+<li>It is easy to see that the language <span class="math inline">\(L=\left\{\langle A,B\rangle\mid A,B\textrm{ are CFGs such that }L(A)\neq L(B) \right\}\)</span> is Turing-recognizable. How would that go?</li>
+<li>Is the language <span class="math inline">\(L\)</span> above the complement of the language <span class="math inline">\(\textrm{EQ}_{\textrm{CFG}}\)</span>?</li>
+<li>Is the complement of <span class="math inline">\(\textrm{EQ}_{\textrm{CFG}}\)</span> recognizable?</li>
+<li>Is it true, that if a language <span class="math inline">\(L\)</span> and its complement are both Turing-recognizable, then <span class="math inline">\(L\)</span> is decidable?</li>
 </ol>
 <p>We now proceed to discuss the other two problems:</p>
 <blockquote>
 <p>The acceptance problem for CFGs is decidable.</p>
 </blockquote>
-<p>So, given a CFG and a string <span class="math">\(w\)</span>, we need to decide if the CFG can generate that string.</p>
+<p>So, given a CFG and a string <span class="math inline">\(w\)</span>, we need to decide if the CFG can generate that string.</p>
 <p>A first idea is to try all derivations. But there are effectively infinitely many possible derivations. We need a way to stop. Otherwise what we have is a recognizer, not a decider.</p>
 <p>The idea comes from Chomsky Normal forms:</p>
 <blockquote>
-<p>If a grammar is in Chomsky Normal Form, and we have a string <span class="math">\(w\)</span> of length <span class="math">\(n\)</span> produced by the grammar, then the derivation contains exactly <span class="math">\(2n-1\)</span> steps.</p>
+<p>If a grammar is in Chomsky Normal Form, and we have a string <span class="math inline">\(w\)</span> of length <span class="math inline">\(n\)</span> produced by the grammar, then the derivation contains exactly <span class="math inline">\(2n-1\)</span> steps.</p>
 </blockquote>
-<p>This follows from the rules of the Chomsky Normal form. Think of some small values of <span class="math">\(n\)</span> and it will become clear.</p>
+<p>This follows from the rules of the Chomsky Normal form. Think of some small values of <span class="math inline">\(n\)</span> and it will become clear.</p>
 <p>So now this gives us a way to deal with the acceptance problem:</p>
 <ul>
 <li>Given a CFG and a string.</li>
@@ -156,7 +156,7 @@
 <blockquote>
 <p>Every CFL is decidable.</p>
 </blockquote>
-<p>This essentially follows what we already did: Suppose that <span class="math">\(G\)</span> is a CFG for the language <span class="math">\(L\)</span>. Then for a string <span class="math">\(w\)</span> we run the acceptance algorithm for CFGs on the pair <span class="math">\(\langle G, w\rangle\)</span>, and we return the result of that algorithm.</p>
+<p>This essentially follows what we already did: Suppose that <span class="math inline">\(G\)</span> is a CFG for the language <span class="math inline">\(L\)</span>. Then for a string <span class="math inline">\(w\)</span> we run the acceptance algorithm for CFGs on the pair <span class="math inline">\(\langle G, w\rangle\)</span>, and we return the result of that algorithm.</p>
 <p>This enables us to build a hierarchy of languages: The collection of all regular languages is contained within the collection of CFLs which then is contained within the collection of Turing-decidable languages, which in turn is contained in the collection of Turing-recognizable languages. All these inclusions are strict.</p>
 <p>Now we move on to the other decidable problem:</p>
 <blockquote>

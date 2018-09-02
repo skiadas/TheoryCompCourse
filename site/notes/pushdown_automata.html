@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -44,14 +44,14 @@
 </ul>
 <p>So formally, a pushdown automaton is defined thus:</p>
 <blockquote>
-<p>A <strong>pushdown automaton</strong> is a 6-tuple <span class="math">\((Q,\Sigma,\Gamma, \delta, q_0, F)\)</span> where:</p>
+<p>A <strong>pushdown automaton</strong> is a 6-tuple <span class="math inline">\((Q,\Sigma,\Gamma, \delta, q_0, F)\)</span> where:</p>
 <ul>
-<li><span class="math">\(Q\)</span> is a finite set of states.</li>
-<li><span class="math">\(\Sigma\)</span> is a (finite) alphabet (the terminals in our CFG case).</li>
-<li><span class="math">\(\Gamma\)</span> is the (finite) set of possible stack symbols. Typically this will include the terminals, the nonterminals and occasionally other special symbols.</li>
-<li><span class="math">\(q_0\in Q\)</span> is the start state.</li>
-<li><span class="math">\(F\subset Q\)</span> is the set of accept states.</li>
-<li><span class="math">\(\delta\colon Q\times\Sigma_\epsilon \times \Gamma_\epsilon \to \mathcal{P}\left(Q\times\Gamma_\epsilon\right)\)</span> is a (nondeterministic) transition function.</li>
+<li><span class="math inline">\(Q\)</span> is a finite set of states.</li>
+<li><span class="math inline">\(\Sigma\)</span> is a (finite) alphabet (the terminals in our CFG case).</li>
+<li><span class="math inline">\(\Gamma\)</span> is the (finite) set of possible stack symbols. Typically this will include the terminals, the nonterminals and occasionally other special symbols.</li>
+<li><span class="math inline">\(q_0\in Q\)</span> is the start state.</li>
+<li><span class="math inline">\(F\subset Q\)</span> is the set of accept states.</li>
+<li><span class="math inline">\(\delta\colon Q\times\Sigma_\epsilon \times \Gamma_\epsilon \to \mathcal{P}\left(Q\times\Gamma_\epsilon\right)\)</span> is a (nondeterministic) transition function.</li>
 </ul>
 </blockquote>
 <p>Note that we only look at nondeterministic pushdown automata. Deterministic pushdown automata are NOT equivalent to them, but we will not consider them here. Essentially, because of the presence of the stack, we cannot do away with non-determinism the way we did with NFAs.</p>
@@ -59,30 +59,30 @@
 <blockquote>
 <p>Computation in a pushdown automaton:</p>
 <ul>
-<li>The automaton starts at the start state <span class="math">\(q_0\)</span> and with an empty stack and at the beginning of the input.</li>
-<li>When on a state <span class="math">\(q\)</span>, the automaton nondeterministically chooses one amongst options coming from 4 sets:
+<li>The automaton starts at the start state <span class="math inline">\(q_0\)</span> and with an empty stack and at the beginning of the input.</li>
+<li>When on a state <span class="math inline">\(q\)</span>, the automaton nondeterministically chooses one amongst options coming from 4 sets:
 <ul>
-<li>One of the options in <span class="math">\(\delta(q, \epsilon, \epsilon)\)</span>. In this case it does not consume any input and it does not pop anything from the stack (but it might push something).</li>
-<li>One of the options in <span class="math">\(\delta(q, a, \epsilon)\)</span>. In this case the next input should be <span class="math">\(a\)</span> and it will be consumed, and nothing is popped from the stack.</li>
-<li>One of the options in <span class="math">\(\delta(q, \epsilon, s)\)</span>. In this case no input is consumed, but the top of the stack should be <span class="math">\(s\)</span> and it is popped.</li>
-<li>One of the options in <span class="math">\(\delta(q, a, s)\)</span>. In this case the next input must be <span class="math">\(a\)</span> and is consumed, and the top of the stack must be <span class="math">\(s\)</span> and it will be popped.</li>
+<li>One of the options in <span class="math inline">\(\delta(q, \epsilon, \epsilon)\)</span>. In this case it does not consume any input and it does not pop anything from the stack (but it might push something).</li>
+<li>One of the options in <span class="math inline">\(\delta(q, a, \epsilon)\)</span>. In this case the next input should be <span class="math inline">\(a\)</span> and it will be consumed, and nothing is popped from the stack.</li>
+<li>One of the options in <span class="math inline">\(\delta(q, \epsilon, s)\)</span>. In this case no input is consumed, but the top of the stack should be <span class="math inline">\(s\)</span> and it is popped.</li>
+<li>One of the options in <span class="math inline">\(\delta(q, a, s)\)</span>. In this case the next input must be <span class="math inline">\(a\)</span> and is consumed, and the top of the stack must be <span class="math inline">\(s\)</span> and it will be popped.</li>
 </ul></li>
-<li>If the automaton has consumed all input and has made it to an accept state (possibly following some of the <span class="math">\(\epsilon\)</span>-input possibilities above once it has consumed all input), then it accepts the string.</li>
+<li>If the automaton has consumed all input and has made it to an accept state (possibly following some of the <span class="math inline">\(\epsilon\)</span>-input possibilities above once it has consumed all input), then it accepts the string.</li>
 </ul>
 <p>The language of the automaton is the set of all strings that the automaton accepts.</p>
 </blockquote>
 <p>For example consider the language:</p>
-<p><span class="math">\[L = \left\{ x^ny^m \mid n \geq m \geq 0 \right\}\]</span></p>
-<p>So the language allows any number of <span class="math">\(x\)</span>’s followed by no more than that many <span class="math">\(y\)</span>’s. Here is an automaton that will recognize the language. We will use the stack to count how many <span class="math">\(x\)</span>’s we have seen that have not been matched by corresponding <span class="math">\(y\)</span>’s.</p>
+<p><span class="math display">\[L = \left\{ x^ny^m \mid n \geq m \geq 0 \right\}\]</span></p>
+<p>So the language allows any number of <span class="math inline">\(x\)</span>’s followed by no more than that many <span class="math inline">\(y\)</span>’s. Here is an automaton that will recognize the language. We will use the stack to count how many <span class="math inline">\(x\)</span>’s we have seen that have not been matched by corresponding <span class="math inline">\(y\)</span>’s.</p>
 <ul>
-<li><span class="math">\(\Sigma=\{ x, y \}\)</span>.</li>
-<li><span class="math">\(\Gamma = \{ x \}\)</span> as we will only put <span class="math">\(x\)</span>’s in the stack.</li>
-<li><span class="math">\(Q = \{ q_0,q_1 \}\)</span> has a start state and one more state.</li>
-<li><span class="math">\(F = \{ q_1 \}\)</span> we have to make it to <span class="math">\(q_1\)</span> to accept.</li>
-<li><span class="math">\(\delta(q_0, x, \epsilon) = \left\{(q_0, x)\right\}\)</span>. As long as we see <span class="math">\(x\)</span>’s we push them to the stack.</li>
-<li><span class="math">\(\delta(q_0, \epsilon, \epsilon) = \left\{(q_1, \epsilon)\right\}\)</span> at any time, non-deterministically, we can decide to stop consuming <span class="math">\(x\)</span>’s and prepare for the <span class="math">\(y\)</span>’s.</li>
-<li><span class="math">\(\delta(q_1, y, x) = \left\{(q_1, \epsilon)\right\}\)</span>. As long as we can find an <span class="math">\(x\)</span> in the stack, we can consume a <span class="math">\(y\)</span> (and pop that <span class="math">\(x\)</span>).</li>
-<li>All other <span class="math">\(\delta\)</span> values are empty sets.</li>
+<li><span class="math inline">\(\Sigma=\{ x, y \}\)</span>.</li>
+<li><span class="math inline">\(\Gamma = \{ x \}\)</span> as we will only put <span class="math inline">\(x\)</span>’s in the stack.</li>
+<li><span class="math inline">\(Q = \{ q_0,q_1 \}\)</span> has a start state and one more state.</li>
+<li><span class="math inline">\(F = \{ q_1 \}\)</span> we have to make it to <span class="math inline">\(q_1\)</span> to accept.</li>
+<li><span class="math inline">\(\delta(q_0, x, \epsilon) = \left\{(q_0, x)\right\}\)</span>. As long as we see <span class="math inline">\(x\)</span>’s we push them to the stack.</li>
+<li><span class="math inline">\(\delta(q_0, \epsilon, \epsilon) = \left\{(q_1, \epsilon)\right\}\)</span> at any time, non-deterministically, we can decide to stop consuming <span class="math inline">\(x\)</span>’s and prepare for the <span class="math inline">\(y\)</span>’s.</li>
+<li><span class="math inline">\(\delta(q_1, y, x) = \left\{(q_1, \epsilon)\right\}\)</span>. As long as we can find an <span class="math inline">\(x\)</span> in the stack, we can consume a <span class="math inline">\(y\)</span> (and pop that <span class="math inline">\(x\)</span>).</li>
+<li>All other <span class="math inline">\(\delta\)</span> values are empty sets.</li>
 </ul>
 <p>Here is a visual representation:</p>
 <div class="figure">
@@ -90,48 +90,48 @@
 <p class="caption">A simple pushdown automaton</p>
 </div>
 <p>Now let us try a slightly more difficult language:</p>
-<p><span class="math">\[L = \left\{ x^ny^n \mid n \geq 0 \right\}\]</span></p>
-<p>This is a bit different than the previous example. In the previous example we did not need to know that the stack was empty before returning. In fact there might be a bunch of <span class="math">\(x\)</span>’s left in the stack. All we had to make sure is that we don’t add a <span class="math">\(y\)</span> unless there was an <span class="math">\(x\)</span> to match it.</p>
-<p>This case is different. We will need to know when we have taken all the <span class="math">\(x\)</span>’s out of the stack, because it is only at that time that they are matched to the <span class="math">\(y\)</span>’s. But by default there isn’t really an automatic mechanism for doing that. But we can build one ourselves, and from now on we will do these steps without thinking about them much:</p>
+<p><span class="math display">\[L = \left\{ x^ny^n \mid n \geq 0 \right\}\]</span></p>
+<p>This is a bit different than the previous example. In the previous example we did not need to know that the stack was empty before returning. In fact there might be a bunch of <span class="math inline">\(x\)</span>’s left in the stack. All we had to make sure is that we don’t add a <span class="math inline">\(y\)</span> unless there was an <span class="math inline">\(x\)</span> to match it.</p>
+<p>This case is different. We will need to know when we have taken all the <span class="math inline">\(x\)</span>’s out of the stack, because it is only at that time that they are matched to the <span class="math inline">\(y\)</span>’s. But by default there isn’t really an automatic mechanism for doing that. But we can build one ourselves, and from now on we will do these steps without thinking about them much:</p>
 <blockquote>
 <p>How to check for empty stack:</p>
 <ul>
-<li>Add a new stack symbol, not existing in <span class="math">\(\Gamma\)</span>. We denote it by <span class="math">\(\$\)</span>.</li>
-<li>Add a new start state, with a transition <span class="math">\(\epsilon,\epsilon\to\$\)</span> to the previous start state. This adds a symbol at the bottom of the stack. Running into that symbol means the stack is empty.</li>
-<li>At any place where you need to test for end of input, add a transition <span class="math">\(\epsilon,\$\to \epsilon\)</span> to a new final state.</li>
+<li>Add a new stack symbol, not existing in <span class="math inline">\(\Gamma\)</span>. We denote it by <span class="math inline">\(\$\)</span>.</li>
+<li>Add a new start state, with a transition <span class="math inline">\(\epsilon,\epsilon\to\$\)</span> to the previous start state. This adds a symbol at the bottom of the stack. Running into that symbol means the stack is empty.</li>
+<li>At any place where you need to test for end of input, add a transition <span class="math inline">\(\epsilon,\$\to \epsilon\)</span> to a new final state.</li>
 </ul>
 </blockquote>
-<p>Let us illustrate this with a pushdown automaton for the language <span class="math">\(L\)</span> described above:</p>
+<p>Let us illustrate this with a pushdown automaton for the language <span class="math inline">\(L\)</span> described above:</p>
 <ul>
-<li><span class="math">\(\Sigma=\{ x, y \}\)</span>.</li>
-<li><span class="math">\(\Gamma = \{ x, \$ \}\)</span>.</li>
-<li><span class="math">\(Q = \{ q_0, q_1, q_2, q_3 \}\)</span>.</li>
-<li><span class="math">\(F = \{ q_3 \}\)</span>.</li>
-<li><span class="math">\(\delta(q_0, \epsilon, \epsilon) = \left\{(q_1, \$)\right\}\)</span>.</li>
-<li><span class="math">\(\delta(q_1, x, \epsilon) = \left\{(q_1, x)\right\}\)</span>.</li>
-<li><span class="math">\(\delta(q_1, \epsilon, \epsilon) = \left\{(q_2, \epsilon)\right\}\)</span>.</li>
-<li><span class="math">\(\delta(q_2, y, x) = \left\{(q_2, \epsilon)\right\}\)</span>.</li>
-<li><span class="math">\(\delta(q_2, \epsilon, \$) = \left\{(q_3, \epsilon)\right\}\)</span>.</li>
-<li>All other <span class="math">\(\delta\)</span> values are empty sets.</li>
+<li><span class="math inline">\(\Sigma=\{ x, y \}\)</span>.</li>
+<li><span class="math inline">\(\Gamma = \{ x, \$ \}\)</span>.</li>
+<li><span class="math inline">\(Q = \{ q_0, q_1, q_2, q_3 \}\)</span>.</li>
+<li><span class="math inline">\(F = \{ q_3 \}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_0, \epsilon, \epsilon) = \left\{(q_1, \$)\right\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_1, x, \epsilon) = \left\{(q_1, x)\right\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_1, \epsilon, \epsilon) = \left\{(q_2, \epsilon)\right\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_2, y, x) = \left\{(q_2, \epsilon)\right\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_2, \epsilon, \$) = \left\{(q_3, \epsilon)\right\}\)</span>.</li>
+<li>All other <span class="math inline">\(\delta\)</span> values are empty sets.</li>
 </ul>
 <div class="figure">
 <img src="images/pushdown2.png" alt="Matching x’s to y’s" />
-<p class="caption">Matching <span class="math">\(x\)</span>’s to <span class="math">\(y\)</span>’s</p>
+<p class="caption">Matching <span class="math inline">\(x\)</span>’s to <span class="math inline">\(y\)</span>’s</p>
 </div>
 <p>Exercise 1: Work out a PDA for the language that consists of all palindromes.</p>
 <p>Exercise 2: Work out a PDA for the language that consists of all matched parentheses (e.g. <code>(()(()()))</code>).</p>
-<p>Exercise 3: Work out a PDA for the language that consists of an equal number of <span class="math">\(x\)</span>s and <span class="math">\(y\)</span>s (but not requiring all <span class="math">\(x\)</span>s before all <span class="math">\(y\)</span>s).</p>
+<p>Exercise 3: Work out a PDA for the language that consists of an equal number of <span class="math inline">\(x\)</span>s and <span class="math inline">\(y\)</span>s (but not requiring all <span class="math inline">\(x\)</span>s before all <span class="math inline">\(y\)</span>s).</p>
 <h3 id="emptying-the-stack">Emptying the stack</h3>
-<p>There are some convenient things we can do to simplify a PDA, that will be critical for what we will do next. First of all, we can of course assume that there is only one accept state, by instead <span class="math">\(\epsilon\)</span>-transitioning to a new state from all the accept states like we would do in an NFA. But the nice thing in our case is that we can also empty the stack first:</p>
+<p>There are some convenient things we can do to simplify a PDA, that will be critical for what we will do next. First of all, we can of course assume that there is only one accept state, by instead <span class="math inline">\(\epsilon\)</span>-transitioning to a new state from all the accept states like we would do in an NFA. But the nice thing in our case is that we can also empty the stack first:</p>
 <blockquote>
 <p>For any PDA there is an equivalent PDA which only accepts with an empty stack.</p>
 </blockquote>
 <p>The process for constructing this new PDA is somewhat simple:</p>
 <ul>
 <li>We add a new “end of stack symbol” like we did in the previous example, and a new start state that puts it on the stack.</li>
-<li>We add a new state <span class="math">\(q_e\)</span> that all the old accept states would <span class="math">\(\epsilon\)</span>-transition to.</li>
-<li>We add transitions <span class="math">\(\epsilon,s\to\epsilon\)</span> from <span class="math">\(q_e\)</span> to itself for each stack symbol <span class="math">\(s\)</span> except for the new “end of stack symbol”. This effectively empties the stack.</li>
-<li>We add a new state <span class="math">\(q_s\)</span> that is the final state, and a transition <span class="math">\(\epsilon,\$\to\epsilon\)</span> from <span class="math">\(q_e\)</span> to it. So the only way we will transition to <span class="math">\(q_s\)</span> and hence accept is when we’ve reached the end of stack symbol.</li>
+<li>We add a new state <span class="math inline">\(q_e\)</span> that all the old accept states would <span class="math inline">\(\epsilon\)</span>-transition to.</li>
+<li>We add transitions <span class="math inline">\(\epsilon,s\to\epsilon\)</span> from <span class="math inline">\(q_e\)</span> to itself for each stack symbol <span class="math inline">\(s\)</span> except for the new “end of stack symbol”. This effectively empties the stack.</li>
+<li>We add a new state <span class="math inline">\(q_s\)</span> that is the final state, and a transition <span class="math inline">\(\epsilon,\$\to\epsilon\)</span> from <span class="math inline">\(q_e\)</span> to it. So the only way we will transition to <span class="math inline">\(q_s\)</span> and hence accept is when we’ve reached the end of stack symbol.</li>
 </ul>
 </body>
 </html>

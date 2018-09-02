@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -48,78 +66,78 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h2 id="local-variables">Local variables</h2>
 <p>In every programming language we need some way to retain information for later use, by associating some symbol/string/identifier with it. A key part of that assignment is a specification of the rules for the <em>scope</em> of that assignment, namely the extent of the code where it would apply.</p>
 <p>In OCAML we do this using <code>let</code>:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span> <span class="kw">in</span> x + x;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span> <span class="kw">in</span> x + x;;</code></pre></div>
 <p>This introduces a new binding of <code>x</code> to the result of the computation of <code>3 + 5</code>. The scope of the binding is the expression that follows the <code>in</code>. You can even nest bindings:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span>
 <span class="kw">in</span> <span class="kw">let</span> y = x + <span class="dv">2</span>
    <span class="kw">in</span> x + y;;
-x;;   <span class="co">(* x is undefined here! *)</span></code></pre>
+x;;   <span class="co">(* x is undefined here! *)</span></code></pre></div>
 <p>When you work at the interactive level of <code>utop</code>, there is one further thing you can do, which is to define something that persists across the duration of your interactive session:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span>;;
-<span class="co">(* x equals 8 from now on *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x = <span class="dv">3</span> + <span class="dv">5</span>;;
+<span class="co">(* x equals 8 from now on *)</span></code></pre></div>
 <h2 id="functions">Functions</h2>
 <p>Functions are extremely versatile in OCAML.</p>
 <h3 id="function-calls">Function calls</h3>
 <p>To call a function you simply put its argument next to it, no parentheses necessary:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">sin <span class="fl">2.0</span>;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">sin</span> <span class="fl">2.0</span>;;</code></pre></div>
 <p>Chaining function calls does need parentheses, but only to signify what needs to happen first:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">cos sin <span class="fl">2.0</span>;;    <span class="co">(* error! *)</span>
-cos (sin <span class="fl">2.0</span>);;  <span class="co">(* right! *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">cos</span> <span class="dt">sin</span> <span class="fl">2.0</span>;;    <span class="co">(* error! *)</span>
+<span class="dt">cos</span> (<span class="dt">sin</span> <span class="fl">2.0</span>);;  <span class="co">(* right! *)</span></code></pre></div>
 <p>Some functions appear to take 2 arguments. Technically they do not, but we will worry about that later. multiple arguments are simply listed next to each other:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">max <span class="dv">2</span> <span class="dv">4</span>;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">max</span> <span class="dv">2</span> <span class="dv">4</span>;;</code></pre></div>
 <p>Perhaps now you can guess what happened with the error earlier when we tried to chain functions.</p>
 <h3 id="function-definitions">Function definitions</h3>
 <p>Function definitions work exactly like any other values. In fact as far as OCAML is concerned there isn’t really a difference between defining a function and defining a constant, other than a little bit of syntactic sugar. Here’s how we could define a simple function that turns negative numbers to 0:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> xplus x = <span class="kw">if</span> x &lt; <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> x;;
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> xplus x = <span class="kw">if</span> x &lt; <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> x;;
 xplus <span class="dv">2</span>;;
-xplus (<span class="dv">-2</span>);;</code></pre>
+xplus (<span class="dv">-2</span>);;</code></pre></div>
 <p>We also see here a use of OCAML’s conditional, <code>if-then-else</code>. It takes exactly 3 expressions, one that must return a boolean, and the two branches that must return the same type.</p>
 <p>Functions of multiple arguments are defined similarly:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myMax x y = <span class="kw">if</span> x &lt; y <span class="kw">then</span> y <span class="kw">else</span> x;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myMax x y = <span class="kw">if</span> x &lt; y <span class="kw">then</span> y <span class="kw">else</span> x;;</code></pre></div>
 <p>OCAML also has anonymous functions. These are often called “lambdas”:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x -&gt; x * x;;   <span class="co">(* A new function, but it gets &quot;lost&quot; because we didn&#39;t store it *)</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> x -&gt; x * x;;   <span class="co">(* A new function, but it gets &quot;lost&quot; because we didn&#39;t store it *)</span>
 (<span class="kw">fun</span> x -&gt; x * x) <span class="dv">3</span>;;   <span class="co">(* Here we immediately invoke the function! *)</span>
 (<span class="kw">fun</span> x y -&gt; x * y) <span class="dv">3</span> <span class="dv">4</span>;;   <span class="co">(* Anonymous function of 2 variables! *)</span>
-<span class="kw">let</span> xplus = <span class="kw">fun</span> x -&gt; <span class="kw">if</span> x &lt; <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> x;;   <span class="co">(* Alternative definition to above *)</span></code></pre>
+<span class="kw">let</span> xplus = <span class="kw">fun</span> x -&gt; <span class="kw">if</span> x &lt; <span class="dv">0</span> <span class="kw">then</span> <span class="dv">0</span> <span class="kw">else</span> x;;   <span class="co">(* Alternative definition to above *)</span></code></pre></div>
 <h3 id="tuples">Tuples</h3>
 <p>A powerful feature of OCAML is the ease with which you can group heterogeneous values together. This feature is called a tuple. Tuples can be used anywhere where other values can:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> minmax x y = <span class="kw">if</span> x &lt; y <span class="kw">then</span> (x, y) <span class="kw">else</span> (y, x);;
-minmax <span class="dv">4</span> <span class="dv">3</span>;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> minmax x y = <span class="kw">if</span> x &lt; y <span class="kw">then</span> (x, y) <span class="kw">else</span> (y, x);;
+minmax <span class="dv">4</span> <span class="dv">3</span>;;</code></pre></div>
 <p>Tuples can also be used as arguments to functions, which appear deceptively similar to functions in other languages:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myAdd (x, y) = x + y;;
-myAdd (<span class="dv">2</span>, <span class="dv">3</span>);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myAdd (x, y) = x + y;;
+myAdd (<span class="dv">2</span>, <span class="dv">3</span>);;</code></pre></div>
 <p>It might look like you have defined a function of two variables, but in fact you have not. It is a function of one variable, which happens to be a tuple, and we call its two components <code>x</code> and <code>y</code>. For instance we could get the exact same effect as:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myAdd tpl = fst tpl + snd tpl;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myAdd tpl = <span class="dt">fst</span> tpl + <span class="dt">snd</span> tpl;;</code></pre></div>
 <p>Here <code>fst</code> and <code>snd</code> are functions provided by OCAML to pick the first, respectively second, part out of a tuple.</p>
 <p>Tuples can of course have more than 2 values, and they can have values of different types:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">(<span class="st">&quot;a string&quot;</span>, <span class="dv">5</span>, <span class="fl">3.4</span>);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">(<span class="st">&quot;a string&quot;</span>, <span class="dv">5</span>, <span class="fl">3.4</span>);;</code></pre></div>
 <h3 id="lists">Lists</h3>
 <p>Lists are used for storing arbitrary numbers of values of the same type. You can think of them like linked lists, processed always in order.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">[<span class="dv">1</span>; <span class="dv">4</span>; <span class="dv">2</span>];;  <span class="co">(* List of 3 elements *)</span>
-<span class="dv">2</span> :: <span class="dv">4</span> :: [];;   <span class="co">(* elements appended to the empty list *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">[<span class="dv">1</span>; <span class="dv">4</span>; <span class="dv">2</span>];;  <span class="co">(* List of 3 elements *)</span>
+<span class="dv">2</span> :: <span class="dv">4</span> :: [];;   <span class="co">(* elements appended to the empty list *)</span></code></pre></div>
 <p>There are two standard ways to go through list elements. One is pattern matching, and we will see more about that in a little while. The other is using the functions from the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html">List module</a>:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> a = [<span class="dv">1</span>; <span class="dv">4</span>; <span class="dv">2</span>];;
-List<span class="kw">.</span>length a;;
-List<span class="kw">.</span>tl a;;
-List<span class="kw">.</span>rev a;;
-List<span class="kw">.</span>append a a;;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> a = [<span class="dv">1</span>; <span class="dv">4</span>; <span class="dv">2</span>];;
+<span class="dt">List</span>.length a;;
+<span class="dt">List</span>.tl a;;
+<span class="dt">List</span>.rev a;;
+<span class="dt">List</span>.append a a;;</code></pre></div>
 <p>Most important amongst them are the so-called higher-order functions, called that way because they take functions as inputs, and then operate on the lists using those functions:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">List<span class="kw">.</span>map (<span class="kw">fun</span> x -&gt; x * x) a;;
-List<span class="kw">.</span>filter (<span class="kw">fun</span> x -&gt; x &gt; <span class="dv">3</span>) a;;
-List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; acc + x) <span class="dv">0</span> a;;
-List<span class="kw">.</span>fold_left (+) <span class="dv">0</span> a;;         <span class="co">(* operators are really just normal functions *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">List</span>.map (<span class="kw">fun</span> x -&gt; x * x) a;;
+<span class="dt">List</span>.filter (<span class="kw">fun</span> x -&gt; x &gt; <span class="dv">3</span>) a;;
+<span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; acc + x) <span class="dv">0</span> a;;
+<span class="dt">List</span>.fold_left (+) <span class="dv">0</span> a;;         <span class="co">(* operators are really just normal functions *)</span></code></pre></div>
 <p>These are extremely versatile. The last one in particular, <code>List.fold_left</code> and its cousin <code>List.fold_right</code>, are sufficient to replace most accumulator-type problems that you would normally use a for loop for. In fact you can do most anything you could have done with a for loop via these folds.</p>
 <p>Most “collection” types have these higher order functions implemented. They offer a uniform way to approach collection element traversal.</p>
 <h3 id="functions-as-values-and-higher-order-functions">Functions as values and Higher-order functions</h3>
 <p>Functions are ubiquitous in OCAML, in the sense that they behave in all ways like any other normal value. They can be passed around, stored in variables, be the input to other functions and so on.</p>
 <p>The function <code>List.map</code> earlier is a simple example. It took as input a function that transformed elements of the list, and also a list, then applied that function to each element. This is a powerful “separation of concerns” paradigm: One function, <code>List.map</code> is responsible for knowing how to visit each element in the list, and another function, the passed-in argument, knows what to do with those elements. The two don’t really need to know much about each other.</p>
 <p>Here is another example: We will define a function called “twice”. It takes as input a function <code>f</code>, then returns as a result a function that would apply <code>f</code> twice. So <code>(twice f) 4</code> would be the same as <code>f (f 4)</code>. In fact this is essentially the definition:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice f = <span class="kw">fun</span> x -&gt; f (f x);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice f = <span class="kw">fun</span> x -&gt; f (f x);;</code></pre></div>
 <p>It is worth looking at the type of this function: <code>('a -&gt; 'a) -&gt; 'a -&gt; 'a</code>. The <code>'a</code> stands here for any type, but it must be the same type throughout. It is called a polymorphic type. The arrows indicate that this is a function, and you can effectively think of it as a function of two arguments, in the line above those would be the <code>f</code> and the <code>x</code>. The <code>f</code> is required to be a function that takes <code>'a</code> things and returns <code>'a</code> things, and <code>x</code> is required to also be a <code>'a</code> thing. Finally our function returns an <code>'a</code> thing.</p>
 <p>So this way of thinking would correspond to defining the functions thus:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice f x = f (f x);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice f x = f (f x);;</code></pre></div>
 <p>There is practically no difference between these two forms, the latter is really just “syntactic sugar” for the former, and actually that in turn is syntactic sugar for something like:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice = <span class="kw">fun</span> f -&gt; <span class="kw">fun</span> x -&gt; f (f x);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> twice = <span class="kw">fun</span> f -&gt; <span class="kw">fun</span> x -&gt; f (f x);;</code></pre></div>
 <p>All these 3 are the same. In general this is what we call a “curried” function, in honor of Haskell Curry. The idea is that a function of 2 arguments is intead thought of as a function of the first argument, that in turn returns a function of the second argument. We in effect apply the arguments one at a time.</p>
 <h3 id="recursion-on-functions">Recursion on functions</h3>
 <p>We now arrive at an area where OCAML differs a lot from other languages. Not so much because other languages do not have recursive functions, but because of how ubiquitous they are. There are three main reasons for this:</p>
@@ -127,12 +145,12 @@ List<span class="kw">.</span>fold_left (+) <span class="dv">0</span> a;;        
 <li>As a functional programming language, OCAML discourages mutation, i.e. the idea that you have a variable whose value you keep updating. This idea is required for iteration in most programming languages (iteration via <code>for</code> loops, <code>while</code> loops etc). So OCAML essentially does away with iteration altogether, and uses recursive functions instead, who can serve a similar purpose as we will see shortly.</li>
 <li><p>OCAML, as most functional programming languages, has properly tail-optimized calls. What this means is that if a function calls another function as the last thing it does, i.e. its return value is just what that other function returns without need for extra steps, then these calls don’t take up extra stack space on the function call stack. As an example, this silly function <code>let rec f x = f x;;</code> which just calls itself over and over again will just run forever rather than exhaust the stack space.</p>
 <p>This is useful to create things like interactive loops. Here is a “simple” example:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> loop () =
-    <span class="kw">let</span> x = read_int ()
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> loop () =
+    <span class="kw">let</span> x = <span class="dt">read_int</span> ()
     <span class="kw">in</span> <span class="kw">if</span> x &gt; <span class="dv">5</span>
        <span class="kw">then</span> ()
        <span class="kw">else</span> loop ()
-<span class="kw">in</span> loop ();;</code></pre>
+<span class="kw">in</span> loop ();;</code></pre></div>
 This loop reads an integer input, and if that is not bigger than 5 then it just asks for new input. This behaves very much like a <code>while</code> loop.</li>
 <li><p>In OCAML, again as in most functional programming languages, function values, which is effectively most of the information in the function’s “activation record” that goes in the function stack, are actually stored in the heap, just like any other values. This removes the usual limitations that come from using a stack.</p></li>
 </ul>
@@ -144,23 +162,23 @@ This loop reads an integer input, and if that is not bigger than 5 then it just 
 <li>Finally if <code>m =1</code> we just return <code>a</code>.</li>
 </ol>
 <p>So here is how this might look in OCAML.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> modpower a m n =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> modpower a m n =
     <span class="kw">if</span> m = <span class="dv">1</span>
     <span class="kw">then</span> a
     <span class="kw">else</span> <span class="kw">let</span> rest = modpower (a * a <span class="kw">mod</span> n) (m / <span class="dv">2</span>) n
          <span class="kw">in</span> <span class="kw">if</span> m <span class="kw">mod</span> <span class="dv">2</span> = <span class="dv">1</span>
             <span class="kw">then</span> a * rest <span class="kw">mod</span> n
-            <span class="kw">else</span> rest;;</code></pre>
+            <span class="kw">else</span> rest;;</code></pre></div>
 <h3 id="pattern-matching">Pattern matching</h3>
 <p>Recursion works really well with another awesome feature of OCAML, pattern matching. Pattern matching is somewhat of a beefed-up version of a <code>switch</code> statement. Basically you match a value against a series of potential “patterns”, until you find one that matches. These patterns can even contain variables, which then are bound to corresponding values for the duration of the call.</p>
 <p>Let us see a simple example of that. Say we want to write a multiplication function that takes two numbers and multiplies them. But if one of the two numbers is <code>0</code> we want to return <code>0</code> directly without doing a multiplication. Don’t ask me why, just go with it!. Perhaps we know that multiplication will for some reason take time, and we don’t need it since we know the answer in this case. We further want to handle the case of <code>1</code> specially:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myMult x y =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> myMult x y =
     <span class="kw">match</span> (x, y) <span class="kw">with</span>
       (<span class="dv">0</span>, _) -&gt; <span class="dv">0</span>
     | (_, <span class="dv">0</span>) -&gt; <span class="dv">0</span>
     | (<span class="dv">1</span>, z) -&gt; z
     | (z, <span class="dv">1</span>) -&gt; z
-    | _      -&gt; x * y</code></pre>
+    | _      -&gt; x * y</code></pre></div>
 <p>So let us see what happens here:</p>
 <ol style="list-style-type: decimal">
 <li>The pair <code>(x, y)</code> is formed, and matched against various “patterns”.</li>
@@ -170,18 +188,18 @@ This loop reads an integer input, and if that is not bigger than 5 then it just 
 <li>The last clause is a “catchall”, with a single underscore that will match anything. In that case we simply multiply <code>x</code> and <code>y</code>.</li>
 </ol>
 <p>Okay, let us proceed to a more complicated example. Recursion together with pattern matching is an extremely powerful method for processing structured data, like a list. A list has one of two forms: It may be empty, or it may be an element prepended to another list. We can pattern match those two cases. For instance, here is how we could add the elements on a list:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> addAll lst =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> addAll lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         x :: rest -&gt; x + addAll rest
-      | []        -&gt; <span class="dv">0</span></code></pre>
+      | []        -&gt; <span class="dv">0</span></code></pre></div>
 <p>Here’s an implementation of length, where for fun we have special-cased the list with one element. The order is important here: that case must come before the last one, as otherwise the last one would subsume it. Notice once again the usage of <code>_</code> for values we don’t really care for. It is a good practice to do that.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> length lst =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> length lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; <span class="dv">0</span>
       | _ :: []   -&gt; <span class="dv">1</span>
-      | _ :: rest -&gt; <span class="dv">1</span> + length rest</code></pre>
+      | _ :: rest -&gt; <span class="dv">1</span> + length rest</code></pre></div>
 <p>Armed with this knowledge, let us see how we could define <code>map</code> and <code>fold_left</code>:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> map f lst =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> map f lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; []
       | x :: rest -&gt; (f x) :: map f rest;;
@@ -189,7 +207,7 @@ This loop reads an integer input, and if that is not bigger than 5 then it just 
 <span class="kw">let</span> <span class="kw">rec</span> fold_left f init lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; init
-      | x :: rest -&gt; fold_left f (f init x) rest;;</code></pre>
+      | x :: rest -&gt; fold_left f (f init x) rest;;</code></pre></div>
 <h3 id="the-option-type">The option type</h3>
 <p>A cool feature of OCAML is the <em>option type</em>. The option type is a way, at the type system level, to handle the idea of failure. A value of type for instance <code>int option</code> has two alternatives:</p>
 <ol style="list-style-type: decimal">
@@ -197,10 +215,10 @@ This loop reads an integer input, and if that is not bigger than 5 then it just 
 <li>It could correspond to “failure”. In that case it is written like so: <code>None</code></li>
 </ol>
 <p>As a quick example, imagine the following “safeDiv” function for safe division:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> safeDiv x y =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> safeDiv x y =
     <span class="kw">if</span> y = <span class="dv">0</span>
     <span class="kw">then</span> <span class="dt">None</span>
-    <span class="kw">else</span> <span class="dt">Some</span> (x / y);;</code></pre>
+    <span class="kw">else</span> <span class="dt">Some</span> (x / y);;</code></pre></div>
 <p>So in this case if the “denominator” <code>y</code> is equal to zero, we do not attempt to divide. This way we can be sure that we will not have to deal with a runtime exception. The other advantage is that if someone wants to use our value, they have to explicitly do a pattern match and say “if I am in the case of <code>None</code> I do this, otherwise if I am <code>Some n</code> I can do something with the <code>n</code>”. So anyone who wishes to use our value is forced by the type system to deal with the possibility that our function might not have returned an actual value. They can’t simply forget to account for it. This is powerful.</p>
 <p>Unfortunately by default there is no rich set of functions to work with the option type. In this section we will look at their implementation. At the same time we will learn a bit about OCAML’s module system.</p>
 <p>This time we will work with files. I have already created the two files for us, you will have to download them. I suggest that you check out the entire <a href="https://github.com/skiadas/TheoryCompCourse">GitHub project</a>. Choose a directory you want to use, then do:</p>
@@ -211,66 +229,66 @@ This loop reads an integer input, and if that is not bigger than 5 then it just 
 <p>Let us start by looking at <code>options.mli</code>. This is what is called an <em>interface</em> file. It is a specification of the functions that are in the module, and their types. You can actually create a lot more functions in the module, but they will be kept private and hidden to the rest of your program if they don’t appear in the interface file.</p>
 <p>So all that the interface file contains is type signatures for your functions. It can also contain definitions of new types, and definitions of exceptions. In fact in this case you will see an exception defined.</p>
 <p>Here’s a condensed version of the function signatures in the interface file:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> may : (&#39;a -&gt; <span class="dt">unit</span>) -&gt; &#39;a <span class="dt">option</span> -&gt; <span class="dt">unit</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> may : (&#39;a -&gt; <span class="dt">unit</span>) -&gt; &#39;a <span class="dt">option</span> -&gt; <span class="dt">unit</span>
 <span class="kw">val</span> map : (&#39;a -&gt; &#39;b) -&gt; &#39;a <span class="dt">option</span> -&gt; &#39;b <span class="dt">option</span>
 <span class="kw">val</span> default : &#39;a -&gt; &#39;a <span class="dt">option</span> -&gt; &#39;a
 <span class="kw">val</span> map_default : (&#39;a -&gt; &#39;b) -&gt; &#39;b -&gt; &#39;a <span class="dt">option</span> -&gt; &#39;b
 <span class="kw">val</span> is_none : &#39;a <span class="dt">option</span> -&gt; <span class="dt">bool</span>
 <span class="kw">val</span> is_some : &#39;a <span class="dt">option</span> -&gt; <span class="dt">bool</span>
-<span class="kw">val</span> get : &#39;a <span class="dt">option</span> -&gt; &#39;a</code></pre>
+<span class="kw">val</span> get : &#39;a <span class="dt">option</span> -&gt; &#39;a</code></pre></div>
 <p>Oftentimes function signatures pretty much tell you what the function does. For instance, the first function, called <code>may</code>. It takes as first argument a function that expects some value of type <code>'a</code> and returns nothing (<code>unit</code> is the type with only one value, <code>()</code>, so it is used to indicate that the function doesn’t really return anything, it simply has a side-effect of say writing something on the screen). It then also takes as an argument a value of type <code>'a option</code>. And finally it returns nothing. So it should not be hard to guess what the function does. If the argument of type <code>'a option</code> has the form <code>Some aVal</code>, then we can call the function on <code>aVal</code>. If instead it is a <code>None</code> then we cannot do much. Here’s how we would implement this function (omitting the semicolons because they are not used when working with files) see the <code>option.ml</code> file:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> may f v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> may f v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
    <span class="dt">Some</span> v -&gt; f v
- | <span class="dt">None</span>   -&gt; ()</code></pre>
+ | <span class="dt">None</span>   -&gt; ()</code></pre></div>
 <p>Let us move on to the second function, <code>map</code> (not to be confused with <code>List.map</code>, this is <code>Option.map</code>). It takes as arguments a function that takes <code>'a</code> values and turns them into <code>'b</code> values, and also a <code>'a option</code> value. It needs to produce a <code>b option</code> value. So again there’s not that many options. If the <code>'a option</code> value is actually a <code>Some v</code>, then we can apply the function to that <code>v</code>. Otherwise we better return <code>None</code>:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> map f v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> map f v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
    <span class="dt">Some</span> v -&gt; <span class="dt">Some</span> (f v)
- | <span class="dt">None</span>   -&gt; <span class="dt">None</span></code></pre>
+ | <span class="dt">None</span>   -&gt; <span class="dt">None</span></code></pre></div>
 <p>Moving to the function <code>default</code>. The idea of it is simple: It takes an option value, and as a first argument a “default” value. It delivers that default value if the option value is <code>None</code>, or the value <code>v</code> if the option value is <code>Some v</code>. Here’s the code:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> default dflt v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> default dflt v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
    <span class="dt">Some</span> v -&gt; v
- | <span class="dt">None</span>   -&gt; dflt</code></pre>
+ | <span class="dt">None</span>   -&gt; dflt</code></pre></div>
 <p>The implementations of the other functions are similarly straightforward. Check out the <code>ml</code> file for details. But before we move on, we will introduce one last function:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="co">(* val bind : (&#39;a -&gt; &#39;b option) -&gt; &#39;a option -&gt; &#39;b option *)</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="co">(* val bind : (&#39;a -&gt; &#39;b option) -&gt; &#39;a option -&gt; &#39;b option *)</span>
 <span class="kw">let</span> bind f v_opt = <span class="kw">match</span> v_opt <span class="kw">with</span>
    <span class="dt">Some</span> v -&gt; f v
- | <span class="dt">None</span>   -&gt; <span class="dt">None</span></code></pre>
+ | <span class="dt">None</span>   -&gt; <span class="dt">None</span></code></pre></div>
 <p>This function takes as input 2 things. The second argument is a value of type <code>'a option</code>. Think of that as a value that came to us from a previous process, and that process might have failed. The first argument is a function that takes <code>'a</code> things and processes them, and it also might fail (hence returns <code>'b option</code>). We essentially combine these two processes, that each have a chance to fail. And if any one of them fails then the overall result is also a failure.</p>
 <p>Okay, time to move on.</p>
 <p>Let us now compile! Get back out to the terminal, and type:</p>
 <pre><code>ocamlc -c option.mli option.ml</code></pre>
 <p>This will create two new “compiled” files, <code>option.cmi</code> and <code>option.cmo</code>. One is the compiled interface file, the other is the compiled object file from <code>option.ml</code>.</p>
 <p>Now you can start <code>utop</code>, and from it you can do:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">#load &quot;option.cmo&quot;;;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">#load &quot;option.cmo&quot;;;</span></code></pre></div>
 <p>You should now have access to the <code>Option</code> module, notice the capitalization, and its methods, like <code>Option.map</code>, <code>Option.get</code>, <code>Option.default</code> etc.</p>
 <h3 id="custom-types">Custom types</h3>
 <p>Now that you are getting the hang of modules and stuff, it is time to introduce custom types. The ability to create your own types offers an immense richness to the language and a depth to the type system.</p>
 <p>To illustrate custom types, we are going to create an “expression” type, that will represent arithmetic expressions. For example if you think of <code>(a + b) * c</code>, we would have a way to represent this in our type. Here’s how such a definition might look like:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> t = <span class="dt">Num</span> <span class="kw">of</span> <span class="dt">int</span>
-       | <span class="dt">Sum</span> <span class="kw">of</span> t * t        <span class="co">(* addition *)</span>
-       | <span class="dt">Prod</span> <span class="kw">of</span> t * t       <span class="co">(* multiplication *)</span>
-       | <span class="dt">Neg</span> <span class="kw">of</span> t            <span class="co">(* negation *)</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> t = Num <span class="kw">of</span> <span class="dt">int</span>
+       | Sum <span class="kw">of</span> t * t        <span class="co">(* addition *)</span>
+       | Prod <span class="kw">of</span> t * t       <span class="co">(* multiplication *)</span>
+       | Neg <span class="kw">of</span> t            <span class="co">(* negation *)</span></code></pre></div>
 <p>Let’s read what this says: Something of type <code>t</code> could be one of 4 different things. It could be a <code>Num i</code> where <code>i</code> is of type <code>int</code>, or it could be a <code>Sum (e1, e2)</code> where <code>(e1, e2)</code> is of type <code>t * t</code>, i.e. <code>e1</code> and <code>e2</code> are both of type <code>t</code>, or it could be a product etc. If you are thinking of a language like Java, <code>t</code> could be a superclass and each of the other 4 types could be subclasses. OCAML keeps these closer to each other, so to speak.</p>
 <p>For instance we can express something like <code>(2 + 4) * 5</code> as: <code>Prod (Sum (Num 2, Num 4), Num 5)</code>.</p>
 <p>Note that this type is “recursively defined”: Each component refers back to the original type, except for <code>Num of int</code>. You can think of that as the building block, out of which you can create more complicated things by putting existing blocks together.</p>
 <p>You might wonder why we called the type <code>t</code>, which sounds very non-descript. We are likely to put the whole thing inside a module, in a file perhaps named <code>expr.ml</code>, so the actual name of the type to the rest of the world would be <code>Expr.t</code>. It is customary to use <code>t</code> for the primary type of a module. It offers some conveniences when trying to share interfaces across multiple modules. For example we might have a “collection” interface, that does not actually implement any functions but declares the kind of function types that collections should have. It is convenient in that case to agree on a common name for the type in question, leaving the module name as the distinguishing factor.</p>
 <p>Now let us write our first function that does something with values of type <code>t</code>! Probably the simplest function you could think of is the one that <em>evaluates</em> the expression to get a number. So this function will have type:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> eval: t -&gt; <span class="dt">int</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> eval: t -&gt; <span class="dt">int</span></code></pre></div>
 <p>Let’s think of what it will have to do. It receives as input a value of type <code>t</code>, and that value can be in one of 4 different forms. so it will probably need to do a pattern match against those 4 different forms. Also those forms might contain other expressions of type <code>t</code>, and those would need to be evaluated in turn, by calling our function <code>eval</code> from within itself. So it will have to be recursive:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> eval e = <span class="kw">match</span> e <span class="kw">with</span>
-   <span class="dt">Num</span> i         -&gt; i
- | <span class="dt">Sum</span> (e1, e2)  -&gt; eval e1 + eval e2
- | <span class="dt">Prod</span> (e1, e2) -&gt; eval e1 * eval e2
- | <span class="dt">Neg</span> e1        -&gt; -(eval e1);;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> eval e = <span class="kw">match</span> e <span class="kw">with</span>
+   Num i         -&gt; i
+ | Sum (e1, e2)  -&gt; eval e1 + eval e2
+ | Prod (e1, e2) -&gt; eval e1 * eval e2
+ | Neg e1        -&gt; -(eval e1);;</code></pre></div>
 <p>And voila! You just wrote your first interpreter. Here is an example use of it:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">eval (<span class="dt">Prod</span> (<span class="dt">Sum</span> (<span class="dt">Num</span> <span class="dv">2</span>, <span class="dt">Num</span> <span class="dv">4</span>), <span class="dt">Num</span> <span class="dv">5</span>));;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml">eval (Prod (Sum (Num <span class="dv">2</span>, Num <span class="dv">4</span>), Num <span class="dv">5</span>));;</code></pre></div>
 <p>Let us write another function on values of type <code>t</code>. This function will count how many <code>Num i</code> expressions are present in its argument. Here’s how that might look:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> countNums e = <span class="kw">match</span> e <span class="kw">with</span>
-   <span class="dt">Num</span> i         -&gt; <span class="dv">1</span>
- | <span class="dt">Sum</span> (e1, e2)
- | <span class="dt">Prod</span> (e1, e2) -&gt; countNums e1 + countNums e2
- | <span class="dt">Neg</span> e1        -&gt; countNums e1;;
-countNums (<span class="dt">Prod</span> (<span class="dt">Sum</span> (<span class="dt">Num</span> <span class="dv">2</span>, <span class="dt">Num</span> <span class="dv">4</span>), <span class="dt">Num</span> <span class="dv">5</span>));;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> countNums e = <span class="kw">match</span> e <span class="kw">with</span>
+   Num i         -&gt; <span class="dv">1</span>
+ | Sum (e1, e2)
+ | Prod (e1, e2) -&gt; countNums e1 + countNums e2
+ | Neg e1        -&gt; countNums e1;;
+countNums (Prod (Sum (Num <span class="dv">2</span>, Num <span class="dv">4</span>), Num <span class="dv">5</span>));;</code></pre></div>
 <p>Here is something interesting! If we now add a new clause to our type, maybe a variable or something. This would break all these other functions, and we will in fact get a notice about it! When we type these functions in they will complain about inexhaustive matches, i.e. that the different patterns provided do not exhaust the possibilities. This is one of the huge advantages that the type system can provide you, and that you won’t get from something like Java’s subclasses.</p>
 </body>
 </html>

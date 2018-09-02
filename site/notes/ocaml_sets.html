@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -44,18 +62,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>We are calling our “module” <code>Set2</code> to avoid conflicts with the included <code>Set</code> module.</p>
 <h2 id="sets-as-lists">Sets as lists</h2>
 <p>Let us start by taking a look at parts of the interface file:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> &#39;a t
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> &#39;a t
 
 <span class="kw">val</span> empty  : &#39;a t
 <span class="kw">val</span> member : &#39;a -&gt; &#39;a t -&gt; <span class="dt">bool</span>
 <span class="kw">val</span> add    : &#39;a -&gt; &#39;a t -&gt; &#39;a t
 <span class="kw">val</span> from_list : &#39;a <span class="dt">list</span> -&gt; &#39;a t
-<span class="kw">val</span> to_list   : &#39;a t -&gt; &#39;a <span class="dt">list</span></code></pre>
+<span class="kw">val</span> to_list   : &#39;a t -&gt; &#39;a <span class="dt">list</span></code></pre></div>
 <p>So we specify here that there is one new type, but we give no more information about it (though we could have). We could have told it for example that <code>'a t</code> is meant to be a <code>'a list</code>, but we didn’t want to commit ourselves to it: Noone using our “sets” should care that we implemented them via lists. Note that this is a “parametric” type, because of the <code>'a</code> part there. This is because we can have lots of different “sets”: We can have integer sets, of type <code>int Set2.t</code>, floating point number sets, of type <code>float Set2.t</code>, even sets whose elements are themselves sets of integers (this last would be of type <code>int Set2.t Set2.t</code>).</p>
 <p>Following that type is a list of “type declarations”. So it says for instance that there should be a value called <code>empty</code> of type <code>'a t</code>. There should also be a value <code>member</code> of type <code>'a -&gt; 'a t -&gt; bool</code>. This is an arrow type, so we are talking about a function, that takes two arguments, a value and a set, and it tells us if the element is in the set or not.</p>
 <p>See if you can guess what the remaining functions do, what arguments they take and what they return.</p>
 <p>Let us look at the implementation of these methods, in the “set2.ml” file:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> &#39;a t = &#39;a <span class="dt">list</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">type</span> &#39;a t = &#39;a <span class="dt">list</span>
 
 <span class="kw">let</span> empty = []
 <span class="kw">let</span> <span class="kw">rec</span> member a lst =
@@ -74,7 +92,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
     | x :: rest    -&gt; add x (unique rest)
 
 <span class="kw">let</span> from_list lst = unique lst
-<span class="kw">let</span> to_list   lst = lst</code></pre>
+<span class="kw">let</span> to_list   lst = lst</code></pre></div>
 <p>Note that here we are specifying exactly what the type <code>'a t</code> would be, by saying that it is just another name for the list type. This is typically called a <em>type alias</em>.</p>
 <p>We then have a series of let statements, to implement the various function values declared in the interface file. First off is the implementation of <code>empty</code>, the “empty set”. All it is is the empty list, so that’s what the third line in our code does.</p>
 <p>Next we implement the <code>member</code> function. It simply goes through the list in a recursive fashion. If it finds the element then it returns true. If it reaches the end of the list, then it returns false.</p>
@@ -97,8 +115,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p>Given these 3 ingredients, the rest is automatic: We would start with the initial value, then go through each value in our list and combine it into that initial value, to accumulate the final result.</p>
 <p>It is a standard accumulator pattern, something you would do in most languages via a for loop and some variable named <code>acc</code> or something that gets updated at every step. In most functional languages we typically have some higher-order functions to do the same thing. Here is how the function signatures look in this case, and they are called <code>fold_left</code> and <code>fold_right</code>. They are part of the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html">List module</a>.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> fold_left: (&#39;b -&gt; &#39;a -&gt; &#39;b) -&gt; &#39;b -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;b
-<span class="kw">val</span> fold_right: (&#39;a -&gt; &#39;b -&gt; &#39;b) -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;b -&gt; &#39;b</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> fold_left: (&#39;b -&gt; &#39;a -&gt; &#39;b) -&gt; &#39;b -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;b
+<span class="kw">val</span> fold_right: (&#39;a -&gt; &#39;b -&gt; &#39;b) -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;b -&gt; &#39;b</code></pre></div>
 <p>So they both take 3 arguments. The first is a function that takes a value of type <code>'b</code>, which is the accumulator, and a value of type <code>'a</code>, which is a list element, and returns a value of type <code>'b</code>. so this is the function taht combines the “current” value with the accumulated values. Then the fold functions further take a value of type <code>'b</code>, which is the initial value of the accumulator. Lastly they take a list of elements. They then proceed to apply the function to each element in the list combined with the accumulated value, and update the accumulated value. They then return the final accumulated value, which is of type <code>'b</code>.</p>
 <p>What they differ in is the order in which they do their work:</p>
 <ul>
@@ -106,7 +124,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><code>fold_right</code> would effectively apply the function to the last element in the list, combined with the accumulator. Then it would feed the result to the previous element on the list, and so on up.</li>
 </ul>
 <p>Here is how we could implement these functions:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> fold_left f acc lst =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> fold_left f acc lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
        []        -&gt; acc
      | x :: rest -&gt; fold_left f (f acc x) rest
@@ -114,44 +132,44 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="kw">let</span> <span class="kw">rec</span> fold_right f lst acc =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; acc
-      | x :: rest -&gt; f x (fold_right f rest)</code></pre>
+      | x :: rest -&gt; f x (fold_right f rest)</code></pre></div>
 <p>Though they may appear quite similar, they function somewhat differently. Note however, that our function unique can be rewritten as:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> unique lst = List<span class="kw">.</span>fold_right add lst [];;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> unique lst = <span class="dt">List</span>.fold_right add lst [];;</code></pre></div>
 <p>So to compute <code>unique lst</code> we call the <code>fold_right</code> function, giving it our function <code>add</code> as the update function <code>f</code>, the list <code>lst</code> as the list of elements to process, and an empty list <code>[]</code> as the initial value for the accumulator. Compare the implementation of <code>fold_right</code> with that of <code>unique</code> above and you will see the similarities.</p>
 <p>Test: Compare and constrast the following two lines:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml">List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; x :: acc) [] [<span class="dv">1</span>;<span class="dv">2</span>;<span class="dv">3</span>];;
-List<span class="kw">.</span>fold_right (<span class="kw">fun</span> x acc -&gt; x :: acc) [<span class="dv">1</span>;<span class="dv">2</span>;<span class="dv">3</span>] [];;</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; x :: acc) [] [<span class="dv">1</span>;<span class="dv">2</span>;<span class="dv">3</span>];;
+<span class="dt">List</span>.fold_right (<span class="kw">fun</span> x acc -&gt; x :: acc) [<span class="dv">1</span>;<span class="dv">2</span>;<span class="dv">3</span>] [];;</code></pre></div>
 <h2 id="adding-more-set-functions">Adding more set functions</h2>
 <p>There are a number of standard set operations that we want to perform. Let us add them to the interface file first:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> size : &#39;a t -&gt; <span class="dt">int</span>              <span class="co">(* how many elements *)</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> size : &#39;a t -&gt; <span class="dt">int</span>              <span class="co">(* how many elements *)</span>
 <span class="kw">val</span> union : &#39;a t -&gt; &#39;a t -&gt; &#39;a t
 <span class="kw">val</span> inter : &#39;a t -&gt; &#39;a t -&gt; &#39;a t    <span class="co">(* intersection *)</span>
 <span class="kw">val</span> diff  : &#39;a t -&gt; &#39;a t -&gt; &#39;a t    <span class="co">(* set difference A - B *)</span>
 <span class="kw">val</span> subset : &#39;a t -&gt; &#39;a t -&gt; <span class="dt">bool</span>   <span class="co">(* whether A is subset of B *)</span>
-<span class="kw">val</span> equal : &#39;a t -&gt; &#39;a t -&gt; <span class="dt">bool</span></code></pre>
+<span class="kw">val</span> equal : &#39;a t -&gt; &#39;a t -&gt; <span class="dt">bool</span></code></pre></div>
 <p>We will start with those. Some are simple to implement, since our sets are just lists, for instance:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> size set = List<span class="kw">.</span>length set</code></pre>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> size set = <span class="dt">List</span>.length set</code></pre></div>
 <p>For many others we will use our new friends, the fold functions. If you think about it, a lot of the other operations involve going through the elements of the one set, and possibly adding them to the other set or something like that. We can implement most of these via folds:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> union set1 set2 = List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; add x acc) set1 set2
-<span class="kw">let</span> inter set1 set2 = List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; <span class="kw">if</span> member x set2
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> union set1 set2 = <span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; add x acc) set1 set2
+<span class="kw">let</span> inter set1 set2 = <span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; <span class="kw">if</span> member x set2
                                                    <span class="kw">then</span> x :: acc
                                                    <span class="kw">else</span> acc)
                                      [] set1
-<span class="kw">let</span> diff set1 set2 = List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; <span class="kw">if</span> member x set2
+<span class="kw">let</span> diff set1 set2 = <span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; <span class="kw">if</span> member x set2
                                                   <span class="kw">then</span> acc
                                                   <span class="kw">else</span> x :: acc)
                                      [] set1
-<span class="kw">let</span> subset set1 set2 = List<span class="kw">.</span>fold_left (<span class="kw">fun</span> acc x -&gt; acc &amp;&amp; member x set2)
+<span class="kw">let</span> subset set1 set2 = <span class="dt">List</span>.fold_left (<span class="kw">fun</span> acc x -&gt; acc &amp;&amp; member x set2)
                                       <span class="kw">true</span> set1
-<span class="kw">let</span> equal set1 set2 = subset set1 set2 &amp;&amp; subset set2 set1</code></pre>
+<span class="kw">let</span> equal set1 set2 = subset set1 set2 &amp;&amp; subset set2 set1</code></pre></div>
 <p>It is very easy to get carried away and use folds for almost everything. And in fact you could! But some of these can be written more clearly by using some of the helper methods in the <code>List</code> module. Let’s look at some of them:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> filter  : (&#39;a -&gt; <span class="dt">bool</span>) -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;a <span class="dt">list</span>
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">val</span> filter  : (&#39;a -&gt; <span class="dt">bool</span>) -&gt; &#39;a <span class="dt">list</span> -&gt; &#39;a <span class="dt">list</span>
 <span class="kw">val</span> for_all : (&#39;a -&gt; <span class="dt">bool</span>) -&gt; &#39;a <span class="dt">list</span> -&gt; <span class="dt">bool</span>
-<span class="kw">val</span> exists  : (&#39;a -&gt; <span class="dt">bool</span>) -&gt; &#39;a <span class="dt">list</span> -&gt; <span class="dt">bool</span></code></pre>
+<span class="kw">val</span> exists  : (&#39;a -&gt; <span class="dt">bool</span>) -&gt; &#39;a <span class="dt">list</span> -&gt; <span class="dt">bool</span></code></pre></div>
 <p>Let us think about what these do. They all take as first argument a predicate, i.e. a function that given an element of type <code>'a</code> returns a boolean. Then <code>filter</code> takes such a predicate and a list, and only retains those elements from the list that satisfy the predicate. It is also required to maintain the order.</p>
 <p><code>for_all</code> similarly takes a predicate and a list, and returns whether all elements of the list satisfy the predicate. <code>exists</code> does the same but only asking for at least one element from the list to satisfy the predicate. Special consideration must be given to the empty list: By convention if you like, <code>for_all</code> is true for the empty list, regardless of predicate, and <code>exists</code> is false.</p>
 <p>Here is how we could define these functions (they are already defined so we don’t really need to). We could have used folds, but it is preferable for <code>for_all</code> and <code>exists</code> to stop as soon as they have enough information (for instance <code>for_all</code> can stop the moment some value fails it). So we will define them with recursive formulas:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> filter pr lst =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">let</span> <span class="kw">rec</span> filter pr lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; []
       | x :: rest -&gt; <span class="kw">if</span> p x <span class="kw">then</span> x :: filter pr rest
@@ -164,7 +182,7 @@ List<span class="kw">.</span>fold_right (<span class="kw">fun</span> x acc -&gt;
 <span class="kw">let</span> <span class="kw">rec</span> exists pr lst =
     <span class="kw">match</span> lst <span class="kw">with</span>
         []        -&gt; <span class="kw">false</span>
-      | x :: rest -&gt; p x || exists pr rest</code></pre>
+      | x :: rest -&gt; p x || exists pr rest</code></pre></div>
 <p>Anyway, using <code>filter</code> could make <code>inter</code> and <code>diff</code> a whole lot easier to write. Give it a go!</p>
 </body>
 </html>

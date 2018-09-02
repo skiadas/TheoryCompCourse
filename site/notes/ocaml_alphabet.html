@@ -8,27 +8,45 @@
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
+div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
 table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -37,15 +55,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This will likely also be our first use of a <em>functor</em>.</p>
 <p>The relevant files are <a href="ocaml/alphabet.ml">alphabet.ml</a> and <a href="ocaml/alphabet.mli">alphabet.mli</a>.</p>
 <p>We will start by looking at the interface file. The first thing you will see is:</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> <span class="kw">type</span> <span class="dt">ElemsType</span> =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">module</span> <span class="kw">type</span> ElemsType =
    <span class="kw">sig</span>
       <span class="kw">type</span> elem
-      <span class="kw">val</span> compare  : elem -&gt; elem -&gt; <span class="dt">int</span>
+      <span class="kw">val</span> <span class="dt">compare</span>  : elem -&gt; elem -&gt; <span class="dt">int</span>
       <span class="kw">val</span> allElems : elem <span class="dt">list</span>
-   <span class="kw">end</span></code></pre>
-<p>This is a signature for a module. It is the module used as input to our alphabet. Basically, if someone wants to create a new “alphabet” they need to give us a type for the elements, <code>elem</code>, a comparison function <code>compare : elem -&gt; elem -&gt; int</code>, and a list of all the elements <code>allElems</code>. For instance if we wanted an alphabet with just the numbers <span class="math">\(0\)</span> and <span class="math">\(1\)</span>, then the type would be <code>int</code>, the comparison function would be the normal <code>compare</code> function, and <code>allElems = [0; 1]</code>.</p>
+   <span class="kw">end</span></code></pre></div>
+<p>This is a signature for a module. It is the module used as input to our alphabet. Basically, if someone wants to create a new “alphabet” they need to give us a type for the elements, <code>elem</code>, a comparison function <code>compare : elem -&gt; elem -&gt; int</code>, and a list of all the elements <code>allElems</code>. For instance if we wanted an alphabet with just the numbers <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, then the type would be <code>int</code>, the comparison function would be the normal <code>compare</code> function, and <code>allElems = [0; 1]</code>.</p>
 <p>Next up we have a signature for the kind of module type our alphabets will have. It is wrapped inside this <code>module type A</code> business, as opposed to just thrown at the “top level”, because our alphabets will be sort of like functions, taking an <code>ElemsType</code> as input and returning the appropriate alphabet module. This <code>module type A</code> is exactly the type for that returned module.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> <span class="kw">type</span> <span class="dt">A</span> =
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">module</span> <span class="kw">type</span> A =
    <span class="kw">sig</span>
       <span class="kw">type</span> elem
       <span class="kw">type</span> t = elem <span class="dt">list</span>
@@ -63,20 +81,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <span class="kw">val</span> allSuffixes : t -&gt; t <span class="dt">list</span>
       <span class="kw">val</span> allStrings : <span class="dt">int</span> -&gt; t <span class="dt">list</span>
       <span class="kw">val</span> allStringsLeq : <span class="dt">int</span> -&gt; t <span class="dt">list</span>
-      <span class="kw">val</span> compare : t -&gt; t -&gt; <span class="dt">int</span>
-   <span class="kw">end</span></code></pre>
+      <span class="kw">val</span> <span class="dt">compare</span> : t -&gt; t -&gt; <span class="dt">int</span>
+   <span class="kw">end</span></code></pre></div>
 <p>So let us have a look at this module type: First off it specifies that there are two new value types created, one <code>elem</code> to represent the element type for the alphabet, and one <code>t</code> to represent the type of strings in the alphabet. Notice that we are exposing the type <code>t</code>, we’re telling the world exactly how strings are stored. We could have kept it secret and offered a way to go to and from <code>elem list</code>. But in this instance it is essentially in the definition of a string that it is a list of elements, so not much harm is done by exposing it.</p>
 <p>After that we have a list values and functions, performing most common tasks for strings. <code>allElems</code> contains a list of all the elements in the alphabet, <code>epsilon</code> is the empty string, <code>empty</code> is a function to test if our string is the empty string, <code>length</code> returns the length of a string, <code>append</code> concatenates two strings, <code>concat</code> concatenates a whole list of strings, <code>substring</code>, <code>prefix</code> and <code>suffix</code> tell us if the first string is a substring/prefix/suffix of the second, <code>allPrefixes</code> and <code>allSuffixes</code> return all the prefixes/suffixes of a list, and <code>allStrings</code> and <code>allStringsLeq</code> return all strings of (up to) a given length. Finally, we have a couple of functions that would split the string on a given prefix/suffix/substring. Since these might fail to do a split, they return <code>option</code> type values.</p>
 <p>Let us see what comes after this module type, before we look at implementation.</p>
-<pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="ot">module</span> Make (<span class="dt">Elems</span> : <span class="dt">ElemsType</span>) : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = Elems<span class="kw">.</span>elem
+<div class="sourceCode"><pre class="sourceCode ocaml"><code class="sourceCode ocaml"><span class="kw">module</span> Make (Elems : ElemsType) : A <span class="kw">with</span> <span class="kw">type</span> elem = Elems.elem
 
-<span class="ot">module</span> MakeInts  (<span class="dt">I</span>: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">int</span> <span class="dt">list</span> <span class="kw">end</span>)  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
-<span class="ot">module</span> MakeChars (<span class="dt">I</span>: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">char</span> <span class="dt">list</span> <span class="kw">end</span>) : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
+<span class="kw">module</span> MakeInts  (I: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">int</span> <span class="dt">list</span> <span class="kw">end</span>)  : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="kw">module</span> MakeChars (I: <span class="kw">sig</span> <span class="kw">val</span> allElems: <span class="dt">char</span> <span class="dt">list</span> <span class="kw">end</span>) : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
 
-<span class="ot">module</span> Binary  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
-<span class="ot">module</span> Decimal : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
-<span class="ot">module</span> Chars2  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
-<span class="ot">module</span> Chars3  : <span class="dt">A</span> <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span></code></pre>
+<span class="kw">module</span> Binary  : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="kw">module</span> Decimal : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">int</span>
+<span class="kw">module</span> Chars2  : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span>
+<span class="kw">module</span> Chars3  : A <span class="kw">with</span> <span class="kw">type</span> elem = <span class="dt">char</span></code></pre></div>
 <p>The first three are what we call <em>functors</em>. so <code>Make</code> is a property of the <code>Alphabet</code> module, so we can reach it as <code>Alphabet.Make</code>, and it takes as “argument” a module <code>Elems</code> of type <code>ElemsType</code>. It returns a module of type <code>A</code>, where the meaning of <code>elem</code> in that type is “clarified” to be the type <code>Elems.elem</code>.</p>
 <p>So a <strong>functor</strong> is a <em>parametrized module</em>, that takes as input another module and returns a more “customized” module. It is in that sense similar to a function, but for modules.</p>
 <p>We also offer two more functors, to more easily make alphabets out of lists of integers or characters.</p>

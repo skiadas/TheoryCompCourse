@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -19,80 +19,80 @@
 <p>Practice problems (page 294): 7.7, 7.8, 7.9 (DO THIS ONE), 7.10, 7.11, 7.12 (read about “fast exponentiation if you get stuck”), 7.14, 7.15</p>
 <p>Optional problem (for students with math background): 7.18</p>
 <h2 id="the-class-p">The class P</h2>
-<p>Computational problems are considered “tractable”, if their running time in polynomial. While a polynomial can grow with <span class="math">\(n\)</span>, it does so in much more reasonable ways than an exponential.</p>
+<p>Computational problems are considered “tractable”, if their running time in polynomial. While a polynomial can grow with <span class="math inline">\(n\)</span>, it does so in much more reasonable ways than an exponential.</p>
 <blockquote>
-<p>The class <span class="math">\(P\)</span> consists of all languages that are decidable in polynomial time by a deterministic single-tape Turing Machine.</p>
+<p>The class <span class="math inline">\(P\)</span> consists of all languages that are decidable in polynomial time by a deterministic single-tape Turing Machine.</p>
 </blockquote>
-<p>A number of well-known problems belong to the class <span class="math">\(P\)</span>, and looking back at algorithms you have learned in your other classes you can find more examples.</p>
-<p>We will now consider several popular members of the class <span class="math">\(P\)</span></p>
+<p>A number of well-known problems belong to the class <span class="math inline">\(P\)</span>, and looking back at algorithms you have learned in your other classes you can find more examples.</p>
+<p>We will now consider several popular members of the class <span class="math inline">\(P\)</span></p>
 <h3 id="the-path-problem">The Path problem</h3>
 <p>The path problem is represented by the language:</p>
 <blockquote>
-<p><span class="math">\[\textrm{PATH} = \left\{\langle G, s, t\rangle\mid G\textrm{ is a directed graph and has a directed path from }s\textrm{ to }t\right\}\]</span></p>
-<p><span class="math">\[\textrm{PATH}\in P\]</span></p>
+<p><span class="math display">\[\textrm{PATH} = \left\{\langle G, s, t\rangle\mid G\textrm{ is a directed graph and has a directed path from }s\textrm{ to }t\right\}\]</span></p>
+<p><span class="math display">\[\textrm{PATH}\in P\]</span></p>
 </blockquote>
-<p>One relevant question is how we represent the graph <span class="math">\(G\)</span>. There are various ways, and they all involve space polynomial in the number of nodes <span class="math">\(n\)</span>. Since the class <span class="math">\(P\)</span> is effectively invariant under such transformations, we can consider <span class="math">\(n\)</span> to be the “size” of our problem.</p>
-<p>A “naive” approach to solving this problem would attempt to consider all possible “paths”, which are <span class="math">\(m^m\)</span> if we denote by <span class="math">\(m\)</span> the number of edges. This would not be polynomial (<span class="math">\(m\)</span> is essentially <span class="math">\(O(n^2)\)</span>).</p>
+<p>One relevant question is how we represent the graph <span class="math inline">\(G\)</span>. There are various ways, and they all involve space polynomial in the number of nodes <span class="math inline">\(n\)</span>. Since the class <span class="math inline">\(P\)</span> is effectively invariant under such transformations, we can consider <span class="math inline">\(n\)</span> to be the “size” of our problem.</p>
+<p>A “naive” approach to solving this problem would attempt to consider all possible “paths”, which are <span class="math inline">\(m^m\)</span> if we denote by <span class="math inline">\(m\)</span> the number of edges. This would not be polynomial (<span class="math inline">\(m\)</span> is essentially <span class="math inline">\(O(n^2)\)</span>).</p>
 <p>But of course there are more efficient ways, essentially involving marking of the vertices:</p>
 <ol style="list-style-type: decimal">
-<li>Start by marking the vertex <span class="math">\(s\)</span>.</li>
+<li>Start by marking the vertex <span class="math inline">\(s\)</span>.</li>
 <li>Repeat until nothing new is marked:
 <ul>
 <li>Go through the edge list.</li>
 <li>If the source is marked and the target is not, mark the target.</li>
 </ul></li>
-<li>See if <span class="math">\(t\)</span> is marked.</li>
+<li>See if <span class="math inline">\(t\)</span> is marked.</li>
 </ol>
-<p>Clearly the time-intensive portion is the second part. It will have to run once for each vertex (because each time it must mark a new vertex or we are done), and it takes time <span class="math">\(O(m)\)</span> to run through the edge list. So it’s total running time is <span class="math">\(O(n^3)\)</span>, polynomial.</p>
+<p>Clearly the time-intensive portion is the second part. It will have to run once for each vertex (because each time it must mark a new vertex or we are done), and it takes time <span class="math inline">\(O(m)\)</span> to run through the edge list. So it’s total running time is <span class="math inline">\(O(n^3)\)</span>, polynomial.</p>
 <h3 id="relatively-prime-numbers">Relatively prime numbers</h3>
 <p>Another popular polynomial-time problem is the determination of whether two numbers are relatively prime or not. An important consideration here is the size of the input.</p>
 <blockquote>
-<p>A number <span class="math">\(N\)</span> is stored in base <span class="math">\(2\)</span> using <span class="math">\(n=O(\log N)\)</span> space, by simply using the base-2 representation of <span class="math">\(N\)</span>.</p>
+<p>A number <span class="math inline">\(N\)</span> is stored in base <span class="math inline">\(2\)</span> using <span class="math inline">\(n=O(\log N)\)</span> space, by simply using the base-2 representation of <span class="math inline">\(N\)</span>.</p>
 </blockquote>
 <p>Now consider the problem:</p>
 <blockquote>
-<p><span class="math">\[\textrm{RELPRIME} = \left\{\langle x, y\rangle\mid x,y\textrm{ are relatively prime }\right\}\]</span></p>
-<p><span class="math">\[\textrm{RELPRIME}\in P\]</span></p>
+<p><span class="math display">\[\textrm{RELPRIME} = \left\{\langle x, y\rangle\mid x,y\textrm{ are relatively prime }\right\}\]</span></p>
+<p><span class="math display">\[\textrm{RELPRIME}\in P\]</span></p>
 </blockquote>
-<p>The size of the input is here <span class="math">\(O(\log N)\)</span> where <span class="math">\(N\)</span> is the largest of the two numbers. This is important to keep in mind. For instance a naive approach would be to go through each number <span class="math">\(d\)</span> up to <span class="math">\(x,y\)</span> and divide into them to see if it is a common factor. But this would take too long: There are in general <span class="math">\(O(N)\)</span> such numbers, and <span class="math">\(N=2^{O(n)}\)</span> is exponential in the size of the input. Essentially, it would take too long.</p>
+<p>The size of the input is here <span class="math inline">\(O(\log N)\)</span> where <span class="math inline">\(N\)</span> is the largest of the two numbers. This is important to keep in mind. For instance a naive approach would be to go through each number <span class="math inline">\(d\)</span> up to <span class="math inline">\(x,y\)</span> and divide into them to see if it is a common factor. But this would take too long: There are in general <span class="math inline">\(O(N)\)</span> such numbers, and <span class="math inline">\(N=2^{O(n)}\)</span> is exponential in the size of the input. Essentially, it would take too long.</p>
 <p>Instead we will perform the well-known Euclidean division algorithm:</p>
 <blockquote>
-<p><span class="math">\(E\)</span> = On input <span class="math">\(\langle x, y\rangle\)</span>:</p>
+<p><span class="math inline">\(E\)</span> = On input <span class="math inline">\(\langle x, y\rangle\)</span>:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Repeat until <span class="math">\(y = 0\)</span>:
+<li>Repeat until <span class="math inline">\(y = 0\)</span>:
 <ol style="list-style-type: decimal">
-<li>Compute <span class="math">\(x = x \bmod y\)</span></li>
-<li>Swap <span class="math">\(x\)</span> and <span class="math">\(y\)</span></li>
+<li>Compute <span class="math inline">\(x = x \bmod y\)</span></li>
+<li>Swap <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span></li>
 </ol></li>
-<li>The resulting <span class="math">\(x\)</span> is the greatest common divisor of <span class="math">\(x,y\)</span>. If it is <span class="math">\(1\)</span> then we accept, otherwise we reject.</li>
+<li>The resulting <span class="math inline">\(x\)</span> is the greatest common divisor of <span class="math inline">\(x,y\)</span>. If it is <span class="math inline">\(1\)</span> then we accept, otherwise we reject.</li>
 </ol>
 </blockquote>
-<p>The key intuition here is that each repetition is effectively cutting the size of the inputs <span class="math">\(x,y\)</span> by at least a half every second time through the loop. So the number of A steps needed is <span class="math">\(O(\log N)\)</span>. Each of those steps is also polynomial in <span class="math">\(\log N\)</span>, the length of the representations of <span class="math">\(x,y\)</span>.</p>
+<p>The key intuition here is that each repetition is effectively cutting the size of the inputs <span class="math inline">\(x,y\)</span> by at least a half every second time through the loop. So the number of A steps needed is <span class="math inline">\(O(\log N)\)</span>. Each of those steps is also polynomial in <span class="math inline">\(\log N\)</span>, the length of the representations of <span class="math inline">\(x,y\)</span>.</p>
 <h3 id="context-free-languages-are-in-p">Context Free Languages are in P</h3>
 <blockquote>
-<p>If <span class="math">\(L\)</span> is a context free language, then it belongs to the complexity class <span class="math">\(P\)</span>.</p>
+<p>If <span class="math inline">\(L\)</span> is a context free language, then it belongs to the complexity class <span class="math inline">\(P\)</span>.</p>
 </blockquote>
-<p>We will only outline the proof here, and refer to the book for details. We start by considering a CFG in Chomsky Normal Form for the language. Then we know that if we want to derive a string of length <span class="math">\(n\)</span>, we will require exactly <span class="math">\(2n-1\)</span> steps in our derivation.</p>
-<p>One naive approach therefore would be to try out all derivations of <span class="math">\(2n-1\)</span> steps, but this turns out to not be polynomial in <span class="math">\(n\)</span>.</p>
+<p>We will only outline the proof here, and refer to the book for details. We start by considering a CFG in Chomsky Normal Form for the language. Then we know that if we want to derive a string of length <span class="math inline">\(n\)</span>, we will require exactly <span class="math inline">\(2n-1\)</span> steps in our derivation.</p>
+<p>One naive approach therefore would be to try out all derivations of <span class="math inline">\(2n-1\)</span> steps, but this turns out to not be polynomial in <span class="math inline">\(n\)</span>.</p>
 <p>The solution involves the idea of <strong>dynamic programming</strong>, whereupon we store the results of “smaller” problems to avoid having to repeat them. The idea goes as follows:</p>
 <ol style="list-style-type: decimal">
-<li>Given a target word <span class="math">\(w=w_1w_2\cdots w_n\)</span>.</li>
-<li>We will progressively fill up an <span class="math">\(n\times n\)</span> table, whose <span class="math">\((i,j)\)</span> entry contains the totality of variables that can derive the substring <span class="math">\(w_iw_{i+1}\cdots w_j\)</span>. Only one half of the table will need to be filled.</li>
-<li>The diagonal corresponds to the individual substrings <span class="math">\(w_i\)</span> consisting of one character. We can fill those in by a quick scan of the production rules to find any productions <span class="math">\(A\to w_i\)</span>.</li>
-<li>For other <span class="math">\((i,j)\)</span> entries: Consider all splits of the substring <span class="math">\(w_iw_{i+1}\cdots w_j\)</span>, and for each split consider for each rule <span class="math">\(A\to BC\)</span> whether <span class="math">\(B\)</span> can produce the first part of the split and <span class="math">\(C\)</span> can produce the second part. Then <span class="math">\(A\)</span> can produce the substring.</li>
-<li>Repeat this with <span class="math">\(i,j\)</span> pairs progressively further from each other (so we fill from the main diagonal and going outwards, one diagonal at a time).</li>
-<li><span class="math">\(w\)</span> is in <span class="math">\(L\)</span> if and only if the start variable <span class="math">\(S\)</span> is in the <span class="math">\((1,n)\)</span>-th entry.</li>
+<li>Given a target word <span class="math inline">\(w=w_1w_2\cdots w_n\)</span>.</li>
+<li>We will progressively fill up an <span class="math inline">\(n\times n\)</span> table, whose <span class="math inline">\((i,j)\)</span> entry contains the totality of variables that can derive the substring <span class="math inline">\(w_iw_{i+1}\cdots w_j\)</span>. Only one half of the table will need to be filled.</li>
+<li>The diagonal corresponds to the individual substrings <span class="math inline">\(w_i\)</span> consisting of one character. We can fill those in by a quick scan of the production rules to find any productions <span class="math inline">\(A\to w_i\)</span>.</li>
+<li>For other <span class="math inline">\((i,j)\)</span> entries: Consider all splits of the substring <span class="math inline">\(w_iw_{i+1}\cdots w_j\)</span>, and for each split consider for each rule <span class="math inline">\(A\to BC\)</span> whether <span class="math inline">\(B\)</span> can produce the first part of the split and <span class="math inline">\(C\)</span> can produce the second part. Then <span class="math inline">\(A\)</span> can produce the substring.</li>
+<li>Repeat this with <span class="math inline">\(i,j\)</span> pairs progressively further from each other (so we fill from the main diagonal and going outwards, one diagonal at a time).</li>
+<li><span class="math inline">\(w\)</span> is in <span class="math inline">\(L\)</span> if and only if the start variable <span class="math inline">\(S\)</span> is in the <span class="math inline">\((1,n)\)</span>-th entry.</li>
 </ol>
-<p>To examine the complexity of this process, the dominant step is <span class="math">\(4\)</span>. There are in the order of <span class="math">\(O(n^2)\)</span> times that step <span class="math">\(4\)</span> will need to be repeated. It also takes <span class="math">\(O(n)\)</span> time to do step <span class="math">\(4\)</span> (the number of non-terminals in the grammar is constant, and step <span class="math">\(4\)</span> requires at most that number times <span class="math">\(n\)</span> steps). A total running time of <span class="math">\(O(n^3)\)</span>.</p>
+<p>To examine the complexity of this process, the dominant step is <span class="math inline">\(4\)</span>. There are in the order of <span class="math inline">\(O(n^2)\)</span> times that step <span class="math inline">\(4\)</span> will need to be repeated. It also takes <span class="math inline">\(O(n)\)</span> time to do step <span class="math inline">\(4\)</span> (the number of non-terminals in the grammar is constant, and step <span class="math inline">\(4\)</span> requires at most that number times <span class="math inline">\(n\)</span> steps). A total running time of <span class="math inline">\(O(n^3)\)</span>.</p>
 <h2 id="the-class-np">The class NP</h2>
-<p>The class <span class="math">\(NP\)</span> consists of problems that are “verifiable in polynomial time”. What this means is that it might not be possible to determine in polynomial time, given a string, whether it is an instance of the language, but it might be possible to verify that if we are provided some more “evidence”.</p>
-<p>One of the most important such problems is the <em>Hamiltonian Path</em> problem HAMPATH, consisting of all representations of triples <span class="math">\(\langle G,s,t\rangle\)</span> where <span class="math">\(G\)</span> is a directed graph that contains a Hamiltonian path from <span class="math">\(s\)</span> to <span class="math">\(t\)</span>. A Hamiltonian path is one that passes through all vertices exactly once.</p>
+<p>The class <span class="math inline">\(NP\)</span> consists of problems that are “verifiable in polynomial time”. What this means is that it might not be possible to determine in polynomial time, given a string, whether it is an instance of the language, but it might be possible to verify that if we are provided some more “evidence”.</p>
+<p>One of the most important such problems is the <em>Hamiltonian Path</em> problem HAMPATH, consisting of all representations of triples <span class="math inline">\(\langle G,s,t\rangle\)</span> where <span class="math inline">\(G\)</span> is a directed graph that contains a Hamiltonian path from <span class="math inline">\(s\)</span> to <span class="math inline">\(t\)</span>. A Hamiltonian path is one that passes through all vertices exactly once.</p>
 <p>Noone knows a polynomial-time way to determine if a triple as above is in HAMPATH or not. However, it would be possible, if someone provided us with such a path, to verify that it is indeed a Hamiltonian path. In that sense, this problem is verifiable in polynomial time.</p>
 <p>Another problem, called COMPOSITE, consists of all integers that are the product of two smaller integers. It is much easier to verify that a number is composite if you are given the two factors, as opposed to having to find them first.</p>
 <p>These ideas lead us to the following formal definition:</p>
 <blockquote>
-<p>A <strong>verifier</strong> for a language <span class="math">\(A\)</span> is an algorithm <span class="math">\(V\)</span> such that: <span class="math">\[A=\left\{w\mid V\textrm{ accepts }\langle w,c\rangle\textrm{ for some string }c\right\}\]</span> We measure the time of the verifier in terms of the length of the string <span class="math">\(w\)</span>. A <strong>polynomial time verifier</strong> runs in polynomial time in the length of <span class="math">\(w\)</span>. A language is called <strong>polynomially verifiable</strong> if it has a polynomial time verifier.</p>
-<p>The string <span class="math">\(c\)</span> is often called a <strong>certificate</strong> or <strong>proof</strong> of membership in <span class="math">\(A\)</span>, or sometimes a witness.</p>
+<p>A <strong>verifier</strong> for a language <span class="math inline">\(A\)</span> is an algorithm <span class="math inline">\(V\)</span> such that: <span class="math display">\[A=\left\{w\mid V\textrm{ accepts }\langle w,c\rangle\textrm{ for some string }c\right\}\]</span> We measure the time of the verifier in terms of the length of the string <span class="math inline">\(w\)</span>. A <strong>polynomial time verifier</strong> runs in polynomial time in the length of <span class="math inline">\(w\)</span>. A language is called <strong>polynomially verifiable</strong> if it has a polynomial time verifier.</p>
+<p>The string <span class="math inline">\(c\)</span> is often called a <strong>certificate</strong> or <strong>proof</strong> of membership in <span class="math inline">\(A\)</span>, or sometimes a witness.</p>
 </blockquote>
 <blockquote>
 <p>NP is the class of all languages that have polynomial time verifiers.</p>
@@ -104,13 +104,13 @@
 <p>We leave the details to the reader. They are outlined at page 266 of the book.</p>
 <p>It should be clear that every language in P is also in NP. Whether they are equal is at this point unknown, and considered one of the hardest questions in theoretical computer science:</p>
 <blockquote>
-<p>It is not known whether <span class="math">\(P=NP\)</span> or whether <span class="math">\(P\neq NP\)</span>.</p>
+<p>It is not known whether <span class="math inline">\(P=NP\)</span> or whether <span class="math inline">\(P\neq NP\)</span>.</p>
 </blockquote>
 <h3 id="some-np-problems">Some NP problems</h3>
 <p>We already considered two NP problems earlier, HAMPATH and COMPOSITE. We will now look at some more:</p>
-<p><span class="math">\[\textrm{CLIQUE} = \left\{\langle G,k\rangle\mid G\textrm{ a graph with a }k-\textrm{clique}\right\}\]</span></p>
-<p>A <span class="math">\(k\)</span>-clique is a set of points that are all adjacent to each other.</p>
-<p>It is easy to see that this problem is in NP: All we need as a certificate is the set of <span class="math">\(k\)</span> vertices that form a clique, and then it is easy to verify that there is the right number of them and that they have all required edges.</p>
-<p><span class="math">\[\textrm{SUBSET-SUM}\]</span> consists of all pairs <span class="math">\(\langle S, t\rangle\)</span>, where <span class="math">\(S\)</span> is a set of <span class="math">\(n\)</span> numbers, <span class="math">\(t\)</span> is a number, and there is a subset of the list of numbers that adds up to <span class="math">\(t\)</span>.</p>
+<p><span class="math display">\[\textrm{CLIQUE} = \left\{\langle G,k\rangle\mid G\textrm{ a graph with a }k-\textrm{clique}\right\}\]</span></p>
+<p>A <span class="math inline">\(k\)</span>-clique is a set of points that are all adjacent to each other.</p>
+<p>It is easy to see that this problem is in NP: All we need as a certificate is the set of <span class="math inline">\(k\)</span> vertices that form a clique, and then it is easy to verify that there is the right number of them and that they have all required edges.</p>
+<p><span class="math display">\[\textrm{SUBSET-SUM}\]</span> consists of all pairs <span class="math inline">\(\langle S, t\rangle\)</span>, where <span class="math inline">\(S\)</span> is a set of <span class="math inline">\(n\)</span> numbers, <span class="math inline">\(t\)</span> is a number, and there is a subset of the list of numbers that adds up to <span class="math inline">\(t\)</span>.</p>
 </body>
 </html>

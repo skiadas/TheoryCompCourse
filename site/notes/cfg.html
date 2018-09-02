@@ -7,9 +7,9 @@
   <meta name="generator" content="pandoc" />
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet" href="http://skiadas.github.io/css/course.css" type="text/css" />
-<script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
@@ -38,16 +38,16 @@ N -&gt; x|y</code></pre>
 <p>Question: Is the “string” <code>x + x * x</code> derived from this grammar? Is that possible in more than one way? Draw the corresponding parse trees.</p>
 <p>Let us look at a formal definition:</p>
 <blockquote>
-<p>A <strong>context-free grammar</strong> is a <span class="math">\(4\)</span>-tuple <span class="math">\((V,\Sigma, R, S)\)</span> where:</p>
+<p>A <strong>context-free grammar</strong> is a <span class="math inline">\(4\)</span>-tuple <span class="math inline">\((V,\Sigma, R, S)\)</span> where:</p>
 <ol style="list-style-type: decimal">
-<li><span class="math">\(V\)</span> is a finite set, called the <strong>variables</strong>.</li>
-<li><span class="math">\(\Sigma\)</span> is a finite set, disjoint from <span class="math">\(V\)</span>, called the <strong>terminals</strong>.</li>
-<li><span class="math">\(R\)</span> is a finite set of <strong>rules</strong>, each rule consisting of a variable and a string of variables and terminals, or more formally <span class="math">\[R\subset V\times (V\cup\Sigma)^*\]</span></li>
-<li>A <strong>start variable</strong> <span class="math">\(S\in V\)</span>.</li>
+<li><span class="math inline">\(V\)</span> is a finite set, called the <strong>variables</strong>.</li>
+<li><span class="math inline">\(\Sigma\)</span> is a finite set, disjoint from <span class="math inline">\(V\)</span>, called the <strong>terminals</strong>.</li>
+<li><span class="math inline">\(R\)</span> is a finite set of <strong>rules</strong>, each rule consisting of a variable and a string of variables and terminals, or more formally <span class="math display">\[R\subset V\times (V\cup\Sigma)^*\]</span></li>
+<li>A <strong>start variable</strong> <span class="math inline">\(S\in V\)</span>.</li>
 </ol>
-<p>If <span class="math">\(u,v,w\in (V\cup\Sigma)^*\)</span> are strings of terminals and variables, and <span class="math">\(A\to w\)</span> is a rule (i.e. <span class="math">\((A,w)\in R\)</span>), then we say that <span class="math">\(uAv\)</span> <strong>yields</strong> <span class="math">\(uwv\)</span>, and we write <span class="math">\(uAv\Rightarrow uwv\)</span>.</p>
-<p>We say that <span class="math">\(u\)</span> <strong>derives</strong> <span class="math">\(v\)</span>, and write <span class="math">\(u\Rightarrow^* v\)</span>, if there is a sequence of one or more strings <span class="math">\(u_1,\ldots,u_k\)</span> where <span class="math">\[u\Rightarrow u_1 \Rightarrow u_2 \Rightarrow \cdots \Rightarrow u_k\Rightarrow v\]</span></p>
-<p>The <strong>language of the grammar</strong> is <span class="math">\[L=\left\{w\in\Sigma^*\mid S\Rightarrow^* w \right\}\]</span></p>
+<p>If <span class="math inline">\(u,v,w\in (V\cup\Sigma)^*\)</span> are strings of terminals and variables, and <span class="math inline">\(A\to w\)</span> is a rule (i.e. <span class="math inline">\((A,w)\in R\)</span>), then we say that <span class="math inline">\(uAv\)</span> <strong>yields</strong> <span class="math inline">\(uwv\)</span>, and we write <span class="math inline">\(uAv\Rightarrow uwv\)</span>.</p>
+<p>We say that <span class="math inline">\(u\)</span> <strong>derives</strong> <span class="math inline">\(v\)</span>, and write <span class="math inline">\(u\Rightarrow^* v\)</span>, if there is a sequence of one or more strings <span class="math inline">\(u_1,\ldots,u_k\)</span> where <span class="math display">\[u\Rightarrow u_1 \Rightarrow u_2 \Rightarrow \cdots \Rightarrow u_k\Rightarrow v\]</span></p>
+<p>The <strong>language of the grammar</strong> is <span class="math display">\[L=\left\{w\in\Sigma^*\mid S\Rightarrow^* w \right\}\]</span></p>
 </blockquote>
 <h3 id="ambiguity-leftmost-derivations">Ambiguity, leftmost derivations</h3>
 <p>Let us look back at our example from arithmetic expressions, and for simplicity we will consider a smaller grammar:</p>
@@ -95,9 +95,9 @@ x + x * x</code></pre>
 <p>Draw the two parse trees, make sure to notice the differences. Semantically this is very imporant: One parse tree represents our normal notion of how we would compute such an expression, by performing the multiplication first, the other represents performing the addition first.</p>
 <p>This is a problem: In the current grammar we have two completely different ways to understand what <code>x + x * x</code> means. The computer would not know which to choose. This is a defect in the grammar.</p>
 <blockquote>
-<p>A string <span class="math">\(w\)</span> is said to be derived <strong>ambiguously</strong> in a CFG <span class="math">\(G\)</span>, if it has two or more different leftmost derivations. A grammar is <strong>ambiguous</strong> if it generates some string ambiguously.</p>
+<p>A string <span class="math inline">\(w\)</span> is said to be derived <strong>ambiguously</strong> in a CFG <span class="math inline">\(G\)</span>, if it has two or more different leftmost derivations. A grammar is <strong>ambiguous</strong> if it generates some string ambiguously.</p>
 </blockquote>
-<p>Question: In our example above there is also ambiguity in deriving the string <span class="math">\(x+x+x\)</span>. Draw the corresponding parse trees. What property of numbers is this ambiguity related to?</p>
+<p>Question: In our example above there is also ambiguity in deriving the string <span class="math inline">\(x+x+x\)</span>. Draw the corresponding parse trees. What property of numbers is this ambiguity related to?</p>
 <p>We can “fix” this some times by the introduction of more symbols into the grammar. For instance in the above example we could do:</p>
 <pre><code>S -&gt; S + T | T
 T -&gt; T * F | F
@@ -117,41 +117,41 @@ x + x * x</code></pre>
 <ul>
 <li>Look at the DFA for the language.
 <ul>
-<li>Make a variable/nonterminal <span class="math">\(R_i\)</span> for each state <span class="math">\(i\)</span> of the DFA.</li>
-<li>If there is a transition <span class="math">\(\delta(i, a) = j\)</span> in the DFA add a production rule <span class="math">\(R_i \to a R_j\)</span>.</li>
-<li>Add a production rule <span class="math">\(R_i\to \epsilon\)</span> for each accept state in the DFA.</li>
+<li>Make a variable/nonterminal <span class="math inline">\(R_i\)</span> for each state <span class="math inline">\(i\)</span> of the DFA.</li>
+<li>If there is a transition <span class="math inline">\(\delta(i, a) = j\)</span> in the DFA add a production rule <span class="math inline">\(R_i \to a R_j\)</span>.</li>
+<li>Add a production rule <span class="math inline">\(R_i\to \epsilon\)</span> for each accept state in the DFA.</li>
 <li>The start variable is the one corresponding to the start state of the DFA.</li>
 </ul></li>
 <li>Start from a regular expression for the language.
 <ul>
-<li>For each “regular expression piece” <span class="math">\(r\)</span> we have a variable/nonterminal <span class="math">\(R_r\)</span>.</li>
+<li>For each “regular expression piece” <span class="math inline">\(r\)</span> we have a variable/nonterminal <span class="math inline">\(R_r\)</span>.</li>
 <li>The start variable corresponds to the overall regular expression as one piece.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is a union of two others <span class="math">\(s\)</span> and <span class="math">\(t\)</span>, add an appropriate rule <span class="math">\(R_r\to R_s | R_t\)</span>.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is a concatenation of two others <span class="math">\(s\)</span> and <span class="math">\(t\)</span>, add an appropriate rule <span class="math">\(R_r\to R_s R_t\)</span>.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is the Kleene star of a regular expression <span class="math">\(s\)</span>, add the rules <span class="math">\(R_r\to \epsilon |R_rR_s\)</span>.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is just a terminal <span class="math">\(x\)</span>, add a rule <span class="math">\(R_r\to x\)</span>.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is for the empty string <span class="math">\(\epsilon\)</span>, add a rule <span class="math">\(R_r\to\epsilon\)</span>.</li>
-<li>If a regular expression <span class="math">\(r\)</span> is for the empty language <span class="math">\(\emptyset\)</span>, we do not any rule. The lack of a rule means that if we end up with this variable, we cannot get rid of it, and hence no strings will be produced.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is a union of two others <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>, add an appropriate rule <span class="math inline">\(R_r\to R_s | R_t\)</span>.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is a concatenation of two others <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>, add an appropriate rule <span class="math inline">\(R_r\to R_s R_t\)</span>.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is the Kleene star of a regular expression <span class="math inline">\(s\)</span>, add the rules <span class="math inline">\(R_r\to \epsilon |R_rR_s\)</span>.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is just a terminal <span class="math inline">\(x\)</span>, add a rule <span class="math inline">\(R_r\to x\)</span>.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is for the empty string <span class="math inline">\(\epsilon\)</span>, add a rule <span class="math inline">\(R_r\to\epsilon\)</span>.</li>
+<li>If a regular expression <span class="math inline">\(r\)</span> is for the empty language <span class="math inline">\(\emptyset\)</span>, we do not any rule. The lack of a rule means that if we end up with this variable, we cannot get rid of it, and hence no strings will be produced.</li>
 </ul></li>
 </ul>
 <h3 id="chomsky-normal-form">Chomsky Normal form</h3>
 <p>It is occasionally convenient to bring all CFGs to a “normalized” form. This is called the <strong>Chomsky Normal Form</strong>.</p>
 <blockquote>
-<p>A grammar is in a Chomsky Normal Form if every rule is of the form: <span class="math">\[A \to BC\]</span> <span class="math">\[A \to a\]</span> <span class="math">\[S\to\epsilon\]</span> i.e. the right-hand side is either a single terminal symbol or two non-terminal symbols, and we also allow the rule that derives the empty string from <span class="math">\(S\)</span>, if that is in the language. But no other variables can derive <span class="math">\(\epsilon\)</span>.</p>
+<p>A grammar is in a Chomsky Normal Form if every rule is of the form: <span class="math display">\[A \to BC\]</span> <span class="math display">\[A \to a\]</span> <span class="math display">\[S\to\epsilon\]</span> i.e. the right-hand side is either a single terminal symbol or two non-terminal symbols, and we also allow the rule that derives the empty string from <span class="math inline">\(S\)</span>, if that is in the language. But no other variables can derive <span class="math inline">\(\epsilon\)</span>.</p>
 <p>Any language that is recognized by a CFG can also be recognized by a CFG in CNF.</p>
 </blockquote>
 <p>Let us discuss the proof of this fact. The idea is simple: Replace rules from the original language with simpler rules, while patching up the grammar to preserve the language. There are three steps:</p>
 <ol style="list-style-type: decimal">
 <li>Add new start variable.</li>
-<li>Eliminate <span class="math">\(\epsilon\)</span>-rules <span class="math">\(A\to \epsilon\)</span>.</li>
-<li>Eliminate <em>unit rules</em> <span class="math">\(A\to B\)</span>.</li>
+<li>Eliminate <span class="math inline">\(\epsilon\)</span>-rules <span class="math inline">\(A\to \epsilon\)</span>.</li>
+<li>Eliminate <em>unit rules</em> <span class="math inline">\(A\to B\)</span>.</li>
 <li>Finally we convert the remaining rules.</li>
 </ol>
-<p>Let’s take it one step at a time, first of all by adding a new start variable <span class="math">\(S_0\)</span> and a rule <span class="math">\(S_0\to S\)</span>. This ensures that the start variable is not used anywhere else (i.e. doesn’t appear on the right-hand-side of any production).</p>
-<p>Now we want to remove all <span class="math">\(\epsilon\)</span>-rules. The idea is simple: If there is a rule <span class="math">\(A\to\epsilon\)</span>, then we find all rules where there is an <span class="math">\(A\)</span> in the right-hand side, then add a rule that is just like that one but with the <span class="math">\(A\)</span> removed (this might amount to more than one new rule if <span class="math">\(A\)</span> appeared more than once in the same rule). Finally, we remove the <span class="math">\(A\to \epsilon\)</span> rule.</p>
-<p>Next, we want to eliminate unit rules. If there is a rule <span class="math">\(A\to B\)</span>, then we look for all rules of the form <span class="math">\(B\to u\)</span>, and for each we add a rule <span class="math">\(A\to u\)</span>, unless we had previously removed that rule. We can then remove the <span class="math">\(A\to B\)</span> rule.</p>
-<p>Lastly, we consider other types of rules. For instance suppose we have a rule <span class="math">\(A\to u_1u_2u_3\ldots u_k\)</span>, where <span class="math">\(k\geq 3\)</span> and each <span class="math">\(u_i\)</span> is a variable or symbol. Then we can replace this rule with a sequence of rules: <span class="math">\(A\to u_1A_1\)</span>, <span class="math">\(A_1\to u_2A_2\)</span>, , <span class="math">\(A_{k-2}\to u_{k-1}u_k\)</span>. Here <span class="math">\(A_1\)</span>, <span class="math">\(A_{k-1}\)</span> are newly introduced variables.</p>
-<p>If we have a rule <span class="math">\(A\to u_1u_2\)</span> where <span class="math">\(u_1\)</span> and <span class="math">\(u_2\)</span> are variables or terminals, and one of them is a terminal, then we replace that terminal with a rule like <span class="math">\(A_1\to u_2\)</span>, adjusting the original rule.</p>
+<p>Let’s take it one step at a time, first of all by adding a new start variable <span class="math inline">\(S_0\)</span> and a rule <span class="math inline">\(S_0\to S\)</span>. This ensures that the start variable is not used anywhere else (i.e. doesn’t appear on the right-hand-side of any production).</p>
+<p>Now we want to remove all <span class="math inline">\(\epsilon\)</span>-rules. The idea is simple: If there is a rule <span class="math inline">\(A\to\epsilon\)</span>, then we find all rules where there is an <span class="math inline">\(A\)</span> in the right-hand side, then add a rule that is just like that one but with the <span class="math inline">\(A\)</span> removed (this might amount to more than one new rule if <span class="math inline">\(A\)</span> appeared more than once in the same rule). Finally, we remove the <span class="math inline">\(A\to \epsilon\)</span> rule.</p>
+<p>Next, we want to eliminate unit rules. If there is a rule <span class="math inline">\(A\to B\)</span>, then we look for all rules of the form <span class="math inline">\(B\to u\)</span>, and for each we add a rule <span class="math inline">\(A\to u\)</span>, unless we had previously removed that rule. We can then remove the <span class="math inline">\(A\to B\)</span> rule.</p>
+<p>Lastly, we consider other types of rules. For instance suppose we have a rule <span class="math inline">\(A\to u_1u_2u_3\ldots u_k\)</span>, where <span class="math inline">\(k\geq 3\)</span> and each <span class="math inline">\(u_i\)</span> is a variable or symbol. Then we can replace this rule with a sequence of rules: <span class="math inline">\(A\to u_1A_1\)</span>, <span class="math inline">\(A_1\to u_2A_2\)</span>, , <span class="math inline">\(A_{k-2}\to u_{k-1}u_k\)</span>. Here <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_{k-1}\)</span> are newly introduced variables.</p>
+<p>If we have a rule <span class="math inline">\(A\to u_1u_2\)</span> where <span class="math inline">\(u_1\)</span> and <span class="math inline">\(u_2\)</span> are variables or terminals, and one of them is a terminal, then we replace that terminal with a rule like <span class="math inline">\(A_1\to u_2\)</span>, adjusting the original rule.</p>
 <p>Let us follow this method in the example of a small arithmetic expression grammar, which we expand a little to allow for digits/numbers/signs:</p>
 <pre><code>E -&gt; E+T | T
 T -&gt; T*F | F
@@ -167,7 +167,7 @@ F -&gt; YN
 N -&gt; D | ND
 D -&gt; 0 | 1
 Y -&gt; + | - | epsilon</code></pre>
-<p>We will next remove any <span class="math">\(\epsilon\)</span> rules, namely the rule <code>Y -&gt; epsilon</code>. To remove it, we need to go into all the places where <code>Y</code> was being used, and replace its possible occurences with <span class="math">\(\epsilon\)</span>. We then remove the <code>Y -&gt; epsilon</code> rule. This leads us to:</p>
+<p>We will next remove any <span class="math inline">\(\epsilon\)</span> rules, namely the rule <code>Y -&gt; epsilon</code>. To remove it, we need to go into all the places where <code>Y</code> was being used, and replace its possible occurences with <span class="math inline">\(\epsilon\)</span>. We then remove the <code>Y -&gt; epsilon</code> rule. This leads us to:</p>
 <pre><code>S -&gt; E
 E -&gt; E+T | T
 T -&gt; T*F | F
