@@ -14,6 +14,87 @@
 </head>
 <body>
 <h1 id="schedule">Schedule</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Week</th>
+<th align="left">Tuesday</th>
+<th align="left">Thursday</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Week 1 (09/03-9/07)</td>
+<td align="left">1, 2</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">Week 2 (09/10-09/14)</td>
+<td align="left">4.1-4.3</td>
+<td align="left">4.4-4.5</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 3 (09/17-09/21)</td>
+<td align="left">5.1</td>
+<td align="left">5.2</td>
+</tr>
+<tr class="even">
+<td align="left">Week 4 (09/24-09/28)</td>
+<td align="left">5.3-5.7</td>
+<td align="left">JFLAP</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 5 (10/01-10/05)</td>
+<td align="left">Midterm</td>
+<td align="left">6.1, 6.2, 6.4, 6.5</td>
+</tr>
+<tr class="even">
+<td align="left">Week 6 (10/08-10/12)</td>
+<td align="left">7</td>
+<td align="left">7, 8</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 7 (10/15-10/19)</td>
+<td align="left">Break</td>
+<td align="left">8</td>
+</tr>
+<tr class="even">
+<td align="left">Week 8 (10/22-10/26)</td>
+<td align="left">9</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 9 (10/29-11/02)</td>
+<td align="left">9</td>
+<td align="left">10</td>
+</tr>
+<tr class="even">
+<td align="left">Week 10 (11/05-11/09)</td>
+<td align="left">Midterm</td>
+<td align="left">10, 11</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 11 (11/12-11/16)</td>
+<td align="left">11</td>
+<td align="left">12</td>
+</tr>
+<tr class="even">
+<td align="left">Week 12 (11/19-11/23)</td>
+<td align="left">12</td>
+<td align="left">Thanksgiving</td>
+</tr>
+<tr class="odd">
+<td align="left">Week 13 (11/26-11/30)</td>
+<td align="left">13</td>
+<td align="left">13</td>
+</tr>
+<tr class="even">
+<td align="left">Week 14 (12/03-12/07)</td>
+<td align="left">14</td>
+<td align="left">14</td>
+</tr>
+</tbody>
+</table>
 <h2 id="week-1-0903-907">Week 1 (09/03-9/07)</h2>
 <h3 id="day-1">Day 1</h3>
 <dl>
@@ -33,35 +114,34 @@
 <dt>Activity 1</dt>
 <dd><ul>
 <li>Discuss examples of tractable/intractable/uncomputable problems.</li>
-<li>We decide to brute-force an encryption scheme that uses a 200-bit key. This means we must check <span class="math inline">\(2^{200}\)</span> different keys. If it takes us about 30 computer instructions to test a key, and we can execute 300 billion instructions per second, how much time would it take us to test all keys?</li>
+<li><a href="activities/activity1.html">Activity Handout</a></li>
 </ul>
 </dd>
 <dt>Chapter 2</dt>
 <dd><ul>
-<li>Basics of Python programs</li>
 <li>What is a SISO Python program?</li>
 <li>Input and Output of a program.</li>
-<li>Practice programs:
+<li>Practice programs (pseudocode sufficient, work at the board):
 <ul>
-<li>Runs forever</li>
-<li>Throws exception</li>
-<li>Given a string containing a list of numbers, add the numbers up.</li>
+<li>Takes a string input and runs forever (at least on some inputs).</li>
+<li>Takes a string input and throws an exception (at least on some inputs).</li>
+<li>Given a string representing a list of numbers separated by spaces, like “23 45 13”, add the numbers up and return the sum as a string.</li>
 </ul></li>
-<li>Exercise 2.5</li>
-<li>When are programs equivalent? Examples of different but equivalent programs.</li>
+<li>Exercise 2.5 a-d (work at the computers).</li>
+<li>When are SISO programs equivalent? Examples of different but equivalent programs.</li>
 <li>Decision programs.</li>
-<li>Exercise 2.7</li>
+<li>Exercise 2.7 (talk with neighbor)</li>
 </ul>
 </dd>
 <dt>Activity 2</dt>
 <dd><ul>
-<li>How can we allow a SISO program to process the following kinds of inputs:
+<li>How can a SISO program process the following kinds of inputs:
 <ul>
+<li>A list of an arbitrary number of integers.</li>
 <li>Two strings of predetermined length (say each of length 20).</li>
 <li>Two strings of non-predetermined length.</li>
 <li>Three strings of non-predetermined length.</li>
-<li>A list of an arbitrary number of integers.</li>
-<li>A list of an arbitrary number of strings.</li>
+<li>A list of an arbitrary number of strings of non-predetermined length.</li>
 </ul></li>
 </ul>
 </dd>

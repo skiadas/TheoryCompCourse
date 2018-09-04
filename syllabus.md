@@ -15,10 +15,14 @@ Office
   ~ SCH 111 / LYN 108
 
 Office Hours
-  ~ MWW 9:30pm-10:30pm in SCH 111 (Skiadas), and by appointment.
+  ~ Skiadas: MWF 9:30pm-10:30pm in SCH 111
+
+    Wahl: MWF 1:30 – 2:30, CFA 137, Tues 9:00 – 10:00, LYN 102/110
+
+    and by appointment
 
 Book
-  ~ *What can be computed*, 1st ed, by John MacCormick
+  ~ *What can be computed*, 1st ed, by John MacCormick, ISBN 978-0-691-17066-4
 
 Websites
   ~ [for notes](http://skiadas.github.io/TheoryCompCourse/site/).
@@ -33,7 +37,7 @@ Theory of Computation concerns itself with an examination of the capabilities an
 - What do we mean by computing something?
 - What are the limits to what is computable?
 - Are there things that we can prove are not computable?
-- How does our choice of computation engine determine what can and cannot be computable?
+- How does our choice of computation engine determine what can and cannot be computed?
 - Can we identify problems that are computable but not in a reasonable amount of time? How would we define that to begin with?
 
 This course is much more rigorous than most Computer Science courses. A certain level of familiarity with logic and proofs is expected. Even though we will often use Python programs as a vehicle to explore the topics of computation, a lot of the discussion and statements will appear to be quite theoretical in nature. For instance we will explore the fact that there are certain problems that we can prove are unsolvable.
@@ -49,7 +53,7 @@ At the end of this course you:
 
 ### Reading Notes and Practice Problems
 
-On the website you will find a [schedule](http://skiadas.github.io/TheoryCompCourse/site/schedule.html) with links to documents for each class day. In those documents you will find notes for the day's lesson, a reading assignment, and a list of practice problems. You should work on those practice problems, and ask any questions you have about them. You do not have to turn the problems in.
+On the website you will find a [schedule](http://skiadas.github.io/TheoryCompCourse/site/schedule.html) with information on each class day's lesson plan. In those documents you will find notes for the day's lesson, a reading assignment, and a list of practice problems. You should work on those practice problems, and ask any questions you have about them. You do not have to turn the problems in.
 
 ### Class Participation
 
@@ -59,17 +63,21 @@ There will also be numerous in-class group activities that you will be asked to 
 
 ### Homework Assignments
 
-There will be regular homework assignments about once per week (in addition to the practice problems mentioned earlier). Questions on the exams tend to be similar to the homework problems, so it is to your advantage to really *understand* the homework, and not merely "do it" or copy it just to get it turned in. Homework assignments are 20% of your final grade.
+There will be regular homework assignments about once per week. Questions on the exams tend to be similar to the homework problems, so it is to your advantage to really *understand* the homework, and not merely "do it" or copy it just to get it turned in. Homework assignments are 25% of your final grade.
 
 ### Exams
 
-There will be two midterms, on Friday, October 2th and Friday, November 6th, and a final/3rd midterm during finals week. **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
+There will be two midterms, on Tuesday, October 2nd and Tuesday, November 6th, and a final/3rd midterm during finals week  (as scheduled by the registrar). **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
 
 ### Getting Help
 
 - You should never hesitate to ask us questions. We will never think any less of anyone for asking a question. Stop by our office hours or just email us your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.
-- You are allowed, and in fact encouraged, to work together and help each other regarding the notes and the practice problems. However, we strongly encourage you to try the problems out on your own first before talking to someone about them.
+- You are allowed, and in fact encouraged, to work together and help each other regarding the class material. However, we strongly encourage you to try things out on your own first before talking to someone about them.
 - You may discuss homework problems with others, but only after you have spent some time trying them on your own. And in any event the submitted work must be your own! So even though you may talk to others about the problem, when you sit down to write the answers you should be on your own.
+
+### Classroom policies
+
+Cell phones may not be used in class at any time. If you must use your phone during class time (for an emergency), please step out into the hall or outside the building so you do not disturb others.
 
 ## Grading
 

@@ -1,5 +1,23 @@
 # Schedule
 
+Week                    Tuesday                 Thursday
+----------------------- ----------------------- -----------------------
+Week  1 (09/03-9/07)    1, 2                    3
+Week  2 (09/10-09/14)   4.1-4.3                 4.4-4.5
+Week  3 (09/17-09/21)   5.1                     5.2
+Week  4 (09/24-09/28)   5.3-5.7                 JFLAP
+Week  5 (10/01-10/05)   Midterm                 6.1, 6.2, 6.4, 6.5
+Week  6 (10/08-10/12)   7                       7, 8
+Week  7 (10/15-10/19)   Break                   8
+Week  8 (10/22-10/26)   9                       9
+Week  9 (10/29-11/02)   9                       10
+Week 10 (11/05-11/09)   Midterm                 10, 11
+Week 11 (11/12-11/16)   11                      12
+Week 12 (11/19-11/23)   12                      Thanksgiving
+Week 13 (11/26-11/30)   13                      13
+Week 14 (12/03-12/07)   14                      14
+
+
 ## Week 1 (09/03-9/07)
 
 ### Day 1
@@ -15,28 +33,27 @@ Chapter 1
 
 Activity 1
   ~ - Discuss examples of tractable/intractable/uncomputable problems.
-    - We decide to brute-force an encryption scheme that uses a 200-bit key. This means we must check $2^{200}$ different keys. If it takes us about 30 computer instructions to test a key, and we can execute 300 billion instructions per second, how much time would it take us to test all keys?
+    - [Activity Handout](activities/activity1.md)
 
 Chapter 2
-  ~ - Basics of Python programs
-    - What is a SISO Python program?
+  ~ - What is a SISO Python program?
     - Input and Output of a program.
-    - Practice programs:
-        - Runs forever
-        - Throws exception
-        - Given a string containing a list of numbers, add the numbers up.
-    - Exercise 2.5
-    - When are programs equivalent? Examples of different but equivalent programs.
+    - Practice programs (pseudocode sufficient, work at the board):
+        - Takes a string input and runs forever (at least on some inputs).
+        - Takes a string input and throws an exception (at least on some inputs).
+        - Given a string representing a list of numbers separated by spaces, like "23 45 13", add the numbers up and return the sum as a string.
+    - Exercise 2.5 a-d (work at the computers).
+    - When are SISO programs equivalent? Examples of different but equivalent programs.
     - Decision programs.
-    - Exercise 2.7
+    - Exercise 2.7 (talk with neighbor)
 
 Activity 2
-  ~ - How can we allow a SISO program to process the following kinds of inputs:
+  ~ - How can a SISO program process the following kinds of inputs:
+        - A list of an arbitrary number of integers.
         - Two strings of predetermined length (say each of length 20).
         - Two strings of non-predetermined length.
         - Three strings of non-predetermined length.
-        - A list of an arbitrary number of integers.
-        - A list of an arbitrary number of strings.
+        - A list of an arbitrary number of strings of non-predetermined length.
 
 ### Day 2
 
