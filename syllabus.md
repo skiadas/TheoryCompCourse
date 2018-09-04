@@ -57,7 +57,7 @@ On the website you will find a [schedule](http://skiadas.github.io/TheoryCompCou
 
 ### Class Participation
 
-You are expected to attend every class meeting, including labs. You are only allowed to miss 3 classes without excuse. From that point on, every unexcused absence will result in a reduction of your final score by one percentage point, up to a total of 5 points. Excused absences should be arranged in advance, and backed by appropriate documentation. Emergencies will be dealt with on an individual basis. There are very few reasons that would qualify as an excuse for an absence.
+You are expected to attend every class meeting, including labs. You are only allowed to miss 2 classes without excuse. From that point on, every unexcused absence will result in a reduction of your final score by two percentage points, up to a total of 10 points. Excused absences should be arranged in advance, and backed by appropriate documentation. Emergencies will be dealt with on an individual basis. There are very few reasons that would qualify as an excuse for an absence.
 
 There will also be numerous in-class group activities that you will be asked to participate in, that contribute towards your class participation grade.
 
