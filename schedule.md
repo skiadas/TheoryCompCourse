@@ -63,19 +63,21 @@ Goals
     - Understand the limitations of programming languages by showing there are programs that cannot exist.
 
 Chapter 3
-  ~ - Programs as input to other programs.
-    - Examples of decision programs: `containsGaga`, `yes`, `longerThan1K`, `maybeLoop`.
-    - The program `yesOnString`. Try at various inputs.
-    - The program `yesOnSelf`. Try with input the above programs, as well as itself.
-    - The program `notYesOnSelf`. Try with input the above programs, a well as itself.
-    - Consequences of this section's results on our ability to find bugs in programs.
+  ~ - Examples of decision programs: `containsGAGA`, `yes`, `longerThan1K`, `maybeLoop`.
+    - The `countLines` program; programs as input to other programs.
+    - Self-reflection: programs examining themselves (group work Figure 3.3).
+    - Python offers a command `exec`, which takes a Python file and executes it. Can we use it to implement the behavior described by `yesOnString` (group discussion)?
+    - The program `yesOnString`. Try at various inputs (group work Figure 3.4).
+    - The program `yesOnSelf`. (group work Figure 3.5).
+    - The program `notYesOnSelf`. Try with input the above programs, as well as itself.
+    - Discussion of programs `crashOnString`, `crashOnSelf`, `weirdCrashOnSelf`.
 
 Activity 3
-  ~ - Python offers a command `exec`. Can we use it to implement the behavior described by `yesOnString`?
-    - Discuss definitions of programs `noOnString`, `noOnSelf`.
-    - How do `noOnSelf` and `notYesOnSelf` differ?
+  ~ - Discuss definitions of programs `noOnString`, `noOnSelf`.
+    - Are `noOnSelf` and `notYesOnSelf` equivalent programs, if they existed?
     - Is a similar conclusion possible for `noOnSelf` as for `notYesOnSelf`?
     - Exercise 3.3
+   - [Activity Handout](activities/activity3.md)
 
 Homework 1
   ~ 3.2, 3.10, 3.11
