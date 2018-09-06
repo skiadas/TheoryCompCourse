@@ -66,20 +66,21 @@ Chapter 3
   ~ - Examples of decision programs: `containsGAGA`, `yes`, `longerThan1K`, `maybeLoop`.
     - The `countLines` program; programs as input to other programs.
     - Self-reflection: programs examining themselves (group work Figure 3.3).
-    - Python offers a command `exec`, which takes a Python file and executes it. Can we use it to implement the behavior described by `yesOnString` (group discussion)?
     - The program `yesOnString`. Try at various inputs (group work Figure 3.4).
+    - Python offers a command `exec`, which takes a Python file and executes it. Can we use it to implement the behavior described by `yesOnString` (group discussion)?
     - The program `yesOnSelf`. (group work Figure 3.5).
-    - The program `notYesOnSelf`. Try with input the above programs, as well as itself.
+    - Write `yesOnSelf` using `yesOnString` as a helper.
+    - The program `notYesOnSelf`. Think through what happens when `notYesOnSelf` is run with input the earlier programs, as well as itself. (group work).
     - Discussion of programs `crashOnString`, `crashOnSelf`, `weirdCrashOnSelf`.
 
 Activity 3
-  ~ - Discuss definitions of programs `noOnString`, `noOnSelf`.
+  ~ - Discuss definitions of the outputs of the programs `noOnString`, `noOnSelf`.
     - Are `noOnSelf` and `notYesOnSelf` equivalent programs, if they existed?
     - Is a similar conclusion possible for `noOnSelf` as for `notYesOnSelf`?
     - Exercise 3.3
    - [Activity Handout](activities/activity3.md)
 
-Homework 1
+Homework 1 (Due 9/13 4pm in LYN 102/110)
   ~ 3.2, 3.10, 3.11
 
 ## Week  2 (09/10-09/14)
