@@ -91,27 +91,34 @@ Goals
   ~ - Understand the terms Alphabet, Language, String, in the Theory of Computation context.
     - Learn the basic terminology related to computational problems
 
+Chapter 3 recap
+  ~ - Exercise 3.3
+    - Review of proofs by contradiction.
+    - Write a formal proof that the program `yesOnString` cannot exist.
+
 Chapter 4 (4.1-4.3)
-  ~ - Alphabets, Strings, Formal Languages
+  ~ - Computational Problems and how they differ from programs
+    - Alphabets, Strings, (Formal) Languages
     - Exercise 4.3
     - Various examples of languages and language constructions
         - Empty/All, containing empty string only, Python/Java programs
+        - Strings accepted by a decision program
         - union/intersection/complement/concatenation/Kleene
-    - Graphs as Strings
     - Computational problems:
         - inputs, solutions, positive and negative instances
         - Describe the SHORTESTPATH problem
         - Kinds of computational problems: search, optimization, threshold, function, decision
-        - General problems vs decision problems
+        - General computational problems vs decision problems
 
 Activity 4
   ~ - Describe three formal languages that are sufficiently different from those listed in the book.
+    - 4.4, 4.6
     - 4.11, 4.13, 4.15
-    - The problem GREATER takes as input a number, and has a solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
+
+Practice
+  ~ - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
     - The problem FACTOR takes as input a number. If the number is composite, then the solution is all of the number's non-trivial divisors. If the number is prime, the solution is "no". This can be described as a "search" problem. Express it as a search problem by specifying a predicated function.
     - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
-
-TODO: Need something more?
 
 ### Day 2
 
