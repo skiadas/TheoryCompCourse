@@ -88,15 +88,15 @@ Homework 1 (Due 9/13 4pm in LYN 102/110)
 ### Day 1
 
 Goals
-  ~ - Understand the terms Alphabet, Language, String, in the Theory of Computation context.
-    - Learn the basic terminology related to computational problems
+  ~ - Review the basic methodology of proof by contradiction.
+    - Understand the terms Alphabet, Language, String, in the Theory of Computation context.
 
 Chapter 3 recap
   ~ - Exercise 3.3
     - Review of proofs by contradiction.
     - Write a formal proof that the program `yesOnString` cannot exist.
 
-Chapter 4 (4.1-4.3)
+Section 4.1
   ~ - Computational Problems and how they differ from programs
     - Alphabets, Strings, (Formal) Languages
     - Exercise 4.3 (group discussion)
@@ -105,36 +105,36 @@ Chapter 4 (4.1-4.3)
         - Strings accepted by a decision program
         - union/intersection/complement/concatenation/Kleene
     - Activity 4, first two points
-    - Computational problems:
-        - inputs, solution sets, positive and negative instances
-        - Describe the SHORTESTPATH problem
-        - Kinds of computational problems: search, optimization, threshold, function, decision
-        - General computational problems vs decision problems
-    - Activity 4, last point
 
 Activity 4
   ~ - Describe three formal languages that are sufficiently different from those listed in the book.
     - Exercises 4.4, 4.6
-    - Exercises 4.11, 4.13, 4.15
-
-Practice
-  ~ - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
-    - A *composite* number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number's non-trivial divisors. If the number is prime, the solution is "no" indicating no solution. This can be described as a "search" problem. Express it as a search problem by specifying a predicate function.
-    - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
 
 ### Day 2
 
 Goals
-  ~ - Understand what it formally means to solve a problem.
+  ~ - Learn the basic terminology related to computational problems
+    - Understand what it formally means to solve a problem.
     - Understand the difference between decidable and recognizable languages.
 
-Sections 4.4, 4.5
-  ~ - What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.
+Sections 4.2-4.5
+  ~ - Computational problems:
+    - inputs, solution sets, positive and negative instances
+    - Describe the SHORTESTPATH problem
+    - Kinds of computational problems: search, optimization, threshold, function, decision
+    - General computational problems vs decision problems
+    - Exercises 4.11, 4.13, 4.15
+    - What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.
     - What is the difference between deciding and recognizing a language?
 
 Activity 5
   ~ - Write a Python program that *decides* the language of all prime numbers.
     - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
+
+Practice
+  ~ - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
+    - A *composite* number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number's non-trivial divisors. If the number is prime, the solution is "no" indicating no solution. This can be described as a "search" problem. Express it as a search problem by specifying a predicate function.
+    - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
     - Write a Python program that *decides* the language that contains all strings in the alphabets that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
 
 Homework 2

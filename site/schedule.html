@@ -186,8 +186,8 @@
 <dl>
 <dt>Goals</dt>
 <dd><ul>
+<li>Review the basic methodology of proof by contradiction.</li>
 <li>Understand the terms Alphabet, Language, String, in the Theory of Computation context.</li>
-<li>Learn the basic terminology related to computational problems</li>
 </ul>
 </dd>
 <dt>Chapter 3 recap</dt>
@@ -197,7 +197,7 @@
 <li>Write a formal proof that the program <code>yesOnString</code> cannot exist.</li>
 </ul>
 </dd>
-<dt>Chapter 4 (4.1-4.3)</dt>
+<dt>Section 4.1</dt>
 <dd><ul>
 <li>Computational Problems and how they differ from programs</li>
 <li>Alphabets, Strings, (Formal) Languages</li>
@@ -209,28 +209,12 @@
 <li>union/intersection/complement/concatenation/Kleene</li>
 </ul></li>
 <li>Activity 4, first two points</li>
-<li>Computational problems:
-<ul>
-<li>inputs, solution sets, positive and negative instances</li>
-<li>Describe the SHORTESTPATH problem</li>
-<li>Kinds of computational problems: search, optimization, threshold, function, decision</li>
-<li>General computational problems vs decision problems</li>
-</ul></li>
-<li>Activity 4, last point</li>
 </ul>
 </dd>
 <dt>Activity 4</dt>
 <dd><ul>
 <li>Describe three formal languages that are sufficiently different from those listed in the book.</li>
 <li>Exercises 4.4, 4.6</li>
-<li>Exercises 4.11, 4.13, 4.15</li>
-</ul>
-</dd>
-<dt>Practice</dt>
-<dd><ul>
-<li>The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?</li>
-<li>A <em>composite</em> number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number’s non-trivial divisors. If the number is prime, the solution is “no” indicating no solution. This can be described as a “search” problem. Express it as a search problem by specifying a predicate function.</li>
-<li>Define “threshold”, “optimization” and “decision” versions of the previous problem that have an analogous computational difficulty.</li>
 </ul>
 </dd>
 </dl>
@@ -238,12 +222,19 @@
 <dl>
 <dt>Goals</dt>
 <dd><ul>
+<li>Learn the basic terminology related to computational problems</li>
 <li>Understand what it formally means to solve a problem.</li>
 <li>Understand the difference between decidable and recognizable languages.</li>
 </ul>
 </dd>
-<dt>Sections 4.4, 4.5</dt>
+<dt>Sections 4.2-4.5</dt>
 <dd><ul>
+<li>Computational problems:</li>
+<li>inputs, solution sets, positive and negative instances</li>
+<li>Describe the SHORTESTPATH problem</li>
+<li>Kinds of computational problems: search, optimization, threshold, function, decision</li>
+<li>General computational problems vs decision problems</li>
+<li>Exercises 4.11, 4.13, 4.15</li>
 <li>What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.</li>
 <li>What is the difference between deciding and recognizing a language?</li>
 </ul>
@@ -252,6 +243,13 @@
 <dd><ul>
 <li>Write a Python program that <em>decides</em> the language of all prime numbers.</li>
 <li>Write Python programs that <em>decide</em> the empty language and the language consisting of just the empty string, respectively.</li>
+</ul>
+</dd>
+<dt>Practice</dt>
+<dd><ul>
+<li>The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?</li>
+<li>A <em>composite</em> number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number’s non-trivial divisors. If the number is prime, the solution is “no” indicating no solution. This can be described as a “search” problem. Express it as a search problem by specifying a predicate function.</li>
+<li>Define “threshold”, “optimization” and “decision” versions of the previous problem that have an analogous computational difficulty.</li>
 <li>Write a Python program that <em>decides</em> the language that contains all strings in the alphabets that have “matching parentheses”, meaning that every “open parenthesis” is going to be matched by a “close parenthesis”. The strings can contain any other letters inbetween.</li>
 </ul>
 </dd>
