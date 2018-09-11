@@ -99,25 +99,27 @@ Chapter 3 recap
 Chapter 4 (4.1-4.3)
   ~ - Computational Problems and how they differ from programs
     - Alphabets, Strings, (Formal) Languages
-    - Exercise 4.3
+    - Exercise 4.3 (group discussion)
     - Various examples of languages and language constructions
         - Empty/All, containing empty string only, Python/Java programs
         - Strings accepted by a decision program
         - union/intersection/complement/concatenation/Kleene
+    - Activity 4, first two points
     - Computational problems:
-        - inputs, solutions, positive and negative instances
+        - inputs, solution sets, positive and negative instances
         - Describe the SHORTESTPATH problem
         - Kinds of computational problems: search, optimization, threshold, function, decision
         - General computational problems vs decision problems
+    - Activity 4, last point
 
 Activity 4
   ~ - Describe three formal languages that are sufficiently different from those listed in the book.
-    - 4.4, 4.6
-    - 4.11, 4.13, 4.15
+    - Exercises 4.4, 4.6
+    - Exercises 4.11, 4.13, 4.15
 
 Practice
   ~ - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
-    - The problem FACTOR takes as input a number. If the number is composite, then the solution is all of the number's non-trivial divisors. If the number is prime, the solution is "no". This can be described as a "search" problem. Express it as a search problem by specifying a predicated function.
+    - A *composite* number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number's non-trivial divisors. If the number is prime, the solution is "no" indicating no solution. This can be described as a "search" problem. Express it as a search problem by specifying a predicate function.
     - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
 
 ### Day 2
