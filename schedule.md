@@ -119,16 +119,22 @@ Goals
 
 Sections 4.2-4.5
   ~ - Computational problems:
-    - inputs, solution sets, positive and negative instances
-    - Describe the SHORTESTPATH problem
-    - Kinds of computational problems: search, optimization, threshold, function, decision
-    - General computational problems vs decision problems
-    - Exercises 4.11, 4.13, 4.15
+        - inputs, solution sets, positive and negative instances
+        - Describe the SHORTESTPATH problem
+        - Exercises 4.11, 4.13
+        - Kinds of computational problems: search, optimization, threshold, function, decision
+        - General computational problems vs decision problems. Figure 4.13
+        - Exercise 4.15
     - What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.
-    - What is the difference between deciding and recognizing a language?
+    - Computable vs uncomputable problems. Provide examples of uncomputable problems.
+    - The membership problem for a language. The language corresponding to a decision problem.
+    - Definition of decidable languages and decidable decision problems.
+    - Is the language of Java Programs decidable?
+    - Recognizable languages. Give examples of recognizable languages that are not decidable.
 
 Activity 5
-  ~ - Write a Python program that *decides* the language of all prime numbers.
+  ~ - Write a Python program that *decides* the language of all (finite) binary strings that contain at least two 1s. (Food for thought: does this program have to worry about non-binary strings?)
+    - Write a Python program that *decides* the language of all prime numbers.
     - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
 
 Practice
