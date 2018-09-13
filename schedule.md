@@ -80,7 +80,7 @@ Activity 3
     - Exercise 3.3
    - [Activity Handout](activities/activity3.md)
 
-Homework 1 (Due 9/13 4pm in LYN 102/110)
+HW 1 (Due 9/13 4pm in LYN 110)
   ~ 3.2, 3.10, 3.11
 
 ## Week  2 (09/10-09/14)
@@ -117,6 +117,12 @@ Goals
     - Understand what it formally means to solve a problem.
     - Understand the difference between decidable and recognizable languages.
 
+Review
+  ~ - Consider the alphabet $\Sigma=\{a,b\}$.
+        - Give a clear English description of the language $\Sigma^*$.
+        - How many strings of length exactly $4$ are there in $\Sigma^*$?
+        - List all strings $s\in\Sigma^*$ with $|s|<3$ in **lexicographic order**.
+
 Sections 4.2-4.5
   ~ - Computational problems:
         - inputs, solution sets, positive and negative instances
@@ -133,18 +139,20 @@ Sections 4.2-4.5
     - Recognizable languages. Give examples of recognizable languages that are not decidable.
 
 Activity 5
-  ~ - Write a Python program that *decides* the language of all (finite) binary strings that contain at least two 1s. (Food for thought: does this program have to worry about non-binary strings?)
+  ~ - Write a Python program that *decides* the language of all (finite) binary strings that contain at least two 1s. (Food for thought: does this program have to worry about handling non-binary strings?)
     - Write a Python program that *decides* the language of all prime numbers.
     - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
 
 Practice
-  ~ - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
+  ~ - Exercises 4.5, 4.7
+    - The problem GREATER takes as input a number, and has as solutions all numbers that are greater than this number. Is this a computational problem according to our definition?
     - A *composite* number is a positive integer which has at least one non-trivial divisor. The problem FACTOR takes as input a number. If the number is composite, then the solution set is all of the number's non-trivial divisors. If the number is prime, the solution is "no" indicating no solution. This can be described as a "search" problem. Express it as a search problem by specifying a predicate function.
     - Define "threshold", "optimization" and "decision" versions of the previous problem that have an analogous computational difficulty.
-    - Write a Python program that *decides* the language that contains all strings in the alphabets that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
+    - Write a Python program that *decides* the language that contains all strings in the ASCII alphabet that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
+    - (Optional, Challenge) Using HasShortPath as a helper function, write an algorithm for solving ShortestPath.
 
-Homework 2
-  ~ 4.12, 4.19, 4.20, 4.25, Bonus: 4.26
+HW 2 (Due 9/20 4pm in LYN 110)
+  ~ 4.12, 4.19, 4.20, 4.25a,b, Bonus problems: 4.25c, 4.26
 
 ## Week  3 (09/17-09/21)
 
