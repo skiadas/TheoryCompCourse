@@ -115,7 +115,6 @@ Activity 4
 Goals
   ~ - Learn the basic terminology related to computational problems
     - Understand what it formally means to solve a problem.
-    - Understand the difference between decidable and recognizable languages.
 
 Review
   ~ - Consider the alphabet $\Sigma=\{a,b\}$.
@@ -123,7 +122,7 @@ Review
         - How many strings of length exactly $4$ are there in $\Sigma^*$?
         - List all strings $s\in\Sigma^*$ with $|s|<3$ in **lexicographic order**.
 
-Sections 4.2-4.5
+Sections 4.2-4.4
   ~ - Computational problems:
         - inputs, solution sets, positive and negative instances
         - Describe the SHORTESTPATH problem
@@ -133,15 +132,6 @@ Sections 4.2-4.5
         - Exercise 4.15
     - What does it mean to solve/compute/decide a computational problem? Provide both positive and negative examples.
     - Computable vs uncomputable problems. Provide examples of uncomputable problems.
-    - The membership problem for a language. The language corresponding to a decision problem.
-    - Definition of decidable languages and decidable decision problems.
-    - Is the language of Java Programs decidable?
-    - Recognizable languages. Give examples of recognizable languages that are not decidable.
-
-Activity 5
-  ~ - Write a Python program that *decides* the language of all (finite) binary strings that contain at least two 1s. (Food for thought: does this program have to worry about handling non-binary strings?)
-    - Write a Python program that *decides* the language of all prime numbers.
-    - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
 
 Practice
   ~ - Exercises 4.5, 4.7
@@ -159,9 +149,21 @@ HW 2 (Due 9/20 4pm in LYN 110)
 ### Day 1
 
 Goals
-  ~ - Understand the definition of a Turing machine
+  ~ - Understand the difference between decidable and recognizable languages.
+    - Understand the definition of a Turing machine
     - Understand the graphical representation of a Turing machine
     - Be able to follow the execution of a Turing machine on a given input
+
+Section 4.5
+  ~ - The membership problem for a language. The language corresponding to a decision problem.
+    - Definition of decidable languages and decidable decision problems.
+    - Is the language of Java Programs decidable?
+    - Recognizable languages. Give examples of recognizable languages that are not decidable.
+
+Activity 5
+  ~ - Write a Python program that *decides* the language of all (finite) binary strings that contain at least two 1s. (Food for thought: does this program have to worry about handling non-binary strings?)
+    - Write a Python program that *decides* the language of all prime numbers.
+    - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
 
 Section 5.1
   ~ - Definition of a Turing machine: alphabet, states, transition functions
