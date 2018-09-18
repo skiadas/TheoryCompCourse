@@ -169,6 +169,9 @@ Section 5.1
   ~ - Definition of a Turing machine: alphabet, states, transition functions
     - Transition function can be thought of as a combination of: new state function, new symbol function, direction function
     - What different final states can we have in a Turing machine? Are any of them required?
+    - Write a Turing machine that given a string input accepts if the input has even length.
+    - Using State diagrams instead of tables of transitions.
+    - Write a Turing machine that given a string input accepts if the input has even number of vowels.
     - What is the difference between *looping* and *halting*?
     - What Turing machines do we call *transducers* and which do we call *accepters*? Are those the only kinds of Turing machines?
     - Abbreviated notation for state diagrams.
