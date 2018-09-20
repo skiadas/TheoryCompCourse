@@ -141,7 +141,7 @@ Practice
     - Write a Python program that *decides* the language that contains all strings in the ASCII alphabet that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
     - (Optional, Challenge) Using HasShortPath as a helper function, write an algorithm for solving ShortestPath.
 
-HW 2 (Due 9/20 4pm in LYN 110)
+HW 2 (Due 9/25 4pm in LYN 110)
   ~ 4.12, 4.19, 4.20, 4.25a,b, Bonus problems: 4.25c, 4.26
 
 ## Week  3 (09/17-09/21)
@@ -150,9 +150,6 @@ HW 2 (Due 9/20 4pm in LYN 110)
 
 Goals
   ~ - Understand the difference between decidable and recognizable languages.
-    - Understand the definition of a Turing machine
-    - Understand the graphical representation of a Turing machine
-    - Be able to follow the execution of a Turing machine on a given input
 
 Section 4.5
   ~ - The membership problem for a language. The language corresponding to a decision problem.
@@ -165,27 +162,45 @@ Activity 5
     - Write a Python program that *decides* the language of all prime numbers.
     - Write Python programs that *decide* the empty language and the language consisting of just the empty string, respectively.
 
+### Day 2
+
+Goals
+  ~ - Understand the definition of a Turing machine
+    - Understand the graphical representation of a Turing machine
+    - Be able to follow the execution of a Turing machine on a given input
+
 Section 5.1
   ~ - Definition of a Turing machine: alphabet, states, transition functions
     - Transition function can be thought of as a combination of: new state function, new symbol function, direction function
     - What different final states can we have in a Turing machine? Are any of them required?
     - Write a Turing machine that given a string input accepts if the input has even length.
-    - Using State diagrams instead of tables of transitions.
-    - Write a Turing machine that given a string input accepts if the input has even number of vowels.
-    - What is the difference between *looping* and *halting*?
-    - What Turing machines do we call *transducers* and which do we call *accepters*? Are those the only kinds of Turing machines?
+    - Describing a Turing machine via state diagrams instead of tables of transitions.
     - Abbreviated notation for state diagrams.
+    - Show a complete computation.
+    - Activity 6, first one
+    - Write a Turing machine that inserts an x at the beginning of the input, shifting all other letters to the right, and also inserts an x at the end of the input.
+    - What is the difference between *looping* and *halting*?
+    - What Turing machines do we call *transducers* and what machines do we call *accepters*? Are those the only kinds of Turing machines?
 
 Activity 6
-  ~ - Write a Turing machine that searches for the first C that occurs in the string and changes it to a G, then halts. If it arrives at the end of the input without finding a C, then it inserts a C and halts.
-    - Our alphabet contains only the letters C, G, T, A and the special letter x. Write a Turing machine that inserts an x at the beginning of the input, shifting all other letters to the right, and also inserts an x at the end of the input.
-    - Consider the alphabet consisting of only the binary digits 0, 1. Consider the input as a number with the least significant digit being at the beginning of the tape. So if the number was 8, the tape would start with "001" with the first 0 being at the start of the tape. Write a Turing machine that would change the tape so that the final output is the number incremented by 1. So in the example above the output would be "101". And if we had started with "101" as input, then the output would be "011" etc.
+  ~ - Make a state diagram for a Turing machine that given a string input accepts if the input has even number of vowels and rejects otherwise.
+    - Make a state diagram for a Turing machine that searches for the first C that occurs in the string and changes it to a G, then halts. If it arrives at the end of the input without finding a C, then it inserts a C and halts.
+    - Consider the alphabet consisting of only the binary digits 0, 1. Consider the input as a number with the least significant digit being at the beginning of the tape. So if the number was 8, the tape would start with "001" with the first 0 being at the start of the tape. We will call this representation of numbers *reverse binary*. Make a state diagram for a Turing machine that would change the tape contents so that the final output is representing the input number incremented by 1. So in the example above the output would be "101". And if we had started with "101" as input, then the output would be "011" etc.
 
-### Day 2
+Homework 3 (Due 9/28 4pm in LYN 110)
+  ~ - 5.3 (but change it to "at least 2 Gs and at most 3 Ts"), 5.5, 5.6
+    - Coderunner problem `isPrime` in Moodle
+
+## Week  4 (09/24-09/28)
+
+### Day 1
 
 Goals
   ~ - Understand how a Turing machine can use the tape to remember an unbounded amount of information.
     - Understand how a Turing machine can be used as a component/subprogram in another Turing machine.
+    - Understand how two-tape and multi-tape machines have the same power as one-tape machines.
+    - Understand how a "random access" Turing machine has the same power as our simple one-tape Turing machine.
+    - Understand how a Python program can simulate a Turing machine.
 
 Section 5.2
   ~ - A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first.
@@ -200,18 +215,6 @@ Activity 7
         - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110xx010x".
         - Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.
         - Your machine must terminate in one of three states signifying whether the first number is larger than, equal to, or smaller than the second number.
-
-Homework 3
-  ~ 5.3, 5.5, 5.6, 5.7
-
-## Week  4 (09/24-09/28)
-
-### Day 1
-
-Goals
-  ~ - Understand how two-tape and multi-tape machines have the same power as one-tape machines.
-    - Understand how a "random access" Turing machine has the same power as our simple one-tape Turing machine.
-    - Understand how a Python program can simulate a Turing machine.
 
 Sections 5.3-5.7
   ~ - A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine.
@@ -237,7 +240,7 @@ Activity 9
     - Use JFLAP to build a single-tape Turing machine that prepends a z at the beginning of the input and shifts everythign else to the right. Assume the alphabet consists of the characters x,y,z,0,1.
 
 Homework 4
-  ~ 5.10, 5.13
+  ~ 5.7, 5.10, 5.13
 
 ## Week  5 (10/01-10/05)
 
