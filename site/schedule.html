@@ -36,16 +36,16 @@
 <tr class="odd">
 <td align="left">Week 3 (09/17-09/21)</td>
 <td align="left">5.1</td>
-<td align="left">5.2</td>
+<td align="left">5.1</td>
 </tr>
 <tr class="even">
 <td align="left">Week 4 (09/24-09/28)</td>
-<td align="left">5.3-5.7</td>
-<td align="left">JFLAP</td>
+<td align="left">5.2</td>
+<td align="left">5.3-5.7, Coding</td>
 </tr>
 <tr class="odd">
 <td align="left">Week 5 (10/01-10/05)</td>
-<td align="left">Midterm</td>
+<td align="left"><a href="midterm1_study_guide.html">Midterm 1</a></td>
 <td align="left">6.1, 6.2, 6.4, 6.5</td>
 </tr>
 <tr class="even">
@@ -334,46 +334,32 @@
 <dd><ul>
 <li>Understand how a Turing machine can use the tape to remember an unbounded amount of information.</li>
 <li>Understand how a Turing machine can be used as a component/subprogram in another Turing machine.</li>
-<li>Understand how two-tape and multi-tape machines have the same power as one-tape machines.</li>
-<li>Understand how a “random access” Turing machine has the same power as our simple one-tape Turing machine.</li>
-<li>Understand how a Python program can simulate a Turing machine.</li>
 </ul>
 </dd>
 <dt>Section 5.2</dt>
 <dd><ul>
-<li>A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first.</li>
-<li>Study the <code>binaryIncrementer</code> machine.</li>
-<li>Practice: Define and construct a <code>binaryDecrementer</code> machine.</li>
-<li>Understand how <code>binaryIncrementer</code> and <code>shiftInteger</code> come together to produce a <code>incrementWithOverflow</code>.</li>
-<li>Understand the construction of the <code>countCs</code> Turing machine.</li>
+<li>A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first (decider).</li>
+<li>Discuss “reverse binary” notation and operations.</li>
+<li>Implement a Turing Machine that takes a “reverse binary” input enclosed by a pair of <code>x</code>s and increments its value by 1 (transducer).</li>
+<li>Activity 7, part 1</li>
+<li>Use the reverse binary incrementer to implement a <code>countCs</code> Turing machine. Start by describing these helpers:</li>
+<li><code>prependx</code></li>
+<li><code>prepend0</code></li>
+<li><code>incrementReverseBinary</code></li>
+<li><code>moveHeadToNumberStart</code></li>
+<li><code>moveHeadToStringStart</code></li>
+<li>Activity 7, part 2</li>
 </ul>
 </dd>
 <dt>Activity 7</dt>
 <dd><ul>
-<li>Modify the <code>countCs</code> Turing machine to count the occurence of <code>CA</code> pairs instead.</li>
-<li>Write a Turing machine compares two numbers as follows:
+<li>Practice: Define and construct a <code>binaryDecrementer</code> machine (should reject if the input is the number 0).</li>
+<li>Write a Turing machine that compares two numbers as follows:
 <ul>
 <li>The numbers are provided in binary form from highest significant number to lowest, separated by x’s and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: “x110xx010x”.</li>
 <li>Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.</li>
-<li>Your machine must terminate in one of three states signifying whether the first number is larger than, equal to, or smaller than the second number.</li>
+<li>Your machine should accept if the first number is at least as large as the second, and it should simply halt if the second number is larger.</li>
 </ul></li>
-</ul>
-</dd>
-<dt>Sections 5.3-5.7</dt>
-<dd><ul>
-<li>A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine.</li>
-<li>A multi-tape single-head Turing machine can be simulated in the same way.</li>
-<li>A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine, by using twice the number of tapes, and using the second set of tapes to keep track of the locations of the multiple heads.</li>
-<li>Describe how a <em>random-access</em> Turing machine operates, and how to simulate it with a multi-tape Turing machine.</li>
-<li>Describe how the parts of a modern computer map to elements of a random-access Turing machine.</li>
-<li>How can a Python program be used to simulate a Turing machine?</li>
-</ul>
-</dd>
-<dt>Activity 8</dt>
-<dd><ul>
-<li>Implement countCs as a two-tape two-head Turing machine.</li>
-<li>Implement countCs as a two-tape single-head Turing machine.</li>
-<li>Describe a two-tape Turing machine that contains a string in one tape and an integer in the other tape. The machine then must count that many spots into the string as indicated by the integer.</li>
 </ul>
 </dd>
 </dl>
@@ -381,22 +367,36 @@
 <dl>
 <dt>Goals</dt>
 <dd><ul>
-<li>Practice the use of JFLAP to build and test Turing machines.</li>
+<li>Understand how two-tape and multi-tape machines have the same power as one-tape machines.</li>
+<li>Understand how a Python program can simulate a Turing machine.</li>
+<li>Understand how Python programs are computationally equivalent to Turing machines.</li>
+<li>Practice writing and running Turing Machines in Python using simulateTM.</li>
 </ul>
 </dd>
-<dt>Activity 9</dt>
+<dt>Sections 5.3-5.7</dt>
 <dd><ul>
-<li>Use JFLAP to build a single-tape Turing machine that appends a z at the end of the input.</li>
-<li>Use JFLAP to build a single-tape Turing machine that prepends a z at the beginning of the input and shifts everythign else to the right. Assume the alphabet consists of the characters x,y,z,0,1.</li>
+<li>A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine (a “squared alphabet”).</li>
+<li>A multi-tape single-head Turing machine can be simulated in a similar way.</li>
+<li>A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine that uses twice the number of tapes, and uses the second set of tapes to keep track of the locations of the multiple heads.</li>
+<li>How can a Python program be used to simulate a Turing machine?</li>
+<li>Talk about how it’s plausible that a Turing machine has the same computational power as Python.</li>
 </ul>
 </dd>
-<dt>Homework 4</dt>
-<dd>5.7, 5.10, 5.13
+<dt>Activity 8</dt>
+<dd><p>In Python, using simulateTM:</p>
+<ul>
+<li>Write and test a single-tape Turing machine that appends a z at the end of the input.</li>
+<li>Write and test a single-tape Turing machine that prepends a z at the beginning of the input and shifts everything else to the right. Assume the alphabet consists of the characters x,y,z,0,1.</li>
+<li>Write and test a single-tape Turing machine to decide if a binary string contains three consecutive ones (“111”).</li>
+</ul>
+</dd>
+<dt>Homework 4 (Due 10/05 4pm in LYN 110)</dt>
+<dd>5.7, 5.13. For each Turing machine you create provide both a state diagram and Python code as in the provided <code>.tm</code> files. (See also Fig. 5.19.)
 </dd>
 </dl>
 <h2 id="week-5-1001-1005">Week 5 (10/01-10/05)</h2>
 <h3 id="day-1-4">Day 1</h3>
-<pre><code>- **Midterm 1**</code></pre>
+<pre><code>- [Midterm 1](midterm1_study_guide.md)</code></pre>
 <h3 id="day-2-4">Day 2</h3>
 <dl>
 <dt>Goals</dt>
@@ -417,7 +417,7 @@
 <li>Show that YesOnString is recognizable.</li>
 </ul>
 </dd>
-<dt>Activity 10</dt>
+<dt>Activity 9</dt>
 <dd><ul>
 <li>Construct a program that demonstrates that the language CrashOnString is recognizable.</li>
 <li>Show that if two languages are recognizable, then so is their intersection. Assume you have two programs that recognize the two languages, and built a program that recognizes their intersection.</li>

@@ -1,21 +1,21 @@
 # Schedule
 
-Week                    Tuesday                 Thursday
------------------------ ----------------------- -----------------------
-Week  1 (09/03-9/07)    1, 2                    3
-Week  2 (09/10-09/14)   4.1-4.3                 4.4-4.5
-Week  3 (09/17-09/21)   5.1                     5.2
-Week  4 (09/24-09/28)   5.3-5.7                 JFLAP
-Week  5 (10/01-10/05)   Midterm                 6.1, 6.2, 6.4, 6.5
-Week  6 (10/08-10/12)   7                       7, 8
-Week  7 (10/15-10/19)   Break                   8
-Week  8 (10/22-10/26)   9                       9
-Week  9 (10/29-11/02)   9                       10
-Week 10 (11/05-11/09)   Midterm                 10, 11
-Week 11 (11/12-11/16)   11                      12
-Week 12 (11/19-11/23)   12                      Thanksgiving
-Week 13 (11/26-11/30)   13                      13
-Week 14 (12/03-12/07)   14                      14
+Week                    Tuesday                                 Thursday
+----------------------- --------------------------------------- -----------------------
+Week  1 (09/03-9/07)    1, 2                                    3
+Week  2 (09/10-09/14)   4.1-4.3                                 4.4-4.5
+Week  3 (09/17-09/21)   5.1                                     5.1
+Week  4 (09/24-09/28)   5.2                                     5.3-5.7, Coding
+Week  5 (10/01-10/05)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2, 6.4, 6.5
+Week  6 (10/08-10/12)   7                                       7, 8
+Week  7 (10/15-10/19)   Break                                   8
+Week  8 (10/22-10/26)   9                                       9
+Week  9 (10/29-11/02)   9                                       10
+Week 10 (11/05-11/09)   Midterm                                 10, 11
+Week 11 (11/12-11/16)   11                                      12
+Week 12 (11/19-11/23)   12                                      Thanksgiving
+Week 13 (11/26-11/30)   13                                      13
+Week 14 (12/03-12/07)   14                                      14
 
 
 ## Week 1 (09/03-9/07)
@@ -198,55 +198,57 @@ Homework 3 (Due 9/28 4pm in LYN 110)
 Goals
   ~ - Understand how a Turing machine can use the tape to remember an unbounded amount of information.
     - Understand how a Turing machine can be used as a component/subprogram in another Turing machine.
-    - Understand how two-tape and multi-tape machines have the same power as one-tape machines.
-    - Understand how a "random access" Turing machine has the same power as our simple one-tape Turing machine.
-    - Understand how a Python program can simulate a Turing machine.
 
 Section 5.2
-  ~ - A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first.
-    - Study the `binaryIncrementer` machine.
-    - Practice: Define and construct a `binaryDecrementer` machine.
-    - Understand how `binaryIncrementer` and `shiftInteger` come together to produce a `incrementWithOverflow`.
-    - Understand the construction of the `countCs` Turing machine.
+  ~ - A Turing machine that checks whether the string has more Cs than Gs. It follows two different paths depending on whether it encounters a G or a C first (decider).
+    - Discuss "reverse binary" notation and operations.
+    - Implement a Turing Machine that takes a "reverse binary" input enclosed by a pair of `x`s and increments its value by 1 (transducer).
+    - Activity 7, part 1
+    - Use the reverse binary incrementer to implement a `countCs` Turing machine. Start by describing these helpers:
+      - `prependx`
+      - `prepend0`
+      - `incrementReverseBinary`
+      - `moveHeadToNumberStart`
+      - `moveHeadToStringStart`
+    - Activity 7, part 2
 
 Activity 7
-  ~ - Modify the `countCs` Turing machine to count the occurence of `CA` pairs instead.
-    - Write a Turing machine compares two numbers as follows:
+  ~ - Practice: Define and construct a `binaryDecrementer` machine (should reject if the input is the number 0).
+    - Write a Turing machine that compares two numbers as follows:
         - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110xx010x".
         - Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.
-        - Your machine must terminate in one of three states signifying whether the first number is larger than, equal to, or smaller than the second number.
-
-Sections 5.3-5.7
-  ~ - A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine.
-    - A multi-tape single-head Turing machine can be simulated in the same way.
-    - A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine, by using twice the number of tapes, and using the second set of tapes to keep track of the locations of the multiple heads.
-    - Describe how a *random-access* Turing machine operates, and how to simulate it with a multi-tape Turing machine.
-    - Describe how the parts of a modern computer map to elements of a random-access Turing machine.
-    - How can a Python program be used to simulate a Turing machine?
-
-Activity 8
-  ~ - Implement countCs as a two-tape two-head Turing machine.
-    - Implement countCs as a two-tape single-head Turing machine.
-    - Describe a two-tape Turing machine that contains a string in one tape and an integer in the other tape. The machine then must count that many spots into the string as indicated by the integer.
-
+        - Your machine should accept if the first number is at least as large as the second, and it should simply halt if the second number is larger.
 
 ### Day 2
 
 Goals
-  ~ - Practice the use of JFLAP to build and test Turing machines.
+  ~ - Understand how two-tape and multi-tape machines have the same power as one-tape machines.
+    - Understand how a Python program can simulate a Turing machine.
+    - Understand how Python programs are computationally equivalent to Turing machines.
+    - Practice writing and running Turing Machines in Python using simulateTM.
 
-Activity 9
-  ~ - Use JFLAP to build a single-tape Turing machine that appends a z at the end of the input.
-    - Use JFLAP to build a single-tape Turing machine that prepends a z at the beginning of the input and shifts everythign else to the right. Assume the alphabet consists of the characters x,y,z,0,1.
+Sections 5.3-5.7
+  ~ - A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine (a "squared alphabet").
+    - A multi-tape single-head Turing machine can be simulated in a similar way.
+    - A multi-tape multi-head Turing machine can be simulated by using a multi-tape single-head Turing machine that uses twice the number of tapes, and uses the second set of tapes to keep track of the locations of the multiple heads.
+    - How can a Python program be used to simulate a Turing machine?
+    - Talk about how it's plausible that a Turing machine has the same computational power as Python.
 
-Homework 4
-  ~ 5.7, 5.10, 5.13
+Activity 8
+  ~ In Python, using simulateTM:
+
+    - Write and test a single-tape Turing machine that appends a z at the end of the input.
+    - Write and test a single-tape Turing machine that prepends a z at the beginning of the input and shifts everything else to the right. Assume the alphabet consists of the characters x,y,z,0,1.
+    - Write and test a single-tape Turing machine to decide if a binary string contains three consecutive ones ("111").
+
+Homework 4 (Due 10/05 4pm in LYN 110)
+  ~ 5.7, 5.13. For each Turing machine you create provide both a state diagram and Python code as in the provided `.tm` files. (See also Fig. 5.19.)
 
 ## Week  5 (10/01-10/05)
 
 ### Day 1
 
-    - **Midterm 1**
+    - [Midterm 1](midterm1_study_guide.md)
 
 ### Day 2
 
@@ -264,7 +266,7 @@ Sections 6.1, 6.2, 6.4, 6.5 (6.3 optional)
     - Describe the input-ignoring program in Figure 6.9.
     - Show that YesOnString is recognizable.
 
-Activity 10
+Activity 9
   ~ - Construct a program that demonstrates that the language CrashOnString is recognizable.
     - Show that if two languages are recognizable, then so is their intersection. Assume you have two programs that recognize the two languages, and built a program that recognizes their intersection.
 
