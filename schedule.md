@@ -205,16 +205,17 @@ Section 5.2
     - Implement a Turing Machine that takes a "reverse binary" input enclosed by a pair of `x`s and increments its value by 1 (transducer).
     - Activity 7, part 1
     - Use the reverse binary incrementer to implement a `countCs` Turing machine. Start by describing these helpers:
-      - `prependx`
-      - `prepend0`
-      - `incrementReverseBinary`
-      - `moveHeadToNumberStart`
-      - `moveHeadToStringStart`
+        - `prependx`
+        - `prepend0`
+        - `incrementReverseBinary`
+        - `moveHeadToNumberStart`
+        - `moveHeadToStringStart`
+        - `deleteString`
     - Activity 7, part 2
 
 Activity 7
-  ~ - Practice: Define and construct a `binaryDecrementer` machine (should reject if the input is the number 0).
-    - Write a Turing machine that compares two numbers as follows:
+  ~ - Practice: Describe the expected behavior of a `binaryDecrementer` machine (should reject if the input is the number 0) and construct its state diagram.
+    - Create a state diagram for a Turing machine that compares two numbers as follows:
         - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110xx010x".
         - Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.
         - Your machine should accept if the first number is at least as large as the second, and it should simply halt if the second number is larger.
@@ -238,7 +239,7 @@ Activity 8
   ~ In Python, using simulateTM:
 
     - Write and test a single-tape Turing machine that appends a z at the end of the input.
-    - Write and test a single-tape Turing machine that prepends a z at the beginning of the input and shifts everything else to the right. Assume the alphabet consists of the characters x,y,z,0,1.
+    - Write and test a single-tape Turing machine that implements the "reverse binary incrementer" that we discussed in class.
     - Write and test a single-tape Turing machine to decide if a binary string contains three consecutive ones ("111").
 
 Homework 4 (Due 10/05 4pm in LYN 110)
