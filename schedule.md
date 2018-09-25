@@ -236,16 +236,12 @@ Sections 5.3-5.7
     - How can a Python program be used to simulate a Turing machine?
     - Talk about how it's plausible that a Turing machine has the same computational power as Python.
 
-
 Activity 8
-  ~ In Python, using simulateTM:
-
-    - Write and test a single-tape Turing machine that appends a z at the end of the input.
-    - Write and test a single-tape Turing machine that implements the "reverse binary incrementer" that we discussed in class.
-    - Write and test a single-tape Turing machine to decide if a binary string contains three consecutive ones ("111").
+  ~ [Activity 8 writeup](activities/activity8.md)
 
 Homework 4 (Due 10/05 4pm in LYN 110)
-  ~ 5.7, 5.13. For each Turing machine you create provide both a state diagram and a text description of the Turing machine as in the provided `.tm` files. (See also Fig. 5.19)
+  ~ - 5.7, 5.13. For each Turing machine you create provide both a state diagram and a text description of the Turing machine as in the provided `.tm` files. (See also Fig. 5.19)
+    - Write and test a single-tape Turing machine that implements the "reverse binary decrementer" that we discussed in class. Submit the printout of your `.tm` file.
 
 ## Week  5 (10/01-10/05)
 
