@@ -247,7 +247,7 @@ Homework 4 (Due 10/05 4pm in LYN 110)
 
 ### Day 1
 
-    - [Midterm 1](midterm1_study_guide.md)
+- [Midterm 1](midterm1_study_guide.md)
 
 ### Day 2
 
