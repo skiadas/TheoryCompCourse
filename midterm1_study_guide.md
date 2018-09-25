@@ -1,9 +1,9 @@
-# Midterm 1 Study Guides
+# Midterm 1 Study Guide
 
 The test covers all the material discussed so far up to and including section 5.1 and homeworks 1 through 3. The following set of questions is meant to help guide your study and is not meant to be exhaustive of all the possibilities.
 
 1. Be able to write a SISO Python program that performs simple prescribed tasks (the `isPrime` and `lengthGreaterThan10` kinds of programs).
-2. Describe the intented behavior of the programs named `yesOnString`, `notYesOnSelf`. Then:
+2. Describe the intended behavior of the programs named `yesOnString`, `notYesOnSelf`. Then:
     - Prove that the program `notYesOnSelf` cannot exist.
     - Show how we can write the program `notYesOnSelf` by using `yesOnString` as a helper.
     - Explain why `yesOnString` cannot exist.
@@ -17,7 +17,7 @@ The test covers all the material discussed so far up to and including section 5.
     - A *string* over an alphabet $\Sigma$.
     - A *language* over an alphabet $\Sigma$ (hint: lots of good examples on page 51).
     - The language $L^*$ for a given language $L$.
-    - The language $LM$ for given languages $LM$.
+    - The language $LM$ for given languages $L$ and $M$.
     - The language $\bar L$ for a given language $L$ over an alphabet $\Sigma$.
     - A *computational problem* over an alphabet $\Sigma$.
     - What it means for a program $P$ to *solve* a given computational problem $F$.
