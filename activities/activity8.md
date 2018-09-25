@@ -27,7 +27,7 @@ In this exercise we practice making a text file representation of a Turing machi
 8. Back in the Python shell, run simulateTM on 'contains111.tm' with the following inputs.
     - Negative examples: "", "1", "x", "11", "xx", "11x1", "abcd11"
     - Positive examples: "111", "1110", "0111", "xy111z", "1111"
-9. Download the file [test_contains111.py](https://skiadas.github.io/TheoryCompCourse/activities/test_contains111.py)
+9. Download the file [test_contains111.py](https://skiadas.github.io/TheoryCompCourse/site/activities/test_contains111.py)
 
    Copy the following code and save it as `test_contains111.py`.
 
