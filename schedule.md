@@ -214,14 +214,14 @@ Goals
     - Practice writing and running Turing Machines in Python using simulateTM.
 
 Section 5.2
-  ~ - Use the reverse binary incrementer to implement a `countCs` Turing machine. Start by describing these helpers:
+  ~ - Go through Problem 4.25
+    - Use the reverse binary incrementer to implement a `countCs` Turing machine. Start by describing these helpers:
         - `prependx`
         - `prepend0`
         - `incrementReverseBinary`
         - `moveHeadToNumberStart`
         - `moveHeadToStringStart`
         - `deleteString`
-    - Activity 7, part 2
 
 Activity 7
   ~ - Create a state diagram for a Turing machine that compares two numbers as follows:
