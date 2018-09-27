@@ -225,9 +225,10 @@ Section 5.2
 
 Activity 7
   ~ - Create a state diagram for a Turing machine that compares two numbers as follows:
-        - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110xx010x".
+        - The numbers are provided in binary form from highest significant number to lowest, separated by x's and with zeroes padded in if needed to make sure both numbers have the same number of digits. For example the numbers 6 and 2 would be represented as: "x110x010x".
         - Your machine is free to change the tape contents as it needs to. You may also introduce up to two new symbols: y and z.
         - Your machine should accept if the first number is at least as large as the second, and it should simply halt if the second number is larger.
+        - Is this machine a decider for a language? Explain.
 
 Sections 5.3-5.7
   ~ - A two-tape single-head Turing machine can be simulated by a standard Turing machine by using an alphabet consisting of pairs of characters from the alphabet of the original machine (a "squared alphabet").
