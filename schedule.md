@@ -188,7 +188,7 @@ Activity 6
     - Consider the alphabet consisting of only the binary digits 0, 1. Consider the input as a number with the least significant digit being at the beginning of the tape. So if the number was 8, the tape would start with "001" with the first 0 being at the start of the tape. We will call this representation of numbers *reverse binary*. Make a state diagram for a Turing machine that would change the tape contents so that the final output is representing the input number incremented by 1. So in the example above the output would be "101". And if we had started with "101" as input, then the output would be "011" etc.
 
 Homework 3 (Due 9/28 4pm in LYN 110)
-  ~ - 5.3 (but change it to "at least 2 Gs and at most 3 Ts"), 5.5, 5.6
+  ~ - 4.25b, 5.3 (but change it to "at least 2 Gs and at most 3 Ts"), 5.5, 5.6
     - Coderunner problem `isPrime` in Moodle
 
 ## Week  4 (09/24-09/28)
