@@ -254,24 +254,22 @@ Homework 4 (Due 10/05 4pm in LYN 110)
 
 Goals
   ~ - Understand the idea of *universal computer programs* and *universal Turing machines*.
-    - Be able to explain how a universal Turing machine would function.
     - Familiarize yourself with programs that alter other programs.
-    - Use a universal computer program to produce programs that are recognizable but not decidable.
+    - Use a universal computer program to produce programs that are recognizers but not deciders.
 
-Sections 6.1, 6.2, 6.4, 6.5 (6.3 optional)
-  ~ - Describe instances you are familiar with of programs executing other programs.
-    - Understand the program `universal.py` and how it works.
-    - Describe how a universal Turing machine would operate.
-    - Describe the "simulate-and-alter" technique for changing a program's behavior.
+Sections 6.1, 6.4, 6.5 (6.3 optional)
+  ~ - Understand the program `universal.py` and how it works.
+    - Describe the "simulate-and-alter" technique for changing a program's behavior (Figure 6.8).
+    - Group activity: 6.4
     - Describe the input-ignoring program in Figure 6.9.
     - Show that YesOnString is recognizable.
+    - Group activity: 6.6
 
 Activity 9
   ~ - Construct a program that demonstrates that the language CrashOnString is recognizable.
-    - Show that if two languages are recognizable, then so is their intersection. Assume you have two programs that recognize the two languages, and built a program that recognizes their intersection.
 
 Homework 6
-  ~ 6.3, 6.9, 6.10
+  ~ (Due 10/11 4pm in LYN 110) 6.3, 6.7, 6.9 (make sure to actually write a Python program for it)
 
 ## Week  6 (10/08-10/12)
 
