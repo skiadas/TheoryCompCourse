@@ -263,7 +263,7 @@ Sections 6.1, 6.4, 6.5 (6.3 optional)
     - Group activity: 6.4
     - Describe the input-ignoring program in Figure 6.9.
     - Show that YesOnString is recognizable.
-    - Group activity: 6.6
+    - Group activity: 6.6  (Actually write the program and run it on positive and negative instances)
 
 Activity 9
   ~ - Construct a program that demonstrates that the language CrashOnString is recognizable.
