@@ -268,7 +268,7 @@ Sections 6.1, 6.4, 6.5 (6.3 optional)
 Activity 9
   ~ - Construct a program that demonstrates that the language CrashOnString is recognizable.
 
-Homework 6
+Homework 5
   ~ (Due 10/11 4pm in LYN 110) 6.3, 6.7, 6.9 (make sure to actually write a Python program for it)
 
 ## Week  6 (10/08-10/12)
