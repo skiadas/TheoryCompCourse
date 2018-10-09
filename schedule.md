@@ -275,12 +275,42 @@ Homework 5
 
 ### Day 1
 
-- 7
+Goals
+  ~ - Understand what it means to have a *reduction* from problem A to problem B.
+    - Use reduction arguments to prove one problem is *at least as hard* than another.
+
+Sections 7.1, 7.2, 7.3, 7.4
+  ~ - The `IsOdd` and `LastDigitIsEven` problems, and solving `IsOdd` via `LastDigitIsEven`.
+    - Using a program that solves one problem to build a program that solves another.
+    - Showing a program is impossible by using it to write a program that is known to be impossible.
+    - Informal definition of the phrase "problem F reduces to problem G"
+    - The problem `GAGAOnString` and proving it is undecidable via a reduction from `YesOnString`:
+        - Transforming *instances* of `YesOnString` to instances of `GAGAOnString`.
+        - Positive instances must map to positive instances, and negative instances to negative instances.
+        - How to handle "ill-formed" negative instances.
+        - Writing the program `altersYesToGAGA`.
+        - Tying it all together.
+    - Talk about a reduction from `yesOnString` to `containsGAGAOnString`.
+    - Activity 10, first part.
+    - Definition of Turing reduction.
+    - What is an Oracle program.
+    - Turing reducibility is transitive. (Barb)
+    - Propagation of computability. (Barb)
+    - Activity 10, second part.
+
+Activity 10
+  ~ - Consider the decision problem `IntOnString`: It takes two strings $P$, $I$ as input, and outputs `"yes"` if $P$ is a program and $P(I)$ is a non-negative integer string (i.e. containing only digits). Similarly to what we did for `GAGAOnString`, show how `YesOnString` can be reduced to `IntOnString`.
+    - Suppose $F$, $G$ are general computational problems, and $D$ is a decision problem. Also suppose that $F$ reduces to $G$, and also $D$ reduces to $G$. What, if anything, can we conclude if:
+        1. $D$ is undecidable
+        2. $G$ is computable
+        3. $F$ is computable
 
 ### Day 2
 
-- 7, 8
+- 7
 
+Homework 6
+  ~ (Due 10/19 4pm in LYN 110) 7.3, 7.5b,e, ...
 
 ## Week  7 (10/15-10/19)
 
@@ -297,7 +327,7 @@ Homework 5
 
 ### Day 1
 
-- 9
+- 8, 9
 
 ### Day 2
 

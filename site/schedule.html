@@ -434,13 +434,57 @@
 </dl>
 <h2 id="week-6-1008-1012">Week 6 (10/08-10/12)</h2>
 <h3 id="day-1-5">Day 1</h3>
+<dl>
+<dt>Goals</dt>
+<dd><ul>
+<li>Understand what it means to have a <em>reduction</em> from problem A to problem B.</li>
+<li>Use reduction arguments to prove one problem is <em>at least as hard</em> than another.</li>
+</ul>
+</dd>
+<dt>Sections 7.1, 7.2, 7.3, 7.4</dt>
+<dd><ul>
+<li>The <code>IsOdd</code> and <code>LastDigitIsEven</code> problems, and solving <code>IsOdd</code> via <code>LastDigitIsEven</code>.</li>
+<li>Using a program that solves one problem to build a program that solves another.</li>
+<li>Showing a program is impossible by using it to write a program that is known to be impossible.</li>
+<li>Informal definition of the phrase “problem F reduces to problem G”</li>
+<li>The problem <code>GAGAOnString</code> and proving it is undecidable via a reduction from <code>YesOnString</code>:
+<ul>
+<li>Transforming <em>instances</em> of <code>YesOnString</code> to instances of <code>GAGAOnString</code>.</li>
+<li>Positive instances must map to positive instances, and negative instances to negative instances.</li>
+<li>How to handle “ill-formed” negative instances.</li>
+<li>Writing the program <code>altersYesToGAGA</code>.</li>
+<li>Tying it all together.</li>
+</ul></li>
+<li>Talk about a reduction from <code>yesOnString</code> to <code>containsGAGAOnString</code>.</li>
+<li>Activity 10, first part.</li>
+<li>Definition of Turing reduction.</li>
+<li>What is an Oracle program.</li>
+<li>Turing reducibility is transitive. (Barb)</li>
+<li>Propagation of computability. (Barb)</li>
+<li>Activity 10, second part.</li>
+</ul>
+</dd>
+<dt>Activity 10</dt>
+<dd><ul>
+<li>Consider the decision problem <code>IntOnString</code>: It takes two strings <span class="math inline">\(P\)</span>, <span class="math inline">\(I\)</span> as input, and outputs <code>&quot;yes&quot;</code> if <span class="math inline">\(P\)</span> is a program and <span class="math inline">\(P(I)\)</span> is a non-negative integer string (i.e. containing only digits). Similarly to what we did for <code>GAGAOnString</code>, show how <code>YesOnString</code> can be reduced to <code>IntOnString</code>.</li>
+<li>Suppose <span class="math inline">\(F\)</span>, <span class="math inline">\(G\)</span> are general computational problems, and <span class="math inline">\(D\)</span> is a decision problem. Also suppose that <span class="math inline">\(F\)</span> reduces to <span class="math inline">\(G\)</span>, and also <span class="math inline">\(D\)</span> reduces to <span class="math inline">\(G\)</span>. What, if anything, can we conclude if:
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(D\)</span> is undecidable</li>
+<li><span class="math inline">\(G\)</span> is computable</li>
+<li><span class="math inline">\(F\)</span> is computable</li>
+</ol></li>
+</ul>
+</dd>
+</dl>
+<h3 id="day-2-5">Day 2</h3>
 <ul>
 <li>7</li>
 </ul>
-<h3 id="day-2-5">Day 2</h3>
-<ul>
-<li>7, 8</li>
-</ul>
+<dl>
+<dt>Homework 6</dt>
+<dd>(Due 10/19 4pm in LYN 110) 7.3, 7.5b,e, …
+</dd>
+</dl>
 <h2 id="week-7-1015-1019">Week 7 (10/15-10/19)</h2>
 <h3 id="day-1-6">Day 1</h3>
 <ul>
@@ -453,7 +497,7 @@
 <h2 id="week-8-1022-1026">Week 8 (10/22-10/26)</h2>
 <h3 id="day-1-7">Day 1</h3>
 <ul>
-<li>9</li>
+<li>8, 9</li>
 </ul>
 <h3 id="day-2-7">Day 2</h3>
 <ul>
