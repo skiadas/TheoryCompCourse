@@ -441,7 +441,7 @@
 <li>Use reduction arguments to prove one problem is <em>at least as hard</em> than another.</li>
 </ul>
 </dd>
-<dt>Sections 7.1, 7.2, 7.3, 7.4</dt>
+<dt>Sections 7.1, 7.2, 7.3</dt>
 <dd><ul>
 <li>The <code>IsOdd</code> and <code>LastDigitIsEven</code> problems, and solving <code>IsOdd</code> via <code>LastDigitIsEven</code>.</li>
 <li>Using a program that solves one problem to build a program that solves another.</li>
@@ -457,10 +457,6 @@
 </ul></li>
 <li>Talk about a reduction from <code>yesOnString</code> to <code>containsGAGAOnString</code>.</li>
 <li>Activity 10, first part.</li>
-<li>Definition of Turing reduction.</li>
-<li>What is an Oracle program.</li>
-<li>Turing reducibility is transitive. (Barb)</li>
-<li>Propagation of computability. (Barb)</li>
 <li>Activity 10, second part.</li>
 </ul>
 </dd>
@@ -477,9 +473,25 @@
 </dd>
 </dl>
 <h3 id="day-2-5">Day 2</h3>
-<ul>
-<li>7</li>
+<dl>
+<dt>Sections 7.4, 7.5</dt>
+<dd><ul>
+<li>Definition of Turing reduction.</li>
+<li>What is an Oracle program.</li>
+<li>Turing reducibility is transitive. (Barb)</li>
+<li>Propagation of computability. (Barb)</li>
+<li>The problems <code>yesOnEmpty</code>, <code>yesOnAll</code>, <code>yesOnSome</code>.</li>
+<li>Refresher on the program <code>ignoreInput</code>.</li>
+<li>Use <code>ignoreInput.py</code> to write <code>yesOnString</code> using <code>yesOnEmpty</code> as a helper.</li>
+<li>Repeat the process for <code>yesOnAll</code> and <code>yesOnSome</code>.</li>
+<li>Definition of what it means for a Python program to <em>halt</em>.</li>
+<li>The Halting problem and its variants: <code>haltsOnString</code>, <code>haltsOnEmpty</code>, <code>haltsOnAll</code>, <code>haltsOnSome</code>.</li>
+<li>Group activity: Use an altering technique similar to what we did for <code>GAGAOnString</code> to show a reduction from <code>yesOnString</code> to <code>haltsOnString</code>.</li>
+<li>Group activity: Show reductions from <code>haltsOnString</code> to <code>haltsOnEmpty</code>, <code>haltsOnAll</code>, <code>haltsOnSome</code>.</li>
 </ul>
+</dd>
+</dl>
+<p>Section 7.6 - Uncomputable problems: <code>NumCharsOnString</code> - The problem <code>Computes_F</code> for a computable problem <code>F</code>. - Group activity: Figure 7.16. Which of these programs computes <code>IsEven</code>? - If <code>F</code> is a computable problem, then <code>Computes_F</code> is in fact uncomputable. - TODO</p>
 <dl>
 <dt>Homework 6</dt>
 <dd>(Due 10/19 4pm in LYN 110) 7.3, 7.5b,e, …
