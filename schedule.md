@@ -304,28 +304,22 @@ Activity 10
 ### Day 2
 
 Sections 7.4, 7.5
-  ~ - Definition of Turing reduction.
-    - What is an Oracle program.
-    - Turing reducibility is transitive. (Barb)
-    - Propagation of computability. (Barb)
+  ~ - Definition of Turing reduction. (Wahl)
+    - What is an Oracle program. (Wahl)
+    - Propagation of computability. (Wahl)
+    - Is the converse propagation true?
+    - Turing reducibility is transitive. (Wahl)
     - The problems `yesOnEmpty`, `yesOnAll`, `yesOnSome`.
     - Refresher on the program `ignoreInput`.
     - Use `ignoreInput.py` to write `yesOnString` using `yesOnEmpty` as a helper.
-    - Repeat the process for `yesOnAll` and `yesOnSome`.
-    - Definition of what it means for a Python program to *halt*.
-    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`.
+    - Group activity: Repeat the process for `yesOnAll` and `yesOnSome`.
+    - Definition of what it means for a Python program to *halt*. (Wahl)
+    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`. (Wahl)
     - Group activity: Use an altering technique similar to what we did for `GAGAOnString` to show a reduction from `yesOnString` to `haltsOnString`.
     - Group activity: Show reductions from `haltsOnString` to `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`.
 
-Section 7.6
-    - Uncomputable problems: `NumCharsOnString`
-    - The problem `Computes_F` for a computable problem `F`.
-    - Group activity: Figure 7.16. Which of these programs computes `IsEven`?
-    - If `F` is a computable problem, then `Computes_F` is in fact uncomputable.
-    - TODO
-
 Homework 6
-  ~ (Due 10/19 4pm in LYN 110) 7.3, 7.5b,e, ...
+  ~ (Due 10/19 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
 
 ## Week  7 (10/15-10/19)
 
@@ -334,6 +328,13 @@ Homework 6
 - Fall Break
 
 ### Day 2
+
+Section 7.6
+  ~ - Uncomputable problems: `NumCharsOnString`
+    - The problem `Computes_F` for a computable problem `F`.
+    - Group activity: Figure 7.16. Which of these programs computes `IsEven`?
+    - If `F` is a computable problem, then `Computes_F` is in fact uncomputable.
+    - TODO
 
 - 8
 
