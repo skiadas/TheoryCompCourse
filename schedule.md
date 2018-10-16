@@ -8,7 +8,7 @@ Week  3 (09/17-09/21)   5.1                                     5.1
 Week  4 (09/24-09/28)   5.2                                     5.3-5.7, Coding
 Week  5 (10/01-10/05)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2
 Week  6 (10/08-10/12)   7                                       7
-Week  7 (10/15-10/19)   Break                                   7, 8
+Week  7 (10/15-10/19)   Break                                   7
 Week  8 (10/22-10/26)   8                                       9
 Week  9 (10/29-11/02)   9                                       10
 Week 10 (11/05-11/09)   Midterm                                 10, 11
@@ -332,8 +332,8 @@ Section 7.5
     - Group activity: Show reduction from `haltsOnString` to `haltsOnEmpty`. Include code and sequence diagram.
 
 Section 7.6
-  ~ - Group activity: Figure 7.16. Which of these programs computes `IsEven`? Explain.
-    - The problem `Computes_F` for a computable problem `F`.
+  ~ - Group activity: Figure 7.16. Which of these programs actually compute `IsEven`? Explain.
+    - The problem `Computes_F` for a computational problem `F`.
     - If `F` is a computable problem, then `Computes_F` is in fact uncomputable.
     - The problem `ComputesOneOf_S`.
 
@@ -342,12 +342,14 @@ Section 7.6
 
 ### Day 1
 
-- 8, 9
+- 8
+
 
 ### Day 2
 
-- 9
+- 8
 
+- Homework 7 (chapter 8) Due 10/30
 
 ## Week  9 (10/29-11/02)
 
@@ -357,8 +359,9 @@ Section 7.6
 
 ### Day 2
 
-- 10
+- 9
 
+- Homework 8 (chapter 9) Due 11/06
 
 ## Week 10 (11/05-11/09)
 
