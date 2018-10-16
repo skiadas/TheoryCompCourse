@@ -6,10 +6,10 @@ Week  1 (09/03-9/07)    1, 2                                    3
 Week  2 (09/10-09/14)   4.1-4.3                                 4.4-4.5
 Week  3 (09/17-09/21)   5.1                                     5.1
 Week  4 (09/24-09/28)   5.2                                     5.3-5.7, Coding
-Week  5 (10/01-10/05)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2, 6.4, 6.5
-Week  6 (10/08-10/12)   7                                       7, 8
-Week  7 (10/15-10/19)   Break                                   8
-Week  8 (10/22-10/26)   9                                       9
+Week  5 (10/01-10/05)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2
+Week  6 (10/08-10/12)   7                                       7
+Week  7 (10/15-10/19)   Break                                   7, 8
+Week  8 (10/22-10/26)   8                                       9
 Week  9 (10/29-11/02)   9                                       10
 Week 10 (11/05-11/09)   Midterm                                 10, 11
 Week 11 (11/12-11/16)   11                                      12
@@ -242,7 +242,7 @@ Activity 8
 
 Homework 4 (Due 10/05 4pm in LYN 110)
   ~ - 5.7, 5.13. For each Turing machine you create provide both a state diagram and a text description of the Turing machine as in the provided `.tm` files. (See also Fig. 5.19)
-    - Write and test a single-tape Turing machine that implements the "reverse binary decrementer" that we discussed in class. Submit the printout of your `.tm` file.
+    - Write and test a single-tape Turing machine that implements the "**reverse** binary decrementer" that we discussed in class. Submit the printout of your `.tm` file. Include a state diagram.
 
 ## Week  5 (10/01-10/05)
 
@@ -312,14 +312,9 @@ Sections 7.4, 7.5
     - The problems `yesOnEmpty`, `yesOnAll`, `yesOnSome`.
     - Refresher on the program `ignoreInput`.
     - Use `ignoreInput.py` to write `yesOnString` using `yesOnEmpty` as a helper.
-    - Group activity: Repeat the process for `yesOnAll` and `yesOnSome`.
-    - Definition of what it means for a Python program to *halt*. (Wahl)
-    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`. (Wahl)
-    - Group activity: Use an altering technique similar to what we did for `GAGAOnString` to show a reduction from `yesOnString` to `haltsOnString`.
-    - Group activity: Show reductions from `haltsOnString` to `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`.
 
 Homework 6
-  ~ (Due 10/19 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
+  ~ (Due 10/23 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
 
 ## Week  7 (10/15-10/19)
 
@@ -329,14 +324,18 @@ Homework 6
 
 ### Day 2
 
-Section 7.6
-  ~ - Uncomputable problems: `NumCharsOnString`
-    - The problem `Computes_F` for a computable problem `F`.
-    - Group activity: Figure 7.16. Which of these programs computes `IsEven`?
-    - If `F` is a computable problem, then `Computes_F` is in fact uncomputable.
-    - TODO
+Section 7.5
+  ~ - Review of reduction from `yesOnString` to `yesOnEmpty` or `yesOnSome` or `yesOnAll`. Sequence diagrams visual. (Wahl)
+    - Definition of what it means for a Python program to *halt*. (Wahl)
+    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`. (Wahl)
+    - Use an altering technique similar to what we did for `GAGAOnString` to show a reduction from `yesOnString` to `haltsOnString`. (Wahl)
+    - Group activity: Show reduction from `haltsOnString` to `haltsOnEmpty`. Include code and sequence diagram.
 
-- 8
+Section 7.6
+  ~ - Group activity: Figure 7.16. Which of these programs computes `IsEven`? Explain.
+    - The problem `Computes_F` for a computable problem `F`.
+    - If `F` is a computable problem, then `Computes_F` is in fact uncomputable.
+    - The problem `ComputesOneOf_S`.
 
 
 ## Week  8 (10/22-10/26)

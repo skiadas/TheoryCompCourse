@@ -46,21 +46,21 @@
 <tr class="odd">
 <td align="left">Week 5 (10/01-10/05)</td>
 <td align="left"><a href="midterm1_study_guide.html">Midterm 1</a></td>
-<td align="left">6.1, 6.2, 6.4, 6.5</td>
+<td align="left">6.1, 6.2</td>
 </tr>
 <tr class="even">
 <td align="left">Week 6 (10/08-10/12)</td>
 <td align="left">7</td>
-<td align="left">7, 8</td>
+<td align="left">7</td>
 </tr>
 <tr class="odd">
 <td align="left">Week 7 (10/15-10/19)</td>
 <td align="left">Break</td>
-<td align="left">8</td>
+<td align="left">7, 8</td>
 </tr>
 <tr class="even">
 <td align="left">Week 8 (10/22-10/26)</td>
-<td align="left">9</td>
+<td align="left">8</td>
 <td align="left">9</td>
 </tr>
 <tr class="odd">
@@ -395,7 +395,7 @@
 <dt>Homework 4 (Due 10/05 4pm in LYN 110)</dt>
 <dd><ul>
 <li>5.7, 5.13. For each Turing machine you create provide both a state diagram and a text description of the Turing machine as in the provided <code>.tm</code> files. (See also Fig. 5.19)</li>
-<li>Write and test a single-tape Turing machine that implements the “reverse binary decrementer” that we discussed in class. Submit the printout of your <code>.tm</code> file.</li>
+<li>Write and test a single-tape Turing machine that implements the “<strong>reverse</strong> binary decrementer” that we discussed in class. Submit the printout of your <code>.tm</code> file. Include a state diagram.</li>
 </ul>
 </dd>
 </dl>
@@ -484,15 +484,10 @@
 <li>The problems <code>yesOnEmpty</code>, <code>yesOnAll</code>, <code>yesOnSome</code>.</li>
 <li>Refresher on the program <code>ignoreInput</code>.</li>
 <li>Use <code>ignoreInput.py</code> to write <code>yesOnString</code> using <code>yesOnEmpty</code> as a helper.</li>
-<li>Group activity: Repeat the process for <code>yesOnAll</code> and <code>yesOnSome</code>.</li>
-<li>Definition of what it means for a Python program to <em>halt</em>. (Wahl)</li>
-<li>The Halting problem and its variants: <code>haltsOnString</code>, <code>haltsOnEmpty</code>, <code>haltsOnAll</code>, <code>haltsOnSome</code>. (Wahl)</li>
-<li>Group activity: Use an altering technique similar to what we did for <code>GAGAOnString</code> to show a reduction from <code>yesOnString</code> to <code>haltsOnString</code>.</li>
-<li>Group activity: Show reductions from <code>haltsOnString</code> to <code>haltsOnEmpty</code>, <code>haltsOnAll</code>, <code>haltsOnSome</code>.</li>
 </ul>
 </dd>
 <dt>Homework 6</dt>
-<dd>(Due 10/19 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
+<dd>(Due 10/23 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
 </dd>
 </dl>
 <h2 id="week-7-1015-1019">Week 7 (10/15-10/19)</h2>
@@ -502,19 +497,24 @@
 </ul>
 <h3 id="day-2-6">Day 2</h3>
 <dl>
+<dt>Section 7.5</dt>
+<dd><ul>
+<li>Review of reduction from <code>yesOnString</code> to <code>yesOnEmpty</code> or <code>yesOnSome</code> or <code>yesOnAll</code>. Sequence diagrams visual. (Wahl)</li>
+<li>Definition of what it means for a Python program to <em>halt</em>. (Wahl)</li>
+<li>The Halting problem and its variants: <code>haltsOnString</code>, <code>haltsOnEmpty</code>, <code>haltsOnAll</code>, <code>haltsOnSome</code>. (Wahl)</li>
+<li>Use an altering technique similar to what we did for <code>GAGAOnString</code> to show a reduction from <code>yesOnString</code> to <code>haltsOnString</code>. (Wahl)</li>
+<li>Group activity: Show reduction from <code>haltsOnString</code> to <code>haltsOnEmpty</code>. Include code and sequence diagram.</li>
+</ul>
+</dd>
 <dt>Section 7.6</dt>
 <dd><ul>
-<li>Uncomputable problems: <code>NumCharsOnString</code></li>
+<li>Group activity: Figure 7.16. Which of these programs computes <code>IsEven</code>? Explain.</li>
 <li>The problem <code>Computes_F</code> for a computable problem <code>F</code>.</li>
-<li>Group activity: Figure 7.16. Which of these programs computes <code>IsEven</code>?</li>
 <li>If <code>F</code> is a computable problem, then <code>Computes_F</code> is in fact uncomputable.</li>
-<li>TODO</li>
+<li>The problem <code>ComputesOneOf_S</code>.</li>
 </ul>
 </dd>
 </dl>
-<ul>
-<li>8</li>
-</ul>
 <h2 id="week-8-1022-1026">Week 8 (10/22-10/26)</h2>
 <h3 id="day-1-7">Day 1</h3>
 <ul>
