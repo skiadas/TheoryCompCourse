@@ -314,7 +314,7 @@ Sections 7.4, 7.5
     - Use `ignoreInput.py` to write `yesOnString` using `yesOnEmpty` as a helper.
 
 Homework 6
-  ~ (Due 10/23 4pm in LYN 110) 7.3, 7.5b,c,e, 7.7
+  ~ (Due 10/23 4pm in LYN 110) 7.3, 7.5b,c,e (using the "explicit Python program" technique 2 from p. 138), 7.7
 
 ## Week  7 (10/15-10/19)
 
