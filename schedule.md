@@ -346,7 +346,7 @@ Sections 8.1, 8.2, 8.3
   ~ - Parallel computation in Python programs
     - A parallel computation Python program for containsNANA
     - Considering this program as a non-deterministic program
-    - Computation Trees, positive/negative/non-terminating trees (Wahl)
+    - Computation Trees, positive/negative/non-terminating leaves (Wahl)
     - Definition of the output of a nondeterministic computation (Wahl)
     - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
         - Conclusion: The concatenation of recognizable languages is recognizable.
