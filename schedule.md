@@ -346,16 +346,18 @@ Sections 8.1, 8.2, 8.3
   ~ - Parallel computation in Python programs
     - A parallel computation Python program for containsNANA
     - Considering this program as a non-deterministic program
-    - Computation Trees, positive/negative/non-terminating trees
+    - Computation Trees, positive/negative/non-terminating trees (Wahl)
+    - Definition of the output of a nondeterministic computation (Wahl)
     - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
-    - Exercise 8.11
+        - Conclusion: The concatenation of recognizable languages is recognizable.
+    - Exercise 8.11: The union of recognizable languages is recognizable.
 
 Sections 8.4, 8.5
   ~ - Non-deterministic Turing Machines
     - Example of a NDTM detecting if a genetic string contains AAT
     - Example of a computation in a NDTM: The string AAGAT
     - Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG
-    - Definition of the output of a nondeterministic computation
+    - Recognizing the union of two recognizable languages via NDTMs
 
 Homework 7
   ~ (Due 10/30 4pm in LYN 110) 8.4, 8.7, 8.8, 8.9
