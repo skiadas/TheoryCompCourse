@@ -351,8 +351,8 @@ Sections 8.1, 8.2
 Sections 8.3, 8.4, 8.5
   ~ - Non-deterministic Turing Machines
     - Example of a NDTM detecting if a genetic string contains AAT
+    - Example of a computation in a NDTM: The string AAGAT
     - Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG
-    - Example of a computation in a NDTM
     - Computation Trees, positive/negative/non-terminating trees
     - Definition of the output of a nondeterministic computation
 
