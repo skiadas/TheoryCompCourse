@@ -342,18 +342,19 @@ Section 7.6
 
 ### Day 1
 
-Sections 8.1, 8.2
+Sections 8.1, 8.2, 8.3
   ~ - Parallel computation in Python programs
-    - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
+    - A parallel computation Python program for containsNANA
     - Considering this program as a non-deterministic program
+    - Computation Trees, positive/negative/non-terminating trees
+    - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
     - Exercise 8.11
 
-Sections 8.3, 8.4, 8.5
+Sections 8.4, 8.5
   ~ - Non-deterministic Turing Machines
     - Example of a NDTM detecting if a genetic string contains AAT
     - Example of a computation in a NDTM: The string AAGAT
     - Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG
-    - Computation Trees, positive/negative/non-terminating trees
     - Definition of the output of a nondeterministic computation
 
 Homework 7
