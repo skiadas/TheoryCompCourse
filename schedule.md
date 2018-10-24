@@ -350,6 +350,10 @@ Sections 8.1, 8.2, 8.3
     - Definition of the output of a nondeterministic computation (Wahl)
     - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
         - Conclusion: The concatenation of recognizable languages is recognizable.
+
+### Day 2
+
+Leftover
     - Exercise 8.11: The union of recognizable languages is recognizable.
 
 Sections 8.4, 8.5
@@ -359,12 +363,15 @@ Sections 8.4, 8.5
     - Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG
     - Recognizing the union of two recognizable languages via NDTMs
 
+Sections 8.6, 8.7, 8.8
+  ~ - Formal definition of NDTM (Wahl)
+    - For every NDTM that solves a problem, there is a DTM that solves it. (Wahl)
+    - The complement of a recognizable and undecidable decision problem (or language) is unrecognizable. (Wahl)
+    - Examples of unrecognizable languages.
+
+
 Homework 7
   ~ (Due 10/30 4pm in LYN 110) 8.4, 8.7, 8.8, 8.9
-
-### Day 2
-
-- 8
 
 ## Week  9 (10/29-11/02)
 
