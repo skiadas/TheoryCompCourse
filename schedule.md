@@ -354,6 +354,7 @@ Sections 8.1, 8.2, 8.3
 ### Day 2
 
 Leftover
+  ~ - "Truth table" for "threaded `or`", "threaded `and`"
     - Exercise 8.11: The union of recognizable languages is recognizable.
 
 Sections 8.4, 8.5
@@ -366,8 +367,10 @@ Sections 8.4, 8.5
 Sections 8.6, 8.7, 8.8
   ~ - Formal definition of NDTM (Wahl)
     - For every NDTM that solves a problem, there is a DTM that solves it. (Wahl)
-    - The complement of a recognizable and undecidable decision problem (or language) is unrecognizable. (Wahl)
-    - Examples of unrecognizable languages.
+    - If a language and its complement are both recognizable, then the language is decidable. (Wahl)
+    - Let $L$ be an undecidable language. If $L$ is recognizable, then the complement of $L$ is unrecognizable. (Wahl)
+    - Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)
+    - Examples of unrecognizable languages. (Wahl)
 
 
 Homework 7
