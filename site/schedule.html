@@ -70,7 +70,7 @@
 </tr>
 <tr class="even">
 <td align="left">Week 10 (11/05-11/09)</td>
-<td align="left">Midterm</td>
+<td align="left"><a href="midterm2_study_guide.html">Midterm 2</a></td>
 <td align="left">10, 11</td>
 </tr>
 <tr class="odd">
@@ -536,7 +536,8 @@
 <dl>
 <dt>Leftover</dt>
 <dd><ul>
-<li>“Truth table” for “threaded <code>or</code>”, “threaded <code>and</code>”</li>
+<li>“Truth table” for “threaded <code>or</code>”</li>
+<li>Group activity: “threaded <code>and</code>”</li>
 <li>Exercise 8.11: The union of recognizable languages is recognizable.</li>
 </ul>
 </dd>
@@ -545,7 +546,7 @@
 <li>Non-deterministic Turing Machines</li>
 <li>Example of a NDTM detecting if a genetic string contains AAT</li>
 <li>Example of a computation in a NDTM: The string AAGAT</li>
-<li>Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG</li>
+<li>Group activity: Describe the full nondeterministic computation for this problem and the string GAATG</li>
 <li>Recognizing the union of two recognizable languages via NDTMs</li>
 </ul>
 </dd>
@@ -554,9 +555,6 @@
 <li>Formal definition of NDTM (Wahl)</li>
 <li>For every NDTM that solves a problem, there is a DTM that solves it. (Wahl)</li>
 <li>If a language and its complement are both recognizable, then the language is decidable. (Wahl)</li>
-<li>Let <span class="math inline">\(L\)</span> be an undecidable language. If <span class="math inline">\(L\)</span> is recognizable, then the complement of <span class="math inline">\(L\)</span> is unrecognizable. (Wahl)</li>
-<li>Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)</li>
-<li>Examples of unrecognizable languages. (Wahl)</li>
 </ul>
 </dd>
 <dt>Homework 7</dt>
@@ -565,9 +563,51 @@
 </dl>
 <h2 id="week-9-1029-1102">Week 9 (10/29-11/02)</h2>
 <h3 id="day-1-8">Day 1</h3>
-<ul>
-<li>9</li>
+<dl>
+<dt>Homework review</dt>
+<dd><ul>
+<li>Exercise 7.7</li>
 </ul>
+</dd>
+<dt>Chapter 8 wrap-up</dt>
+<dd><ul>
+<li>Let <span class="math inline">\(L\)</span> be an undecidable language. If <span class="math inline">\(L\)</span> is recognizable, then the complement of <span class="math inline">\(L\)</span> is unrecognizable. (Wahl)</li>
+<li>Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)</li>
+<li>Examples of unrecognizable languages. (Wahl)</li>
+</ul>
+</dd>
+<dt>Sections 9.1, 9.2</dt>
+<dd><ul>
+<li>Definition of a Deterministic FA (DFA)</li>
+<li>Finite Automata and their difference from Turing Machines
+<ul>
+<li>Only read the tape</li>
+<li>Blank symbol transitions to accept/reject state</li>
+</ul></li>
+<li>Notation for finite automata</li>
+<li>The “standard” definition for DFAs</li>
+<li>Non-deterministic FAs (NFAs)
+<ul>
+<li>Allowing epsilon transitions</li>
+</ul></li>
+<li>NFA accepting a string</li>
+<li>Example on figure 9.5</li>
+<li>Group activity: Draw an NFA that accepts exactly the strings that are concatenation of zero or more of the strings <code>aab</code> or <code>ac</code> (in any order). For example: <code>aabacacaab</code> would be accepted. Use as few states as possible (doable with 5).</li>
+</ul>
+</dd>
+<dt>Section 9.3</dt>
+<dd><ul>
+<li>Every nfa is equivalent to some dfa</li>
+<li>Standard proof: The dfa states represent sets of states from the nfa
+<ul>
+<li>Figure 9.6</li>
+<li>Epsilon closures</li>
+</ul></li>
+<li>Group activity: Construct a dfa equivalent to the nfa in problem 9.7</li>
+<li>Group activity: Construct a dfa equivalent to the nfa you built for strings of <code>aab</code> and <code>ac</code> earlier.</li>
+</ul>
+</dd>
+</dl>
 <h3 id="day-2-8">Day 2</h3>
 <ul>
 <li><p>9</p></li>
@@ -576,7 +616,7 @@
 <h2 id="week-10-1105-1109">Week 10 (11/05-11/09)</h2>
 <h3 id="day-1-9">Day 1</h3>
 <ul>
-<li><strong>Midterm 2</strong></li>
+<li><a href="midterm2_study_guide.html">Midterm 2</a></li>
 </ul>
 <h3 id="day-2-9">Day 2</h3>
 <ul>

@@ -11,7 +11,7 @@ Week  6 (10/08-10/12)   7                                       7
 Week  7 (10/15-10/19)   Break                                   7
 Week  8 (10/22-10/26)   8                                       9
 Week  9 (10/29-11/02)   9                                       10
-Week 10 (11/05-11/09)   Midterm                                 10, 11
+Week 10 (11/05-11/09)   [Midterm 2](midterm2_study_guide.md)    10, 11
 Week 11 (11/12-11/16)   11                                      12
 Week 12 (11/19-11/23)   12                                      Thanksgiving
 Week 13 (11/26-11/30)   13                                      13
@@ -354,24 +354,21 @@ Sections 8.1, 8.2, 8.3
 ### Day 2
 
 Leftover
-  ~ - "Truth table" for "threaded `or`", "threaded `and`"
+  ~ - "Truth table" for "threaded `or`"
+    - Group activity: "threaded `and`"
     - Exercise 8.11: The union of recognizable languages is recognizable.
 
 Sections 8.4, 8.5
   ~ - Non-deterministic Turing Machines
     - Example of a NDTM detecting if a genetic string contains AAT
     - Example of a computation in a NDTM: The string AAGAT
-    - Group activity: Describe the full nondeterministic computation for this problem and the string AGAATG
+    - Group activity: Describe the full nondeterministic computation for this problem and the string GAATG
     - Recognizing the union of two recognizable languages via NDTMs
 
 Sections 8.6, 8.7, 8.8
   ~ - Formal definition of NDTM (Wahl)
     - For every NDTM that solves a problem, there is a DTM that solves it. (Wahl)
     - If a language and its complement are both recognizable, then the language is decidable. (Wahl)
-    - Let $L$ be an undecidable language. If $L$ is recognizable, then the complement of $L$ is unrecognizable. (Wahl)
-    - Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)
-    - Examples of unrecognizable languages. (Wahl)
-
 
 Homework 7
   ~ (Due 10/30 4pm in LYN 110) 8.4, 8.7, 8.8, 8.9
@@ -380,7 +377,34 @@ Homework 7
 
 ### Day 1
 
-- 9
+Homework review
+  ~ - Exercise 7.7
+
+Chapter 8 wrap-up
+  ~ - Let $L$ be an undecidable language. If $L$ is recognizable, then the complement of $L$ is unrecognizable. (Wahl)
+    - Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)
+    - Examples of unrecognizable languages. (Wahl)
+
+Sections 9.1, 9.2
+  ~ - Definition of a Deterministic FA (DFA)
+    - Finite Automata and their difference from Turing Machines
+        - Only read the tape
+        - Blank symbol transitions to accept/reject state
+    - Notation for finite automata
+    - The "standard" definition for DFAs
+    - Non-deterministic FAs (NFAs)
+        - Allowing epsilon transitions
+    - NFA accepting a string
+    - Example on figure 9.5
+    - Group activity: Draw an NFA that accepts exactly the strings that are concatenation of zero or more of the strings `aab` or `ac` (in any order). For example: `aabacacaab` would be accepted. Use as few states as possible (doable with 5).
+
+Section 9.3
+  ~ - Every nfa is equivalent to some dfa
+    - Standard proof: The dfa states represent sets of states from the nfa
+        - Figure 9.6
+        - Epsilon closures
+    - Group activity: Construct a dfa equivalent to the nfa in problem 9.7
+    - Group activity: Construct a dfa equivalent to the nfa you built for strings of `aab` and `ac` earlier.
 
 ### Day 2
 
@@ -392,7 +416,7 @@ Homework 7
 
 ### Day 1
 
-- **Midterm 2**
+- [Midterm 2](midterm2_study_guide.md)
 
 ### Day 2
 
