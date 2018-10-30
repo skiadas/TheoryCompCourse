@@ -390,6 +390,8 @@ Sections 9.1, 9.2
     - Finite Automata and their difference from Turing Machines
         - Only read the tape
         - Blank symbol transitions to accept/reject state
+        - No halt state
+        - Possible results of running a DFA on a string input
     - Notation for finite automata
     - The "standard" definition for DFAs
     - Non-deterministic FAs (NFAs)
