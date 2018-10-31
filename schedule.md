@@ -408,21 +408,46 @@ Section 9.3
     - Group activity: Construct a dfa equivalent to the nfa in problem 9.7
     - Group activity: Construct a dfa equivalent to the nfa you built for strings of `aab` and `ac` earlier.
 
+Homework 8
+  ~ (Due 11/06 4pm in LYN 110): 9.3, 9.7a, 9.8, 9.9
+
 ### Day 2
 
-- 9
+Section 9.3 Wrap-up
+  ~ - Strict nfas
+    - Converting from an nfa to a strict nfa
 
-- Homework 8 (chapter 9) Due 11/06
+Section 9.4
+  ~ - Pure regular expressions
+        - Examples on page 177
+    - The language represented by a regular expression
+    - Standard regular expressions
+        - Dot, plus, square brackets
+    - Converting from a regular expression to an NFA recognizing the same language
+        - Single letters
+        - The empty string
+        - Concatenation of two regexs
+        - Alternative of two regexs
+        - Kleene star of two regexs
+    - Converting a dfa to a regex:
+        - Reduce the dfa, labeling transitions with regexs instead of just alphabet letters
+        - At each stage, eliminate a non-start non-accept state and update transitions
+        - Result is a dfa like bottom of page 179
+
+Section 9.5
+  ~ - Regular languages
+    - The non-regular language GnTn.
+        - Intuitive explanation of why this language is not regular
 
 ## Week 10 (11/05-11/09)
 
 ### Day 1
 
-- [Midterm 2](midterm2_study_guide.md)
+- 10, 11
 
 ### Day 2
 
-- 10, 11
+- [Midterm 2](midterm2_study_guide.md)
 
 
 ## Week 11 (11/12-11/16)
