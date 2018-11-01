@@ -414,8 +414,8 @@ Homework 8
 ### Day 2
 
 Section 9.3 Wrap-up
-  ~ - Strict nfas
-    - Converting from an nfa to a strict nfa
+  ~ - Strict nfas (Wahl)
+    - Converting from an nfa to a strict nfa (Figure 9.5) (Wahl)
 
 Section 9.4
   ~ - Pure regular expressions
@@ -434,10 +434,15 @@ Section 9.4
         - At each stage, eliminate a non-start non-accept state and update transitions
         - Result is a dfa like bottom of page 179
 
-Section 9.5
-  ~ - Regular languages
-    - The non-regular language GnTn.
-        - Intuitive explanation of why this language is not regular
+Sections 9.5-9.7
+  ~ - Regular languages (Wahl)
+    - Combining regular languages: (Wahl)
+        - The union, complement, intersection, star, and reverse of regular languages is regular
+    - The non-regular language GnTn. (Wahl)
+        - Intuitive explanation of why this language is not regular (Wahl)
+    - Proving a language is not regular (Pumping Lemma) (Wahl)
+    - Examples non-regular languages: (Wahl)
+        - Language of properly-nested parentheses
 
 ## Week 10 (11/05-11/09)
 
