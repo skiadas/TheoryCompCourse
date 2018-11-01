@@ -434,6 +434,10 @@ Section 9.4
         - At each stage, eliminate a non-start non-accept state and update transitions
         - Result is a dfa like bottom of page 179
 
+## Week 10 (11/05-11/09)
+
+### Day 1
+
 Sections 9.5-9.7
   ~ - Regular languages (Wahl)
     - Combining regular languages: (Wahl)
@@ -443,10 +447,6 @@ Sections 9.5-9.7
     - Proving a language is not regular (Pumping Lemma) (Wahl)
     - Examples non-regular languages: (Wahl)
         - Language of properly-nested parentheses
-
-## Week 10 (11/05-11/09)
-
-### Day 1
 
 - 10, 11
 
