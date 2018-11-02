@@ -463,12 +463,15 @@ CFG notes 5.1
         - derivation (head to body)
         - Apply to our parentheses language
     - Notation for derivations
-    - Leftmost derivations, Rightmost derivations
-    - Sentential forms
+    - Examples of derivations in our arithmetic expressions language.
     - For a DFA there is a CFG recognizing the same language.
 
+CFG notes 5.2 (5.2.1-5.2.3)
+  ~ - The Parse tree corresponding to a derivation
+        - Labeling of nodes and leaves
+
 Homework 9
-  ~ (CFG, page 168) 5.1.1a,c,d, 5.1.2
+  ~ (CFG, page 168) 5.1.1a,c,d, 5.1.2, 5.2.1
 
 ### Day 2
 
