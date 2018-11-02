@@ -11,11 +11,11 @@ Week  6 (10/08-10/12)   7                                       7
 Week  7 (10/15-10/19)   Break                                   7
 Week  8 (10/22-10/26)   8                                       8
 Week  9 (10/29-11/02)   9                                       9
-Week 10 (11/05-11/09)   9,10                                    [Midterm 2](midterm2_study_guide.md)
-Week 11 (11/12-11/16)   10,11                                   11
-Week 12 (11/19-11/23)   12                                      Thanksgiving
-Week 13 (11/26-11/30)   13                                      13
-Week 14 (12/03-12/07)   14                                      14
+Week 10 (11/05-11/09)   9                                       [Midterm 2](midterm2_study_guide.md)
+Week 11 (11/12-11/16)   CFGs                                    CFGs
+Week 12 (11/19-11/23)   11                                      Thanksgiving
+Week 13 (11/26-11/30)   12                                      13
+Week 14 (12/03-12/07)   13,14                                   14
 
 
 ## Week 1 (09/03-9/07)
@@ -448,7 +448,27 @@ Sections 9.5-9.7
     - Examples non-regular languages: (Wahl)
         - Language of properly-nested parentheses
 
-- 10, 11
+CFG notes 5.1
+  ~ - Informal CFG (recursive) description of the properly-nested-parentheses language.
+    - Definition of CFGs:
+        - Symbols/terminals
+        - Variables/non-terminals
+        - Start variable
+        - Production rules
+    - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
+    - Group activity: Write down a grammar for arithmetic expressions involving the variables $x$, $y$, the numbers $0$, $1$, and the operation of addition ($+$).
+    - Expanding this grammar to allow arithmetic expressions that can further include multiplication (with parentheses?).
+    - Building strings in a grammar:
+        - recursive inference  (body to head)
+        - derivation (head to body)
+        - Apply to our parentheses language
+    - Notation for derivations
+    - Leftmost derivations, Rightmost derivations
+    - Sentential forms
+    - For a DFA there is a CFG recognizing the same language.
+
+Homework 9
+  ~ (CFG, page 168) 5.1.1a,c,d, 5.1.2
 
 ### Day 2
 
