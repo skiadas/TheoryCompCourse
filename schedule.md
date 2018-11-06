@@ -448,8 +448,18 @@ Sections 9.5-9.7
     - Examples non-regular languages: (Wahl)
         - Language of properly-nested parentheses
 
+### Day 2
+
+- [Midterm 2](midterm2_study_guide.md)
+
+
+## Week 11 (11/12-11/16)
+
+### Day 1
+
 CFG notes 5.1
   ~ - Informal CFG (recursive) description of the properly-nested-parentheses language.
+    - Informal description of GnTn
     - Definition of CFGs:
         - Symbols/terminals
         - Variables/non-terminals
@@ -471,29 +481,23 @@ CFG notes 5.2 (5.2.1-5.2.3)
         - Labeling of nodes and leaves
 
 Homework 9
-  ~ (CFG, page 168) 5.1.1a,c,d, 5.1.2, 5.2.1
+  ~ (CFG, page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
 
 ### Day 2
 
-- [Midterm 2](midterm2_study_guide.md)
-
-
-## Week 11 (11/12-11/16)
-
-### Day 1
-
-- 11
-
-### Day 2
-
-- 12
+CFG notes 5.4 (5.4.1-)
+  ~ - Definition of Ambiguous grammars
+    - Examples of ambiguous grammars:
+        - Expressions with addition and multiplication
+        - Properly-nested-parentheses
+    - Removing ambiguity from the expression grammar: factors, identifiers, terms and expressions
 
 
 ## Week 12 (11/19-11/23)
 
 ### Day 1
 
-- 12
+- 11
 
 ### Day 2
 
@@ -504,7 +508,7 @@ Homework 9
 
 ### Day 1
 
-- 13
+- 12
 
 ### Day 2
 
@@ -515,7 +519,7 @@ Homework 9
 
 ### Day 1
 
-- 14
+- 13, 14
 
 ### Day 2
 
