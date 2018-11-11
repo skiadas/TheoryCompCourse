@@ -444,9 +444,7 @@ Sections 9.5-9.7
         - The union, complement, intersection, star, and reverse of regular languages is regular
     - The non-regular language GnTn. (Wahl)
         - Intuitive explanation of why this language is not regular (Wahl)
-    - Proving a language is not regular (Pumping Lemma) (Wahl)
-    - Examples non-regular languages: (Wahl)
-        - Language of properly-nested parentheses
+    - Idea of pumping before $n$. (Wahl)
 
 ### Day 2
 
@@ -456,6 +454,11 @@ Sections 9.5-9.7
 ## Week 11 (11/12-11/16)
 
 ### Day 1
+
+Sections 9.6-9.7 wrap-up
+  ~ - Proving a language is not regular (Pumping Lemma) (Wahl)
+    - Examples non-regular languages: (Wahl)
+    - Language of properly-nested parentheses
 
 CFG notes 5.1
   ~ - Informal CFG (recursive) description of the properly-nested-parentheses language.
@@ -481,7 +484,7 @@ CFG notes 5.2 (5.2.1-5.2.3)
         - Labeling of nodes and leaves
 
 Homework 9
-  ~ (CFG, page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
+  ~ (Due 11/20 4pm in LYN 110): 9.12, 9.13, 9.17a,b,f,g
 
 ### Day 2
 
@@ -491,6 +494,9 @@ CFG notes 5.4 (5.4.1-)
         - Expressions with addition and multiplication
         - Properly-nested-parentheses
     - Removing ambiguity from the expression grammar: factors, identifiers, terms and expressions
+
+Homework 10
+  ~ (CFG, page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
 
 
 ## Week 12 (11/19-11/23)
