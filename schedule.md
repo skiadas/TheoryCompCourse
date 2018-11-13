@@ -457,12 +457,12 @@ Sections 9.5-9.7
 
 Sections 9.6-9.7 wrap-up
   ~ - Proving a language is not regular (Pumping Lemma) (Wahl)
-    - Examples non-regular languages: (Wahl)
+    - Examples of non-regular languages (Wahl)
     - Language of properly-nested parentheses (Wahl)
 
 CFG notes 5.1
   ~ - Motivation for CFGs: Interpreting programming language code
-        - Challenges when processing a regular expression
+        - Challenges when processing an arithmetic expression
     - Informal CFG (recursive) description of the properly-nested-parentheses language.
         - Show two different grammars
     - Informal description of GnTn
