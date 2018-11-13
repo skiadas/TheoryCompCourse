@@ -458,17 +458,21 @@ Sections 9.5-9.7
 Sections 9.6-9.7 wrap-up
   ~ - Proving a language is not regular (Pumping Lemma) (Wahl)
     - Examples non-regular languages: (Wahl)
-    - Language of properly-nested parentheses
+    - Language of properly-nested parentheses (Wahl)
 
 CFG notes 5.1
-  ~ - Informal CFG (recursive) description of the properly-nested-parentheses language.
+  ~ - Motivation for CFGs: Interpreting programming language code
+        - Challenges when processing a regular expression
+    - Informal CFG (recursive) description of the properly-nested-parentheses language.
+        - Show two different grammars
     - Informal description of GnTn
-    - Definition of CFGs:
+    - Definition of CFGs (and CFLs):
         - Symbols/terminals
         - Variables/non-terminals
         - Start variable
         - Production rules
     - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
+    - Showing that regular languages are context-free.
     - Group activity: Write down a grammar for arithmetic expressions involving the variables $x$, $y$, the numbers $0$, $1$, and the operation of addition ($+$).
     - Expanding this grammar to allow arithmetic expressions that can further include multiplication (with parentheses?).
     - Building strings in a grammar:
@@ -477,7 +481,6 @@ CFG notes 5.1
         - Apply to our parentheses language
     - Notation for derivations
     - Examples of derivations in our arithmetic expressions language.
-    - For a DFA there is a CFG recognizing the same language.
 
 CFG notes 5.2 (5.2.1-5.2.3)
   ~ - The Parse tree corresponding to a derivation
@@ -496,7 +499,7 @@ CFG notes 5.4 (5.4.1-)
     - Removing ambiguity from the expression grammar: factors, identifiers, terms and expressions
 
 Homework 10
-  ~ (CFG, page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
+  ~ (11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
 
 
 ## Week 12 (11/19-11/23)
