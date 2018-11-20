@@ -477,31 +477,30 @@ Ice Day
 
 ### Day 1
 
-CFG notes 5.1
-  ~ - Informal description of GnTn
+CFG notes 5.1, 5.2 (5.2.1-5.2.3)
+  ~ - Informal description of grammar for GnTn and matched parentheses
     - Definition of CFGs (and CFLs):
-        - Symbols/terminals
-        - Variables/non-terminals
+        - Terminals/(Terminal) symbols
+        - Non-terminals/variables
         - Start variable
         - Production rules
-    - A grammar for arithmetic expressions involving the variables $x$, $y$, a token $i$ representing numbers, and the operations of addition ($+$) and multiplication ($*$).
+    - A grammar for (tokenized) arithmetic expressions involving a token/terminal $v$ representing variables, a token/terminal $n$ representing numbers, and tokens/terminals for the operations of addition ($+$) and multiplication ($*$).
     - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
-    - Showing that regular languages are context-free.
-    - Group activity: Expand the arithmetic expressions language to also have parentheses.
+    - Group activity: Expand the grammar for arithmetic expressions to also include parentheses.
+    - Show that every regular language is context-free. (Wahl)
     - Building strings in a grammar:
         - recursive inference  (body to head)
         - derivation (head to body)
-        - Apply to our parentheses language
+        - Examples from the matched parentheses language
+     - The Parse tree corresponding to a derivation
+        - Labeling of nodes and leaves
     - Notation for derivations
+        - Sentential forms
         - Origin of name "context-free"
     - Examples of derivations in our arithmetic expressions language.
 
-CFG notes 5.2 (5.2.1-5.2.3)
-  ~ - The Parse tree corresponding to a derivation
-        - Labeling of nodes and leaves
-
 Homework 10
-  ~ (11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
+  ~ (Due 11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
 
 
 ### Day 2
