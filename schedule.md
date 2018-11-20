@@ -465,48 +465,44 @@ CFG notes 5.1
         - Challenges when processing an arithmetic expression
     - Informal CFG (recursive) description of the properly-nested-parentheses language.
         - Show two different grammars
-    - Informal description of GnTn
-    - Definition of CFGs (and CFLs):
-        - Symbols/terminals
-        - Variables/non-terminals
-        - Start variable
-        - Production rules
-    - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
-    - Showing that regular languages are context-free.
-    - Group activity: Write down a grammar for arithmetic expressions involving the variables $x$, $y$, the numbers $0$, $1$, and the operation of addition ($+$).
-    - Expanding this grammar to allow arithmetic expressions that can further include multiplication (with parentheses?).
-    - Building strings in a grammar:
-        - recursive inference  (body to head)
-        - derivation (head to body)
-        - Apply to our parentheses language
-    - Notation for derivations
-    - Examples of derivations in our arithmetic expressions language.
-
-CFG notes 5.2 (5.2.1-5.2.3)
-  ~ - The Parse tree corresponding to a derivation
-        - Labeling of nodes and leaves
 
 Homework 9
   ~ (Due 11/20 4pm in LYN 110): 9.12, 9.13, 9.17a,b,f,g
 
 ### Day 2
 
-CFG notes 5.4 (5.4.1-)
-  ~ - Definition of Ambiguous grammars
-    - Examples of ambiguous grammars:
-        - Expressions with addition and multiplication
-        - Properly-nested-parentheses
-    - Removing ambiguity from the expression grammar: factors, identifiers, terms and expressions
-
-Homework 10
-  ~ (11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
-
+Ice Day
 
 ## Week 12 (11/19-11/23)
 
 ### Day 1
 
-- 11
+CFG notes 5.1
+  ~ - Informal description of GnTn
+    - Definition of CFGs (and CFLs):
+        - Symbols/terminals
+        - Variables/non-terminals
+        - Start variable
+        - Production rules
+    - A grammar for arithmetic expressions involving the variables $x$, $y$, a token $i$ representing numbers, and the operations of addition ($+$) and multiplication ($*$).
+    - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
+    - Showing that regular languages are context-free.
+    - Group activity: Expand the arithmetic expressions language to also have parentheses.
+    - Building strings in a grammar:
+        - recursive inference  (body to head)
+        - derivation (head to body)
+        - Apply to our parentheses language
+    - Notation for derivations
+        - Origin of name "context-free"
+    - Examples of derivations in our arithmetic expressions language.
+
+CFG notes 5.2 (5.2.1-5.2.3)
+  ~ - The Parse tree corresponding to a derivation
+        - Labeling of nodes and leaves
+
+Homework 10
+  ~ (11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
+
 
 ### Day 2
 
@@ -517,21 +513,32 @@ Homework 10
 
 ### Day 1
 
-- 12
+- [Notes](notes/new_cfg_pushdown.md)
+- Mention pumping lemma for CFLs and examples of non-CFLs
+- Pushdown automata
+    - definition
+    - basic example
+    - CFG -> PDA construction
+    - emptying the stack of a pda
 
 ### Day 2
 
-- 13
+- [Notes](notes/parsing.md)
+- Parsing
+    - First and Follow sets
+    - LL parsers
 
 
 ## Week 14 (12/03-12/07)
 
 ### Day 1
 
-- 13, 14
+- [Notes](notes/parsing.md)
+- Parsing
+    - LR parsers
 
 ### Day 2
 
-- 14
+- Review
 
 
