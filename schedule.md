@@ -494,10 +494,7 @@ CFG notes 5.1, 5.2 (5.2.1-5.2.3)
         - Examples from the matched parentheses language
      - The Parse tree corresponding to a derivation
         - Labeling of nodes and leaves
-    - Notation for derivations
-        - Sentential forms
-        - Origin of name "context-free"
-    - Examples of derivations in our arithmetic expressions language.
+        - Examples of derivations in our arithmetic expressions language.
 
 Homework 10
   ~ (Due 11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
@@ -512,13 +509,38 @@ Homework 10
 
 ### Day 1
 
-- [Notes](notes/new_cfg_pushdown.md)
-- Mention pumping lemma for CFLs and examples of non-CFLs
-- Pushdown automata
-    - definition
-    - basic example
-    - CFG -> PDA construction
-    - emptying the stack of a pda
+CFG wrap-up
+  ~ - Notation for derivations
+        - Sentential forms
+        - Origin of name "context-free"
+        - Group activity: For the following grammar and list of strings, produce derivations of those strings from the grammar, as well as corresponding parse trees:
+
+            ```
+            S -> T | E + T
+            T -> F | T * F
+            F -> v | n
+            ```
+
+            Strings:
+
+            ```
+            v * n
+            v + v + n
+            n * v + v
+            ```
+
+Pushdown Automata ([Notes](notes/new_cfg_pushdown.md))
+  ~ - Mention pumping lemma for CFLs and examples of non-CFLs
+    - Pushdown automata
+        - definition
+        - basic example
+        - emptying the stack of a pda
+        - CFG -> PDA construction
+
+Homework
+  ~ 1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
+    2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
+
 
 ### Day 2
 

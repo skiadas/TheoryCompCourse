@@ -725,13 +725,8 @@
 <li>The Parse tree corresponding to a derivation
 <ul>
 <li>Labeling of nodes and leaves</li>
-</ul></li>
-<li>Notation for derivations
-<ul>
-<li>Sentential forms</li>
-<li>Origin of name “context-free”</li>
-</ul></li>
 <li>Examples of derivations in our arithmetic expressions language.</li>
+</ul></li>
 </ul>
 </dd>
 <dt>Homework 10</dt>
@@ -744,17 +739,43 @@
 </ul>
 <h2 id="week-13-1126-1130">Week 13 (11/26-11/30)</h2>
 <h3 id="day-1-12">Day 1</h3>
+<dl>
+<dt>CFG wrap-up</dt>
+<dd><ul>
+<li>Notation for derivations
 <ul>
-<li><a href="notes/new_cfg_pushdown.html">Notes</a></li>
+<li>Sentential forms</li>
+<li>Origin of name “context-free”</li>
+<li><p>Group activity: For the following grammar and list of strings, produce derivations of those strings from the grammar, as well as corresponding parse trees:</p>
+<pre><code>S -&gt; T | E + T
+T -&gt; F | T * F
+F -&gt; v | n</code></pre>
+<p>Strings:</p>
+<pre><code>v * n
+v + v + n
+n * v + v</code></pre></li>
+</ul></li>
+</ul>
+</dd>
+<dt>Pushdown Automata (<a href="notes/new_cfg_pushdown.html">Notes</a>)</dt>
+<dd><ul>
 <li>Mention pumping lemma for CFLs and examples of non-CFLs</li>
 <li>Pushdown automata
 <ul>
 <li>definition</li>
 <li>basic example</li>
-<li>CFG -&gt; PDA construction</li>
 <li>emptying the stack of a pda</li>
+<li>CFG -&gt; PDA construction</li>
 </ul></li>
 </ul>
+</dd>
+<dt>Homework</dt>
+<dd><ol style="list-style-type: decimal">
+<li>Work out a PDA for the language that consists of all palindromes on the alphabet <span class="math inline">\(\{a,b,c\}\)</span>.</li>
+<li>Work out a PDA for the language that consists of all strings of matched parentheses (e.g. <code>(()(()()))</code>).</li>
+</ol>
+</dd>
+</dl>
 <h3 id="day-2-12">Day 2</h3>
 <ul>
 <li><a href="notes/parsing.html">Notes</a></li>
