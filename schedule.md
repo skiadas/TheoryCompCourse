@@ -537,17 +537,16 @@ Pushdown Automata ([Notes](notes/new_cfg_pushdown.md))
         - emptying the stack of a pda
         - CFG -> PDA construction
 
-Homework
-  ~ 1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
-    2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
-
-
 ### Day 2
 
 - [Notes](notes/parsing.md)
 - Parsing
     - First and Follow sets
     - LL parsers
+
+Homework 11
+  ~ 1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
+    2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
 
 
 ## Week 14 (12/03-12/07)

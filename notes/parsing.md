@@ -1,22 +1,22 @@
 # Basics of Parsing
 
-In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).
+In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate as part of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).
 
 Resources:
 
 - "Theory of Computation: Formal Languages, Automata and Complexity", by Brookshear.
 - [Links to lexer/parser tools](http://dinosaur.compilertools.net/)
 
-A **parser** takes as input a CFG and an input string. The parser must then produce a valid parse tree for this string, ideally a unique parse tree, or else say why such a parse tree cannot exist. In order to do this, the parser must look at the beginning of an input string and determine what production rules it should consider, when many rules are applicable. As a preparation for this, we will discuss first and follow sets, which help the parser decide.
+A **parser** takes as input a CFG and an input string. The parser must then produce a valid parse tree for this string, ideally a unique parse tree, or else say why such a parse tree cannot exist. In order to do this, the parser must look at the beginning of an input string and determine what production rules it should consider when many rules are applicable. As a preparation for this, we will discuss *first* and *follow* sets, which help the parser decide.
 
 ## First and Follow Sets
 
-Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:
+Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:
 
 > For a symbol $X$ in a CFG:
 >
-> - The **first set** of $X$, written $\textrm{FIRST}(X)$, is the set of all *terminals* (including $\epsilon$) that can appear as the first element in a string derived from $X$. For the case of $\epsilon$, we only include it if the symbol $X$ can derive the empty string.
-> - The **follow set** of $X$, written $\textrm{FOLLOW}(X)$, is the set of all *terminals* (not including $\epsilon$ but including the end-of-input marker $\$$) that can immediately follow $X$ in a *sentenial form*. A **sentenial form** is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentenial forms are valid intermediate results on the way to deriving a string in the language.
+> - The **first set** of $X$, written $\textrm{FIRST}(X)$, is the set of all *terminals* (including $\epsilon$) that can appear as the first character in a string derived from $X$. For the case of $\epsilon$, we only include it if the symbol $X$ can derive the empty string.
+> - The **follow set** of $X$, written $\textrm{FOLLOW}(X)$, is the set of all *terminals* (not including $\epsilon$ but including the end-of-input marker $\$$) that can immediately follow $X$ in a *sentential form*. A **sentential form** is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentential forms are valid intermediate results on the way to deriving a string in the language.
 
 The first sets are computed via a "closure" process, described by the following rules:
 
@@ -28,12 +28,12 @@ The first sets are computed via a "closure" process, described by the following 
 >     - $\textrm{FIRST}(Y_1)\subset\textrm{FIRST}(X)$
 >     - If $\epsilon\in \textrm{FIRST}(Y_1)$ then $\textrm{FIRST}(Y_2)\subset\textrm{FIRST}(X)$.
 >     - If $\epsilon\in \textrm{FIRST}(Y_1)$ and $\epsilon\in \textrm{FIRST}(Y_2)$ then $\textrm{FIRST}(Y_3)\subset\textrm{FIRST}(X)$.
->     - More generally, if $\epsilon$ is in the first set of the symbols $Y_1,Y_2,\cdots,Y_{i-1}$, then $\textrm{FIRST}(Y_i)\subset\textrm{FIRST}(X)$.
+>     - More generally, if $\epsilon$ is in the first set of each of the symbols $Y_1,Y_2,\cdots,Y_{i-1}$, then $\textrm{FIRST}(Y_i)\subset\textrm{FIRST}(X)$.
 >     - If $\epsilon$ is in the first set of all the symbols $Y_1,Y_2,\cdots,Y_k$, then $\epsilon\in\textrm{FIRST}(X)$.
 
-We follow these rules repeatedly until the sets no longer change.
+We follow these rules repeatedly over all the production rules of the grammar until we obtain nothing new.
 
-We will illustrate this in the example of simple algebraic expressions. The alphabet is $\sigma=\{x, +, *, (, )\}$, where $x$ represents the location of a number (the actual numerical value is usually communicated via other means).
+We will illustrate this in the example of simple algebraic expressions. The alphabet is $\Sigma=\{x, +, *, (, )\}$, where $x$ represents the location of a number (the actual numerical value is usually communicated via other means).
 
 ```
 S -> E
@@ -58,13 +58,15 @@ F
 ```
 For simplicity we will only worry about the nonterminals from now on.
 
-We start with the rules for S. The only production we have is `S->E`, therefore the first set of E must be contained in the first set of S. Since we don't have any elements in the first set of E yet, this would give us no elements for the first set of S.
+We start with the rules for S. The only production we have is `S->E`, therefore the first set of E must be contained in the first set of S. Since we don't have any elements in the first set of E yet, this gives us no elements for the first set of S.
+
+Similarly, the rules for $E$ and $T$ won't give us any first set elements yet.
 
 We continue with the rules for $F$. Looking at its two productions, we can determine that $x$ and the open parenthesis must be in the first set of $F$.
 
-We next look at the rules for $T$. The first rule has $T$ on its left-hand side, telling us that the first set of $T$ will contain everything in the first set of $T$, not very helpful. But the second rule tells us that the first set of $T$ will contain anything in the first set of $F$, which so far is the elements $x$ and open parenthesis.
+We next revisit the rules for $T$, now that we know something about $F$. The first rule has $T$ on its left-hand side, telling us that the first set of $T$ will contain everything in the first set of $T$, not very helpful. But the second rule tells us that the first set of $T$ will contain anything in the first set of $F$, which so far is the elements $x$ and open parenthesis.
 
-The same logic would apply to E. So in this case all 4 terminals have the same first set, namely $x$ or parentheses. It makes sense, since these are the only two valid starts on an expression. So at this point the first sets are as follows:
+The same logic would apply to $E$. So in this case all 3 variables have the same first set so far, namely the set `{x, (}`. It makes sense, since these are the only two valid starts of an expression. So at this point the first sets are as follows:
 ```
 Symbol            First Set
 --------          -----------
@@ -74,9 +76,9 @@ T                 x, (
 F                 x, (
 ```
 
-If we now make a second pass through the rules, we will now discover that S must have two first set elements, since E acquired those two elements.
+If we now make a another pass through the rules, we discover that S must have two first set elements, since the first set of E acquired those two elements.
 
-If we try to look at any of the rules again, we don't get any new entries. Some times there is more work involved. In our case, the final list of first sets is:
+If we try to look at any of the rules again, we don't get any new entries. Sometimes there is more work involved. In our case, the final list of first sets is:
 ```
 Symbol            First Set
 --------          -----------
@@ -92,13 +94,13 @@ Now we will discuss follow sets, which are built based on similar ideas.
 >
 > 1. $\$\in\textrm{FOLLOW(S)}$.
 > 2. If there is a production rule $A\to \alpha B \beta$, then $\textrm{FIRST}(\beta)\subset\textrm{FOLLOW}(B)$.
-> 3. If there is a production rule $A\to \alpha B \beta$, where $\beta=\epsilon$ or $\epsilon\in\textrm{FIRST}(\beta)$, then $\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)$. This is because if we can reduce everything following $B$ to $\epsilon$, then the production for $A$ may end in $B$, so anything that can follow an $A$ can also follow a $B$.
+> 3. If there is a production rule $A\to \alpha B$ or a rule $A\to \alpha B \beta$, where $\epsilon\in\textrm{FIRST}(\beta)$, then $\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)$. This is because if we can reduce everything following $B$ to $\epsilon$, then the production for $A$ may end in $B$, so anything that can follow an $A$ can also follow a $B$.
 
-Let us illustrate this process in our example. We start with the rule for $S$: $S -> E$. The third rule above tells us to add to the follow set of $E$ anything in the follow set of $S$, namely $\$$.
+Let us illustrate this process in our example. We start with the rule for $S$: $S \to E$. The third rule above tells us to add to the follow set of $E$ anything in the follow set of $S$, namely $\$$.
 
-Next we look at the rules for $E$. It seems they tell us that everything in the follow set of $E$ must be in the follow set of $T$. And similarly from the rules for $T$ we find that everything in the follow set of $T$ must be in the follow set of $F$. So we add the end symbol to them.
+Next we look at the rules for $E$. It seems they tell us that everything in the follow set of $E$ must be in the follow set of $T$. And similarly from the rules for $T$ we find that everything in the follow set of $T$ must be in the follow set of $F$. So we add the end symbol to the follow sets for $E$, $T$ and $F$.
 
-Now we come to the rules for $F$. One says that $F\to x$, and that has no useful information for us. The other says $F\to (E)$, which tells us by rule $1$ above that the closing parenthesis is in the follow set of $E$ (and hence also in the follow sets of $T$ and $F$). This gives us the final table:
+Now we come to the rules for $F$. One says that $F\to x$, and that has no useful information for us. The other says $F\to (E)$, which tells us by the second follow rule above that the closing parenthesis is in the follow set of $E$ (and hence also in the follow sets of $T$ and $F$ by our previous paragraph). This gives us the final table:
 
 ```
 Symbol            First Set               Follow Set
@@ -119,27 +121,27 @@ E                 x, (                    $, +, )
 T                 x, (                    $, +, *, )
 F                 x, (                    $, +, *, )
 ```
-And this is our final table! Let us think of what they tell us: They tell us for example that a single factor may be followed by:
+And this is our final table! It tells us for example that a single factor ($F$) may be followed by:
 
-- a dollar sign, if it happened to be at the end of the string
-- a plus sign, if it happened to be the last factor within its term
-- a star sign, if it is to be followed by more factors
-- a closed parenthesis, if it was the last factor in an expression contained in parentheses
+- a dollar sign (e.g. if it happened to be at the end of the string)
+- a plus sign (e.g. if it happened to be the last factor within its term)
+- a star sign (e.g. if it is to be followed by more factors)
+- a closed parenthesis (e.g. if it was the last factor in an expression contained in parentheses)
 
-As a second example, let us consider implementing a grammar for "Polish notation". Polish notation places the operators in front of the two operands. For example instead of writing: `(5 + 6) * 7` it would write `* + 5 6 7`. On the other hand `5 + 6 * 7` would have been `+ 5 * 6 7`. The awesome thing about Polish notation is that it is unambiguous, no parentheses are needed (though perhaps we would feel more comfortable writing the last expression for instance as `(+ 5 (* 6 7))`, which is the LISP/Racket programming language style). Let us see how the grammar would look like (we use different symbols to visually distinguish it from the earlier work, using `P` for "Polish expression", and $y$ for the variable representing numbers):
+As a second example, let us consider implementing a grammar for "Polish notation". Polish notation places the operators in front of the two operands. For example instead of writing: `(5 + 6) * 7` it would write `* + 5 6 7`. On the other hand `5 + 6 * 7` would have been `+ 5 * 6 7`. The awesome thing about Polish notation is that it is unambiguous, no parentheses are needed (though perhaps we would feel more comfortable writing the last expression for instance as `(+ 5 (* 6 7))`, which is the LISP/Racket programming language style). Let us see how the grammar would look (we use different symbols to visually distinguish it from the earlier work, using `P` for "Polish expression", and $y$ for the variable representing numbers):
 ```
 S -> P
 P -> + P P | * P P | y
 ```
-Hm, exciting! As an example of a derivation in this language, consider the building of the string `* + y y y`:
+Hm, exciting! As an example of a derivation in this language, consider the building of the string: `* + y y y`
 ```
 S => P => * P P => * + P P P => * + y P P => * + y y P => * + y y y
 ```
 
-Let us try to compute the first and follow sets in this example. The language alphabet is `y,+,*`, so they are each their own first sets.
+Let us try to compute the first and follow sets in this example. The language alphabet is `{ y,+,* }`, so they are each their own first sets.
 
 - The rule `P -> y` tells us that `y` is in the first set of `P`.
-- The rules `+ P P` and `* P P` tell us that `+,*` are in the first set of `P`.
+- The rules `P -> + P P` and `P -> * P P` tell us that `+,*` are in the first set of `P`.
 - The rule `S -> P` tells us that everything in the first set of `P` is in the first set of `S`.
 
 So we end up with:
@@ -156,8 +158,8 @@ Okay perhaps it was not all that exciting at the end of the day.
 Now let us look at follow sets:
 
 - `$` is in the follow set of $S$.
-- The rule `P -> + P P` says, looking at the two `P`s at the end and thinking of this rule as a $A\to \alpha P \beta$, that anything in the first set of `P` (the second of those two `P`s) must be in the follow set of `P` (the first of those two `P`s). Same for the other rule.
-- Since `S\to P`, anything in the follow set of `S` is in the follow set of `P`.
+- The rule `P -> + P P` says, looking at the two `P`s at the end and thinking of this rule as a $A\to \alpha P \beta$, that anything in the first set of `P` (the second of those two `P`s) must be in the follow set of `P` (the first of those two `P`s). Same for the other rule. So $\textrm{FIRST}(P)\subset\textrm{FOLLOW}(P)$.
+- Since `S -> P`, anything in the follow set of `S` is in the follow set of `P`.
 
 So we end up with:
 

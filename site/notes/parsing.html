@@ -14,20 +14,20 @@
 </head>
 <body>
 <h1 id="basics-of-parsing">Basics of Parsing</h1>
-<p>In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).</p>
+<p>In this section we introduce the basics of parsing theory. A deeper treatment would be more appropriate as part of a compilers course. We will discuss some preliminary concepts, then look into top-down parsing (LL-parsers) and conclude with bottom-up parsing (LR-parsers).</p>
 <p>Resources:</p>
 <ul>
 <li>“Theory of Computation: Formal Languages, Automata and Complexity”, by Brookshear.</li>
 <li><a href="http://dinosaur.compilertools.net/">Links to lexer/parser tools</a></li>
 </ul>
-<p>A <strong>parser</strong> takes as input a CFG and an input string. The parser must then produce a valid parse tree for this string, ideally a unique parse tree, or else say why such a parse tree cannot exist. In order to do this, the parser must look at the beginning of an input string and determine what production rules it should consider, when many rules are applicable. As a preparation for this, we will discuss first and follow sets, which help the parser decide.</p>
+<p>A <strong>parser</strong> takes as input a CFG and an input string. The parser must then produce a valid parse tree for this string, ideally a unique parse tree, or else say why such a parse tree cannot exist. In order to do this, the parser must look at the beginning of an input string and determine what production rules it should consider when many rules are applicable. As a preparation for this, we will discuss <em>first</em> and <em>follow</em> sets, which help the parser decide.</p>
 <h2 id="first-and-follow-sets">First and Follow Sets</h2>
-<p>Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider, where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:</p>
+<p>Whatever parser approach we take, at some point we are presented with the problem of deciding which production rule to consider where many are applicable. A helpful step in the process is knowing what terminals can appear at the start of a string derived from a given nonterminal, and similarly knowing what terminals can follow a string derived from a given nonterminal. These sets have names:</p>
 <blockquote>
 <p>For a symbol <span class="math inline">\(X\)</span> in a CFG:</p>
 <ul>
-<li>The <strong>first set</strong> of <span class="math inline">\(X\)</span>, written <span class="math inline">\(\textrm{FIRST}(X)\)</span>, is the set of all <em>terminals</em> (including <span class="math inline">\(\epsilon\)</span>) that can appear as the first element in a string derived from <span class="math inline">\(X\)</span>. For the case of <span class="math inline">\(\epsilon\)</span>, we only include it if the symbol <span class="math inline">\(X\)</span> can derive the empty string.</li>
-<li>The <strong>follow set</strong> of <span class="math inline">\(X\)</span>, written <span class="math inline">\(\textrm{FOLLOW}(X)\)</span>, is the set of all <em>terminals</em> (not including <span class="math inline">\(\epsilon\)</span> but including the end-of-input marker <span class="math inline">\(\$\)</span>) that can immediately follow <span class="math inline">\(X\)</span> in a <em>sentenial form</em>. A <strong>sentenial form</strong> is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentenial forms are valid intermediate results on the way to deriving a string in the language.</li>
+<li>The <strong>first set</strong> of <span class="math inline">\(X\)</span>, written <span class="math inline">\(\textrm{FIRST}(X)\)</span>, is the set of all <em>terminals</em> (including <span class="math inline">\(\epsilon\)</span>) that can appear as the first character in a string derived from <span class="math inline">\(X\)</span>. For the case of <span class="math inline">\(\epsilon\)</span>, we only include it if the symbol <span class="math inline">\(X\)</span> can derive the empty string.</li>
+<li>The <strong>follow set</strong> of <span class="math inline">\(X\)</span>, written <span class="math inline">\(\textrm{FOLLOW}(X)\)</span>, is the set of all <em>terminals</em> (not including <span class="math inline">\(\epsilon\)</span> but including the end-of-input marker <span class="math inline">\(\$\)</span>) that can immediately follow <span class="math inline">\(X\)</span> in a <em>sentential form</em>. A <strong>sentential form</strong> is any sequence of terminals and nonterminals that can be derived from the start symbol. So sentential forms are valid intermediate results on the way to deriving a string in the language.</li>
 </ul>
 </blockquote>
 <p>The first sets are computed via a “closure” process, described by the following rules:</p>
@@ -41,13 +41,13 @@
 <li><span class="math inline">\(\textrm{FIRST}(Y_1)\subset\textrm{FIRST}(X)\)</span></li>
 <li>If <span class="math inline">\(\epsilon\in \textrm{FIRST}(Y_1)\)</span> then <span class="math inline">\(\textrm{FIRST}(Y_2)\subset\textrm{FIRST}(X)\)</span>.</li>
 <li>If <span class="math inline">\(\epsilon\in \textrm{FIRST}(Y_1)\)</span> and <span class="math inline">\(\epsilon\in \textrm{FIRST}(Y_2)\)</span> then <span class="math inline">\(\textrm{FIRST}(Y_3)\subset\textrm{FIRST}(X)\)</span>.</li>
-<li>More generally, if <span class="math inline">\(\epsilon\)</span> is in the first set of the symbols <span class="math inline">\(Y_1,Y_2,\cdots,Y_{i-1}\)</span>, then <span class="math inline">\(\textrm{FIRST}(Y_i)\subset\textrm{FIRST}(X)\)</span>.</li>
+<li>More generally, if <span class="math inline">\(\epsilon\)</span> is in the first set of each of the symbols <span class="math inline">\(Y_1,Y_2,\cdots,Y_{i-1}\)</span>, then <span class="math inline">\(\textrm{FIRST}(Y_i)\subset\textrm{FIRST}(X)\)</span>.</li>
 <li>If <span class="math inline">\(\epsilon\)</span> is in the first set of all the symbols <span class="math inline">\(Y_1,Y_2,\cdots,Y_k\)</span>, then <span class="math inline">\(\epsilon\in\textrm{FIRST}(X)\)</span>.</li>
 </ul></li>
 </ol>
 </blockquote>
-<p>We follow these rules repeatedly until the sets no longer change.</p>
-<p>We will illustrate this in the example of simple algebraic expressions. The alphabet is <span class="math inline">\(\sigma=\{x, +, *, (, )\}\)</span>, where <span class="math inline">\(x\)</span> represents the location of a number (the actual numerical value is usually communicated via other means).</p>
+<p>We follow these rules repeatedly over all the production rules of the grammar until we obtain nothing new.</p>
+<p>We will illustrate this in the example of simple algebraic expressions. The alphabet is <span class="math inline">\(\Sigma=\{x, +, *, (, )\}\)</span>, where <span class="math inline">\(x\)</span> represents the location of a number (the actual numerical value is usually communicated via other means).</p>
 <pre><code>S -&gt; E
 E -&gt; E + T | T
 T -&gt; T * F | F
@@ -65,18 +65,19 @@ E
 T
 F</code></pre>
 <p>For simplicity we will only worry about the nonterminals from now on.</p>
-<p>We start with the rules for S. The only production we have is <code>S-&gt;E</code>, therefore the first set of E must be contained in the first set of S. Since we don’t have any elements in the first set of E yet, this would give us no elements for the first set of S.</p>
+<p>We start with the rules for S. The only production we have is <code>S-&gt;E</code>, therefore the first set of E must be contained in the first set of S. Since we don’t have any elements in the first set of E yet, this gives us no elements for the first set of S.</p>
+<p>Similarly, the rules for <span class="math inline">\(E\)</span> and <span class="math inline">\(T\)</span> won’t give us any first set elements yet.</p>
 <p>We continue with the rules for <span class="math inline">\(F\)</span>. Looking at its two productions, we can determine that <span class="math inline">\(x\)</span> and the open parenthesis must be in the first set of <span class="math inline">\(F\)</span>.</p>
-<p>We next look at the rules for <span class="math inline">\(T\)</span>. The first rule has <span class="math inline">\(T\)</span> on its left-hand side, telling us that the first set of <span class="math inline">\(T\)</span> will contain everything in the first set of <span class="math inline">\(T\)</span>, not very helpful. But the second rule tells us that the first set of <span class="math inline">\(T\)</span> will contain anything in the first set of <span class="math inline">\(F\)</span>, which so far is the elements <span class="math inline">\(x\)</span> and open parenthesis.</p>
-<p>The same logic would apply to E. So in this case all 4 terminals have the same first set, namely <span class="math inline">\(x\)</span> or parentheses. It makes sense, since these are the only two valid starts on an expression. So at this point the first sets are as follows:</p>
+<p>We next revisit the rules for <span class="math inline">\(T\)</span>, now that we know something about <span class="math inline">\(F\)</span>. The first rule has <span class="math inline">\(T\)</span> on its left-hand side, telling us that the first set of <span class="math inline">\(T\)</span> will contain everything in the first set of <span class="math inline">\(T\)</span>, not very helpful. But the second rule tells us that the first set of <span class="math inline">\(T\)</span> will contain anything in the first set of <span class="math inline">\(F\)</span>, which so far is the elements <span class="math inline">\(x\)</span> and open parenthesis.</p>
+<p>The same logic would apply to <span class="math inline">\(E\)</span>. So in this case all 3 variables have the same first set so far, namely the set <code>{x, (}</code>. It makes sense, since these are the only two valid starts of an expression. So at this point the first sets are as follows:</p>
 <pre><code>Symbol            First Set
 --------          -----------
 S
 E                 x, (
 T                 x, (
 F                 x, (</code></pre>
-<p>If we now make a second pass through the rules, we will now discover that S must have two first set elements, since E acquired those two elements.</p>
-<p>If we try to look at any of the rules again, we don’t get any new entries. Some times there is more work involved. In our case, the final list of first sets is:</p>
+<p>If we now make a another pass through the rules, we discover that S must have two first set elements, since the first set of E acquired those two elements.</p>
+<p>If we try to look at any of the rules again, we don’t get any new entries. Sometimes there is more work involved. In our case, the final list of first sets is:</p>
 <pre><code>Symbol            First Set
 --------          -----------
 S                 x, (
@@ -89,12 +90,12 @@ F                 x, (</code></pre>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\$\in\textrm{FOLLOW(S)}\)</span>.</li>
 <li>If there is a production rule <span class="math inline">\(A\to \alpha B \beta\)</span>, then <span class="math inline">\(\textrm{FIRST}(\beta)\subset\textrm{FOLLOW}(B)\)</span>.</li>
-<li>If there is a production rule <span class="math inline">\(A\to \alpha B \beta\)</span>, where <span class="math inline">\(\beta=\epsilon\)</span> or <span class="math inline">\(\epsilon\in\textrm{FIRST}(\beta)\)</span>, then <span class="math inline">\(\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)\)</span>. This is because if we can reduce everything following <span class="math inline">\(B\)</span> to <span class="math inline">\(\epsilon\)</span>, then the production for <span class="math inline">\(A\)</span> may end in <span class="math inline">\(B\)</span>, so anything that can follow an <span class="math inline">\(A\)</span> can also follow a <span class="math inline">\(B\)</span>.</li>
+<li>If there is a production rule <span class="math inline">\(A\to \alpha B\)</span> or a rule <span class="math inline">\(A\to \alpha B \beta\)</span>, where <span class="math inline">\(\epsilon\in\textrm{FIRST}(\beta)\)</span>, then <span class="math inline">\(\textrm{FOLLOW}(A)\subset\textrm{FOLLOW}(B)\)</span>. This is because if we can reduce everything following <span class="math inline">\(B\)</span> to <span class="math inline">\(\epsilon\)</span>, then the production for <span class="math inline">\(A\)</span> may end in <span class="math inline">\(B\)</span>, so anything that can follow an <span class="math inline">\(A\)</span> can also follow a <span class="math inline">\(B\)</span>.</li>
 </ol>
 </blockquote>
-<p>Let us illustrate this process in our example. We start with the rule for <span class="math inline">\(S\)</span>: <span class="math inline">\(S -&gt; E\)</span>. The third rule above tells us to add to the follow set of <span class="math inline">\(E\)</span> anything in the follow set of <span class="math inline">\(S\)</span>, namely <span class="math inline">\(\$\)</span>.</p>
-<p>Next we look at the rules for <span class="math inline">\(E\)</span>. It seems they tell us that everything in the follow set of <span class="math inline">\(E\)</span> must be in the follow set of <span class="math inline">\(T\)</span>. And similarly from the rules for <span class="math inline">\(T\)</span> we find that everything in the follow set of <span class="math inline">\(T\)</span> must be in the follow set of <span class="math inline">\(F\)</span>. So we add the end symbol to them.</p>
-<p>Now we come to the rules for <span class="math inline">\(F\)</span>. One says that <span class="math inline">\(F\to x\)</span>, and that has no useful information for us. The other says <span class="math inline">\(F\to (E)\)</span>, which tells us by rule <span class="math inline">\(1\)</span> above that the closing parenthesis is in the follow set of <span class="math inline">\(E\)</span> (and hence also in the follow sets of <span class="math inline">\(T\)</span> and <span class="math inline">\(F\)</span>). This gives us the final table:</p>
+<p>Let us illustrate this process in our example. We start with the rule for <span class="math inline">\(S\)</span>: <span class="math inline">\(S \to E\)</span>. The third rule above tells us to add to the follow set of <span class="math inline">\(E\)</span> anything in the follow set of <span class="math inline">\(S\)</span>, namely <span class="math inline">\(\$\)</span>.</p>
+<p>Next we look at the rules for <span class="math inline">\(E\)</span>. It seems they tell us that everything in the follow set of <span class="math inline">\(E\)</span> must be in the follow set of <span class="math inline">\(T\)</span>. And similarly from the rules for <span class="math inline">\(T\)</span> we find that everything in the follow set of <span class="math inline">\(T\)</span> must be in the follow set of <span class="math inline">\(F\)</span>. So we add the end symbol to the follow sets for <span class="math inline">\(E\)</span>, <span class="math inline">\(T\)</span> and <span class="math inline">\(F\)</span>.</p>
+<p>Now we come to the rules for <span class="math inline">\(F\)</span>. One says that <span class="math inline">\(F\to x\)</span>, and that has no useful information for us. The other says <span class="math inline">\(F\to (E)\)</span>, which tells us by the second follow rule above that the closing parenthesis is in the follow set of <span class="math inline">\(E\)</span> (and hence also in the follow sets of <span class="math inline">\(T\)</span> and <span class="math inline">\(F\)</span> by our previous paragraph). This gives us the final table:</p>
 <pre><code>Symbol            First Set               Follow Set
 --------          -----------             -----------
 S                 x, (                    $
@@ -108,22 +109,22 @@ S                 x, (                    $
 E                 x, (                    $, +, )
 T                 x, (                    $, +, *, )
 F                 x, (                    $, +, *, )</code></pre>
-<p>And this is our final table! Let us think of what they tell us: They tell us for example that a single factor may be followed by:</p>
+<p>And this is our final table! It tells us for example that a single factor (<span class="math inline">\(F\)</span>) may be followed by:</p>
 <ul>
-<li>a dollar sign, if it happened to be at the end of the string</li>
-<li>a plus sign, if it happened to be the last factor within its term</li>
-<li>a star sign, if it is to be followed by more factors</li>
-<li>a closed parenthesis, if it was the last factor in an expression contained in parentheses</li>
+<li>a dollar sign (e.g. if it happened to be at the end of the string)</li>
+<li>a plus sign (e.g. if it happened to be the last factor within its term)</li>
+<li>a star sign (e.g. if it is to be followed by more factors)</li>
+<li>a closed parenthesis (e.g. if it was the last factor in an expression contained in parentheses)</li>
 </ul>
-<p>As a second example, let us consider implementing a grammar for “Polish notation”. Polish notation places the operators in front of the two operands. For example instead of writing: <code>(5 + 6) * 7</code> it would write <code>* + 5 6 7</code>. On the other hand <code>5 + 6 * 7</code> would have been <code>+ 5 * 6 7</code>. The awesome thing about Polish notation is that it is unambiguous, no parentheses are needed (though perhaps we would feel more comfortable writing the last expression for instance as <code>(+ 5 (* 6 7))</code>, which is the LISP/Racket programming language style). Let us see how the grammar would look like (we use different symbols to visually distinguish it from the earlier work, using <code>P</code> for “Polish expression”, and <span class="math inline">\(y\)</span> for the variable representing numbers):</p>
+<p>As a second example, let us consider implementing a grammar for “Polish notation”. Polish notation places the operators in front of the two operands. For example instead of writing: <code>(5 + 6) * 7</code> it would write <code>* + 5 6 7</code>. On the other hand <code>5 + 6 * 7</code> would have been <code>+ 5 * 6 7</code>. The awesome thing about Polish notation is that it is unambiguous, no parentheses are needed (though perhaps we would feel more comfortable writing the last expression for instance as <code>(+ 5 (* 6 7))</code>, which is the LISP/Racket programming language style). Let us see how the grammar would look (we use different symbols to visually distinguish it from the earlier work, using <code>P</code> for “Polish expression”, and <span class="math inline">\(y\)</span> for the variable representing numbers):</p>
 <pre><code>S -&gt; P
 P -&gt; + P P | * P P | y</code></pre>
-<p>Hm, exciting! As an example of a derivation in this language, consider the building of the string <code>* + y y y</code>:</p>
+<p>Hm, exciting! As an example of a derivation in this language, consider the building of the string: <code>* + y y y</code></p>
 <pre><code>S =&gt; P =&gt; * P P =&gt; * + P P P =&gt; * + y P P =&gt; * + y y P =&gt; * + y y y</code></pre>
-<p>Let us try to compute the first and follow sets in this example. The language alphabet is <code>y,+,*</code>, so they are each their own first sets.</p>
+<p>Let us try to compute the first and follow sets in this example. The language alphabet is <code>{ y,+,* }</code>, so they are each their own first sets.</p>
 <ul>
 <li>The rule <code>P -&gt; y</code> tells us that <code>y</code> is in the first set of <code>P</code>.</li>
-<li>The rules <code>+ P P</code> and <code>* P P</code> tell us that <code>+,*</code> are in the first set of <code>P</code>.</li>
+<li>The rules <code>P -&gt; + P P</code> and <code>P -&gt; * P P</code> tell us that <code>+,*</code> are in the first set of <code>P</code>.</li>
 <li>The rule <code>S -&gt; P</code> tells us that everything in the first set of <code>P</code> is in the first set of <code>S</code>.</li>
 </ul>
 <p>So we end up with:</p>
@@ -135,8 +136,8 @@ P                 y, +, *</code></pre>
 <p>Now let us look at follow sets:</p>
 <ul>
 <li><code>$</code> is in the follow set of <span class="math inline">\(S\)</span>.</li>
-<li>The rule <code>P -&gt; + P P</code> says, looking at the two <code>P</code>s at the end and thinking of this rule as a <span class="math inline">\(A\to \alpha P \beta\)</span>, that anything in the first set of <code>P</code> (the second of those two <code>P</code>s) must be in the follow set of <code>P</code> (the first of those two <code>P</code>s). Same for the other rule.</li>
-<li>Since <code>S\to P</code>, anything in the follow set of <code>S</code> is in the follow set of <code>P</code>.</li>
+<li>The rule <code>P -&gt; + P P</code> says, looking at the two <code>P</code>s at the end and thinking of this rule as a <span class="math inline">\(A\to \alpha P \beta\)</span>, that anything in the first set of <code>P</code> (the second of those two <code>P</code>s) must be in the follow set of <code>P</code> (the first of those two <code>P</code>s). Same for the other rule. So <span class="math inline">\(\textrm{FIRST}(P)\subset\textrm{FOLLOW}(P)\)</span>.</li>
+<li>Since <code>S -&gt; P</code>, anything in the follow set of <code>S</code> is in the follow set of <code>P</code>.</li>
 </ul>
 <p>So we end up with:</p>
 <pre><code>Symbol            First Set               Follow Set
