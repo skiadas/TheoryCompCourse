@@ -765,26 +765,40 @@ n * v + v</code></pre></li>
 <li>definition</li>
 <li>basic example</li>
 <li>emptying the stack of a pda</li>
-<li>CFG -&gt; PDA construction</li>
 </ul></li>
 </ul>
 </dd>
-</dl>
-<h3 id="day-2-12">Day 2</h3>
-<ul>
-<li><a href="notes/parsing.html">Notes</a></li>
-<li>Parsing
-<ul>
-<li>First and Follow sets</li>
-<li>LL parsers</li>
-</ul></li>
-</ul>
-<dl>
 <dt>Homework 11</dt>
-<dd><ol style="list-style-type: decimal">
+<dd><p>(Due Tue 12/4 4pm in LYN110)</p>
+<ol style="list-style-type: decimal">
 <li>Work out a PDA for the language that consists of all palindromes on the alphabet <span class="math inline">\(\{a,b,c\}\)</span>.</li>
 <li>Work out a PDA for the language that consists of all strings of matched parentheses (e.g. <code>(()(()()))</code>).</li>
+<li>Write the PDA for the grammar on the alphabet <code>{ i, e }</code> with rules <code>S-&gt; epsilon | SS | iS | iSe</code>. Follow the standard algorithm for determining the PDA of a CFG, and not some other way. Write out the complete PDA diagram, including the expanded form of the “loops” corresponding to production rules.</li>
 </ol>
+</dd>
+</dl>
+<h3 id="day-2-12">Day 2</h3>
+<dl>
+<dt>PDAs</dt>
+<dd>The PDA(s) corresponding to a CFG
+</dd>
+<dt>Parsing</dt>
+<dd><ul>
+<li><a href="notes/parsing.html">Notes</a></li>
+<li>First and Follow sets
+<ul>
+<li>Polish notation grammar</li>
+<li>Group activity: First and Follow sets for Polish notation grammar</li>
+</ul></li>
+<li>LL parsers
+<ul>
+<li>LL parser for Polish notation grammar</li>
+<li>Building an LL(1)-table</li>
+<li>Conflicts for left-recursive grammars</li>
+<li>“Fixing” a left-recursive grammar</li>
+<li>Group activity: LL(1)-table for the fixed left-recursive grammar</li>
+</ul></li>
+</ul>
 </dd>
 </dl>
 <h2 id="week-14-1203-1207">Week 14 (12/03-12/07)</h2>

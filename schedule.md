@@ -535,19 +535,30 @@ Pushdown Automata ([Notes](notes/new_cfg_pushdown.md))
         - definition
         - basic example
         - emptying the stack of a pda
-        - CFG -> PDA construction
+
+Homework 11
+  ~ (Due Tue 12/4 4pm in LYN110)
+
+    1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
+    2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
+    3. Write the PDA for the grammar on the alphabet `{ i, e }` with rules ` S-> epsilon | SS | iS | iSe`. Follow the standard algorithm for determining the PDA of a CFG, and not some other way. Write out the complete PDA diagram, including the expanded form of the "loops" corresponding to production rules.
 
 ### Day 2
 
-- [Notes](notes/parsing.md)
-- Parsing
+PDAs
+  ~ The PDA(s) corresponding to a CFG
+
+Parsing
+  ~ - [Notes](notes/parsing.md)
     - First and Follow sets
+        - Polish notation grammar
+        - Group activity: First and Follow sets for Polish notation grammar
     - LL parsers
-
-Homework 11
-  ~ 1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
-    2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
-
+        - LL parser for Polish notation grammar
+        - Building an LL(1)-table
+        - Conflicts for left-recursive grammars
+        - "Fixing" a left-recursive grammar
+        - Group activity: LL(1)-table for the fixed left-recursive grammar
 
 ## Week 14 (12/03-12/07)
 
