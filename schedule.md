@@ -539,7 +539,7 @@ Pushdown Automata ([Notes](notes/new_cfg_pushdown.md))
 Homework 11
   ~ (Due Tue 12/4 4pm in LYN110)
 
-    1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$.
+    1. Work out a PDA for the language that consists of all palindromes on the alphabet $\{a,b,c\}$. Show the computation for accepting the string `abcba`.
     2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
     3. Write the PDA for the grammar on the alphabet `{ i, e }` with rules ` S-> epsilon | SS | iS | iSe`. Follow the standard algorithm for determining the PDA of a CFG, and not some other way. Write out the complete PDA diagram, including the expanded form of the "loops" corresponding to production rules.
 
