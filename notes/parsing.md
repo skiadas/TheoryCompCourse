@@ -161,6 +161,17 @@ Now let us look at follow sets:
 - The rule `P -> + P P` says, looking at the two `P`s at the end and thinking of this rule as a $A\to \alpha P \beta$, that anything in the first set of `P` (the second of those two `P`s) must be in the follow set of `P` (the first of those two `P`s). Same for the other rule. So $\textrm{FIRST}(P)\subset\textrm{FOLLOW}(P)$.
 - Since `S -> P`, anything in the follow set of `S` is in the follow set of `P`.
 
+We can visualize these rules as follows, by considering the various ways we can write our production rules as `A -> alpha B beta` or `A -> alpha B`:
+```
+A   alpha  B      beta  Conclusion
+--- -----  ---    ----- -----------------------
+S          P            FOL(S) subset of FOL(P)
+P   + P    P            FOL(P) subset of FOL(P)
+P   +      P      P     FIR(P) subset of FOL(P)
+P   * P    P            FOL(P) subset of FOL(P)
+P   *      P      P     FIR(P) subset of FOL(P)
+```
+
 So we end up with:
 
 ```
@@ -200,6 +211,11 @@ Nonterminal     y        +          *           $ (end of string)
 S               P        P          P           error
 P               y        + P P      * P P       error
 ```
+The main principle here is this:
+
+> - The lookahead symbol must be in the first set of the variable we are trying to match.
+> - The production rule that helped us learn that this symbol is in this first set is the rule we want to apply.
+> - If we can learn this fact from two different production rules, we have a conflict.
 
 And here are the steps that the LL-parser would follow:
 
@@ -224,25 +240,108 @@ The steps above follow a left-most derivation, namely:
 S -> P -> +PP -> +*PPP -> +*yPP -> +*yyP -> +*yyy
 ```
 
-Before moving on, let us revisit the arithmetic expressions example we started with. We are already seeing a case where LL(k) parsers are not sufficient. Essentially, the problem is that we have no way of choosing which of the rules $E\to E+T$ and $E\to T$ is the correct one to apply next, namely whether the expression is just one term or the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that "plus" is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.
+Before moving on, let us revisit the arithmetic expressions example we started with. We are already seeing a case where LL(k) parsers are not sufficient. For simplicity, consider the language:
+```
+E -> T         (1)
+E -> E + T     (2)
+T -> v         (3)
+T -> ( E )     (4)
+```
+We will now consider how LL(1) parsing of this language will go, based on a computation of first sets. The rules tell us the following:
+```
+Rule          Conclusion
+-----------   ----------------------------
+E -> T        FIRST(T) subset of FIRST(E)
+E -> E + T    FIRST(E) subset of FIRST(E)
+T -> v        v in FIRST(T)
+T -> ( E )    ( in FIRST(T)
+```
+The second statement above might sound trivial, but is in fact the problem. Here is how the LL(1) parse table would look:
+```
+Variable     v      +      (       )
+---------    -----  -----  ------  ----
+E            (1,2)         (1,2)
+T            (3)           (4)
+```
+The problem is the following: We first find out that x can be in the first set of E because of the `E->T` rule. But then we learn it again because x is in E and we have the rule `E->E+T`. This means that when we encounter an x in our attempt to match an E, we don't know if we should apply rule 1 or rule 2, they both are possibilities. In order to answer that question, we may need to look deeper into our string, to see if there is a plus following our x or not. (In the case of the parenthesis, we might have to search ahead for quite a while until we find the closing parenthesis).
+
+Essentially, the problem is that we have no way of choosing which of the rules $E\to E+T$ and $E\to T$ is the correct one to apply next, namely whether the expression is just one term or the sum of two terms. We would need to somehow be able to look far enough ahead into the expression to see if that "plus" is there or not. But that expression could be arbitrarily long, containing millions of parentheses on the way. No amount of lookahead can help us here.
 
 In general this is a difficulty that LL(k) parsers have with what are known as **left-recursive grammars**, namely grammars that contain a production rule for a nonterminal, whose right-hand side has that same nonterminal as its first element (like the expression `E->E+T` above). These grammars almost invariably force the LL parser to commit too soon, before it has enough information to make a decision.
 
 Luckily left-recursive grammars can be rewritten to not be left-recursive. It is not enough to simply write it instead as $E\to T + E$, because that changes the associativity semantics. It may not matter because addition is associative, but in other cases it would matter a lot. Instead, we can rewrite such a grammar as follows:
 ```
-S -> E
-E -> T A
-A -> eps | + T A
+E -> T X     (1)
+X -> eps     (2)
+X -> + T X   (3)
+T -> v       (4)
+T -> ( E )   (5)
 ```
-Take a moment to make sure you understand that this did not change the associativity.
+Take a moment to make sure you understand that this did not change the associativity. In particular:
 
-Here's how the overall grammar would look like, after we also fix terms to avoid the same ambiguity:
+**Exercise**: work out the parse tree for the string `v+v` in this language. You should come up with the following derivation:
 ```
-S -> E
-E -> T A
-A -> eps | + T A
-T -> F B
-B -> eps | * F B
+   1       4       3           4           2
+E ==> T X ==> v X ==> v + T X ==> v + v X ==> v + v
+```
+
+The big difference in this language is that we have a production rule for X that produces an empty string. The question we need to answer is: When should this rule be applied? We cannot use the first set of X, because this rule does not bring anything to the first set, in fact it is not going to consume any input. But we can instead look at the *follow* set of X: If the lookahead symbol is in the follow set of X, then it is worth it to consider the epsilon-production for X, as this symbol may follow X and hence we may have the X appear at this position.
+
+Let us consider therefore the above rules and what they teach us about follow sets:
+```
+A      alpha  B      beta  Conclusion
+---    -----  ---    ----- ------------------------
+E             T      X     FIR(X) subset of FOL(T)
+E             T      X     FOL(E) subset of FOL(T)
+E      T      X            FOL(E) subset of FOL(X)
+X      +      T      X     FIR(X) subset of FOL(T)
+X      +      T      X     FOL(X) subset of FOL(T)
+X      + T    X            FOL(X) subset of FOL(X)
+T      (      E      )     ) in FOL(E)
+```
+And of course we should also consider what they teach us about first sets:
+```
+Rule         Conclusion
+-----------  ----------------------------
+E -> T X     FIRST(T) subset of FIRST(E)
+X -> eps
+X -> + T X   + in FIRST(X)
+T -> v       v in FIRST(T)
+T -> ( E )   ( in FIRST(T)
+```
+
+Now we build our LL(1) table. We start by filling in the conclusions from first sets.
+```
+Variable     v      +      (       )    $
+---------    -----  -----  ------  ---- -----
+E            T X           T X
+X                   +
+T            v             (
+```
+
+Now we fill in entries based on follow set symbols, for the variable X that has epsilon production rules. Recall that the end of input symbol is always in the follow set of the start variable, E in our case:
+```
+Variable     v      +      (       )    $
+---------    -----  -----  ------  ---- -----
+E            T X           T X
+X                   +              eps  eps
+T            v             (
+```
+Every entry that is not filled in with some rule would result in an error.
+
+For completeness, what follows is the same transformation for the bigger grammar with terms and factors:
+```
+E -> T | E + T
+T -> F | T * F
+F -> x | ( E )
+```
+
+And the transformed grammar would look as follows:
+```
+E -> T X
+X -> eps | + T X
+T -> F Y
+Y -> eps | * F Y
 F -> x | ( E )
 ```
 
@@ -253,9 +352,9 @@ Symbol            First Set               Follow Set
 --------          -----------             -----------
 S                 x, (                    $
 E                 x, (                    ), $
-A                 eps, +                  ), $
+X                 eps, +                  ), $
 T                 x, (                    ), +, $
-B                 eps, *                  ), +, $
+Y                 eps, *                  ), +, $
 F                 x, (                    ), +, *, $
 ```
 
@@ -265,27 +364,27 @@ Let us now attempt to build an LL(1) table for this grammar. We have one new int
 Symbol      x       +       *        (       )      $ (end of string)
 ------     ---     ---     ---      ---     ---    ---
 S           E       -       -        E       -      -
-E          T A      -       -       T A      -      -
-A           -     + T A     -        -      eps    eps
-T          F B      -       -       F B      -      -
-B           -      eps    * F B      -      eps    eps
+E          T X      -       -       T X      -      -
+X           -     + T X     -        -      eps    eps
+T          F Y      -       -       F Y      -      -
+Y           -      eps    * F Y      -      eps    eps
 F           x       -       -       (E)      -      -
 ```
 
 As long as we do not encounter any conflicts (e.g. two rules both claiming the same spot), we have an LL(1) parser.
 
-> Exercise: Consider the palindrome grammar we discussed earlier.
->
-> 1. Compute the first and follow sets.
-> 2. Build the LL(1) parser table for this grammar, and explain the conflicts that arise.
+**Exercise** Consider the palindrome grammar we discussed earlier.
 
-> Exercise: Consider the language $L=\{x^n\mid n\geq 0\}\cup\{x^ny^n\mid n\geq 0\}$.
->
-> 1. Construct a CFG for it. Three non-terminals should suffice.
-> 2. Construct the first and follow sets for the grammar you created.
-> 3. Compute a LL-parse table and discuss the conflict that arises.
->
-> This language is not LL(k) for any $k$. Try to explain why (it is not just that your grammar is not LL(k), it's that there *cannot* be a LL(k) grammar for this language).
+1. Compute the first and follow sets.
+2. Build the LL(1) parser table for this grammar, and explain the conflicts that arise.
+
+**Exercise** Consider the language $L=\{x^n\mid n\geq 0\}\cup\{x^ny^n\mid n\geq 0\}$.
+
+1. Construct a CFG for it. Three non-terminals should suffice.
+2. Construct the first and follow sets for the grammar you created.
+3. Compute a LL-parse table and discuss the conflict that arises.
+
+This language is not LL(k) for any $k$. Try to explain why (it is not just that your grammar is not LL(k), it's that there *cannot* be a LL(k) grammar for this language).
 
 ## LR-parsers
 
@@ -295,7 +394,7 @@ The LL parsers we just described essentially carry out the pushdown automaton we
 
 So after we place the empty-stack symbol and the start symbol onto the stack, we perform a series of steps that are all either removing a terminal from the stack if it matches the input, or replacing the nonterminal at the top of the stack with a production rule for it.
 
-There is another PDA that can serve a similar purpose, but it works in a somewhat "dual" way: It can push terminals it encounters on the input onto the stack, and if it finds the right-hand side of a production rule at the top spots of the stack then it can replace it with the nonterminal on the left-hand side of the rule. Graphically this would look something like this:
+There is another PDA that can serve a similar purpose, but it works in a somewhat "dual" way: It can push terminals it encounters on the input onto the stack (a step called **shift**), and if it finds the right-hand side of a production rule at the top spots of the stack then it can replace it with the nonterminal on the left-hand side of the rule ( a step called **reduce**). Graphically this would look something like this:
 
 ![PDA for LR parsers](images/pushdown_to_cfg3.png)
 
@@ -331,7 +430,9 @@ We need a way to discuss in general the idea that "we have seen a part of the ri
 
 > An **item** is a production rule with a specific marker somewhere amongst the right-hand side symbols. The marker is typically denoted by a dot. For instance the production rule `P->+PP` gives rise to 4 items: `P->.+PP`, `P->+.PP`, `P->+P.P`, `P->+PP.`.
 >
-> An "item" suggests that we are working towards matching this rule, and we have so far matched the symbols on the left of the dot. These symbols are waiting comfortably at the top of the stack for the rule to be completed. So items effectively represent "stages". An item with the marker all the way to the left is said to be in **initial form**, one with the marker all the way to the right is said to be in **terminal form**. Items in terminal form are ready to be replaced by the left-hand side of the production rule.
+> An "item" suggests that we are working towards matching this rule, and we have so far matched the symbols on the left of the dot. These symbols are waiting comfortably at the top of the stack for the rule to be completed.
+>
+> So items effectively represent "stages". An item with the marker all the way to the left is said to be in **initial form**, one with the marker all the way to the right is said to be in **terminal form**. Items in terminal form are ready to be replaced by the left-hand side of the production rule.
 
 As an example, let us revisit the polish notation example we have been working on. We can imagine that we are trying to parse the string `* y y`. Then we can look at the following sequence of items:
 ```

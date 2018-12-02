@@ -226,7 +226,7 @@ eps         eps       eps,$ -> eps   (moving to accept state)
 
 **Exercise 4**: Build the PDA for the grammar of the following language for arithmetic. Show all the loops:
 ```
-S -> T | E + T
+E -> T | E + T
 T -> F | T * F
 F -> v | n
 ```
