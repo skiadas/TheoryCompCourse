@@ -571,5 +571,5 @@ Parsing
 ### Day 2
 
 - Review
-
+- [Final Exam Study Guide](midterm3_study_guide.md)
 
