@@ -16,7 +16,29 @@
 <h1 id="midterm-3-study-guide">Midterm 3 Study Guide</h1>
 <p>The test covers all the material discussed in sections 9.4-9.7, the CFG handout (sections 5.1 and 5.2.1), and the <a href="notes/new_cfg_pushdown.html">pushdown-automata</a> and <a href="notes/parsing.html">parsing</a> notes, and homeworks 9 through 12. The following set of questions is meant to help guide your study and is not meant to be exhaustive of all the possibilities.</p>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>What are the various building blocks for (pure) regular expressions? Provide regular expressions for the following languages on the alphabet <span class="math inline">\(\{a,b\}\)</span>:
+<ul>
+<li>All strings that start with three <span class="math inline">\(a\)</span>’s and have length 5.</li>
+<li>All strings that start with three <span class="math inline">\(a\)</span>’s and have length at most 5.</li>
+<li>All strings that start with <span class="math inline">\(a\)</span> and end in <span class="math inline">\(b\)</span>, or start with <span class="math inline">\(b\)</span> and end in <span class="math inline">\(a\)</span>.</li>
+</ul></li>
+<li>State what the pumping lemma for regular languages says. Briefly explain why it is true.</li>
+<li>Describe how a pushdown automaton differs from a finite automaton, and what its (non-deterministic) state transitions look like. Explain in simple terms why the PDAs have more computational power than NFAs/DFAs.</li>
+<li>For the following non-regular languages: prove that they are not regular, build PDAs for them, build context-free grammars for them, and demonstrate the PDA execution as well as the CFG derivation for the provided input strings:
+<ul>
+<li><span class="math inline">\(\{x^n y^{n} \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^3y^3\)</span>.</li>
+<li><span class="math inline">\(\{x^n y^{2n} \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^2y^4\)</span>.</li>
+<li><span class="math inline">\(\{x^{2n} y^n \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^4y^2\)</span>.</li>
+<li><span class="math inline">\(\{x^n z^m y^n \mid n, m\geq 0\}\)</span>, <span class="math inline">\(s=x^2zy^2\)</span>.</li>
+<li><span class="math inline">\(\{x^n \mid n\geq 0\} \cup \{x^n y^n \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^2zy^2\)</span>.</li>
+</ul></li>
+<li>Explain why the union, intersection, concatenation, and Kleene star of regular languages is regular, and the same for context-free languages.</li>
+<li>Describe the two different PDAs corresponding to a given CFG. Follow the derivation of a particular string on the PDAs, showing the evolution of the stack and the process of the input. Recall that one of the PDAs builds a leftmost derivation while the other builds a rightmost derivation.</li>
+<li><p>Build the item-set DFAs for the following grammars:</p>
+<pre><code>S -&gt; eps | a | b | aSa | bSb</code></pre>
+<p>and:</p>
+<pre><code>E -&gt; a | (A)
+A -&gt; E | E A</code></pre></li>
 </ol>
 </body>
 </html>
