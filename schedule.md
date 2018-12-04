@@ -568,6 +568,27 @@ Parsing
 - Parsing
     - LR parsers
 
+Homework 12
+  ~ (Not to turn in)
+
+    We define the language of "L-values" as follows:
+
+    - The terminals are `v,n,[,]`.
+    - An L-value can be a single variable name, indicated by the terminal symbol `v`.
+    - An L-value can be an expression of the form `L[I]`, where `L` is an arbitrary L-value and `I` is the "index", described below:
+    - The index `I` can be either an integer (represented by `n`) or another L-value expression.
+
+    Here is an example string that this grammar should be able to generate: `v[v[i][v]]`.
+
+    a. Write a CFG for this language, using the above descriptions to write the corresponding rules. Use `L` for the start variable, and `I` for the index variable. You will need 4 production rules.
+    b. Compute the first and follow sets for this grammar.
+    c. Compute the item-sets for the LR(1) parser for this grammar, and show the rightmost derivation, stack and input progress and parse tree for the string `v[v[i][v]]`.
+    d. Explain clearly why this grammar cannot have a corresponding unambiguous LL(1) parser.
+    e. Rewrite the grammar to eliminate the left-recursive rule. You will need one new variable, `X`, and 6 production rules total.
+    f. Demonstrate the leftmost derivation of the string `v[v[i][v]]` in this grammar.
+    g. Compute first and follow sets for this new grammar, and construct an LL(1) parser for it.
+    h. Show the stack and input progress in the LL(1) parser for the string `v[v[i][v]]` and this new grammar.
+
 ### Day 2
 
 - Review
