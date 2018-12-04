@@ -581,7 +581,7 @@ Homework 12
     Here is an example string that this grammar should be able to generate: `v[v[i][v]]`.
 
     a. Write a CFG for this language, using the above descriptions to write the corresponding rules. Use `L` for the start variable, and `I` for the index variable. You will need 4 production rules.
-    b. Compute the first and follow sets for this grammar.
+    b. Compute the first sets for this grammar.
     c. Compute the item-sets for the LR(1) parser for this grammar, and show the rightmost derivation, stack and input progress and parse tree for the string `v[v[i][v]]`.
     d. Explain clearly why this grammar cannot have a corresponding unambiguous LL(1) parser.
     e. Rewrite the grammar to eliminate the left-recursive rule. You will need one new variable, `X`, and 6 production rules total.
