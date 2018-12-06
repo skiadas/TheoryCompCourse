@@ -252,18 +252,18 @@ X -&gt; + T X   + in FIRST(X)
 T -&gt; v       v in FIRST(T)
 T -&gt; ( E )   ( in FIRST(T)</code></pre>
 <p>Now we build our LL(1) table. We start by filling in the conclusions from first sets.</p>
-<pre><code>Variable     v      +      (       )    $
----------    -----  -----  ------  ---- -----
-E            T X           T X
-X                   +
-T            v             (</code></pre>
-<p>Now we fill in entries based on follow set symbols, for the variable X that has epsilon production rules. Recall that the end of input symbol is always in the follow set of the start variable, E in our case:</p>
-<pre><code>Variable     v      +      (       )    $
----------    -----  -----  ------  ---- -----
-E            T X           T X
-X                   +              eps  eps
-T            v             (</code></pre>
-<p>Every entry that is not filled in with some rule would result in an error.</p>
+<pre><code>Variable     v       +       (        )      $
+---------    ------- ------- -------  ------ -------
+E            E-&gt;TX           E-&gt;TX
+X                    X-&gt;+TX
+T            T-&gt;v            T-&gt;(E)</code></pre>
+<p>Now we fill in entries based on <em>follow set</em> symbols, for the variable X that has epsilon production rules. Recall that the end of input symbol is always in the follow set of the start variable, E in our case:</p>
+<pre><code>Variable     v       +       (        )       $
+---------    ------- ------- -------  ------- -------
+E            E-&gt;TX           E-&gt;TX
+X                    X-&gt;+TX           X-&gt;eps  X-&gt;eps
+T            T-&gt;v            T-&gt;(E)</code></pre>
+<p>If, in the process of parsing string s, we hit a ‘blank spot’ in the parsing table (a place in the table with no entry), then that string is ungrammatical; it cannot be parsed in this case because it is not in the language of the grammar, therefore the parser ends up getting stuck. This is usually called a <strong>parse error</strong>.</p>
 <p>For completeness, what follows is the same transformation for the bigger grammar with terms and factors:</p>
 <pre><code>E -&gt; T | E + T
 T -&gt; F | T * F

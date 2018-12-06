@@ -312,22 +312,22 @@ T -> ( E )   ( in FIRST(T)
 
 Now we build our LL(1) table. We start by filling in the conclusions from first sets.
 ```
-Variable     v      +      (       )    $
----------    -----  -----  ------  ---- -----
-E            T X           T X
-X                   +
-T            v             (
+Variable     v       +       (        )      $
+---------    ------- ------- -------  ------ -------
+E            E->TX           E->TX
+X                    X->+TX
+T            T->v            T->(E)
 ```
 
-Now we fill in entries based on follow set symbols, for the variable X that has epsilon production rules. Recall that the end of input symbol is always in the follow set of the start variable, E in our case:
+Now we fill in entries based on *follow set* symbols, for the variable X that has epsilon production rules. Recall that the end of input symbol is always in the follow set of the start variable, E in our case:
 ```
-Variable     v      +      (       )    $
----------    -----  -----  ------  ---- -----
-E            T X           T X
-X                   +              eps  eps
-T            v             (
+Variable     v       +       (        )       $
+---------    ------- ------- -------  ------- -------
+E            E->TX           E->TX
+X                    X->+TX           X->eps  X->eps
+T            T->v            T->(E)
 ```
-Every entry that is not filled in with some rule would result in an error.
+If, in the process of parsing string s, we hit a 'blank spot' in the parsing table (a place in the table with no entry), then that string is ungrammatical; it cannot be parsed in this case because it is not in the language of the grammar, therefore the parser ends up getting stuck. This is usually called a **parse error**.
 
 For completeness, what follows is the same transformation for the bigger grammar with terms and factors:
 ```
