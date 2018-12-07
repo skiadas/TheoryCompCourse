@@ -337,7 +337,7 @@ eps            $+Py         push y
 eps            $+PP         P -&gt; y
 eps            $P           P -&gt; + P P
 eps            $S           S -&gt; P
-eps            $            push S and advance to end/accept</code></pre>
+eps            $            pop S and advance to end/accept</code></pre>
 <p>You will notice that we have violated one of the rules of the stack: In order to see that we have a <code>* P P</code> in the stack, we actually have to look 3 places deep. We will discuss later how to get around this problem.</p>
 <p>We need a way to discuss in general the idea that “we have seen a part of the right-hand side of a rule”. For that we need a new definition:</p>
 <blockquote>

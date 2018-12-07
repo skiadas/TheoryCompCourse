@@ -421,7 +421,7 @@ eps            $+Py         push y
 eps            $+PP         P -> y
 eps            $P           P -> + P P
 eps            $S           S -> P
-eps            $            push S and advance to end/accept
+eps            $            pop S and advance to end/accept
 ```
 
 You will notice that we have violated one of the rules of the stack: In order to see that we have a `* P P` in the stack, we actually have to look 3 places deep. We will discuss later how to get around this problem.
