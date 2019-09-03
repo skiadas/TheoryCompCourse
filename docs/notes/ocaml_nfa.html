@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>ocaml_nfa</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="nfas-in-ocaml">NFAs in OCAML</h1>
+<p>We describe here our implementation of NFAs in OCAML. The files that implement this are in the <code>ocaml</code> folder, namely <code>nfa.ml</code> and <code>nfa.mli</code>.</p>
+<p>The interface is not all that dissimilar:</p>
+<pre class="ocaml"><code>module type NFA =
+   sig
+      module A : Alphabet.A
+      type state = int
+      type elem
+      type str
+
+      module D : Dfa.DFA with module A = A
+                          and type state = state
+                          and type elem = elem
+                          and type str = str
+
+      type trans = state -&gt; elem -&gt; state list
+      type eps_trans = state -&gt; state list
+      (* The nfa type *)
+      type t
+
+      val make : int -&gt; eps_trans -&gt; trans -&gt; state list -&gt; t
+
+      val epsilonClose : t -&gt; state list -&gt; state list
+      val delta : t -&gt; state list -&gt; elem -&gt; state list
+      val deltaStar : t -&gt; state list -&gt; str -&gt; state list
+      val accept : t -&gt; str -&gt; bool
+      val isFinal : t -&gt; state -&gt; bool
+
+      (* Returns the accepted strings of at most given length *)
+      val acceptedStrings : t -&gt; int -&gt; str list
+
+      val union : t -&gt; t -&gt; t
+      val complement : t -&gt; t
+      val concatenate : t -&gt; t -&gt; t
+      val star : t -&gt; t
+   end
+
+module Make(A : Alphabet.A) : NFA with type elem = A.elem
+                                   and type str = A.t</code></pre>
+<p>The first thing that stands out is the use of a “submodule” <code>D</code> to represent DFAs on the same alphabet. As every DFA can be considered as a corresponding NFA, this would be handy to have. (In fact we have at the moment omitted a way to obtain an NFA from a DFA, but it could be easily added).</p>
+<p>The big change is of course in the transition functions. We separate the “normal” transitions, which are implemented as functions <code>state -&gt; elem -&gt; state list</code> from the “epsilon transitions”, which are implemented as function <code>state -&gt; state list</code>. The definition of an NFA via the <code>make</code> function asks for both. The only other real addition is an <code>epsilonClose</code> function, that takes a set of states and computes the epsilon closure of that set.</p>
+<p>TODO</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

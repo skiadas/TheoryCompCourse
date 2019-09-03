@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>activity8</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="activity-8">Activity 8</h1>
+<h2 id="coding-exercise-cs-335">Coding Exercise, CS 335</h2>
+<p>In this exercise we practice making a text file representation of a Turing machine and then “run” that TM on different inputs using the provided <code>simulateTM</code> Python program.</p>
+<ol type="1">
+<li><p>Download the WCBC source code which is provided to accompany our textbook. Click the “Python Programs” link on this website: <a href="https://press.princeton.edu/titles/11348.html">https://press.princeton.edu/titles/11348.html</a></p></li>
+<li><p>Unzip the downloaded zip file to a directory where you will put all your source code for CS 335.</p></li>
+<li><p>Start a Python shell running on the directory where you saved the WCBC code files in step 2.</p></li>
+<li><p>Import a couple of functions we will need, <code>rf</code> and <code>simulateTM</code>, then try using those functions:</p>
+<pre><code>&gt;&gt;&gt; from utils import rf
+&gt;&gt;&gt; from simulateTM import simulateTM
+&gt;&gt;&gt; simulateTM(rf(&#39;containsGAGA.tm&#39;), &#39;928GAGAxx987&#39;)
+     (Should return: &#39;yes&#39;)
+&gt;&gt;&gt; simulateTM(rf(&#39;containsGAGA.tm&#39;), &#39;928xyz&#39;)
+     (Should return: &#39;no&#39;)</code></pre></li>
+<li><p>Open <code>containsGAGA.tm</code> in Sublime Text. Save as <code>contains111.tm</code>.</p></li>
+<li><p>With paper and pencil, or at the whiteboard, plan out the state diagram for a TM to decide the <code>Contains111</code> problem: For any string I which has “111” as a substring, F(I) = “yes”; for all other strings I, F(I) = “no”.</p>
+<ul>
+<li>Recall that a “decider” cannot go into an infinite loop. For any input string over the corresponding alphabet, your TM must eventually halt in either the “accept” state or the “reject” state.</li>
+<li>As a convenience, explicit transitions to the reject state are not required. If at any point in the computation there is not a transition provided for the current state and symbol, we will assume that the TM transitions to “qR”, the reject state, thus stopping the computation with a “no” answer.</li>
+</ul></li>
+<li><p>Revise the contents of <code>contains111.tm</code> to create a text description of the Turing machine you designed for this problem.</p></li>
+<li><p>Back in the Python shell, run simulateTM on ‘contains111.tm’ with the following inputs.</p>
+<ul>
+<li>Negative examples: "“,”1“,”x“,”11“,”xx“,”11x1“,”abcd11"</li>
+<li>Positive examples: “111”, “1110”, “0111”, “xy111z”, “1111”</li>
+</ul></li>
+<li><p>Download the file <a href="https://skiadas.github.io/TheoryCompCourse/site/activities/test_contains111.py">test_contains111.py</a></p>
+<p>Copy the following code and save it as <code>test_contains111.py</code>.</p>
+<pre><code>##############################
+# test_contains111.py        #
+# Barb Wahl, 9-25-2018       #
+##############################
+
+from utils import rf
+from simulateTM import simulateTM
+
+def main():
+
+   should_reject = [&quot;&quot;, &quot;1&quot;, &quot;x&quot;, &quot;11&quot;, &quot;xx&quot;, &quot;11x1&quot;, &quot;abcd11&quot;]
+   should_accept = [&quot;111&quot;, &quot;1110&quot;, &quot;0111&quot;, &quot;xy111z&quot;, &quot;1111&quot;]
+   run_tests(&quot;contains111.tm&quot;, should_reject, &quot;no&quot;)
+   run_tests(&quot;contains111.tm&quot;, should_accept, &quot;yes&quot;)
+
+def run_tests(prog_file, L, expected):
+   for I in L:
+      result = simulateTM(rf(prog_file), I)
+      if result == expected:
+         decorator = &quot; -- correct.&quot;
+      else:
+         decorator = &quot; -- ERROR!&quot;
+      print_report(&quot;contains111&quot;, I, result + decorator)
+
+def print_report(fun_name, I, msg):
+   print(fun_name + &quot;(&quot; + I + &quot;) = &quot; + msg)
+
+main()</code></pre></li>
+<li><p>In the terminal, run <code>test_contains111.py</code> and verify that your contains111.tm description is passing the provided tests (fix any errors you find in your description).</p></li>
+<li><p>Read through the code for <code>test_contains111.py</code>. You should be able to modify this code to test other deciding TM descriptions.</p></li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

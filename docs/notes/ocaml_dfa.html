@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>ocaml_dfa</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="dfas-in-ocaml">DFAs in OCAML</h1>
+<p>We describe here our implementation of DFAs in OCAML. The files that implement this are in the <code>ocaml</code> folder, namely <code>dfa.ml</code> and <code>dfa.mli</code>.</p>
+<p>Let’s start by the interface:</p>
+<pre class="ocaml"><code>exception InvalidDFA
+
+module type DFA =
+   sig
+      module A : Alphabet.A
+      type state = int
+      type elem
+      type str
+      (* The dfa type *)
+      type t
+
+      val make : int -&gt; (state -&gt; elem -&gt; state) -&gt; state list -&gt; t
+
+      val delta : t -&gt; state -&gt; elem -&gt; state
+      val deltaStar : t -&gt; state -&gt; str -&gt; state
+      val accept : t -&gt; str -&gt; bool
+
+      (* Returns the accepted strings of at most given length *)
+      val acceptedStrings : t -&gt; int -&gt; str list
+
+      val union : t -&gt; t -&gt; t
+      val intersect : t -&gt; t -&gt; t
+
+      val emptyLang : t
+      val emptyString : t
+      val oneElem : elem -&gt; t
+      val zeroOrMore : elem -&gt; t
+      val oneOrMore : elem -&gt; t
+
+   end
+
+module Make(A : Alphabet.A) : DFA with type elem = A.elem
+                                   and type str = A.t</code></pre>
+<p>The module type <code>DFA</code> describes a <code>DFA</code> on a prescribed alphabet <code>A</code>. It introduces a number of types: one for states, represented simply as integers, one for elements of the alphabet, one for strings from the alphabet, and finally a type <code>t</code> to represent a <code>dfa</code>.</p>
+<p>The first key method is <code>make</code>, which creates a new <code>dfa</code>. It takes 3 inputs: First the number of states, then a transition function that given a “state” and an element returns a new state, and finally a list of “final states”. It returns a <code>dfa</code> (doing some validation first). By convention, the state corresponding to the number <code>0</code> is automatically treated as the start state, so no need to specify it.</p>
+<p>Following are methods allowing us to trace the accepting of strings: <code>delta</code> carries out one step of the transition function, <code>deltaStar</code> carries out a whole sequence of steps, and <code>accept</code> determines whether the string is accepted by the dfa.</p>
+<p>Lastly, <code>acceptedStrings</code> returns all strings of length up to a given integer that are accepted by the dfa.</p>
+<p>Finally, two methods implement the construction of the union and intersection of dfas, that we will be discussing in class.</p>
+<p>At the end of the file we include some examples of a few “standard” dfas.</p>
+<p>The implementation of <code>dfa.ml</code> is for the most part straightforward. We represent <code>dfa</code>s as a <em>record type</em>, which we haven’t talked about before but should be straightforward:</p>
+<pre class="ocaml"><code>type t = {
+    nstates : state;
+    delta : state -&gt; elem -&gt; state;
+    final : state list;
+}</code></pre>
+<p>The function <code>make</code> essentially just wraps its 3 arguments into an object of type <code>t</code>, and <code>validate</code>s it first before returning it (to make sure that the transition function does not take you out of the valid state range, for example, and that the valid states are actually valid states).</p>
+<p>The <code>delta</code> function literally just returns the value stored in <code>delta</code>. It is worth noting this expression:</p>
+<pre class="ocaml"><code>let delta { nstates; delta; final } = delta</code></pre>
+<p>The part <code>{ nstates; delta; final }</code> is basically a pattern matching a record. It would normally be written as: <code>{ nstates = nstates; delta = delta; final = final }</code> where we use the field names also as variable names. The above is a shorthand for that.</p>
+<p>Next up is <code>deltaStar</code>, which is supposed to follow the transition function through a list of inputs. A simple <code>List.fold_left</code> does this nicely.</p>
+<p>Then here is <code>accept</code>:</p>
+<pre class="ocaml"><code>let accept ({ nstates; delta; final } as dfa) es =
+    List.mem (deltaStar dfa 0 es) final</code></pre>
+<p>Note the expression <code>({ nstates; delta; final } as dfa)</code>. This says that the first argument should match a record, and bind the 3 arguments to the variables <code>nstates</code>, <code>delta</code> and <code>final</code>, but that the whole argument should also be bound to the variable <code>dfa</code>. All the function does then is use <code>deltaStar</code> to follow the string’s steps, starting from the start state <code>0</code>, and check whether the resulting state is one of the final states.</p>
+<p>Lastly, <code>acceptedStrings</code> generates all lists up to a given length, using <code>A.allStringsLeq</code>, then uses <code>List.filter</code> to only keep those that pass the dfa’s <code>accept</code>.</p>
+<h2 id="union-of-regular-languages">Union of regular languages</h2>
+<p>In another section we saw that the union of two regular languages is regular, by explicitly constructing, using the two DFAs for the two languages, a new DFA that would accept their union. The idea back then was that the states of the new DFA would be pairs of states from the old DFA. We will now carry out the construction.</p>
+<p>The first thing we have to worry about is the fact that for us the states are simply integers, starting at <span class="math inline">\(0\)</span>. We have no way to change that. So what we need to do is somehow associate pairs of numbers with a single number, in a unique way. There is sort of a standard way to do that:</p>
+<blockquote>
+<p>Given <span class="math inline">\(n\)</span>, <span class="math inline">\(m\)</span>, define the functions: <span class="math display">\[f(N) = (N \textrm{ mod }m, N \textrm{ div } m)\]</span> and <span class="math display">\[g(i, j) = i + m * j\]</span> Then these functions are inverses of each other and establish a 1-1 correspondence between the sets <span class="math display">\[\{0, 1, \ldots, nm-1 \}\]</span> and <span class="math display">\[\{(i, j) \mid i=0,1,2,\ldots,n-1,\quad j =0,1,2,\ldots,m-1\}\]</span></p>
+</blockquote>
+<p>Here the quantity <span class="math inline">\(N\textrm{ div }m\)</span> is integer division. So this way, since we denote the states of one DFA, say <span class="math inline">\(n\)</span> of them, with the numbers <span class="math inline">\(0\)</span> through <span class="math inline">\(n-1\)</span>, and since we denote the states of the second <span class="math inline">\(DFA\)</span>, say <span class="math inline">\(m\)</span> of them, with the numbers <span class="math inline">\(0\)</span> through <span class="math inline">\(m-1\)</span>, the above functions show us how to associate the pairs <span class="math inline">\((i, j)\)</span> of states from the two DFAs into a single number in the range <span class="math inline">\(0\)</span> to <span class="math inline">\(nm-1\)</span>.</p>
+<p>This is the key technical part of the construction of the DFA for the union. The rest is a bit of bookkeeping. Here is the code:</p>
+<pre class="ocaml"><code>let union { nstates= nstate1; delta= delta1; final= final1 }
+          { nstates= nstate2; delta= delta2; final= final2 } =
+   let from12 i j = i + nstate2 * j in
+   let to12 n = (n mod nstate2, n / nstate2) in
+   let nstates = nstate1 * nstate2 in
+   let newDelta n a = let (i, j) = to12 n
+                      in from12 (delta1 i a) (delta2 j a) in
+   let isFinal n =
+      let (i, j) = to12 n
+      in List.mem i final1 || List.mem j final2
+   in {
+      nstates= nstates;
+      delta= newDelta;
+      final= List.filter isFinal (upTo nstates);
+   }</code></pre>
+<p>So let’s take a look. The input to the function <code>union</code> is two records corresponding to the two DFAs. Because we need two of them and we’ll use numbers to distinguish, we couldn’t use the shorthand pattern notation, we had to spell all the equal signs out.</p>
+<p>Now next we do a series of computations, via <code>let</code> statements, each feeding into the next, before a final <code>let</code> statement that returns our answer. The first is the computation of the function <code>g</code> above, which we call <code>from12</code>. Similarly a definition of the function <code>f</code> above, which we call <code>to12</code>. Next we compute the total number of states for the new DFA, and the new delta transition function, <code>newDelta</code>. Let’s walk through how that works:</p>
+<p><code>newDelta</code> is given a number <code>n</code> corresponding to a state of the new DFA and an input <code>a</code>. It then uses <code>to12</code> to compute from that <code>n</code> the pair of states it corresponds to. We store those states in the variables <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> respectively. Now we use the delta functions of the two DFAs to obtain a new pair of states, <code>delta1 i a</code> and <code>delta2 j a</code>, then we feed these back into the function <code>from12</code> to get a single state number. That’s the new transition function.</p>
+<p>Next we need to determine the final states. If you recall, the final states were exactly those pairs where at least one of the states in the pair is a final state of the corresponding DFA. The function <code>isFinal</code> is meant to test exactly if a state in the new DFA is final.</p>
+<p>Lastly, we can create the resulting DFA. It must be a record with 3 entries, the number of states (product), the new delta function (<code>newDelta</code>) and the list of final states, which we obtain by filtering all the states using the function <code>isFinal</code>. We use a little function <code>upTo</code> that produces the consecutive list of numbers <code>[0, 1, 2, ..., n-1]</code> for a given <code>n</code>.</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

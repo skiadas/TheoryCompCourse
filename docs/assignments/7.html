@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>7</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-7">Assignment 7</h1>
+<p>In this assignment we will work on two languages: “L-values” and “S-expressions”.</p>
+<p>L-values are used to express the left-hand-side of an assignment in programming languages that support that (e.g. <code>a[i][j] = 2</code> in C). Surprisingly, the “L” does not stand for “left”, but instead for “location”, meaning that these “values” represent locations in memory, whose contents are about to be replaced.</p>
+<p>S-expressions are used as the main syntactic structure in languages like Lisp, Scheme and Racket. They are probably the simplest syntax for a programming language, in terms of parsing and number of rules.</p>
+<p>The grammar of L-values has the terminals <code>v</code>, <code>i</code>, <code>[</code> and <code>]</code>. Its main non-terminal will be denoted by <code>L</code>, so one of the grammar rules would be <code>S-&gt;L</code>. You will need one more nonterminal. An L-value is one of the following:</p>
+<ul>
+<li>A variable name, in general indicated by the terminal symbol <code>v</code>.</li>
+<li>An expression <code>l1[l2]</code>, where <code>l1</code> is an arbitrary L-value and <code>l2</code> is an “index” which can be either an arbitrary L-value or an integer. Integers are denoted generically by the terminal symbol <code>i</code>. You should use a new nonterminal, denoted by <code>I</code>, for “index”.</li>
+</ul>
+<p>Here is an example expression that your grammar should be able to pick up: <code>v[v[i][v]]</code>.</p>
+<p>Full-fledged L-values are more complex, but this will do for our purposes.</p>
+<p>The grammar of S-expressions has terminals <code>a</code>, <code>(</code> and <code>)</code>. The main terminal for an S-expression will be denoted by <code>E</code>, so one of the rules will be <code>S-&gt;E</code>, and you will need one more non-terminal. An S-expression is one of the following:</p>
+<ul>
+<li>An “atomic value”, indicated by the terminal <code>a</code>,</li>
+<li>An expression <code>(...)</code> where the dots contain one or more S-expressions. You should use a new terminal <code>T</code> to denote this potential list of S-expressions. The elements on that list are meant to be evaluated in a left-to-right way (left-associative so to speak). You should ensure that your grammar rules reflect that.</li>
+</ul>
+<p>Here are the questions regarding these two languages.</p>
+<ol type="1">
+<li>For the L-value language:
+<ol type="a">
+<li>Produce the CFG</li>
+<li>Compute the first sets for all nonterminals. Explain your work.</li>
+<li>Compute the follow sets for all nonterminals. Explain your work.</li>
+<li>Construct the DFA of item sets for the LR-parser that corresponds to this grammar.</li>
+<li>Show how the L-value <code>v[v[i][v]]</code> will be processed by this parser. The format for that would be in 3 columns, one for the input changes, one for stack contents with DFA numbers included, and a third for what happens at each step (shift/go to a state, reduce a grammar rule).</li>
+</ol></li>
+<li>For the S-expression language:
+<ol type="a">
+<li>Produce the CFG</li>
+<li>Compute the first sets for all nonterminals. Explain your work.</li>
+<li>Compute the follow sets for all nonterminals. Explain your work.</li>
+<li>Construct the DFA of item sets for the LR-parser that corresponds to this grammar.</li>
+<li>Show how the S-expression <code>(a(a(aa)a))</code> will be processed by this parser. The format for that would be in 3 columns, one for the input changes, one for stack contents with DFA numbers included, and a third for what happens at each step (shift/go to a state, reduce a grammar rule).</li>
+</ol></li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

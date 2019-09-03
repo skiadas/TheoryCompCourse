@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>fin_aut_nfas</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="non-deterministic-finite-automata">Non-Deterministic Finite Automata</h1>
+<p>In this section we extend our definition of deterministic finite automata to a seemingly more powerful notion, that of non-deterministic finite automata.</p>
+<p>The surprising and wonderful result of this section is that these non-deterministic automata are actually not more powerful; they in fact describe the same set of languages.</p>
+<h2 id="reading">Reading</h2>
+<p>Section 1.2</p>
+<p>Practice problems (page 85): 1.7, 1.8, 1.9, 1.10, 1.11, 1.14, 1.16, 1.40, 1.41, 1.42, 1.51</p>
+<p>Challenge: 1.43, 1.44</p>
+<h2 id="motivation-for-non-deterministic-automata">Motivation for non-deterministic automata</h2>
+<p>Finite automata have a certain rigidity to them: At every state and a given input, there is exactly one other state to transition to. This is precisely why they are called “deterministic”.</p>
+<p>But in so many practical situations we encounter non-determinism and are confronted with choices. A good example of this is trying to recognize the concatenation of two regular languages:</p>
+<p><span class="math display">\[AB = \left\{wv\mid w\in A,\, v\in B\right\}\]</span></p>
+<p>If we imagine a deterministic automaton trying to use the automata for <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> along the way, we could for instance imagine it starting with the automaton for <span class="math inline">\(A\)</span>, then continuing with the automaton for <span class="math inline">\(B\)</span>. It is this “continuing” part that is difficult: At what point should we drop <span class="math inline">\(A\)</span> and start looking at <span class="math inline">\(B\)</span>? How do we know this is the right time to do so?</p>
+<p>To make this more concrete, suppose that the overall input is <code>1101001</code>, and suppose that the words <code>11</code>, <code>110</code> and <code>11010</code> are all valid words in <span class="math inline">\(A\)</span>. Then that longer input may be in <span class="math inline">\(AB\)</span> because <code>01001</code> is in <span class="math inline">\(B\)</span>, or because <code>1001</code> is in <span class="math inline">\(B\)</span>, or because <code>01</code> is in <span class="math inline">\(B\)</span>, or maybe for all 3 reasons. But we can’t know until we start looking into <span class="math inline">\(B\)</span>. So after we have read the first two numbers following <span class="math inline">\(A\)</span>’s automaton, we have arrived at an accept state for <span class="math inline">\(A\)</span>; do we continue or do we start looking into <span class="math inline">\(B\)</span>? What if we do start at <span class="math inline">\(B\)</span> and <code>0100</code> turns out not to be in <span class="math inline">\(B\)</span>? We would conclude that the whole input isn’t in <span class="math inline">\(AB\)</span> (even though it could be there for other reasons).</p>
+<p>So we have to make a choice at that point, and we don’t know what the right choice would be, and we can’t afford to make the wrong choice. So we can’t make a choice. This is the problem presented by deterministic automata.</p>
+<h2 id="definition-of-non-deterministic-automata">Definition of non-deterministic automata</h2>
+<p>The idea of non-deterministic automata is simple: We preserve the finite-ness and definite-ness of the states of a DFA, but we become more flexible on the transitions. From a state and on a given next input, you may now transition to 0 or more states. We also allow for “free transitions”, called “epsilon-transitions”, from a state to another without consuming any input. This way, at any given moment in the computation, our automaton might be in a variety/set of different states, not just one. And on each new input, the automaton would follow that input from all the different states it might have been in, resulting in a new list of possible states. When the computation ends, the automaton would possibly be in any number of possible states, and as long as one of these is an accepting state then the automaton would accept the string.</p>
+<blockquote>
+<p>A <strong>(Non-deterministic) Finite Automaton</strong> (NFA) is a <span class="math inline">\(5\)</span>-tuple <span class="math inline">\((Q, \Sigma, \delta, q_0, F)\)</span>, where:</p>
+<ul>
+<li><span class="math inline">\(Q\)</span> is a finite set, called the <em>states</em>,</li>
+<li><span class="math inline">\(\Sigma\)</span> is a finite set, called the <em>alphabet</em>, and we use <span class="math inline">\(\Sigma_\epsilon\)</span> to denote the alphabet extended with a new special symbol, <span class="math inline">\(\epsilon\)</span>, to indicate no use of input,</li>
+<li><span class="math inline">\(\delta\colon Q\times \Sigma_\epsilon \to \mathcal{P}(Q)\)</span> is the <em>transition function</em>,</li>
+<li><span class="math inline">\(q_0\in Q\)</span> is the <em>start state</em>,</li>
+<li><span class="math inline">\(F\subset Q\)</span> is the set of <em>accept or final states</em> (possibly empty)</li>
+</ul>
+</blockquote>
+<p>Here <span class="math inline">\(\mathcal{P}(Q)\)</span> denotes the power-set of the set <span class="math inline">\(Q\)</span>. In other words the return values of the transition function are whole sets of states, instead of individual states. We often can split the function up in two parts, one that handles the <em>epsilon transitions</em>, i.e. transitions on no input at all, and one that handles the normal transitions.</p>
+<h2 id="computation-with-an-nfa">Computation with an NFA</h2>
+<p>The meaning of computation with an NFA is similar to that for a DFA, except that we have to allow for epsilon transitions. Intuitively, a string is recognized by an NFA if we can reach a final state in one of all the possible calculations that use the string as input. More formally:</p>
+<blockquote>
+<p>We say that an NFA recognizes the string <span class="math inline">\(w\)</span>, if we can write <span class="math inline">\(w=y_1y_2\cdots y_n\)</span> where each <span class="math inline">\(y_i\in\Sigma_\epsilon\)</span>, and we have a sequence of states <span class="math inline">\(r_0,r_1,\ldots,r_n\)</span> such that:</p>
+<p><span class="math inline">\(r_0=q_0\)</span> is the start state of the automaton, <span class="math inline">\(r_{i+1} \in \delta(r_i, y_{i+1})\)</span> is one of the possible states to transition to on each next step, <span class="math inline">\(r_n\in F\)</span> is a final state.</p>
+<p>We say that the NFA <em>recognizes</em> a language <span class="math inline">\(L\)</span>, if it accepts exactly the strings that are in the language.</p>
+</blockquote>
+<p>So the formal definition has to make two allowances: The insertion of “epsilon steps” in the strings/alphabet, and the fact that the result of a call to the transition function is a whole set of possible states, so the next state just has to be an element of that set.</p>
+<h2 id="epsilon-closures">Epsilon Closures</h2>
+<p>One concept essential to understanding NFAs is that of epsilon closures. The idea is essentially that we want to follow all possible epsilon transitions from a given set:</p>
+<blockquote>
+<p>The <strong>epsilon closure</strong> of a set of states <span class="math inline">\(S\)</span>, denoted <span class="math inline">\(E(S)\)</span> is the set of all states that can be reached from <span class="math inline">\(S\)</span> via following epsilon transitions. Formally, a state <span class="math inline">\(s\)</span> is in <span class="math inline">\(E(S)\)</span> if and only if there is a sequence of states <span class="math inline">\(s_0,s_1,\ldots,s_k\)</span> such that:</p>
+<ul>
+<li><span class="math inline">\(s_0\in S\)</span></li>
+<li><span class="math inline">\(s_{i+1} = \delta(s_i, \epsilon)\)</span> for all <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(s_k = s\)</span></li>
+</ul>
+</blockquote>
+<p>To compute the epsilon closure of a set, we can proceed in steps:</p>
+<ul>
+<li>Start with <span class="math inline">\(S_0 = S\)</span>.</li>
+<li>Compute <span class="math inline">\(S_1\)</span> by following a single epsilon-step from all points in <span class="math inline">\(S_0\)</span>.</li>
+<li>Compute <span class="math inline">\(S_2\)</span> by following a single epsilon-step from all points in <span class="math inline">\(S_1\)</span>.</li>
+<li>Compute <span class="math inline">\(S_3\)</span> by following a single epsilon-step from all points in <span class="math inline">\(S_2\)</span>.</li>
+</ul>
+<p>and so on. Since there is a finite set of states, this process will eventually stabilize. We have then arrived at the epsilon closure <span class="math inline">\(E(S)\)</span>.</p>
+<h2 id="standard-constructions">Standard constructions</h2>
+<p>In this section we will describe in the language of NFAs how to do the standard constructions, namely:</p>
+<blockquote>
+<p>Given two NFAs <span class="math inline">\(M_1=(Q_1, \Sigma, \delta_1, q_0^{(1)}, F_1)\)</span> and <span class="math inline">\(M_2=(Q_2, \Sigma, \delta_2, q_0^{(2)}, F_2)\)</span> that recognize the languages <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> respectively, we will construct:</p>
+<ul>
+<li>An NFA that recognizes the union <span class="math inline">\(L_1 \cup L_2\)</span>,</li>
+<li>An NFA that recognizes the concatenation <span class="math inline">\(L_1L_2\)</span>,</li>
+<li>An NFA that recognizes the Kleene star <span class="math inline">\(L_1^*\)</span>.</li>
+</ul>
+</blockquote>
+<h3 id="union">Union</h3>
+<p>The idea is simple:</p>
+<ul>
+<li>The states of the new NFA will include all states from <span class="math inline">\(M_1\)</span> and from <span class="math inline">\(M_2\)</span>, along with one new state.</li>
+<li>This new state is the start state.</li>
+<li>There are epsilon transitions from this new start state to the start states of <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span>. All the old epsilon transitions are still present.</li>
+<li>There are no new normal transitions. All the old normal transitions are still present.</li>
+<li>The set of final states is the union of the two sets of final states for <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span>.</li>
+</ul>
+<p>More formally, the new NFA is the 5-tuple <span class="math inline">\((Q, \Sigma, \delta, q_0, F)\)</span> where:</p>
+<blockquote>
+<ul>
+<li><span class="math inline">\(Q = Q_1 \cup Q_2 \cup \{q_0\}\)</span> where <span class="math inline">\(q_0\)</span> is a new state (and also the start state).</li>
+<li><span class="math inline">\(F = F_1 \cup F_2\)</span>.</li>
+<li><span class="math inline">\(\delta(q_0, \epsilon) = \{q_0^{(1)}, q_0^{(2)}\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_0, e) =\emptyset\)</span> if <span class="math inline">\(e\in\Sigma\)</span>.</li>
+<li><span class="math inline">\(\delta(r, e) = \delta_1(r, e)\)</span> if <span class="math inline">\(r\in Q_1\)</span>.</li>
+<li><span class="math inline">\(\delta(r, e) = \delta_2(r, e)\)</span> if <span class="math inline">\(r\in Q_2\)</span>.</li>
+</ul>
+</blockquote>
+<p>Technically we would now need to write a formal proof of why this automaton recognizes the union of <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span>, which would involve two claims:</p>
+<ul>
+<li>That every string in <span class="math inline">\(L_1\cup L_2\)</span> is accepted by this automaton.</li>
+<li>That no other strings are accepted by this automaton. Or via the contrapositive, every string that is accepted by the automaton is in the union <span class="math inline">\(L_1\cup L_2\)</span>.</li>
+</ul>
+<p>The proof in many of these “constructed” cases is straightforward but tedious. We will first describe it here:</p>
+<p>For the first part: If a string is in <span class="math inline">\(L_1\)</span> or in <span class="math inline">\(L_2\)</span>, then we can take the path that the string would follow in the corresponding automaton <span class="math inline">\(M_1\)</span> or <span class="math inline">\(M_2\)</span>, and prepend the epsilon transition to it from <span class="math inline">\(q_0\)</span> to the appropriate start state. This would show that the new automaton accepts all strings from the union.</p>
+<p>Conversely, for the second part, suppose that we have a string that is accepted by our constructed automaton. Then that string must start with an epsilon transition from <span class="math inline">\(q_0\)</span>, and the rest of it is essentially a path that we could have traced in <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>, depending on where that first step took us. Since there are no transitions from states in <span class="math inline">\(M_1\)</span> to states in <span class="math inline">\(M_2\)</span>, a path that arrives at a state in <span class="math inline">\(F\)</span> and that got into <span class="math inline">\(M_1\)</span> to begin with must in fact end up in <span class="math inline">\(F_1\)</span>. In other words, if that string is accepted for the union automaton, it must also be accepted for either <span class="math inline">\(M_1\)</span> or <span class="math inline">\(M_2\)</span>.</p>
+<p>Now we will make a more formal proof.</p>
+<p>We start with the one direction. If a string <span class="math inline">\(2\)</span> is in say <span class="math inline">\(L_1\)</span> (the same argument would work for <span class="math inline">\(L_2\)</span>) we want to show it is accepted by our automaton. This would show that our automaton accepts every string in <span class="math inline">\(L_1\cup L_2\)</span>. According to the definition of acceptance, we must be able to write <span class="math inline">\(w=y_2y_3\cdots y_k\)</span>, where each <span class="math inline">\(y_i\)</span> is an <span class="math inline">\(\epsilon\)</span> or in the alphabet, and there are states <span class="math inline">\(r_1\)</span>, <span class="math inline">\(r_2\)</span>, <span class="math inline">\(r_3\)</span> and so on from <span class="math inline">\(Q_1\)</span> such that:</p>
+<ul>
+<li><span class="math inline">\(r_1 = q_0^{(1)}\)</span></li>
+<li><span class="math inline">\(r_{i+1} = \delta_1(r_i, y_{i+1})\)</span></li>
+<li><span class="math inline">\(r_k\in F_1\)</span> is a final state for <span class="math inline">\(M_1\)</span></li>
+</ul>
+<p>Then if we consider writing <span class="math inline">\(w=\epsilon y_2y_3\cdots y_k\)</span>, and the states <span class="math inline">\(q_0,r_1,r_2,\ldots\)</span>, then this shows that our automaton accepts the string <span class="math inline">\(w\)</span>:</p>
+<ul>
+<li><span class="math inline">\(q_0 = q_0\)</span> is the start state.</li>
+<li><span class="math inline">\(r_1 = \delta(q_0, \epsilon)\)</span> by the added epsilon transitions from <span class="math inline">\(q_0\)</span>.</li>
+<li><span class="math inline">\(r_{i+1} = \delta(r_i, y_{i+1})\)</span> (since it is in fact just <span class="math inline">\(\delta_1(r_i, y_{i+1})\)</span>)</li>
+<li><span class="math inline">\(r_n\in F\)</span> since it is in <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F=F_1\cup F_2\)</span>.</li>
+</ul>
+<p>This is only one of the directions. Now we need the opposite direction. Namely that if our automaton accepts the string <span class="math inline">\(w\)</span>, then <span class="math inline">\(w\)</span> must be in <span class="math inline">\(L_1\cup L_2\)</span>.</p>
+<p>Since our automaton accepts the string <span class="math inline">\(w\)</span>, we can write <span class="math inline">\(w=y_1\cdots y_k\)</span> and there are states <span class="math inline">\(r_0\)</span>, <span class="math inline">\(r_1\)</span>, , <span class="math inline">\(r_k\)</span> such that:</p>
+<ul>
+<li><span class="math inline">\(r_0 = q_0\)</span>.</li>
+<li><span class="math inline">\(r_{i+1} = \delta(r_i, y_{i+1})\)</span>.</li>
+<li><span class="math inline">\(r_k\in F\)</span>.</li>
+</ul>
+<p>Since <span class="math inline">\(r_1 = \delta(q_0, y_1)\)</span> and the only transitions out of <span class="math inline">\(q_0\)</span> are epsilon transitions, it follows that <span class="math inline">\(y_1=\epsilon\)</span> and that <span class="math inline">\(r_1\)</span> is either <span class="math inline">\(q_0^{(1)}\)</span> or <span class="math inline">\(q_0^{(2)}\)</span>. The argument is very similar in either case, so let’s assume that <span class="math inline">\(r_1 = q_0^{(1)}\)</span> is the start state of <span class="math inline">\(M_1\)</span>, the automaton for language <span class="math inline">\(L_1\)</span>. Since the transition function for states that came from <span class="math inline">\(M_1\)</span> is exactly <span class="math inline">\(\delta_1\)</span>, it follows that all the states <span class="math inline">\(r_i\)</span> from <span class="math inline">\(r_1\)</span> and on must be in <span class="math inline">\(Q_1\)</span>. In particular, <span class="math inline">\(r_k\in F\)</span> must also be in <span class="math inline">\(Q_1\)</span>, and hence must be in <span class="math inline">\(F_1\)</span>, a final state for <span class="math inline">\(M_1\)</span>. Then since <span class="math inline">\(y_1=\epsilon\)</span>, the expression of <span class="math inline">\(w=y_2\cdots y_k\)</span> and the states <span class="math inline">\(r_2\)</span>, <span class="math inline">\(r_3\)</span>, , <span class="math inline">\(r_k\)</span> show that <span class="math inline">\(w\)</span> is accepted by <span class="math inline">\(M_1\)</span>, and hence it is necessarily in <span class="math inline">\(L_1\)</span>. This is what we were trying to prove.</p>
+<p>So now you know what a “formal proof” looks like. It is worth practicing these in the examples that follow.</p>
+<h3 id="concatenation">Concatenation</h3>
+<p>Concatenation is equally straightforward: Start with the automaton for <span class="math inline">\(L_1\)</span>, and for each final state there add an epsilon transition to the start state of <span class="math inline">\(L_2\)</span>.</p>
+<p>More formally, the new NFA for the concatenation is the 5-tuple <span class="math inline">\((Q, \Sigma, \delta, q_0, F)\)</span> where:</p>
+<blockquote>
+<ul>
+<li><span class="math inline">\(Q = Q_1\cup Q_2\)</span>.</li>
+<li><span class="math inline">\(q_0 = q_0^{(1)}\)</span>.</li>
+<li><span class="math inline">\(F = F_2\)</span>.</li>
+<li><span class="math inline">\(\delta(r, \epsilon) = \delta_1(r, \epsilon) \cup \{q_0^{(2)}\}\)</span> for all <span class="math inline">\(r\in F_1\)</span>.</li>
+<li><span class="math inline">\(\delta(r, x) = \delta_1(r, x)\)</span> for all <span class="math inline">\(r\in Q_1\)</span> (except if <span class="math inline">\(r\in F_1\)</span> and <span class="math inline">\(x=\epsilon\)</span> where the previous item applies).</li>
+<li><span class="math inline">\(\delta(r, x) = \delta_2(r, x)\)</span> for all <span class="math inline">\(r\in Q_2\)</span></li>
+</ul>
+</blockquote>
+<p>Exercise for the students: Write proof formally that this recognizes the language <span class="math inline">\(AB\)</span>.</p>
+<h3 id="kleene-star">Kleene Star</h3>
+<p>The idea for the Kleene star is also straightforward. We would effectively want, first of all, to make the start state an accept state. The problem is that that state may be reachable not only on an empty string, but perhaps after a number of other transitions. Turning it into an accept state will alter the set of strings accepted by the automaton.</p>
+<p>We therefore need to add a new start state, with an epsilon transition to the old start state. We also need to add arrows from the final states to this new start state (or they could also go to the old start state actually). This allows the automaton to try to match another substring from <span class="math inline">\(L_1\)</span>, after it’s completed matching one (hence the “star” allowing for an arbitrary number of words from <span class="math inline">\(A\)</span> concatenated together).</p>
+<p>Exercise: Show by an example how not introducing a new start state does not produce the correct language.</p>
+<p>Let’s try to define it more formally (starting with the automaton <span class="math inline">\(M_1=(Q_1,\Sigma, \delta_1, q_0^{(1)}, F_1)\)</span> that recognizes <span class="math inline">\(L_1\)</span>:</p>
+<ul>
+<li><span class="math inline">\(Q = \left\{q_0\right\} \cup Q_1\)</span>.</li>
+<li><span class="math inline">\(F = \left\{q_0\right\} \cup F_1\)</span>.</li>
+<li><span class="math inline">\(\delta(q_0, \epsilon) = \{q_0^{(1)}\}\)</span>.</li>
+<li><span class="math inline">\(\delta(q_0, x) = \emptyset\)</span>.</li>
+<li><span class="math inline">\(\delta(r, x) = \delta_1(r, x)\)</span> for any <span class="math inline">\(r\in Q_1\)</span> that is not in <span class="math inline">\(F_1\)</span>.</li>
+<li><span class="math inline">\(\delta(r, x) = \{q_0^{(1)}\}\cup \delta_1(r, x)\)</span> for any <span class="math inline">\(r\in F_1\)</span>.</li>
+</ul>
+<h2 id="the-dfa-equivalent-to-an-nfa">The DFA equivalent to an NFA</h2>
+<p>It should be pretty clear that any DFA can be considered as an NFA. But take a moment to work out the details.</p>
+<p>What this means is that all regular languages are recognized by some NFA (since they are recognized by a DFA and that DFA has an equivalent NFA).</p>
+<blockquote>
+<p>We say that two DFAs/NFAs are <strong>equivalent</strong>, if they recognize the same language.</p>
+</blockquote>
+<p>Every DFA has an equivalent NFA. The remarkable fact is that the converse is also true:</p>
+<blockquote>
+<p>For each NFA there is a DFA that recognizes the same language.</p>
+</blockquote>
+<p>This sounds quite remarkable: At a first glance it would seem that NFAs have the potential to recognize more languages. After all, they have all this nondeterminism and can follow multiple paths at the same time. This should be giving them more potential! In fact it does not.</p>
+<p>Let us think about the nondeterminism for a second. First of all, from a state and on a given input the NFA might transition into a number of different states. And to top it all off, we can have epsilon transitions from those states to some other new states. So at any given time in the computation, the NFA may be in a number of different states. How can a DFA possibly do something similar?</p>
+<p>The idea is simple: Make that whole set of possible states be one of the states on the DFA. Then on a new input letter, consider from each of these possible states in the NFA all the places that input letter could take you, following epsilon transitions when possible. Then create a new set of all the possible states. That’s perhaps another state in the DFA.</p>
+<h3 id="construction">Construction</h3>
+<p>So this is how the construction goes. We will do a general case first, then look at how we can make it “smaller”. We start with an NFA <span class="math inline">\(M_N=(Q_N, \Sigma, \delta_N, q_0^{(N)}, F_N)\)</span>. We construct a DFA <span class="math inline">\(M_D=(Q_D, \Sigma, \delta_D, q_0^{(D)}, F_D)\)</span> as follows:</p>
+<ul>
+<li><span class="math inline">\(Q_D = \mathcal{P}(Q_N)\)</span> consists of one “state” for each possible subset of states from <span class="math inline">\(Q_N\)</span>.</li>
+<li>For a set <span class="math inline">\(S\in \mathcal{P}(Q_N)\)</span>, which is a state in <span class="math inline">\(Q_D\)</span>, and an input element <span class="math inline">\(e\)</span>, we define <span class="math inline">\(\delta_D(S, e)\)</span> as “the set of all states in <span class="math inline">\(Q_N\)</span> that can be reached from a state in S on input <span class="math inline">\(e\)</span> and possibly following epsilon transitions”. More formally, we could define <span class="math inline">\(\delta_D\)</span> as: <span class="math display">\[\delta_D(S, e) = E\left(\bigcup_{q\in S}\delta_N(q, e)\right)\]</span> where <span class="math inline">\(E\)</span> denotes forming the epsilon closure.</li>
+<li><span class="math inline">\(q_0^{(D)} = E\left(\left\{q_0^{(N)}\right\}\right)\)</span> is the epsilon closure of the set consisting of <span class="math inline">\(M_N\)</span>’s start state.</li>
+<li><span class="math inline">\(F_D = \left\{S \in Q_D \mid S\cap F_N \neq \emptyset \right\}\)</span>. A state in <span class="math inline">\(Q_D\)</span>, i.e. a set of states in <span class="math inline">\(Q_N\)</span>, is final if and only if at least one of these states is a final state of <span class="math inline">\(M_N\)</span>.</li>
+</ul>
+<p>Question: Do we need the “empty set” state in <span class="math inline">\(Q_D\)</span>? What does it represent? What transitions are there from and to it?</p>
+<p>We claim that the DFA just described is equivalent to the NFA <span class="math inline">\(M_N\)</span>. Before we prove this, note that we can make <span class="math inline">\(Q_D\)</span> a bit smaller (as it is, if the NFA has <span class="math inline">\(n\)</span> states then the corresponding DFA has <span class="math inline">\(2^n\)</span> states) as follows: We start with <span class="math inline">\(q_0^{(D)}\)</span> and construct as above all transitions from it on any possible input. This gives us a series of new states in <span class="math inline">\(Q_D\)</span>. We do the same for each of them, until no new states are produced.</p>
+<p>In other words, we end up including in the final <span class="math inline">\(Q_D\)</span> only those states from <span class="math inline">\(\mathcal{P}(Q_N)\)</span> that are actually reachable from the start state.</p>
+<h3 id="proof">Proof</h3>
+<p>The proof will once again consist of two directions:</p>
+<ul>
+<li>If a string <span class="math inline">\(w\)</span> is recognized by the NFA <span class="math inline">\(M_N\)</span>, then it should be recognized by the DFA <span class="math inline">\(M_D\)</span> as well.</li>
+<li>If a string <span class="math inline">\(w\)</span> is recognized by the DFA <span class="math inline">\(M_D\)</span>, then it should be recognized by the NFA <span class="math inline">\(M_N\)</span> as well.</li>
+</ul>
+<p>We prove the first direction. Suppose that <span class="math inline">\(w\)</span> is recognized by <span class="math inline">\(M_N\)</span>. This means that there must be a way to write <span class="math inline">\(w=y_1y_2\cdots y_k\)</span> where the <span class="math inline">\(y_i\)</span> are either alphabet letters or <span class="math inline">\(\epsilon\)</span>, and states <span class="math inline">\(r_0,r_1,\ldots, r_k\in Q_N\)</span> such that:</p>
+<ul>
+<li><span class="math inline">\(r_0 = q_0^{(N)}\)</span></li>
+<li><span class="math inline">\(r_{i+1} \in \delta_N(r_i, y_{i+1})\)</span></li>
+<li><span class="math inline">\(r_k\in F_N\)</span></li>
+</ul>
+<p>We need to turn this into an appropriate “path” in <span class="math inline">\(M_D\)</span>. We start from <span class="math inline">\(q_0^{(N)}\)</span>, and hence the DFA state <span class="math inline">\(t_0=q_0^{(D)}\)</span>, and consider <span class="math inline">\(y_1\)</span>. If it is <span class="math inline">\(\epsilon\)</span>, this means that <span class="math inline">\(r_1\)</span> is in the epsilon-closure of <span class="math inline">\(q_0^{(N)}\)</span>, and therefore we are still at <span class="math inline">\(t_0=q_0^{(D)}\)</span> from the point of view of the DFA. Also since <span class="math inline">\(y_1\)</span> is just <span class="math inline">\(\epsilon\)</span>, we could basically ignore it as far as writing <span class="math inline">\(w\)</span> is concerned. We then look at <span class="math inline">\(y_2\)</span> and continue in this manner, until we find the first non-epsilon <span class="math inline">\(y_{i+1}\)</span>. Now what we know is that <span class="math inline">\(r_i\in q_0^{(D)}\)</span>, and that <span class="math inline">\(r_{i+1} \in \delta_N(r_i, y_{i+1})\)</span>, therefore <span class="math inline">\(r_{i+1}\)</span> is one of the elements of the set that is the state <span class="math inline">\(\delta_D(q_0^{(D)}, y_{i+1})\)</span>, because of the way we defined that state. We call this state <span class="math inline">\(t_1\)</span>.</p>
+<p>After that <span class="math inline">\(y_{i+1}\)</span> there might be some epsilons, and we ignore those since they send us to a state that is still in <span class="math inline">\(t_1\)</span> (as that was the epsilon closure of …). When those epsilons finish, we find the second “true” transition, <span class="math inline">\(y_{j+1}\)</span>. We now have a previous state <span class="math inline">\(r_j \in t_1\)</span>, and the next state is <span class="math inline">\(r_{j+1} \in \delta_N(r_j, y_{j+1})\)</span>, which means that <span class="math inline">\(r_{j+1}\)</span> is one of the states in the set <span class="math inline">\(t_2=\delta_D(t_j, y_{j+1})\)</span>.</p>
+<p>We continue in this fashion, moving to a new <span class="math inline">\(t_k\)</span> every time we encounter a non-epsilon <span class="math inline">\(y\)</span>, and that <span class="math inline">\(t_k = \delta_D(t_{k-1}, y)\)</span> is exactly the transition in <span class="math inline">\(M_D\)</span> from the previous state and on input that non-epsilon element. All epsilons keep us at the same <span class="math inline">\(t_k\)</span>, since that contained all the epsilon transitions of its elements. Finally, we can write the string <span class="math inline">\(w\)</span> as the concatenation of those non-epsilon elements, as the only things we take out are epsilons.</p>
+<p>Lastly, let’s look at the last <span class="math inline">\(t\)</span>. It contains the last <span class="math inline">\(r_k\)</span>, and that is in <span class="math inline">\(F_N\)</span>. By the definition of <span class="math inline">\(F_D\)</span>, we have that <span class="math inline">\(t\in F_D\)</span>. Therefore the string <span class="math inline">\(w\)</span> is accepted by the DFA <span class="math inline">\(M_D\)</span>.</p>
+<p>Now we discuss the converse. Suppose we start with a string <span class="math inline">\(w=z_1z_2\cdots z_k\)</span> and DFA states <span class="math inline">\(t_0,t_1,\ldots,t_k\)</span> such that:</p>
+<ul>
+<li><span class="math inline">\(t_0 = q_0^{(D)}\)</span>.</li>
+<li><span class="math inline">\(t_{i+1} = \delta_D(t_i, z_{i+1})\)</span>.</li>
+<li><span class="math inline">\(t_k\in F_D\)</span>.</li>
+</ul>
+<p>We need to construct a “path” in the NFA. We will actually work backwards, starting from the end.</p>
+<p>Since <span class="math inline">\(t_k\in F_D\)</span>, we know that <span class="math inline">\(t_k\cap F_N\neq\emptyset\)</span>. So there is some state <span class="math inline">\(r_k\)</span> in <span class="math inline">\(t_k\)</span> that is also in <span class="math inline">\(F_N\)</span>, i.e. a final state of <span class="math inline">\(M_N\)</span>. Now we consider <span class="math inline">\(t_{k-1}\)</span>. What we do know is that: <span class="math display">\[t_k = \delta_D(t_{k-1}, z_k) = E\left(\bigcup_{q\in t_{k-1}}\delta_N(q, z_k)\right)\]</span></p>
+<p>What this literally means is that there is some state <span class="math inline">\(r_{k-1}\in t_{k-1}\)</span> so that <span class="math inline">\(\delta_N(r_{k-1}, z_k)\)</span> followed by epsilon transitions would lead us to <span class="math inline">\(r_k\)</span>. So the end of our string, written to match the NFA, would look like <span class="math inline">\(z_{k-1}\epsilon\epsilon\cdots\epsilon z_k\)</span>, and there would be a corresponding chain of states from <span class="math inline">\(r_{k-1}\)</span> to <span class="math inline">\(r_k\)</span> to match it.</p>
+<p>We proceed in the same manner to find <span class="math inline">\(r_{k-2}\)</span>, <span class="math inline">\(r_{k-3}\)</span> and so on. At the end we arrive at a state <span class="math inline">\(r_0\in q_0^{(D)}\)</span>, which is within epsilon-transition reach from <span class="math inline">\(q_0^{(N)}\)</span>. This would complete the construction of the path.</p>
+<p>So this is a remarkable fact, worth repeating:</p>
+<blockquote>
+<p>A language is regular if and only if it is recognized by an NFA.</p>
+</blockquote>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

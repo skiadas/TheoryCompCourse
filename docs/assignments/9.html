@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>9</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-9">Assignment 9</h1>
+<ol type="1">
+<li>Consider the language <span class="math inline">\(\textrm{ALL}_\textrm{DFA}\)</span> consisting of the string representations of all DFAs <span class="math inline">\(D\)</span> such that <span class="math inline">\(L(D) = \Sigma^*\)</span> is the language of all strings in the alphabet (the alphabet defined by that <span class="math inline">\(D\)</span>). Show that this is a decidable language.</li>
+<li>Consider the language <span class="math inline">\(L = \left\{\langle M, N\rangle\mid M,N\textrm{ are TMs and }L(M) \cup L(N) = \emptyset \right\}\)</span>.
+<ol type="a">
+<li>Show that <span class="math inline">\(L\)</span> is not decidable.</li>
+<li>Show that <span class="math inline">\(L\)</span> is co-Turing-recognizable.</li>
+<li>Show that <span class="math inline">\(L\)</span> is not Turing-recognizable.</li>
+</ol></li>
+<li>Consider the language <span class="math inline">\(L = \left\{\langle M, w\rangle\mid M\textrm{ is TM and does not halt on }w\right\}\)</span>. Determine which of the following classifications is the correct one for <span class="math inline">\(L\)</span>:
+<ul>
+<li>decidable</li>
+<li>Turing-recognizable but not decidable</li>
+<li>co-Turing-recognizable but not decidable</li>
+<li>neither Turing-recognizable nor co-Turing-recognizable.</li>
+</ul></li>
+<li>True or False (provide proof or counter-example as appropriate):
+<ol type="a">
+<li>If <span class="math inline">\(A\subset B\)</span> are two languages, then if <span class="math inline">\(A\)</span> is decidable then <span class="math inline">\(B\)</span> is also decidable.</li>
+<li>If <span class="math inline">\(A\subset B\)</span> are two languages, then if <span class="math inline">\(B\)</span> is decidable then <span class="math inline">\(A\)</span> is also decidable.</li>
+</ol></li>
+<li>Suppose <span class="math inline">\(A\)</span> is a decidable language, and consider the language <span class="math inline">\(L_A=\left\{\langle M, w\rangle\mid M\textrm{ is a TM and it accepts }w\textrm{ and what is left on the tape at that point is an element of }A\right\}\)</span>. For each of the following determine if it is true or false. Provide proof or counter-example as appropriate.
+<ol type="a">
+<li>For every decidable language <span class="math inline">\(A\)</span>, we have <span class="math inline">\(L_A\)</span> is Turing-recognizable.</li>
+<li>For every decidable language <span class="math inline">\(A\)</span>, we have <span class="math inline">\(L_A\)</span> is decidable.</li>
+<li>There is a decidable language <span class="math inline">\(A\)</span> for which <span class="math inline">\(L_A\)</span> is decidable.</li>
+</ol></li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

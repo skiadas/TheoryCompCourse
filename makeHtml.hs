@@ -6,6 +6,7 @@ import Text.Pandoc.JSON
 
 changeLinkInline :: Inline -> Inline
 changeLinkInline (Str "ANSWERSPACE") = Space
+changeLinkInline (Str "NEWPAGE") = Space
 changeLinkInline (Link attr xs (t, n)) = Link attr xs (fixLink t, fixLink n)
 changeLinkInline x = x
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>np_complete</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="np-completeness">NP-completeness</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 7.4</p>
+<p>Practice problems (page 294): 7.5, 7.17, 7.27</p>
+<p>Challenge problems: 7.28, 7.29, 7.36, 7.37</p>
+<h2 id="np-complete-problems">NP-complete problems</h2>
+<p>NP-complete problems is a class of problems that can be considered to be the “hardest” NP problems. The discovery of NP-complete problems was a major development for the field.</p>
+<p>But first, an appropriate definition of reducibility is in order:</p>
+<blockquote>
+<p>We say that the language <span class="math inline">\(A\)</span> is <strong>polynomial time mapping reducible</strong> to a language <span class="math inline">\(B\)</span>, and written <span class="math display">\[A\leq_P B\]</span>, if a polynomial time computable function <span class="math display">\[f\colon \Sigma^*\to\Sigma^*\]</span> exists that is a mapping reduction, namely: <span class="math display">\[w\in A \textrm{ if and only if }f(w)\in B\]</span> We say that the function is polynomial time computable, if there is a polynomial time Turing Machine that on input <span class="math inline">\(w\)</span> halts leaving <span class="math inline">\(f(w)\)</span> on the tape.</p>
+</blockquote>
+<p>This is nothing more than the notion of mapping reducibility adjusted to take into account polynomial running time concerns. The following theorem should be easy to argue:</p>
+<blockquote>
+<p>If <span class="math inline">\(A\leq_P B\)</span> and <span class="math inline">\(B\in P\)</span>, then <span class="math inline">\(A\in P\)</span>.</p>
+</blockquote>
+<p>Let us show this, by writing the Turing Machine for <span class="math inline">\(P\)</span>:</p>
+<ul>
+<li>Start with input <span class="math inline">\(w\)</span> of size <span class="math inline">\(n\)</span>.</li>
+<li>Use the TM that implements the mapping reduction, to have <span class="math inline">\(f(w)\)</span> remain at the tape.</li>
+<li>Since this algorithm runs in time polynomial to its input, the size <span class="math inline">\(m\)</span> of <span class="math inline">\(f(w)\)</span> must be a polynomial in <span class="math inline">\(n\)</span>.</li>
+<li>We then run the polynomial time TM that recognizes the language <span class="math inline">\(B\)</span>, and accept if it accepts, reject if it rejects.</li>
+<li>This TM takes time polynomial in the size <span class="math inline">\(m\)</span> of its input <span class="math inline">\(f(w)\)</span>. This in turn is polynomial in <span class="math inline">\(n\)</span>.</li>
+<li>Adding the two running times remains polynomial in <span class="math inline">\(n\)</span>.</li>
+</ul>
+<h3 id="the-satisfiability-problem">The Satisfiability problem</h3>
+<p>A language particulary important to the discussion of NP-completeness is known as SAT:</p>
+<blockquote>
+<p>SAT is the language of all string representations of satisfiable Boolean formulas.</p>
+<p>A <strong>boolean formula</strong> is built out of boolean variables <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> etc that take values <span class="math inline">\(1\)</span> for true and <span class="math inline">\(0\)</span> for false, and have the standard boolean operations AND (<span class="math inline">\(x\land y\)</span>), OR (<span class="math inline">\(x\lor y\)</span>) and complement <span class="math inline">\(\bar x\)</span>.</p>
+<p>A boolean formula is <strong>satisfiable</strong>, if there are assignments to the variables that make the formula evaluate to <span class="math inline">\(1\)</span>.</p>
+</blockquote>
+<p>In essence, the SAT problem asks whether there is an algorithm/Turing Machine that given a boolean formula can decide if it is satisfiable or not. The main result, known as the Cook-Levin theorem, says:</p>
+<blockquote>
+<p><strong>Theorem (Cook-Levin)</strong></p>
+<p><span class="math display">\[\textrm{SAT}\in P\textrm{ if and only if }P=NP\]</span></p>
+</blockquote>
+<p>In a certain sense then, SAT is the “hardest possible NP problem”: If <em>it</em> is solvable in polynomial time, then all NP problems are solvable in polynomial time.</p>
+<p>A related problem is 3SAT, which deals only about formulas that are in <strong>3-conjunctive normal form</strong>. These are the conjunctions (ANDs) of disjunctions (ORs) of 3 variables or their complements. So a 3cnf formula would look like this: <span class="math display">\[(x_1\lor \bar x_2\lor x_3)\land(x_2\lor x_1\lor \bar x_1)\]</span> To satisfy such a formula, you need to simultaneously satisfy each of the 3-term disjunctive clauses.</p>
+<p>The following should be clear:</p>
+<blockquote>
+<p><span class="math display">\[\textrm{3SAT} \leq_P \textrm{SAT}\]</span></p>
+</blockquote>
+<p>It should be also clear that SAT and 3SAT are both in NP. A non-deterministic time machine for them simply correctly guesses variable assignments for them, then verifies those variable assignments work.</p>
+<p>More interesting is the fact that we can relate these satisfiability problems to other problems like CLIQUE:</p>
+<h3 id="sat-and-clique">3SAT and CLIQUE</h3>
+<blockquote>
+<p>3SAT is polynomial time reducible to CLIQUE</p>
+</blockquote>
+<p>In order to answer this question we need to do the following:</p>
+<ul>
+<li>We start with a formula <span class="math inline">\(\phi = (a_1\lor b_1\lor c_1)\land(a_2\lor b_2\lor c_2)land\cdots\land(a_k\lor b_k\lor c_k)\)</span>.</li>
+<li>We need from that formula to produce, in polynomial time, an instance of CLIQUE, which consists of a graph <span class="math inline">\(G\)</span> and an integer <span class="math inline">\(k\)</span>. It turns out that <span class="math inline">\(k\)</span> is actually the number of clauses in <span class="math inline">\(\phi\)</span>.</li>
+<li>We show that <span class="math inline">\(\phi\)</span> is satisfiable if and only if the corresponding graph has a <span class="math inline">\(k\)</span>-clique.</li>
+</ul>
+<p>The graph is created as follows:</p>
+<ul>
+<li>We create <span class="math inline">\(3k\)</span> vertices in <span class="math inline">\(G\)</span>, organized in groups of <span class="math inline">\(3\)</span>.</li>
+<li>Each group corresponds to one of the clauses, containing one node for each of the <span class="math inline">\(3\)</span> terms in the clause. These nodes/vertices are “labeled” by the terms.</li>
+<li>We now add edges as follows:
+<ul>
+<li>No edges between nodes in the same 3-group. This ensures that a <span class="math inline">\(k\)</span>-clique contains exactly one node from each 3-group.</li>
+<li>Two other nodes are connected if their terms can be satisfied simultaneously. The only time that does not happen is if the one term is a variable <span class="math inline">\(x\)</span> and the other term is its complement <span class="math inline">\(\bar x\)</span>.</li>
+<li>In other words if two nodes from different 3-groups are not connected, that means that we cannot satisfy those terms simultaneously.</li>
+</ul></li>
+</ul>
+<p>Now we have to show this is a reduction:</p>
+<ul>
+<li>Suppose <span class="math inline">\(\phi\)</span> is an actual 3SAT instance
+<ul>
+<li>meaning we can assign values to the variables so that the whole formula is satisfied.</li>
+<li>Then each of the 3-clauses must evaluate to <span class="math inline">\(1\)</span> (true).</li>
+<li>This means that on each clause there must be at least one term that is <span class="math inline">\(1\)</span>.</li>
+<li>If we look at the corresponding vertices in <span class="math inline">\(G\)</span>, then they will form a <span class="math inline">\(k\)</span>-clique, as there are exactly <span class="math inline">\(k\)</span> clauses altogether. It is a clique, because if both terms are <span class="math inline">\(1\)</span> they are going to be connected, as they cannot be a variable and its negation.</li>
+</ul></li>
+<li>Conversely, if the graph has a <span class="math inline">\(k\)</span>-clique
+<ul>
+<li>then that clique must consist of one term from each 3-group, as terms in the same 3-group are not connected so we must use only one of each.</li>
+<li>The fact those terms are all connected means that we can assign values to the variables in those terms so that they all equal <span class="math inline">\(1\)</span>.</li>
+<li>That makes each 3-clause true, hence makes the whole formula <span class="math inline">\(\phi\)</span> true.</li>
+<li>We can assign arbitrary values to any remaining variables.</li>
+<li>We therefore see that <span class="math inline">\(\phi\)</span> is satisfiable.</li>
+</ul></li>
+</ul>
+<p>A consequence of this is that if CLIQUE was in P, then 3SAT would also be in P.</p>
+<p>We can similarly link many problems.</p>
+<h3 id="np-completeness-1">NP-completeness</h3>
+<p>We now define the notion of NP-completeness.</p>
+<blockquote>
+<p>A language <span class="math inline">\(B\)</span> is <strong>NP-complete</strong> if:</p>
+<ol type="1">
+<li><span class="math inline">\(B\)</span> is in NP.</li>
+<li>For any <span class="math inline">\(A\)</span> in NP we have <span class="math inline">\(A\leq_P B\)</span>.</li>
+</ol>
+</blockquote>
+<p>In other words, NP-complete problems are such that all other NP problems are polynomial-time reducible to them. So if any NP-complete problem was proven to be in <span class="math inline">\(P\)</span>, we would have that <span class="math inline">\(P=NP\)</span>.</p>
+<p>It would seem that to show a problem is NP-complete is hard. It turns out that only the first one is hard:</p>
+<blockquote>
+<p>If <span class="math inline">\(B\)</span> is NP-complete and <span class="math inline">\(B\leq_P C\)</span> for some <span class="math inline">\(C\)</span> in NP, then <span class="math inline">\(C\)</span> is also NP-complete.</p>
+<p>So to show a problem <span class="math inline">\(C\)</span> is NP-complete we have to:</p>
+<ol type="1">
+<li>Show it is in NP</li>
+<li>Show that there is a polynomial time reduction from some NP-complete problem to <span class="math inline">\(C\)</span>.</li>
+</ol>
+</blockquote>
+<p>This makes it easy to prove problems are NP-complete. For example, after we show that 3SAT is NP-complete, the work we did in the previous section would show that CLIQUE is also NP-complete. This has led to the creation of a rich set of NP-complete problems.</p>
+<p>Let us prove this fact now.</p>
+<ul>
+<li>We start with an NP-complete language <span class="math inline">\(B\)</span> and an NP language <span class="math inline">\(C\)</span>, and let <span class="math inline">\(B\leq_P C\)</span>.</li>
+<li>We just need to prove the second condition, namely that for any other language <span class="math inline">\(A\)</span> in NP we have <span class="math inline">\(A\leq_P C\)</span>.
+<ul>
+<li>If <span class="math inline">\(A\)</span> is in NP and since <span class="math inline">\(B\)</span> is NP-complete, we have <span class="math inline">\(A\leq_P B\)</span>.</li>
+<li>Since also <span class="math inline">\(B\leq_P C\)</span>, then we obtain <span class="math inline">\(A\leq_P C\)</span>.</li>
+</ul></li>
+</ul>
+<h3 id="cook-levin-theorem">Cook-Levin Theorem</h3>
+<p>The Cook-Levin theorem shows that there is a in fact an NP-complete language, namely SAT. We will see a little while later that 3SAT is also NP-complete.</p>
+<blockquote>
+<p><strong>Theorem (Cook-Levin)</strong></p>
+<p>SAT and 3SAT are NP-complete.</p>
+</blockquote>
+<p>We look at SAT for now. We have already seen that it is in NP.</p>
+<p>The book has a very detailed proof of this theorem. The idea is based on considering a non-deterministic Turing machine that decides a language <span class="math inline">\(A\in NP\)</span> in <span class="math inline">\(n^k\)</span> time, and builds a formula that captures the computation, using the idea of a tableau. The details, which you should study, are on pages 277 through 282.</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

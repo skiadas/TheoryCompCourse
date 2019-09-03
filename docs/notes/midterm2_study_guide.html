@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm2_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-2-study-guide">Midterm 2 Study Guide</h1>
+<p>This is not meant to be an exhaustive list of everything you need to know, but it is a good starting place.</p>
+<ol type="1">
+<li>Define what a Context-Free Grammar is, and what a Context-Free Language is.</li>
+<li>Define what a “derivation” in a CFG is, and provide an example.</li>
+<li>What is a leftmost derivation, and what is a rightmost derivation? Give examples. Do they represent the same parse tree?</li>
+<li>When is a grammar called “ambiguous”? Give an example. When is a language called ambiguous?</li>
+<li>When do we say that a CFG is in Chomsky Normal Form? How do we convert a CFG into an equivalent CFG in CNF? Perform the conversions for all the grammars we have encountered so far (arithmetic, polish notation, two more in HW7, and others).</li>
+<li>Define what a pushdown automaton is. How do we define the language recognized by a pushdown automaton?</li>
+<li>Given a CFG, there are two pushdown automata associated with it, that recognize the same language. Describe those automata and their transitions (The first automaton was described in the proof that every CFG has an equivalent PDA, and we saw it again in the section on LL parsers, the other is related to LR parsers).</li>
+<li>Explain how for any pushdown automaton there is an equivalent automaton that has only one accept state and that empties its stack before accepting.</li>
+<li>Describe, preferably in more than one way, how a regular language has to also be a CFL.</li>
+<li>True or False: Union of CFLs is CFL.</li>
+<li>True or False: Intersection of CFLs is CFL.</li>
+<li>True or False: Complement of CFL is CFL.</li>
+<li>True or False: Concatenation of CFLs is CFL.</li>
+<li>True or False: Kleene Star of CFL is CFL.</li>
+<li>State the pumping lemma, sketch its proof.</li>
+<li>Use the pumping lemma to provide numerous examples of languages that are not context-free. (Look at the book’s problems for examples)</li>
+<li>True or False: If a CFL is ambiguous then there is no PDA that recognizes it.</li>
+<li>Describe the rules that we use to find first and follow sets, and how they make sense.</li>
+<li>Describe how an LL-parser uses the PDA’s stack.</li>
+<li>Describe how an LR-parser uses the PDA’s stack.</li>
+<li>What is an “item”? What is an “item set”? (LR-parser related) Describe how we build the DFA with states corresponding to the item sets.</li>
+<li>Demonstrate by an example how an LL-parser traces a leftmost derivation while an LR-parser traces a rightmost derivation.</li>
+<li>Describe what shift/reduce conflicts are in the context of an LR-parser, and how they can often be automatically resolved.</li>
+<li>What grammars always cause problems for an LL-parser? Why?</li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

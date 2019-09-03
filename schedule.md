@@ -55,6 +55,9 @@ Activity 2
         - Three strings of non-predetermined length.
         - A list of an arbitrary number of strings of non-predetermined length.
 
+Activity 3
+  ~ Write a SISO program that will take as input a string that represents two integers (based on some convention you establish for how to do that) and will return the string that represents the sum of those integers.
+
 ### Day 2
 
 Goals

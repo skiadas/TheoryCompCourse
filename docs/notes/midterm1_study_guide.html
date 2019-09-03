@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm1_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-1-study-guide">Midterm 1 Study Guide</h1>
+<p>This is not meant to be an exhaustive list of everything you need to know, but it is a good starting place.</p>
+<ol type="1">
+<li>Define what a DFA and an NFA is.</li>
+<li>Explain the differences between DFAs and NFAs.</li>
+<li>Given a description for a language, construct DFAs/NFAs for it.</li>
+<li>Given a regular expression, construct an NFA from it.</li>
+<li>Given an NFA, construct an equivalent DFA.</li>
+<li>Formally describe when we would say that we <em>accept</em> a string in a DFA, and in an NFA.</li>
+<li>Describe the union construction for DFAs and provide an explanation/proof of its correctness (i.e. that the language of the union DFA is the union of the corresponding languages).</li>
+<li>Do the same for the NFA union (the one with only one extra state).</li>
+<li>Do the same for the NFA concatenation and the NFA Kleene star.</li>
+<li>Explain the source of difficulty when trying to perform concatenation for DFAs, and what feature of NFAs helps out.</li>
+<li>True or false: Every DFA is equivalent to a DFA with exactly one accept state.</li>
+<li>True or false: Every NFA is equivalent to a NFA with exactly one accept state.</li>
+<li>Describe the construction of a DFA that is equivalent to a given NFA.</li>
+<li>One may try to produce the Kleene star without adding a new start state. Show by an example how this may produce the wrong language.</li>
+<li>State precisely what the pumping lemma says.</li>
+<li>Sketch the proof of the pumping lemma.</li>
+<li>Provide examples of languages that are not regular, together with both an intuitive explanation of why they are probably not regular as well as a formal proof using the pumping lemma.</li>
+<li>True or False: Given two DFAs, we can tell if they recognize the same language.</li>
+<li>True or False: Given a NFA, we can tell if it recognizes the empty string.</li>
+<li>True or False: Given an NFA, we can determine if it contains any strings other than the empty string.</li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

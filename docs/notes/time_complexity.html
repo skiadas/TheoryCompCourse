@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>time_complexity</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="time-complexity">Time Complexity</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 7.1</p>
+<p>Practice problems (page 294): 7.1, 7.2</p>
+<p>Challenge: 7.47</p>
+<h2 id="time-complexity-1">Time Complexity</h2>
+<p>In this and subsequent sections we discuss problems related to the resources needed to solve a problem, rather than whether the problem is solvable or not. The two main resources at our disposal are time and space. We will mostly focus on time.</p>
+<blockquote>
+<p>Let <span class="math inline">\(M\)</span> be a deterministic Turing Machine that halts on all inputs. The <strong>time complexity</strong> or <strong>running time</strong> of <span class="math inline">\(M\)</span> is the function <span class="math inline">\(f\colon \mathbb{N}\to\mathbb{N}\)</span> such that for each natural number <span class="math inline">\(n\)</span> we define <span class="math inline">\(f(n)\)</span> to be the maximum number of steps that <span class="math inline">\(M\)</span> takes on any input of length <span class="math inline">\(n\)</span>.</p>
+<p>We also say that <span class="math inline">\(M\)</span> runs on time <span class="math inline">\(f(n)\)</span>, and that <span class="math inline">\(M\)</span> is a <span class="math inline">\(f(n)\)</span>-time Turing Machine.</p>
+</blockquote>
+<p>What we are mostly interested in is how this function grows with <span class="math inline">\(n\)</span>. This is usually the topic of a field called <strong>asymptotic analysis</strong>. It revolves, amongst other concepts, around the two key definitions of <strong>big-O</strong> and <strong>little-o</strong> notation.:</p>
+<p>For example we could imagine two Turing Machines performing the same task. One makes one pass through its input and has running time <span class="math inline">\(n\)</span>, the other does some initial state transitioning before passing through the input, for a running time of <span class="math inline">\(n+5\)</span>. Clearly that “plus 5” is irrelevant when the input has any moderate size <span class="math inline">\(n\)</span>.</p>
+<blockquote>
+<p>For two functions <span class="math inline">\(f,g\colon\mathbb{N}\to\mathbb{R}^+\)</span> we write: <span class="math display">\[f(n) = O(g(n))\]</span> if there are positive integers <span class="math inline">\(c\)</span> and <span class="math inline">\(n_0\)</span> so that for all <span class="math inline">\(n\geq n_0\)</span> we have: <span class="math display">\[f(n)\leq c g(n)\]</span> We also say that <span class="math inline">\(g(n)\)</span> is an <strong>(asymptotic) upper bound</strong> for <span class="math inline">\(f(n)\)</span>.</p>
+</blockquote>
+<p>For instance <span class="math inline">\(2n = O(n)\)</span>, but <span class="math inline">\(n^2\)</span> is not <span class="math inline">\(O(n)\)</span>. In general a polynomial of degree <span class="math inline">\(k\)</span> would be <span class="math inline">\(O(n^k)\)</span>, as lower terms are relatively insignificant.</p>
+<p>The big-O notation expresses the idea that a function is asymptotically no more than another. A related notation, little-o, is used to express the idea that a function is asymptotically less than another:</p>
+<blockquote>
+<p>For two functions <span class="math inline">\(f,g\colon\mathbb{N}\to\mathbb{R}^+\)</span> we write: <span class="math display">\[f(n) = o(g(n))\]</span> if for every positive <span class="math inline">\(c &gt; 0\)</span> there is an <span class="math inline">\(n_0\)</span> such that for all <span class="math inline">\(n\geq n_0\)</span> we have: <span class="math display">\[f(n) \leq c g(n)\]</span></p>
+</blockquote>
+<p>For those familiar with the limit notation, this is equivalent to: <span class="math display">\[\lim_{n\to \infty}\frac{f(n)}{g(n)} = 0\]</span></p>
+<p>Some examples: <span class="math inline">\(n = o(n^2)\)</span>, <span class="math inline">\(n\log n = o(n^2)\)</span>, <span class="math inline">\(n = o(n\log n)\)</span>.</p>
+<p>Some algebra for the big-O notation will be useful:</p>
+<blockquote>
+<ul>
+<li>If <span class="math inline">\(f(n) = O(g(n))\)</span> and <span class="math inline">\(h(n) = O(f(n))\)</span>, then <span class="math inline">\(h(n) = O(f(n))\)</span> (i.e. <span class="math inline">\(O(O(f(n)))=O(f(n))\)</span>. We can “compose” big-O notation.</li>
+<li>If <span class="math inline">\(f(n) = O(g(n))\)</span>, then <span class="math inline">\(cf(n) = O(g(n))\)</span> (i.e. <span class="math inline">\(O(cg(n)) = O(g(n))\)</span>). We can ignore multiplicative constants.</li>
+<li>If <span class="math inline">\(f(n) = O(g(n))\)</span>, and <span class="math inline">\(h(n) = O(f(n) + g(n))\)</span>, then <span class="math inline">\(h(n) = O(g(n))\)</span>. We can ignore additive powers that are at most equal to the term they are being added to.</li>
+<li>If <span class="math inline">\(f(n) = O(g(n))\)</span>, then <span class="math inline">\(h(n)f(n) = O(h(n)g(n))\)</span> (i.e. <span class="math inline">\(h(n)O(g(n)) = O(h(n)g(n))\)</span>).</li>
+</ul>
+</blockquote>
+<p>The time complexity of problems allows us to define the notion of a <em>time compexity class</em>:</p>
+<blockquote>
+<p>If <span class="math inline">\(t\colon\mathbb{N}\to \mathbb{R}^+\)</span>, the <strong>time complexity class</strong> <span class="math inline">\(\textrm{TIME}(t(n))\)</span> is the collection of all languages that are decidable by an <span class="math inline">\(O(t(n))\)</span> Turing Machine.</p>
+<p>Note that it is not required that all TMs that decide the language have that running time limit, but only that at least one such TM does.</p>
+</blockquote>
+<p>The time complexity classes form a tower: For instance every language in <span class="math inline">\(\textrm{TM}(n)\)</span> is also in <span class="math inline">\(\textrm{TM}(n\log n)\)</span>, and every language in <span class="math inline">\(\textrm{TM}(n\log n)\)</span> is in turn in <span class="math inline">\(\textrm{TM}(n^2)\)</span> and so on. “Smaller” time complexity classes correspond to stronger restrictions on the running time of the TM.</p>
+<p>We are typically interested in finding, for a given language/problem, the appropriate time complexity class. For instance if a language is shown to be in <span class="math inline">\(\textrm{TM}(n^2)\)</span>, we would be interested in seeing if it is also in a “smaller” class like <span class="math inline">\(\textrm{TM}(n\log n)\)</span> or <span class="math inline">\(\textrm{TM}(n)\)</span>, or whether that <span class="math inline">\(n^2\)</span> is “the best we can do”.</p>
+<p>In most Algorithms classes, these ideas are explored further.</p>
+<h3 id="an-example">An example</h3>
+<p>Let us consider an example to explore these ideas further, with the language <span class="math inline">\(A=\left\{0^k1^k\mid k\geq 0\right\}\)</span>.</p>
+<p>Here is a first attempt at a Turing Machine that decides this problem:</p>
+<blockquote>
+<p><span class="math inline">\(M_1\)</span>: On input string <span class="math inline">\(w\)</span>:</p>
+<ol type="a">
+<li>Scan the tape and reject if a <span class="math inline">\(0\)</span> is found to the right of a <span class="math inline">\(1\)</span>.</li>
+<li>Repeat if both <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s remain on the tape:
+<ol type="1">
+<li>Scan across the tape, crossing off a single <span class="math inline">\(0\)</span> and a single <span class="math inline">\(1\)</span>.</li>
+</ol></li>
+<li>If <span class="math inline">\(0\)</span>s or <span class="math inline">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</li>
+</ol>
+</blockquote>
+<p>Now we need to determine the running time of this TM.</p>
+<ul>
+<li>Part a takes <span class="math inline">\(n = O(n)\)</span> steps, as it requires a single pass through the input.</li>
+<li>Each time Part b1 is performed, it requires a pass through at least half the input, for <span class="math inline">\(n/2 = O(n)\)</span> steps.</li>
+<li>This will be repeated for <span class="math inline">\(n/2 = O(n)\)</span> times, effectively once for each <span class="math inline">\(0\)</span> in the list. So the total running time for this part b is <span class="math inline">\(O(n)O(n) = O(n^2)\)</span>.</li>
+<li>Part c requires a single pass through the list, for another <span class="math inline">\(O(n)\)</span> steps.</li>
+<li>So the total running time would be <span class="math inline">\(O(n) + O(n^2) + O(n) = O(n^2)\)</span>. The running time is completely dominated by the expensive second step.</li>
+</ul>
+<p>So this tells us that the language <span class="math inline">\(A\)</span> is in <span class="math inline">\(\textrm{TIME}(n^2)\)</span>.</p>
+<p>The question now is whether there is a faster TM for the same problem. In fact, there is:</p>
+<blockquote>
+<p><span class="math inline">\(M_2\)</span>: On input string <span class="math inline">\(w\)</span>:</p>
+<ol type="a">
+<li>Scan the tape and reject if a <span class="math inline">\(0\)</span> is found to the right of a <span class="math inline">\(1\)</span>.</li>
+<li>Repeat as long as some <span class="math inline">\(0\)</span>s and some <span class="math inline">\(1\)</span>s remain on the tape:
+<ol type="1">
+<li>Scan across the tape, ensuring that the parity of the remaining number of <span class="math inline">\(0\)</span>s and <span class="math inline">\(1\)</span>s is the same (i.e. both odd or both even). If it is not, reject</li>
+<li>Make another pass through the tape, crossing every other <span class="math inline">\(0\)</span> starting from the first one, and similarly crossing every other <span class="math inline">\(1\)</span> starting from the first one.</li>
+</ol></li>
+<li>If <span class="math inline">\(0\)</span>s or <span class="math inline">\(1\)</span>s remain after all pairs have been crossed off, reject. Otherwise accept.</li>
+</ol>
+</blockquote>
+<p>This turns out to be much faster, for a running time of <span class="math inline">\(O(n\log n)\)</span>. The key part is an estimate of the number of steps needed to perform part <span class="math inline">\(b\)</span>. Every pass through the steps in <span class="math inline">\(b\)</span> reduces the number of viable numbers by half. So step <span class="math inline">\(b\)</span> is going to be repeated for a number of times <span class="math inline">\(k\)</span> so that <span class="math inline">\(n \approx 2^k\)</span>, in other words <span class="math inline">\(k=O(\log n)\)</span>. Since each pass requires time <span class="math inline">\(O(n)\)</span>, the overall time it takes to get through the second phase is <span class="math inline">\(O(n\log n)\)</span>. So the time complexity for the whole TM is <span class="math inline">\(O(n) + O(n\log n) + O(n) = O(n\log n)\)</span>.</p>
+<p>In other words, we actually have shown that the language <span class="math inline">\(A\)</span> is in <span class="math inline">\(\textrm{TIME}(n\log n)\)</span>. In fact it turns out that this result cannot be improved further.</p>
+<p>Interestingly, adding more tapes significantly increases our power: In this case this problem can be easily solved in time <span class="math inline">\(O(n)\)</span> using a 2-tape machine.</p>
+<p>Exercise: Show this. Design a <span class="math inline">\(O(n)\)</span>-time 2-tape TM that decides the language <span class="math inline">\(A\)</span>.</p>
+<p>This is an important difference between complexity theory and computability theory: Questions of time complexity depend on the computational model used, while questions of decidability and so on did not.</p>
+<h2 id="complexity-relationships-between-models">Complexity Relationships between models</h2>
+<p>In this section we determine how the different models relate in terms of complexity. There are two main cases to consider, the multi-tape model and the non-deterministic model.</p>
+<h3 id="multi-tape-model-and-complexity">Multi-tape model and complexity</h3>
+<blockquote>
+<p>If <span class="math inline">\(t(n)\)</span> is a function where <span class="math inline">\(t(n) \geq n\)</span>. Then every <span class="math inline">\(t(n)\)</span>-time multitape Turing Machine has an equivalent <span class="math inline">\(O(t^2(n))\)</span>-time single-tape Turing Machine.</p>
+</blockquote>
+<p>Note here that the number <span class="math inline">\(k\)</span> of tapes is fixed and independent of the input size <span class="math inline">\(n\)</span>, so it is treated simply as a constant.</p>
+<p>The assumption that <span class="math inline">\(t(n)\geq n\)</span> is not that restrictive: Almost any TM would need to at least read its input once, and that takes <span class="math inline">\(n\)</span> steps.</p>
+<p>The proof of this theorem is not all that surprising. If we suppose that we have a <span class="math inline">\(k\)</span>-tape TM and we are processing input of size <span class="math inline">\(n\)</span>, then recall how we thought of this as a single-tape machine:</p>
+<ul>
+<li>We simulated the multi-tape contents in one long steam. Each tape can have at most <span class="math inline">\(t(n)\)</span> contents in it (as each step can increase the content at most by one slot). So the overall contents would fit into <span class="math inline">\(O(t(n))\)</span> space in the tape.</li>
+<li>To determine a next move, the TM will have to first read all these contents to find the state of the corresponding multi-tape machine. This takes <span class="math inline">\(O(t(n))\)</span> time.</li>
+<li>After it determines what to do, it must similarly go back and update the tapes, which also takes <span class="math inline">\(O(t(n))\)</span> time.</li>
+<li>So each step through this simulation takes us <span class="math inline">\(O(t(n))\)</span> time to perform. We need to perform <span class="math inline">\(O(t(n))\)</span> such steps, for a total running time of <span class="math inline">\(O(t^2(n))\)</span>.</li>
+</ul>
+<h3 id="non-deterministic-model-and-complexity">Non-deterministic model and complexity</h3>
+<blockquote>
+<p>If <span class="math inline">\(N\)</span> is a non-deterministic Turing Machine that is a decider, then the <strong>running time</strong> of <span class="math inline">\(N\)</span> is a function <span class="math inline">\(f\colon\mathbb{N}\to\mathbb{N}\)</span> such that <span class="math inline">\(f(n)\)</span> is the maximum number of steps that <span class="math inline">\(N\)</span> uses on any branch of its computation on any input of length <span class="math inline">\(n\)</span>.</p>
+</blockquote>
+<p>So if the TM is fed input of size <span class="math inline">\(n\)</span>, then every branch of the non-deterministic computation must end it time <span class="math inline">\(f(n)\)</span>.</p>
+<blockquote>
+<p>Suppose <span class="math inline">\(t(n)\geq n\)</span> is a function. Then every <span class="math inline">\(t(n)\)</span>-time non-deterministic single-tape Turing Machine has an equivalent <span class="math inline">\(2^{O(t(n))}\)</span>-time deterministic single-tape Turing Machine.</p>
+</blockquote>
+<p>The idea of the proof is similar. We need to estimate the running time of the deterministic TM that simulates the corresponding non-deterministic TM.</p>
+<p>Recall that the possibilities of the TM can be thought of as a tree, where each node has at most <span class="math inline">\(b\)</span> branches, and the depth is bounded by <span class="math inline">\(t(n)\)</span>. So there is a total of <span class="math inline">\(O(b^{t(n)})\)</span> nodes/leaves to consider. We need to figure out the time it takes for each one of those to be examined. We know in fact that time is <span class="math inline">\(O(t(n))\)</span>.</p>
+<p>So the total running time is <span class="math inline">\(O(t(n)b^{t(n)}) = 2^{O(t(n))}\)</span>. Now this is the running time of the 3-tape TM that simulates the non-deterministic TM. We can in turn simulate that TM with a single-tape machine at time <span class="math inline">\((2^{O(t(n))})^2 = 2^{O(2t(n))} = 2^{O(t(n))}\)</span>.</p>
+<p>You will notice that the corresponding single-tape TM is considerably slower than its non-deterministic counterpart. This should not be all that surprising. It will be a crucial component in future discussions.</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm2_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-2-study-guide">Midterm 2 Study Guide</h1>
+<p>The test covers all the material discussed in chapters 6, 7, 8, and sections 9.1-9.3, and homeworks 5 through 8. The following set of questions is meant to help guide your study and is not meant to be exhaustive of all the possibilities.</p>
+<ol type="1">
+<li>Describe what the <em>universal Python program</em> does, and provide code for it.</li>
+<li>Define the language <code>YesOnString</code> and show that it is recognizable (by writing a Python program that recognizes it).</li>
+<li>Write a program that recognizes, but does not decide, the language of genetic strings containing “GAGA”. (Can you generalize your proof to <em>any</em> decidable language?)</li>
+<li>Give equivalent formulations to the phrase “problem A is (Turing) reducible to problem B”.</li>
+<li>Suppose that problem A Turing reduces to problem B. Which of the following are necessarily true?
+<ul>
+<li>If A is computable then B is computable.</li>
+<li>If A is undecidable then B is undecidable.</li>
+<li>If B also reduces to A then A and B must be the same problem.</li>
+<li>If B reduces to C then A reduces to C.</li>
+<li>If A reduces to C then B reduces to C.</li>
+<li>If we have an <em>oracle</em> program for deciding A, we can use it to solve problem B.</li>
+<li>If we have an <em>oracle</em> program for deciding B, we can use it to solve problem A.</li>
+<li>Problem A is solvable.</li>
+<li>Problem B is solvable.</li>
+<li>Problem A is no harder to solve than problem B.</li>
+</ul></li>
+<li>Prove the following reductions, using explicit Python code where needed.
+<ul>
+<li><code>HaltsOnEmpty</code> reduces to <code>HaltsOnAllNonempty</code>.</li>
+<li><code>HaltsOnAllNonempty</code> reduces to <code>HaltsOnEmpty</code>.</li>
+<li><code>HaltsOnEmpty</code> reduces to <code>YesOnString</code>.</li>
+<li><code>YesOnString</code> reduces to <code>HaltsOnEmpty</code>.</li>
+</ul></li>
+<li>Define what it means for a Python program to <em>halt</em> (page 126)</li>
+<li>Define the computational problem <code>Computes_F</code> for a given computational problem <code>F</code>.</li>
+<li>True or False:
+<ul>
+<li>If <code>F</code> is computable then <code>Computes_F</code> is also computable.</li>
+<li>If <code>F</code> is uncomputable then <code>Computes_F</code> is computable.</li>
+<li>If <code>F</code> is computable then <code>Computes_F</code> is uncomputable.</li>
+<li>If <code>F</code> is uncomputable then <code>Computes_F</code> is also uncomputable.</li>
+</ul></li>
+<li>Give an example of a question about programs that is actually computable.</li>
+<li>Describe how, given a computation tree for a non-deterministic program, we can determine the output of the computation (page 150).</li>
+<li>Given a non-deterministic Turing Machine and an input string, draw the corresponding computation tree and determine the outcome of the computation. (Like figure 8.10 but showing the complete computation history)</li>
+<li>Describe precisely how a non-deterministic Turing Machine differs from a deterministic Turing Machine.</li>
+<li>Let <span class="math inline">\(L\)</span> be an undecidable language. Prove that if <span class="math inline">\(L\)</span> is recognizable then its complement <span class="math inline">\(\bar L\)</span> is unrecognizable.</li>
+<li>Classify the following languages according to whether they are: decidable, recognizable but undecidable, corecognizable but undecidable, or neither recognizable nor corecognizable (nasty).
+<ul>
+<li><code>YesOnString</code></li>
+<li><code>NotYesOnString</code></li>
+<li><code>containsGAGA</code></li>
+<li><code>HaltsOnEmpty</code></li>
+<li>Complement of <code>HaltsOnEmpty</code></li>
+<li>Valid Python programs</li>
+<li>Python programs that do not halt on empty</li>
+</ul></li>
+<li>Give a precise definition of a <em>deterministic finite automaton (DFA)</em>.</li>
+<li>Can a DFA loop on a given input? Explain.</li>
+<li>Give a precise definition of a <em>non-deterministic finite automaton (NFA)</em>. What is different about a <em>strict</em> NFA?</li>
+<li>Given an NFA, draw an equivalent DFA (like Figure 9.7).</li>
+<li>Provide as many examples as you can of languages that can be decided by an NFA but not by a DFA.</li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

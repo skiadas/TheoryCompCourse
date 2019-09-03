@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm3_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-3-study-guide">Midterm 3 Study Guide</h1>
+<p>The test covers all the material discussed in sections 9.4-9.7, the CFG handout (sections 5.1 and 5.2.1), and the <a href="notes/new_cfg_pushdown.html">pushdown-automata</a> and <a href="notes/parsing.html">parsing</a> notes, and homeworks 9 through 12. The following set of questions is meant to help guide your study and is not meant to be exhaustive of all the possibilities.</p>
+<ol type="1">
+<li><p>(review from midterm 2) Suppose that problem A Turing reduces to problem B. Which of the following are necessarily true?</p>
+<ul>
+<li>If A is computable then B is computable.</li>
+<li>If A is undecidable then B is undecidable.</li>
+<li>If B also reduces to A then A and B must be the same problem.</li>
+<li>If B reduces to C then A reduces to C.</li>
+<li>If A reduces to C then B reduces to C.</li>
+<li>If we have an <em>oracle</em> program for deciding A, we can use it to solve problem B.</li>
+<li>If we have an <em>oracle</em> program for deciding B, we can use it to solve problem A.</li>
+<li>Problem A is solvable.</li>
+<li>Problem B is solvable.</li>
+<li>Problem A is no harder to solve than problem B.</li>
+</ul></li>
+<li><p>(review from midterm 2) Prove the following reductions, using explicit Python code where needed.</p>
+<ul>
+<li><code>HaltsOnEmpty</code> reduces to <code>HaltsOnAllNonempty</code>.</li>
+<li><code>HaltsOnAllNonempty</code> reduces to <code>HaltsOnEmpty</code>.</li>
+<li><code>HaltsOnEmpty</code> reduces to <code>YesOnString</code>.</li>
+<li><code>YesOnString</code> reduces to <code>HaltsOnEmpty</code>.</li>
+</ul></li>
+<li><p>Define what we mean by a (pure) regular expression.</p>
+<ul>
+<li>What are the basic regular expressions?</li>
+<li>What are the “regular operations” which can be used to combine given regular expressions to create new expressions?</li>
+</ul></li>
+<li><p>Provide regular expressions for the following languages on the alphabet <span class="math inline">\(\{a,b\}\)</span>:</p>
+<ul>
+<li>All strings that start with three <span class="math inline">\(a\)</span>’s and have length 5.</li>
+<li>All strings that start with three <span class="math inline">\(a\)</span>’s and have length at most 5.</li>
+<li>All strings that start with <span class="math inline">\(a\)</span> and end in <span class="math inline">\(b\)</span>, or start with <span class="math inline">\(b\)</span> and end in <span class="math inline">\(a\)</span>.</li>
+<li>All strings with at most 2 <span class="math inline">\(b\)</span>’s.</li>
+<li>All strings with at least 2 <span class="math inline">\(b\)</span>’s.</li>
+<li>All strings except the string <span class="math inline">\(bb\)</span>.</li>
+</ul></li>
+<li><p>State what the pumping lemma for regular languages says and give a brief sketch of the proof idea.</p></li>
+<li><p>Describe how a pushdown automaton differs from a finite automaton, and what its (non-deterministic) state transitions look like. Explain in simple terms why the PDAs have more computational power than NFAs/DFAs.</p></li>
+<li><p>For the following non-regular languages: prove that they are not regular, build PDAs for them, build context-free grammars for them, and demonstrate the PDA execution as well as a CFG derivation for the provided input strings, <em>and</em> a parse tree for the derivation:</p>
+<ul>
+<li><span class="math inline">\(\{x^n y^{n} \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^3y^3\)</span>.</li>
+<li><span class="math inline">\(\{x^n y^{2n} \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^2y^4\)</span>.</li>
+<li><span class="math inline">\(\{x^{2n} y^n \mid n\geq 0\}\)</span>, <span class="math inline">\(s=x^4y^2\)</span>.</li>
+<li><span class="math inline">\(\{x^n z^m y^n \mid n, m\geq 0\}\)</span>, <span class="math inline">\(s=x^2zy^2\)</span>.</li>
+<li><span class="math inline">\(\{x^n \mid n\geq 0\} \cup \{x^n y^m \mid n\geq m\geq 0\}\)</span>, <span class="math inline">\(s=x^3y^2\)</span>.</li>
+</ul></li>
+<li><p>For each of the following, prove or disprove:</p>
+<ul>
+<li>If <span class="math inline">\(L\)</span> is regular, then <span class="math inline">\(L^*\)</span> is also regular.</li>
+<li>If <span class="math inline">\(L\)</span> is context-free, then <span class="math inline">\(L^*\)</span> is also context-free.</li>
+<li>If <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> are regular, then <span class="math inline">\(L_1 \cup L_2\)</span> is also regular.</li>
+<li>If <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> are context-free, <span class="math inline">\(L_1 \cup L_2\)</span> is also context-free.</li>
+<li>If <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> are regular, then <span class="math inline">\(L_1L_2\)</span> is also regular.</li>
+<li>If <span class="math inline">\(L_1\)</span> and <span class="math inline">\(L_2\)</span> are context-free, <span class="math inline">\(L_1L_2\)</span> is also regular.</li>
+</ul></li>
+<li><p>Describe the two different PDAs corresponding to a given CFG. Follow the derivation of a particular string on the PDAs, showing the evolution of the stack and the process of the input. Recall that one of the PDAs builds a leftmost derivation while the other builds a rightmost derivation.</p></li>
+<li><p>Build the item-set DFAs for the following grammars:</p>
+<pre><code>S -&gt; epsilon | a | b | aSa | bSb</code></pre>
+<p>and:</p>
+<pre><code>E -&gt; a | (A)
+A -&gt; E | E A</code></pre></li>
+<li><p>Find first and follow sets for the two grammars in the previous question, as well as the polish notation grammar, the basic arithmetic grammar as well as the rewrite of that grammar to avoid left-recursive rules.</p></li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

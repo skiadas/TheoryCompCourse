@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>6</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-6">Assignment 6</h1>
+<ol type="1">
+<li><p>Describe a PDA and a CFG for the language <span class="math inline">\(A=\left\{b^ia^jb^ka^jb^l \mid j &gt; 0,\, i,k,l\geq 0 \right\}\)</span></p></li>
+<li><p>Consider the language <span class="math inline">\(A\)</span> of all words in <span class="math inline">\(\Sigma=\{a,b\}\)</span> such that every prefix of <span class="math inline">\(w\)</span> has at least as many <span class="math inline">\(a\)</span>’s as <span class="math inline">\(b\)</span>’s. Construct a PDA for this language. As extra credit, also construct a CFG for it.</p></li>
+<li><p>This problem concerns the language <span class="math inline">\(C = A/B =\{w\mid wx\in A\textrm{ for some }x\in B\}\)</span>. In other words a string is in <span class="math inline">\(C=A/B\)</span> if it can be extended to a string in <span class="math inline">\(A\)</span>, where the extension belongs to <span class="math inline">\(B\)</span>. This part has an easy question for you, the next part will be more challenging. There is an obvious relation between the languages <span class="math inline">\(CB\)</span> (concatenation of <span class="math inline">\(C\)</span> and <span class="math inline">\(B\)</span>) and <span class="math inline">\(A\)</span> (one is a subset of the other). Which relation is that?</p></li>
+<li><p>In this problem we will sketch the proof of the following fact: If <span class="math inline">\(A\)</span> is a context-free language, and <span class="math inline">\(B\)</span> is regular, then <span class="math inline">\(A/B\)</span> is context-free. You may want to think about it on your own first, get a bit of a feel for the question before reading on.</p>
+<p>We will outline the proof. It is your assignment to provide the details. Assume <span class="math inline">\(P\)</span> is a PDA for <span class="math inline">\(A\)</span>, and <span class="math inline">\(D\)</span> is a DFA for <span class="math inline">\(B\)</span>. We will construct a PDA <span class="math inline">\(O\)</span> for <span class="math inline">\(A/B\)</span>.</p>
+<ul>
+<li>The states of <span class="math inline">\(O\)</span> are pairs of states from <span class="math inline">\(P\)</span> and <span class="math inline">\(D\)</span>, i.e. <span class="math inline">\(Q_O = Q_P\times Q_D\)</span>. So at any given point a state in <span class="math inline">\(O\)</span> keeps track of some state in <span class="math inline">\(P\)</span> and some state in <span class="math inline">\(D\)</span>.</li>
+<li>You will need to figure out the start state of <span class="math inline">\(O\)</span>, though nothing fancy is needed here.</li>
+<li>The stack alphabet for <span class="math inline">\(O\)</span> is the same as the one for <span class="math inline">\(P\)</span>. Any moves we take from <span class="math inline">\(P\)</span>, we will update our stack the same way they would.</li>
+<li>You will need to formally define the transitions in <span class="math inline">\(O\)</span>. The idea is as follows:
+<ul>
+<li>As long as we have not moved in the DFA yet, i.e. as long as the state we are in in <span class="math inline">\(O\)</span> is a pair that contains the start state of <span class="math inline">\(D\)</span>, then our PDA has two types of choices:
+<ol type="1">
+<li>It can take a valid step from <span class="math inline">\(P\)</span>, and not move in <span class="math inline">\(D\)</span>. This corresponds to us still trying to recognize the “<span class="math inline">\(w\)</span>” part of the <span class="math inline">\(wx\)</span> in the definition of <span class="math inline">\(A/B\)</span>.</li>
+<li>It can take a valid step in <span class="math inline">\(P\)</span> that consumes some input, and take a move in <span class="math inline">\(D\)</span> corresponding to that same input. This commits the PDA to stop working on the <span class="math inline">\(w\)</span> part and start working on the <span class="math inline">\(x\)</span> part.</li>
+</ol></li>
+<li>Once we have moved <span class="math inline">\(D\)</span>, so we are no longer on its start state, our transitions become more limited. Essentially you only move if you can do it as an <span class="math inline">\(\epsilon\)</span>-move in the PDA, or if it is a simultaneous move in both. At this point we are tracing the <span class="math inline">\(x\)</span> part in the <span class="math inline">\(wx\)</span> from the definition.
+<ol type="1">
+<li>We can make a valid step from <span class="math inline">\(P\)</span> that does NOT consume any input, and stay in the same state in <span class="math inline">\(D\)</span>.</li>
+<li>We can make a valid step from <span class="math inline">\(P\)</span> that consumes an input, then move in <span class="math inline">\(D\)</span> using that same input.</li>
+</ol></li>
+</ul></li>
+<li>If we make our accept states those pairs that correspond to both an accept state in <span class="math inline">\(P\)</span> and an accept state in <span class="math inline">\(D\)</span>, this recognizes a different language. Describe that language.</li>
+<li>Describe which states in <span class="math inline">\(O\)</span> we should call accept states, if we want to obtain <span class="math inline">\(A/B\)</span>.</li>
+<li>Sketch a proof of why/how this PDA achieves the desired objective of recognizing the language <span class="math inline">\(A/B\)</span>.</li>
+</ul></li>
+<li><p>If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are languages, we define a new language <span class="math inline">\(C=A\diamond B =\{xy\mid x\in A,\, y\in B\, |x|=|y|\}\)</span>, i.e. the new language is formed out of the contatenation of a string from <span class="math inline">\(A\)</span> with a string from <span class="math inline">\(B\)</span>, whenever those strings have the same length. Show that if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are regular languages, then <span class="math inline">\(A\diamond B\)</span> has to be context-free. (Hint: Construct the PDA for <span class="math inline">\(A\diamond B\)</span>. Start with DFAs for <span class="math inline">\(A\)</span> and for <span class="math inline">\(B\)</span>, use the union of their states, with some epsilon transitions thrown in, and maybe extra start/end states for stack cleanup. Use the stack to keep track of how many elements you’ve seen in <span class="math inline">\(x\)</span>, then count them backwards in <span class="math inline">\(y\)</span>.).</p></li>
+</ol>
+<p>Extra credit problem: If <span class="math inline">\(C=A/B\)</span> as above, part 3 already asked you to show that one of <span class="math inline">\(CB\)</span> and <span class="math inline">\(A\)</span> is a subset of the other. As an extra credit problem, determine the status of the other direction: Are <span class="math inline">\(A\)</span> and <span class="math inline">\(CB\)</span> always equal? Either prove that they are always equal or provide a counterexample of languages <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> where if we define <span class="math inline">\(C=A/B\)</span> then <span class="math inline">\(A\)</span> and <span class="math inline">\(CB\)</span> are not equal.</p>
+<p>Extra credit problem 2: What about <span class="math inline">\(A\diamond B\)</span> when <span class="math inline">\(A\)</span> is a CFL and <span class="math inline">\(B\)</span> is regular?</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

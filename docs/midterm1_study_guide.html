@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm1_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-1-study-guide">Midterm 1 Study Guide</h1>
+<p>The test covers all the material discussed so far up to and including section 5.1 and homeworks 1 through 3. The following set of questions is meant to help guide your study and is not meant to be exhaustive of all the possibilities.</p>
+<ol type="1">
+<li>Be able to write a SISO Python program that performs simple prescribed tasks (the <code>isPrime</code> and <code>lengthGreaterThan10</code> kinds of programs).</li>
+<li>Describe the intended behavior of the programs named <code>yesOnString</code>, <code>notYesOnSelf</code>. Then:
+<ul>
+<li>Prove that the program <code>notYesOnSelf</code> cannot exist.</li>
+<li>Show how we can write the program <code>notYesOnSelf</code> by using <code>yesOnString</code> as a helper.</li>
+<li>Explain why <code>yesOnString</code> cannot exist.</li>
+</ul></li>
+<li>Describe reasonable ways to encode each of the following as a single string. Explain both the encoding and the decoding process.
+<ul>
+<li>A pair of strings of arbitrary length</li>
+<li>A arbitrary-length list of positive integers</li>
+<li>A graph, and a weighted graph (page 48)</li>
+<li>An arbitrary number of strings of arbitrary length</li>
+</ul></li>
+<li>Provide precise definitions for each of the following, as well as at least two examples for each:
+<ul>
+<li>An <em>alphabet</em> <span class="math inline">\(\Sigma\)</span>.</li>
+<li>A <em>string</em> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+<li>A <em>language</em> over an alphabet <span class="math inline">\(\Sigma\)</span> (hint: lots of good examples on page 51).</li>
+<li>The language <span class="math inline">\(L^*\)</span> for a given language <span class="math inline">\(L\)</span>.</li>
+<li>The language <span class="math inline">\(LM\)</span> for given languages <span class="math inline">\(L\)</span> and <span class="math inline">\(M\)</span>.</li>
+<li>The language <span class="math inline">\(\bar L\)</span> for a given language <span class="math inline">\(L\)</span> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+<li>A <em>computational problem</em> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+<li>What it means for a program <span class="math inline">\(P\)</span> to <em>solve</em> a given computational problem <span class="math inline">\(F\)</span>.</li>
+<li>A <em>decision problem</em> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+<li>The language <span class="math inline">\(L_D\)</span> for a decision problem <span class="math inline">\(D\)</span>.</li>
+<li><em>positive</em> and <em>negative</em> instances of a decision problem.</li>
+<li>The problem <code>isMEMBER(L)</code> for a given language <span class="math inline">\(L\)</span> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+</ul></li>
+<li>Define what it means for a language to be <em>decidable</em>, and what it means for it to be <em>recognizable</em>.</li>
+<li>Prove that if a language <span class="math inline">\(L\)</span> is decidable, then:
+<ul>
+<li>The complement language <span class="math inline">\(\bar L\)</span> is also decidable</li>
+<li>If another language <span class="math inline">\(M\)</span> is decidable then the intersection and union languages <span class="math inline">\(L\cap M\)</span>, <span class="math inline">\(L\cup M\)</span> are both decidable.</li>
+</ul></li>
+<li>Prove that if L is decidable then L is also recognizable.</li>
+<li>Provide a precise definition of a <em>Turing Machine</em> over an alphabet <span class="math inline">\(\Sigma\)</span>.</li>
+<li>Be able to describe the computation of a Turing Machine based on its state diagram (see p. 76).</li>
+<li>Be able to write the state diagrams for Turing Machines that accomplish simple tasks.</li>
+<li>Explain the difference between <em>accepters</em> and <em>transducers</em> and provide examples of each.</li>
+<li>Can a problem “loop”? What does that mean? What about a Turing Machine? What about a Python program?</li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

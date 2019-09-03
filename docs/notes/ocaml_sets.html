@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>ocaml_sets</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="ocaml-example-sets-as-lists">OCAML example: sets as lists</h1>
+<p>In this section we will do a barebones implementation of sets as lists of unique items. Along the way we will also learn how to work with OCAML’s interfaces.</p>
+<p>OCAML comes with modules for Set, Map, HashTable and other goodies. You probably want to use those in the long run.</p>
+<p>The two files we will be working on are:</p>
+<ul>
+<li><a href="../ocaml/set2.ml">set2.ml</a>, the implementation file</li>
+<li><a href="../ocaml/set2.mli">set2.mli</a>, the interface file</li>
+</ul>
+<p>OCAML forces this separation on us. The <code>.mli</code> file lists the types and functions available. It is similar to the <code>.h</code> files in C.</p>
+<p>We are calling our “module” <code>Set2</code> to avoid conflicts with the included <code>Set</code> module.</p>
+<h2 id="sets-as-lists">Sets as lists</h2>
+<p>Let us start by taking a look at parts of the interface file:</p>
+<pre class="ocaml"><code>type &#39;a t
+
+val empty  : &#39;a t
+val member : &#39;a -&gt; &#39;a t -&gt; bool
+val add    : &#39;a -&gt; &#39;a t -&gt; &#39;a t
+val from_list : &#39;a list -&gt; &#39;a t
+val to_list   : &#39;a t -&gt; &#39;a list</code></pre>
+<p>So we specify here that there is one new type, but we give no more information about it (though we could have). We could have told it for example that <code>'a t</code> is meant to be a <code>'a list</code>, but we didn’t want to commit ourselves to it: Noone using our “sets” should care that we implemented them via lists. Note that this is a “parametric” type, because of the <code>'a</code> part there. This is because we can have lots of different “sets”: We can have integer sets, of type <code>int Set2.t</code>, floating point number sets, of type <code>float Set2.t</code>, even sets whose elements are themselves sets of integers (this last would be of type <code>int Set2.t Set2.t</code>).</p>
+<p>Following that type is a list of “type declarations”. So it says for instance that there should be a value called <code>empty</code> of type <code>'a t</code>. There should also be a value <code>member</code> of type <code>'a -&gt; 'a t -&gt; bool</code>. This is an arrow type, so we are talking about a function, that takes two arguments, a value and a set, and it tells us if the element is in the set or not.</p>
+<p>See if you can guess what the remaining functions do, what arguments they take and what they return.</p>
+<p>Let us look at the implementation of these methods, in the “set2.ml” file:</p>
+<pre class="ocaml"><code>type &#39;a t = &#39;a list
+
+let empty = []
+let rec member a lst =
+   match lst with
+      []        -&gt; false
+    | x :: rest -&gt; a = x || member a rest
+
+let add a lst =
+   if member a lst
+   then lst
+   else a :: lst
+
+let rec unique lst =
+   match lst with
+      [] | x :: [] -&gt; lst
+    | x :: rest    -&gt; add x (unique rest)
+
+let from_list lst = unique lst
+let to_list   lst = lst</code></pre>
+<p>Note that here we are specifying exactly what the type <code>'a t</code> would be, by saying that it is just another name for the list type. This is typically called a <em>type alias</em>.</p>
+<p>We then have a series of let statements, to implement the various function values declared in the interface file. First off is the implementation of <code>empty</code>, the “empty set”. All it is is the empty list, so that’s what the third line in our code does.</p>
+<p>Next we implement the <code>member</code> function. It simply goes through the list in a recursive fashion. If it finds the element then it returns true. If it reaches the end of the list, then it returns false.</p>
+<p>The <code>add</code> function is similarly straightforward. If the element already exists then it does nothing. Otherwise prepends the element.</p>
+<p>Next there is a function called <code>unique</code>. This function is not in the interface, so users of our module will not have access to it. Only our other functions can. It is effectively a private method. It is used in our case in the <code>from_list</code> method, to remove any duplicate values that may have been present.</p>
+<p>Finally we have the two functions <code>from_list</code> and <code>to_list</code> for converting back and forth between a “set” and a “list”. The <code>from_list</code> function needs to take care to remove duplicates. But the <code>to_list</code> function is essentially the identity function, internally at least. For the outside word the input <code>lst</code> is a set and the output <code>lst</code> is a list. For us inside our Set2 module they are the same thing because of how we implemented the <code>'a t</code> type, so we can use the identity function.</p>
+<p><code>from_list</code> has another interesting implementation, which you can see in a comment in the file. This implementation avoids using the function <code>unique</code>. But first let’s discuss the function <code>unique</code>, as its implementation is fairly interesting and typical of more complicated functions.</p>
+<p>So <code>unique</code> starts with an input list <code>lst</code>. It intends to remove duplicates. It proceeds as follows, recursively:</p>
+<ul>
+<li>Pattern match on the list.</li>
+<li>If the list has at most 1 element, just return the list since there can be no duplicates.</li>
+<li>If the list has more elements, then recursively call <code>unique</code> on the tail of the list, and store that in a variable <code>rest'</code> (yes, primes are valid parts of a name!).</li>
+<li>Then look at the head of your list, and see if it is in <code>rest'</code>. Prepend it if it is not. (or in our case, call our <code>member</code> function to do that for us)</li>
+</ul>
+<p>This function has an important generic pattern, usually called <em>folding</em> in this context. You may be familiar with it as an accumulator. Effectively it consists of some key ingredients:</p>
+<ul>
+<li>A list of values, of a certain type <code>'a</code>, to work with</li>
+<li>A certain initial value, of some other type <code>'b</code> (an empty list in our example)</li>
+<li>A process for how to take a new value of type <code>'a</code>, and the so-far-accumulated value <code>'b</code>, and combine them to get a new value of type <code>'b</code>.</li>
+</ul>
+<p>Given these 3 ingredients, the rest is automatic: We would start with the initial value, then go through each value in our list and combine it into that initial value, to accumulate the final result.</p>
+<p>It is a standard accumulator pattern, something you would do in most languages via a for loop and some variable named <code>acc</code> or something that gets updated at every step. In most functional languages we typically have some higher-order functions to do the same thing. Here is how the function signatures look in this case, and they are called <code>fold_left</code> and <code>fold_right</code>. They are part of the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/List.html">List module</a>.</p>
+<pre class="ocaml"><code>val fold_left: (&#39;b -&gt; &#39;a -&gt; &#39;b) -&gt; &#39;b -&gt; &#39;a list -&gt; &#39;b
+val fold_right: (&#39;a -&gt; &#39;b -&gt; &#39;b) -&gt; &#39;a list -&gt; &#39;b -&gt; &#39;b</code></pre>
+<p>So they both take 3 arguments. The first is a function that takes a value of type <code>'b</code>, which is the accumulator, and a value of type <code>'a</code>, which is a list element, and returns a value of type <code>'b</code>. so this is the function taht combines the “current” value with the accumulated values. Then the fold functions further take a value of type <code>'b</code>, which is the initial value of the accumulator. Lastly they take a list of elements. They then proceed to apply the function to each element in the list combined with the accumulated value, and update the accumulated value. They then return the final accumulated value, which is of type <code>'b</code>.</p>
+<p>What they differ in is the order in which they do their work:</p>
+<ul>
+<li><code>fold_left</code> would apply the function to the first value in the list, and combine that with the accumulator, then combine that result with the second value in the list and so on.</li>
+<li><code>fold_right</code> would effectively apply the function to the last element in the list, combined with the accumulator. Then it would feed the result to the previous element on the list, and so on up.</li>
+</ul>
+<p>Here is how we could implement these functions:</p>
+<pre class="ocaml"><code>let rec fold_left f acc lst =
+    match lst with
+       []        -&gt; acc
+     | x :: rest -&gt; fold_left f (f acc x) rest
+
+let rec fold_right f lst acc =
+    match lst with
+        []        -&gt; acc
+      | x :: rest -&gt; f x (fold_right f rest)</code></pre>
+<p>Though they may appear quite similar, they function somewhat differently. Note however, that our function unique can be rewritten as:</p>
+<pre class="ocaml"><code>let unique lst = List.fold_right add lst [];;</code></pre>
+<p>So to compute <code>unique lst</code> we call the <code>fold_right</code> function, giving it our function <code>add</code> as the update function <code>f</code>, the list <code>lst</code> as the list of elements to process, and an empty list <code>[]</code> as the initial value for the accumulator. Compare the implementation of <code>fold_right</code> with that of <code>unique</code> above and you will see the similarities.</p>
+<p>Test: Compare and constrast the following two lines:</p>
+<pre class="ocaml"><code>List.fold_left (fun acc x -&gt; x :: acc) [] [1;2;3];;
+List.fold_right (fun x acc -&gt; x :: acc) [1;2;3] [];;</code></pre>
+<h2 id="adding-more-set-functions">Adding more set functions</h2>
+<p>There are a number of standard set operations that we want to perform. Let us add them to the interface file first:</p>
+<pre class="ocaml"><code>val size : &#39;a t -&gt; int              (* how many elements *)
+val union : &#39;a t -&gt; &#39;a t -&gt; &#39;a t
+val inter : &#39;a t -&gt; &#39;a t -&gt; &#39;a t    (* intersection *)
+val diff  : &#39;a t -&gt; &#39;a t -&gt; &#39;a t    (* set difference A - B *)
+val subset : &#39;a t -&gt; &#39;a t -&gt; bool   (* whether A is subset of B *)
+val equal : &#39;a t -&gt; &#39;a t -&gt; bool</code></pre>
+<p>We will start with those. Some are simple to implement, since our sets are just lists, for instance:</p>
+<pre class="ocaml"><code>let size set = List.length set</code></pre>
+<p>For many others we will use our new friends, the fold functions. If you think about it, a lot of the other operations involve going through the elements of the one set, and possibly adding them to the other set or something like that. We can implement most of these via folds:</p>
+<pre class="ocaml"><code>let union set1 set2 = List.fold_left (fun acc x -&gt; add x acc) set1 set2
+let inter set1 set2 = List.fold_left (fun acc x -&gt; if member x set2
+                                                   then x :: acc
+                                                   else acc)
+                                     [] set1
+let diff set1 set2 = List.fold_left (fun acc x -&gt; if member x set2
+                                                  then acc
+                                                  else x :: acc)
+                                     [] set1
+let subset set1 set2 = List.fold_left (fun acc x -&gt; acc &amp;&amp; member x set2)
+                                      true set1
+let equal set1 set2 = subset set1 set2 &amp;&amp; subset set2 set1</code></pre>
+<p>It is very easy to get carried away and use folds for almost everything. And in fact you could! But some of these can be written more clearly by using some of the helper methods in the <code>List</code> module. Let’s look at some of them:</p>
+<pre class="ocaml"><code>val filter  : (&#39;a -&gt; bool) -&gt; &#39;a list -&gt; &#39;a list
+val for_all : (&#39;a -&gt; bool) -&gt; &#39;a list -&gt; bool
+val exists  : (&#39;a -&gt; bool) -&gt; &#39;a list -&gt; bool</code></pre>
+<p>Let us think about what these do. They all take as first argument a predicate, i.e. a function that given an element of type <code>'a</code> returns a boolean. Then <code>filter</code> takes such a predicate and a list, and only retains those elements from the list that satisfy the predicate. It is also required to maintain the order.</p>
+<p><code>for_all</code> similarly takes a predicate and a list, and returns whether all elements of the list satisfy the predicate. <code>exists</code> does the same but only asking for at least one element from the list to satisfy the predicate. Special consideration must be given to the empty list: By convention if you like, <code>for_all</code> is true for the empty list, regardless of predicate, and <code>exists</code> is false.</p>
+<p>Here is how we could define these functions (they are already defined so we don’t really need to). We could have used folds, but it is preferable for <code>for_all</code> and <code>exists</code> to stop as soon as they have enough information (for instance <code>for_all</code> can stop the moment some value fails it). So we will define them with recursive formulas:</p>
+<pre class="ocaml"><code>let rec filter pr lst =
+    match lst with
+        []        -&gt; []
+      | x :: rest -&gt; if p x then x :: filter pr rest
+                            else filter pr rest
+let rec for_all pr lst =
+    match lst with
+        []        -&gt; true
+      | x :: rest -&gt; p x &amp;&amp; for_all pr rest
+
+let rec exists pr lst =
+    match lst with
+        []        -&gt; false
+      | x :: rest -&gt; p x || exists pr rest</code></pre>
+<p>Anyway, using <code>filter</code> could make <code>inter</code> and <code>diff</code> a whole lot easier to write. Give it a go!</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

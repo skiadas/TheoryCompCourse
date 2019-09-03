@@ -6,57 +6,23 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-$for(author-meta)$
-  <meta name="author" content="$author-meta$" />
-$endfor$
-$if(date-meta)$
-  <meta name="date" content="$date-meta$" />
-$endif$
-  <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+  <title>1</title>
   <style type="text/css">code{white-space: pre;}</style>
-$if(quotes)$
-  <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
-$endif$
-$if(highlighting-css)$
-  <style type="text/css">
-$highlighting-css$
-  </style>
-$endif$
 <link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
-$for(header-includes)$
-  $header-includes$
-$endfor$
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
 <body>
-$for(include-before)$
-$include-before$
-$endfor$
-$if(title)$
-<div id="$idprefix$header">
-<h1 class="title">$title$</h1>
-$if(subtitle)$
-<h1 class="subtitle">$subtitle$</h1>
-$endif$
-$for(author)$
-<h2 class="author">$author$</h2>
-$endfor$
-$if(date)$
-<h3 class="date">$date$</h3>
-$endif$
-</div>
-$endif$
-$if(toc)$
-<div id="$idprefix$TOC">
-$toc$
-</div>
-$endif$
-$body$
-$for(include-after)$
-$include-after$
-$endfor$
+<h1 id="assignment-1">Assignment 1</h1>
+<p>Most of these questions are meant to familiarize you with the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html">Pervasives module</a>. Make sure to confirm that what you type would work by using it in the <code>utop</code> environment first. Also include the two semicolons at the end, when applicable.</p>
+<ol type="1">
+<li>Write the expression that would compute the square root of 5.  </li>
+<li>Write the expression that would concatenate the strings <code>"first string"</code> and <code>"second string"</code>.  </li>
+<li>There is a function that can be used to “print” a string to “standard output” and include a newline at the end. Find it and enter the expression that would thusly print the string <code>"I have printed my first string!"</code>.  </li>
+<li>What value does <code>compare "3" "3.0";;</code> return?  </li>
+<li>What is wrong with the expression: <code>compare 3 3.0;;</code>? Explain.  </li>
+</ol>
 <script type="text/javascript">
 let els = document.getElementsByTagName("pre");
 for (const el of els) {

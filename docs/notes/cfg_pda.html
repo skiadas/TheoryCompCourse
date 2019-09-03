@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>cfg_pda</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="equivalence-between-pdas-and-cfgs">Equivalence between PDAs and CFGs</h1>
+<p>In this section we describe how the notions of PDAs and CFGs are equivalent.</p>
+<h2 id="cfg-to-pda">CFG to PDA</h2>
+<blockquote>
+<p>Given a context free language, we can construct a PDA that recognizes the same language.</p>
+</blockquote>
+<h3 id="construction">Construction</h3>
+<p>The idea is somewhat straightforward.</p>
+<ul>
+<li>There is a main chain of 4 states, with auxiliary states that form “loops”.</li>
+<li>We start by placing the “end of stack” symbol and the start variable on the stack.</li>
+<li>At any given time we can either:
+<ul>
+<li>match the top of the stack with the next input, and hence advance the input, or</li>
+<li>replace the nonterminal at the top of the stack with a derivation of it. This is done in a sequence of states that ends up forming a loop.</li>
+</ul></li>
+<li>The only accept state can be reached only by popping the “end of stack” symbol. This can only be seen if a derivation of the start variable was successfully matched by the input.</li>
+</ul>
+<p>Here is the basic picture:</p>
+<figure>
+<img src="images/pushdown_to_cfg.png" alt="Pushdown Automaton for a CFG" /><figcaption>Pushdown Automaton for a CFG</figcaption>
+</figure>
+<p>The “loops” around <span class="math inline">\(q_\textrm{loop}\)</span> correspond to the production rules in the grammar. Each loop is a shorthand for a sequence of states. For instance if we have a production rule like <span class="math inline">\(S\to aTb\)</span>, this would produce the following “loop”:</p>
+<figure>
+<img src="images/pushdown_to_cfg_rule.png" alt="Loop for rule S\to aTb" /><figcaption>Loop for rule <span class="math inline">\(S\to aTb\)</span></figcaption>
+</figure>
+<p>We usually skip the intermediate states in the process and just write this path as a self-loop with transition <span class="math inline">\(\epsilon,S\to aTb\)</span>.</p>
+<p>The graph also contains self-loops on <span class="math inline">\(q_\textrm{loop}\)</span> with transitions <span class="math inline">\(t,t\to\epsilon\)</span>, for each terminal symbol <span class="math inline">\(t\)</span>. These self-loops allow us to advance the input every time we get a terminal at the top of the stack.</p>
+<p>This completes the construction of the PDA.</p>
+<h3 id="proof-of-construction">Proof of Construction</h3>
+<p>We now want to show that this PDA recognizes the same language as the CFG. Effectively the idea is that moving through the PDA is exactly tracing a left-most derivation in the grammar.</p>
+<ul>
+<li>We essentially start at the <span class="math inline">\(q_\textrm{loop}\)</span> state, with <span class="math inline">\(S\)</span> at the top of the stack.</li>
+<li>At any given time, the element at the top of the stack would be either
+<ul>
+<li>a terminal symbol, meaning our left-most derivation has produced a terminal on its left-most end, which we match by the input and advance, or</li>
+<li>a non-terminal symbol, representing the currently left-most non-terminal as we progress through a left-most derivation in the language. The terminals that came before it have already been matched to input, and this non-terminal at the stack is the one we would need to work on next in a left-most derivation. This is exactly what the PDA’s transitions described above allow us to do.</li>
+</ul></li>
+<li>The end of the process is when we see the “end of input” symbol, meaning that we have managed to replace all non-terminals with sequences of terminals, which then further got popped off the stack by matching the input. This corresponds exactly to the end of a left-most derivation in CFG producing the string.</li>
+</ul>
+<p>An example will make that more clear. Consider the language:</p>
+<pre><code>S -&gt; aSa | bSb | epsilon</code></pre>
+<p>In addition to the standard 4 states, it contains:</p>
+<pre><code>- 2 states that establish the loop $\epsilon,S\to aSa$,
+- 2 states that establish the loop $\epsilon,S\to bSb$,
+- a self-loop for $\epsilon,S\to \epsilon$,
+- the two self-loops $a,a\to\epsilon$ and $b,b\to\epsilon$.</code></pre>
+<p>Now consider the string <code>abbaabba</code>. Here is how it would be computed by this automaton:</p>
+<pre><code>Input       Stack     Step from previous
+---------   --------  ----------------------
+abbaabba    S$        (moved to loop state)
+abbaabba    aSa$      eps,S -&gt; aSa
+bbaabba     Sa$       a,a   -&gt; eps
+bbaabba     bSba$     eps,S -&gt; bSb
+baabba      Sba$      b,b   -&gt; eps
+baabba      bSbba$    eps,S -&gt; bSb
+aabba       Sbba$     b,b   -&gt; eps
+aabba       aSabba$   eps,S -&gt; aSa
+abba        Sabba$    a,a   -&gt; eps
+abba        abba$     eps,S -&gt; eps
+bba         bba$      a,a   -&gt; eps
+ba          ba$       b,b   -&gt; eps
+a           a$        b,b   -&gt; eps
+eps         $         a,a   -&gt; eps
+eps         eps       eps,$ -&gt; eps   (moving to accept state)</code></pre>
+<h2 id="pda-to-cfg">PDA to CFG</h2>
+<p>For the converse direction, we want to show that given a PDA we can produce a CFG that recognizes the same language. In order to achieve this we first make some simplifying assumptions about the PDA:</p>
+<ul>
+<li>The PDA empties its stack before accepting a string. We already saw how to do that.</li>
+<li>Every transition in the PDA must push something on the stack, or pop something, but it may not do both. So for a transition <span class="math inline">\(t,\alpha\to\beta\)</span> then exactly one of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> would have to be <span class="math inline">\(\epsilon\)</span>. This is easy to achieve by doing the transition in two steps, first doing the pop and then the push, if they were both occuring. Or if neither is occuring, we break it into two steps where we first do a push of an arbitrary symbol and then promptly pop it back out.</li>
+<li>There is only one accept state.</li>
+</ul>
+<p>Now we build a CFG for such an automaton.</p>
+<h3 id="construction-1">Construction</h3>
+<ul>
+<li>We have one non-terminal symbol <span class="math inline">\(A_{p,q}\)</span> for each pair of states <span class="math inline">\((p,q)\)</span>. It represents a string that when computed in the PDA starting at state <span class="math inline">\(p\)</span> with empty stack will end (perhaps as one of a set of possible computations) at state <span class="math inline">\(q\)</span> with empty stack.</li>
+<li>The start non-terminal is the one corresponding to the pair of the start state and the accept state. It indicates that we want to start at the start state with empty stack, and end at the accept state, with empty stack. If we can produce a valid derivation of our string from this nonterminal, it would correspond to a computation in the PDA that takes us from the start state to the accept state.</li>
+<li>We add a number of production rules:
+<ul>
+<li>For each three states <span class="math inline">\(p\)</span>, <span class="math inline">\(q\)</span>, <span class="math inline">\(r\)</span>, there is a rule: <span class="math display">\[A_{p,q}\to A_{p,r}A_{r,q}\]</span> This corresponds to the fact that if the string is split in two halves where the first takes us from <span class="math inline">\(p\)</span> to <span class="math inline">\(r\)</span> and the second takes us from <span class="math inline">\(r\)</span> to <span class="math inline">\(q\)</span>, then the whole string takes us from <span class="math inline">\(p\)</span> to <span class="math inline">\(q\)</span>.</li>
+<li>For each state <span class="math inline">\(p\)</span>, there is a rule <span class="math display">\[A_{p,p}\to\epsilon\]</span> recognizing the fact that you can go from <span class="math inline">\(p\)</span> to <span class="math inline">\(p\)</span> on no input.</li>
+<li>For any states <span class="math inline">\(p,q,r,s\in Q\)</span> and stack symbol <span class="math inline">\(t\in\Gamma\)</span> and elements <span class="math inline">\(a,b\in \Sigma_\epsilon\)</span>, if <span class="math inline">\((r,t)\in \delta(p,a,\epsilon)\)</span> and <span class="math inline">\((q,\epsilon)\in \delta(s,b,t)\)</span>, then we add a rule: <span class="math display">\[A_{p,q}\to a A_{r,s} b\]</span> This rule indicates that if there is a transition to state <span class="math inline">\(r\)</span> from state <span class="math inline">\(p\)</span> on input <span class="math inline">\(t\)</span> and by pushing <span class="math inline">\(t\)</span> to the stack, and a way to go from state <span class="math inline">\(r\)</span> to state <span class="math inline">\(s\)</span> without an overall change in the stack, expressed via the non-terminal <span class="math inline">\(A_{r, s}\)</span>, and finally a transition from <span class="math inline">\(s\)</span> to <span class="math inline">\(q\)</span> with input <span class="math inline">\(b\)</span> and that pops the symbol <span class="math inline">\(t\)</span> from the stack, then the combination of these 3 steps is a way to go from <span class="math inline">\(p\)</span> to <span class="math inline">\(q\)</span> without changing the stack.</li>
+</ul></li>
+</ul>
+<p>Before we proceed to prove the claim, we will look at an example, namely the automaton that recognized the language consisting of a number of <span class="math inline">\(x\)</span>’s followed by no more than an equal number of <span class="math inline">\(y\)</span>’s. In order to accomodate our conditions above, some states need to be added:</p>
+<figure>
+<img src="images/pda_to_cfg1.png" alt="A simple pushdown automaton" /><figcaption>A simple pushdown automaton</figcaption>
+</figure>
+<p>We added a “dummy stack symbol” <span class="math inline">\(\#\)</span> to accomodate the cases where we had to represent a transition that did not change the stack.</p>
+<p>The corresponding CFG will in theory have up to <span class="math inline">\(30\)</span> non-terminals, but many of them are irrelevant. We will present the relevant non-terminals as we build them:</p>
+<ul>
+<li>We start with the start non-terminal <span class="math inline">\(S&#39;=A_{0,4}\)</span>.</li>
+<li>Since <span class="math inline">\((q_1,\$)\in\delta(q_0,\epsilon, \epsilon)\)</span>, and <span class="math inline">\((q_4,\epsilon)\in\delta(q_3, \epsilon, \$)\)</span>, we have a rule <span class="math inline">\(A_{0,4}\to \epsilon A_{1,3}\$\)</span>. We will call <span class="math inline">\(A_{1,3}\)</span> the “real” start non-terminal, <span class="math inline">\(S\)</span>. So we have the rule <span class="math inline">\(S&#39;\to S\$\)</span>. It is this <span class="math inline">\(S\)</span> that should generate the various acceptable strings. Note that this is the only real production rule for <span class="math inline">\(S&#39;\)</span>, as no other transitions consume <span class="math inline">\(\$\)</span>.</li>
+<li>Next we look at the fact that <span class="math inline">\((q_1,x)\in \delta(q_1, x, \epsilon)\)</span>. This would be “paired up” with a transition of the form <span class="math inline">\((.,\epsilon)\in\delta(.,.,x)\)</span>. There are exactly two such transitions, <span class="math inline">\((q_2,\epsilon)\in\delta(q_2,y,x)\)</span> and <span class="math inline">\((q_3,\epsilon)\in\delta(q_3,\epsilon,x)\)</span>. These give rise to the production rules <span class="math inline">\(A_{1,2}\to xA_{1,2}y\)</span> and <span class="math inline">\(A_{1,3}\to x A_{1,3}\)</span>. The former corresponds to the fact that a <span class="math inline">\(y\)</span> needs to be matched by an <span class="math inline">\(x\)</span>, the latter to the fact that we could have more <span class="math inline">\(x\)</span>s to begin with.</li>
+<li>The presence of the transitions involving the new dummy stack symbol <span class="math inline">\(\#\)</span> give rise to the rules <span class="math inline">\(A_{1,2}\to A_{5,5}\)</span> and <span class="math inline">\(A_{2,3}\to A_{6,6}\)</span>. These boil down to the rules <span class="math inline">\(A_{1,2}\to\epsilon\)</span> and <span class="math inline">\(A_{2,3}\to\epsilon\)</span>.</li>
+<li>We also have rules <span class="math inline">\(A_{1,3}\to A_{1,2}A_{2,3}\)</span>. Combined with the only rule for <span class="math inline">\(A_{2,3}\)</span> that makes sense, namely <span class="math inline">\(A_{2,3}\to\epsilon\)</span>, we get that <span class="math inline">\(A_{1,3}\to A_{1,2}\)</span>.</li>
+</ul>
+<p>So to sum up, by denoting <span class="math inline">\(S=A_{1,3}\)</span>, <span class="math inline">\(T=A_{1,2}\)</span>, the language becomes (in reality it has many more extraneous elements that don’t lead to anything):</p>
+<pre><code>S&#39; -&gt; S$
+S  -&gt; xSy | T
+T  -&gt; xT</code></pre>
+<p>Check that this grammar will produce the language we expect.</p>
+<h3 id="proof">Proof</h3>
+<p>Now we sketch the proof that the CFG thus produced does recognize the same language as the automaton we started with.</p>
+<p>The key claim we need to prove is the following:</p>
+<blockquote>
+<p><span class="math inline">\(A_{p,q}\)</span> generates <span class="math inline">\(x\)</span> if and only if <span class="math inline">\(x\)</span> can bring the PDA from state <span class="math inline">\(p\)</span> with empty stack to state <span class="math inline">\(q\)</span> with empty stack.</p>
+</blockquote>
+<p>Before we prove this, let us make an important observation:</p>
+<blockquote>
+<p>If a string <span class="math inline">\(x\)</span> can bring the PDA from state <span class="math inline">\(p\)</span> with empty stack to state <span class="math inline">\(q\)</span> with empty stack, then it can also bring the PDA from state <span class="math inline">\(p\)</span> with stack symbol <span class="math inline">\(t\)</span> at the top to state <span class="math inline">\(q\)</span> with stack symbol <span class="math inline">\(t\)</span> at the top, without ever popping that symbol on the way. It will simply follow the exact same steps.</p>
+</blockquote>
+<p>Now we prove this claim.</p>
+<p>This claim has two directions, we start with the “if” part.</p>
+<ul>
+<li>Suppose <span class="math inline">\(A_{p,q}\)</span> generates <span class="math inline">\(x\)</span>. We want to show that <span class="math inline">\(x\)</span> can bring the PDA from state <span class="math inline">\(p\)</span> with empty stack to state <span class="math inline">\(q\)</span> with empty stack.</li>
+<li>We will do induction on the length of the derivation.</li>
+<li>If the length is <span class="math inline">\(1\)</span>, meaning a single production rule, then the production rule must have no non-terminals on the right-hand side. The only such possibility is the rule <span class="math inline">\(A_{pp}\to\epsilon\)</span>, meaning that <span class="math inline">\(q=p\)</span> and <span class="math inline">\(x=\epsilon\)</span>, and it clearly takes <span class="math inline">\(p\)</span> to <span class="math inline">\(p\)</span>. So the base case is proven. Now suppose that we already have established the result for all derivations of at most <span class="math inline">\(k\)</span> steps, and we consider a derivation of <span class="math inline">\(k+1\)</span> steps. Let us consider what the first step may be. It has two options really.
+<ul>
+<li><p>It may be a step <span class="math inline">\(A_{p,q}\to a A_{r,s} b\)</span>, where for some stack symbol <span class="math inline">\(t\)</span> we have <span class="math inline">\((q, \epsilon)\in\delta(s, b, t)\)</span> and <span class="math inline">\((r,t)\in\delta(p, a, \epsilon)\)</span>. In this case our string <span class="math inline">\(x\)</span> would have the form <span class="math inline">\(x=ayb\)</span> and the rest of the derivation is a derivation of <span class="math inline">\(y\)</span> from <span class="math inline">\(A_{r,s}\)</span> in <span class="math inline">\(k\)</span> steps. By the inductive hypothesis, this corresponds to a computation in the PDA from the state <span class="math inline">\(r\)</span> and with an empty stack to the state <span class="math inline">\(s\)</span> and with an empty stack, consuming the string <span class="math inline">\(y\)</span> on the way. Or as we observed earlier, it could do so even if the stack is not empty, and in that case it promises not to change the part of the stack that is already there.</p>
+<p>Now if we start at state <span class="math inline">\(p\)</span> and our string is <span class="math inline">\(x=ayb\)</span>, then we read input <span class="math inline">\(a\)</span> and move to the state <span class="math inline">\(r\)</span> while also pushing <span class="math inline">\(t\)</span> to the stack (our transition told us we can do it). We would then follow <span class="math inline">\(y\)</span> to arrive at state <span class="math inline">\(s\)</span> and having <span class="math inline">\(t\)</span> at the stack. Finally, our transitions also told us that we can pop <span class="math inline">\(t\)</span> from the stack to go from <span class="math inline">\(s\)</span> to <span class="math inline">\(q\)</span>. Putting these 3 steps together we find that <span class="math inline">\(x\)</span> has taken us from <span class="math inline">\(p\)</span> with empty stack to <span class="math inline">\(q\)</span> with empty stack. This completes the argument for this case.</p></li>
+<li><p>It may be a step <span class="math inline">\(A_{p,q}\to A_{p,r}A_{r,q}\)</span>. Then our string can be separated in two parts <span class="math inline">\(x=yz\)</span> where <span class="math inline">\(A_{p, r}\)</span> derives <span class="math inline">\(y\)</span> and <span class="math inline">\(A_{r,q}\)</span> derives <span class="math inline">\(z\)</span>, by using the subsequent steps in the original derivation. Since those derivations are shorter, the inductive hypothesis tells us that <span class="math inline">\(y\)</span> can take the PDA from <span class="math inline">\(p\)</span> on an empty stack to <span class="math inline">\(r\)</span> on an empty stack, and <span class="math inline">\(q\)</span> can take the PDA from <span class="math inline">\(r\)</span> on an empty stack to <span class="math inline">\(q\)</span> on an empty stack. The combination of these two would then have the desired effect.</p></li>
+</ul></li>
+</ul>
+<p>Intuitively the idea of this proof is this: The PDA is to start and end with an empty stack as it moves from <span class="math inline">\(p\)</span> to <span class="math inline">\(q\)</span>. If it also has an empty stack at some intermediate point, then we use our second case above to break the problem up into the two subparts. Otherwise, the symbol that is pushed onto the stack as we take our first step from <span class="math inline">\(p\)</span> is not going to be popped out until we do our last step to get to <span class="math inline">\(q\)</span>. This is the kind of situation described by our first case.</p>
+<p>Now we want to consider the opposite direction:</p>
+<ul>
+<li>Suppose that the string <span class="math inline">\(x\)</span> manages to transition the PDA from the state <span class="math inline">\(p\)</span> with an empty stack to the state <span class="math inline">\(q\)</span> with an empty stack. We want to show that in fact in our CFG the symbol <span class="math inline">\(A_{p,q}\)</span> could derive <span class="math inline">\(x\)</span>.</li>
+<li>We will do this by induction on the number of steps in the computation.</li>
+<li>First let us suppose there were <span class="math inline">\(0\)</span> steps. Then we must have that <span class="math inline">\(p=q\)</span>, and we must show that <span class="math inline">\(A_{p,p}\)</span> derives <span class="math inline">\(x\)</span>. Since there were only <span class="math inline">\(0\)</span> steps, no input can have been read, meaning that <span class="math inline">\(x=\epsilon\)</span>. But we already know the production rule <span class="math inline">\(A_{p,p}\to\epsilon\)</span> in the CFG.</li>
+<li>Now for the inductive step, suppose that the claim is true for any computation that takes no more than <span class="math inline">\(k\)</span> steps, and suppose our computation takes <span class="math inline">\(k+1\)</span> steps.</li>
+<li>The stack starts and ends empty, so we have two cases:
+<ul>
+<li>If the stack also becomes empty somewhere inbetween, when the computation makes it to state say <span class="math inline">\(r\)</span>, then the string can be split in two parts <span class="math inline">\(x=yz\)</span> where <span class="math inline">\(y\)</span> is the part of the input that was consumed to get us to the state <span class="math inline">\(r\)</span>, and <span class="math inline">\(z\)</span> is what remains. The computation that brought us to <span class="math inline">\(r\)</span> consists of at most <span class="math inline">\(k\)</span> steps, and therefore from the inductive hypothesis we would know that <span class="math inline">\(A_{p,r}\)</span> derives <span class="math inline">\(y\)</span>. Similarly, we would know that <span class="math inline">\(A_{r, q}\)</span> derives <span class="math inline">\(z\)</span>. Putting the two together and prepending the rule <span class="math inline">\(A_{p,q}\to A_{p,r}A_{r,q}\)</span> we get a derivation of the string <span class="math inline">\(x=yz\)</span> from <span class="math inline">\(A_{p,q}\)</span>.</li>
+<li>If the stack does not become empty inbetween, denote by <span class="math inline">\(t\)</span> the element that is pushed onto the stack by the very first step (since the stack is empty, the first step can’t be a pop). Then the first transition looks something like <span class="math inline">\((r, t)\in\delta(p, a, \epsilon)\)</span>. This element will be popped by the very last step, and will correspond to a transition like <span class="math inline">\((q,\epsilon)\in\delta(s, b, t)\)</span>. These are exactly the conditions under which we have a rule in the CFG of the form <span class="math inline">\(A_{p,q}\to a A_{r,s} b\)</span>. Also note that our string could be written as <span class="math inline">\(x=ayb\)</span>, where <span class="math inline">\(y\)</span> was consumed on the way from <span class="math inline">\(r\)</span> to <span class="math inline">\(s\)</span> (i.e. excluding the first and last steps). Now, as the automaton moved from <span class="math inline">\(r\)</span> to <span class="math inline">\(s\)</span>, it did so with a stack that started by containing <span class="math inline">\(t\)</span>. But it was not allowed to touch it, so whenever it had to decide on its next move, and it was all the way down to the <span class="math inline">\(t\)</span> on the stack, it would have chosen a push move, which is also a move that it could have chosen if the stack was empty. So in other words, the transition from <span class="math inline">\(r\)</span> to <span class="math inline">\(s\)</span> that the automaton took is also a transition it could have taken if it had an empty stack at this point. Since that transition has length no more than <span class="math inline">\(k\)</span>, the inductive hypothesis tells us that there is a corresponding derivation from <span class="math inline">\(A_{r,s}\)</span> to <span class="math inline">\(y\)</span> (<span class="math inline">\(y\)</span> is the input consumed on going from <span class="math inline">\(r\)</span> to <span class="math inline">\(s\)</span>). But then, combining this with the earlier production rule, we get: <span class="math display">\[A_{p,q}\Rightarrow a A_{r,s} b\Rightarrow^* ayb=x\]</span></li>
+</ul></li>
+</ul>
+<p>This completes our proof of the correspondence between the two approaches to context-free languages.</p>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

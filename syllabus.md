@@ -6,20 +6,16 @@ Course
   ~ CS335 Theory of Computation
 
 Instructors
-  ~ Charilaos Skiadas, Barb Wahl
+  ~ Charilaos Skiadas
 
 Term
-  ~ Fall 2018-2019
+  ~ Fall 2019-2020
 
 Office
   ~ SCH 111 / LYN 108
 
 Office Hours
-  ~ Skiadas: MWF 9:30pm-10:30pm in SCH 111
-
-    Wahl: MWF 1:30 – 2:30, CFA 137, Tues 9:00 – 10:00, LYN 102/110
-
-    and by appointment
+  ~ MWF 10:30am-11:30am in SCH 111 and by appointment
 
 Book
   ~ *What can be computed*, 1st ed, by John MacCormick, ISBN 978-0-691-17066-4
@@ -71,7 +67,7 @@ There will be two midterms, on Tuesday, October 2nd and Tuesday, November 6th, a
 
 ### Getting Help
 
-- You should never hesitate to ask us questions. We will never think any less of anyone for asking a question. Stop by our office hours or just email us your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.
+- You should never hesitate to ask us questions. I will never think any less of anyone for asking a question. Stop by my office hours or just email me your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.
 - You are allowed, and in fact encouraged, to work together and help each other regarding the class material. However, we strongly encourage you to try things out on your own first before talking to someone about them.
 - You may discuss homework problems with others, but only after you have spent some time trying them on your own. And in any event the submitted work must be your own! So even though you may talk to others about the problem, when you sit down to write the answers you should be on your own.
 

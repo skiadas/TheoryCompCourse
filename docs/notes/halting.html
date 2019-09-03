@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>halting</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="the-halting-problem">The Halting Problem</h1>
+<h2 id="reading">Reading</h2>
+<p>Section 4.2</p>
+<h2 id="the-universal-turing-machine">The Universal Turing Machine</h2>
+<p>The work we did in the previous section naturally extends to Turing Machines. In fact we can define:</p>
+<blockquote>
+<p><span class="math display">\[A_\textrm{TM} = \{\langle M,w\rangle \mid M\textrm{ is a TM that accepts }w\}\]</span></p>
+</blockquote>
+<p>So this language captures all pairs of a Turing Machine and a string, such that the Turing Machine accepts the string.</p>
+<blockquote>
+<p><span class="math inline">\(A_\textrm{TM}\)</span> is Turing-recognizable.</p>
+</blockquote>
+<p>The machine that recognizes this language is called a <em>Universal Turing Machine</em>: It is effectively a Turing Machine that simulates the computation of all Turing Machines. It goes as follows:</p>
+<ol type="1">
+<li>On input a TM <span class="math inline">\(M\)</span> and a string <span class="math inline">\(w\)</span>.</li>
+<li>It simulates <span class="math inline">\(M\)</span> on input that string <span class="math inline">\(w\)</span>.</li>
+<li>If <span class="math inline">\(M\)</span> enters its accept or reject states, then our universal Turing machine also enters its accept (resp. reject) state.</li>
+<li>If <span class="math inline">\(M\)</span> loops (runs forever), so does our universal Turing machine.</li>
+</ol>
+<p>Notice that this is most definitely not a decider: It has no way to determine whether <span class="math inline">\(M\)</span> will loop or not, other than actually simulating it and running forever.</p>
+<h2 id="the-halting-problem-1">The Halting Problem</h2>
+<p>The Halting Problem effectively boils down to the following:</p>
+<blockquote>
+<p><span class="math inline">\(A_\textrm{TM}\)</span> is not decidable.</p>
+</blockquote>
+<p>In other words, there can never be a Turing Machine/program that is guaranteed to terminate and that can decide, given an arbitrary Turing Machine/program and its input, whether that program would terminate. In terms of programming languages, this means that we cannot write a program that can tell us if programs in our language would terminate. This has implications in terms of what a type system can do, which go a bit beyond the scope of this course.</p>
+<p>This is also our first example of a specific language that is Turing-recognizable but not decidable.</p>
+<p>Now let us discuss the proof of this extremely important result. It is based on another assertion:</p>
+<blockquote>
+<p>Consider the language: <span class="math display">\[\textrm{NONSELFACC}=\{\langle M\rangle\mid M\textrm{ does not accept on input }\langle M\rangle\}\]</span> of all Turing Machines that do not accept when given themselves as input.</p>
+<p>Then NONSELFACC is not decidable.</p>
+</blockquote>
+<p>Before we prove this result, let us see why this would imply that <span class="math inline">\(A_\textrm{TM}\)</span> is also not decidable.</p>
+<p>If <span class="math inline">\(A_\textrm{TM}\)</span> were decidable, denote by <span class="math inline">\(H\)</span> a decider. We then construct a decider for NONSELFACC as follows:</p>
+<ul>
+<li>Given a Turing machine <span class="math inline">\(M\)</span>, use <span class="math inline">\(H\)</span> to run <span class="math inline">\(M\)</span> on input its string representation <span class="math inline">\(\langle M\rangle\)</span>.</li>
+<li>If <span class="math inline">\(H\)</span> accepts, then we reject.</li>
+<li>If <span class="math inline">\(H\)</span> rejects, then we accept.</li>
+</ul>
+<p>This describes a decider for NONSELFACC. But since that was not a decidable language, we have a contradiction.</p>
+<p>Now let us discuss why NONSELFACC is not decidable. Suppose instead that it was decidable, and that <span class="math inline">\(D\)</span> was its decider. Then we have a problem:</p>
+<ul>
+<li>If <span class="math inline">\(D\in \textrm{NONSELFACC}\)</span>, then it means that NONSELFACC’s decider must have accepted <span class="math inline">\(D\)</span>, and so running <span class="math inline">\(D\)</span> on input <span class="math inline">\(\langle D\rangle\)</span> must have accepted. But since <span class="math inline">\(D\)</span> was a decider for NONSELFACC, this means that <span class="math inline">\(D\not\in \textrm{NONSELFACC}\)</span>.</li>
+<li>Conversely, if <span class="math inline">\(D\not\in \textrm{NONSELFACC}\)</span>, then this means that running <span class="math inline">\(D\)</span> with input itself, <span class="math inline">\(\langle D\rangle\)</span>, would accept. But since <span class="math inline">\(D\)</span> is the decider of NONSELFACC and it just accepted input <span class="math inline">\(\langle D\rangle\)</span>, this must mean that <span class="math inline">\(D\in\textrm{NONSELFACC}\)</span>.</li>
+</ul>
+<p>So we have a contradiction, as <span class="math inline">\(D\)</span> cannot both be in NONSELFACC and not be in it. So <span class="math inline">\(D\)</span> cannot exist in the first place.</p>
+<h2 id="a-non-recognizable-language">A non-recognizable language</h2>
+<p>We end this chapter with an example of a language that’s not even Turing-recognizable.</p>
+<blockquote>
+<p>The language that is the complement of <span class="math inline">\(A_\textrm{TM}\)</span> is not Turing-recognizable.</p>
+<p>In general, the complement of any language that is Turing-recognizable but not decidable, is itself not Turing-recognizable.</p>
+</blockquote>
+<p>This follows simply from the observation that if both a language and its complement were Turing-recognizable, then we could build a decider for the language:</p>
+<ol type="1">
+<li>On input <span class="math inline">\(w\)</span>:</li>
+<li>Simultaneously simulate the recognizer Turing Machines for the language and its complement, both on input <span class="math inline">\(w\)</span>.</li>
+<li>Since <span class="math inline">\(w\)</span> is either in the language or its complement, one of those recognizers will have to accept <span class="math inline">\(w\)</span>. We can then terminate with either accept or reject, depending on which recognizer accepted.</li>
+</ol>
+<p>Exercise: What about the following slightly different language:</p>
+<blockquote>
+<p>Show that the language <span class="math display">\[L=\{\langle M,w\rangle\mid M\textrm{ is a TM that does not accept on input }w\}\]</span> is not Turing-recognizable.</p>
+</blockquote>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

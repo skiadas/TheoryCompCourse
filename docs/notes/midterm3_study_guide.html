@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>midterm3_study_guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="midterm-3-study-guide">Midterm 3 Study Guide</h1>
+<p>This is not meant to be an exhaustive list of everything you need to know, but it is a good starting place.</p>
+<ol type="1">
+<li>What is the formal definition of a <strong>Turing machine</strong>?</li>
+<li>Describe what a <strong>configuration</strong> for a Turing machine is.</li>
+<li>What are the possible outcomes of running a Turing machine on some input?</li>
+<li>When do we say a language is Turing-recognizable?</li>
+<li>When do we say that a language is decidable?</li>
+<li>Describe in fairly low detail Turing machines that decide “simple” problems (e.g. some regular languages or CFGs).</li>
+<li>What is a multi-tape Turing machine?</li>
+<li>Describe how we can simulate a multi-tape Turing machine with a single-tape Turing machine.</li>
+<li>What is a non-deterministic Turing machine?</li>
+<li>Describe how we can simulate a non-deterministic Turing machine via a multi-tape Turing machine.</li>
+<li>Describe how the string representation of a graph might be.</li>
+<li>Describe how the string representation of a Turing machine might be.</li>
+<li>Describe the acceptance, empty language and equivalent languages problems for DFAs, and show that the corresponding languages are decidable.</li>
+<li>Describe the acceptance, empty language and equivalent languages problems for CFGs. Show that the acceptance and empty language problems are decidable.</li>
+<li>Describe the languages <span class="math inline">\(A_\textrm{TM}\)</span> and <span class="math inline">\(\textrm{HALT}_\textrm{TM}\)</span>. Show that they are undecidable (this is effectively the Halting Problem question).</li>
+<li>Show that if a language is both Turing-recognizable and co-Turing-recognizable, then it is decidable.</li>
+<li>Show that <span class="math inline">\(E_\textrm{TM}\)</span> and <span class="math inline">\(\textrm{EQ}_\textrm{TM}\)</span> are undecidable.</li>
+<li>Define the concept of mapping reducibility and computable functions.</li>
+<li>If <span class="math inline">\(A\leq_m B\)</span>, what statements can be made about when the decidability/undecidablity/Turing-recognizability/non-Turing-recognizability and so on of one language implies the same for the other?</li>
+<li>Show that <span class="math inline">\(\textrm{EQ}_\textrm{TM}\)</span> is neither Turing-recognizable and co-Turing-recognizable.</li>
+<li>How do we define the time complexity of a decidable Turing-machine?</li>
+<li>What is the time complexity class <span class="math inline">\(\textrm{TIME}(t(n))\)</span>.</li>
+<li>What is the class <span class="math inline">\(P\)</span>? Show examples of languages that are in <span class="math inline">\(P\)</span>.</li>
+<li>What is the class <span class="math inline">\(NP\)</span>? Show examples of languages that are in <span class="math inline">\(NP\)</span>.</li>
+<li>Define polynomial-time reducibility.</li>
+<li>What problems are called <span class="math inline">\(NP\)</span>-complete?</li>
+<li>Describe the problems SAT, 3SAT, CLIQUE, VERTEX-COVER, HAMPATH, 3COLOR, SUBSET-SUM.</li>
+<li>State the Cook-Levin theorem. Explain its significance.</li>
+<li>Show that 3SAT is polynomial time reducible to CLIQUE as well as to VERTEX-COVER. Use this to show these are NP-complete.</li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

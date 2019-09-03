@@ -5,6 +5,7 @@ import Text.Pandoc.JSON
 
 fixAnswer :: Inline -> Inline
 fixAnswer (Str "ANSWERSPACE") = RawInline (Format "latex") "\\makespace"
+fixAnswer (Str "NEWPAGE") = RawInline (Format "latex") "\\newpage"
 fixAnswer (Link attr xs (t, n)) = Link attr xs (fixLink t, fixLink n)
 fixAnswer x = x
 

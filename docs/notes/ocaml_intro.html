@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>ocaml_intro</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="introduction-to-ocaml">Introduction to OCAML</h1>
+<p><a href="http://ocaml.org/">OCAML</a> is an evolution of the <a href="https://en.wikipedia.org/wiki/ML_(programming_language)">ML programming language</a>. It focuses on bridging the gap between the more esoteric ML language with its functional programming roots and more modern practices like objects.</p>
+<p>OCAML may not be as widespread as other languages, but it has found <a href="http://ocaml.org/learn/success.html">a number of modern uses</a>, perhaps most notably by the <a href="https://www.janestreet.com/">Jane Street</a> trading firm.</p>
+<h2 id="features-of-ocaml">Features of OCAML</h2>
+<p>Some key features of OCAML</p>
+<ul>
+<li><strong>Static Typing</strong>: OCAML is a strongly typed language. Every variable/value/expression has a type, at compile type.</li>
+<li><strong>Strong Typing</strong>: There are, with few exceptions, no automatic coersions. For example a boolean would not be automatically turned into an integer, and a non-zero number would not be automatically treated as a boolean in a conditional.</li>
+<li><strong>Type Inference</strong>: In almost all cases, you do not need to specify the type of a value/variable/expression. The system automatically figures it out via a fascinating process called <em>type inference</em>.</li>
+<li><strong>Strong and Expressive Type system</strong>: With the use of user-defined types, pattern matching and tuple formation, and polymorphic types, OCAML offers a very rich level of expressiveness and compile-time guarantees to programmers.</li>
+<li><strong>Functional Programming</strong>: OCAML espouses functional programming paradigms. Mutable values are discouraged, though possible, and there is extensive support for higher-order-functions, as well as for using functions as first order values, i.e. as return values, arguments or local variables in other functions (Javascript is a popular language that shares that feature).</li>
+<li><strong>All functions take exactly one argument</strong>: This is probably very surprising, but we will talk more about it later on. In any case it is a fascinating feature.</li>
+<li><strong>Everything is an expression</strong>: Expressions return values, statements do not. Essentially everything in OCAML is an expression. Even an if-then-else block for example.</li>
+<li><strong>Automatic Memory management</strong>. Like most non-C/C++ languages, OCAML does not require manual memory allocation/deallocation.</li>
+<li><strong>Objects</strong>: OCAML also supports object-oriented programming. We will not however examine this nature of the language much.</li>
+</ul>
+<h2 id="interactive-sessions-with-utop">Interactive Sessions with utop</h2>
+<p>The easiest way to get going with OCAML is to use the <code>utop</code> command line tool. We will need to start by installing it. Open up a terminal, and you should find a tool called <code>opam</code>. You will need to do the following:</p>
+<pre><code>opam init --dot-profile=~/.bashrc</code></pre>
+<p>This will create your <code>.bashrc</code> file if it does not already exist, and add some necessary lines to it. OPAM is a package manager for OCAML. We will now use it to install utop. You would want to do:</p>
+<pre><code>opam install utop</code></pre>
+<p>You may need to run <code>opam update</code> first.</p>
+<p>Now you should be able to type <code>utop</code>. You should be greeted by a prompt as well as some other useful information, including available functions as you type. You can use the up/down arrows to go back and forth through the history of previously typed commands.</p>
+<p>Let’s take it for a spin. Type:</p>
+<pre class="ocaml"><code>4 + 5;;</code></pre>
+<p>You should see a reply that tells you that the result value was <code>9</code> and it was of type <code>int</code>. Note that you have to use 2 semicolons to indicate that you finished typing the command and you want OCAML to run it. You do not need that when working from a file.</p>
+<p>Let’s try another one:</p>
+<pre class="ocaml"><code>2.2 + 3;;</code></pre>
+<p>Oops, now you encounter your first error, and in fact it is an error you would probably not have expected. in OCAML there is no automatic coersion. You have told it to add something to <code>3</code>, which is an integer, but you gave it a floating point number (a value of type <code>float</code> in OCAML). OCAML will not let you do that: You would need to convert 3 to a float first. You can do that by either typing <code>3.0</code> instead, or using the function <code>float_of_int</code>:</p>
+<pre class="ocaml"><code>float_of_int 3;;</code></pre>
+<p>You will see a couple of things here. First, we called a function, but we did not include parentheses around the argument. In fact you almost never have to. So what we wrote there would in other languages have looked more like <code>float_of_int(3)</code>. Not so in OCAML. OCAML knows that <code>float_of_int</code> is a function, and hence treats what follows as its argument.</p>
+<p>Second, the result is now of type <code>float</code>, and it has value <code>3.</code>, the dot indicating it is a float. So this function turned our integer into a float.</p>
+<p>Okay now let’s try to put that in place:</p>
+<pre class="ocaml"><code>2.2 + float_of_int 3;;</code></pre>
+<p>You will see the error again, and at this point it seems probably even more mysterious. This is because the addition operator <code>+</code> is actually expecting integers. We need to use a different symbol, <code>+.</code>, in order to add floats:</p>
+<pre class="ocaml"><code>float_of_int 3 +. 2.2;;</code></pre>
+<p>Note that function application “binds” quite strongly, it has high precedence. The function application on 3 happens first, and the addition operator acts on the result of that.</p>
+<p>Before we move on, let us talk about the other basic types. You can find many of the standard operators in what is known as the <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html">Pervasives module</a>, which gets automatically loaded in. We will probably talk about modules later on.</p>
+<p>Here is a short list of standard OCAML types:</p>
+<dl>
+<dt><strong>int</strong></dt>
+<dd>signed, 31/63-bit depending on architecture
+</dd>
+<dt><strong>float</strong></dt>
+<dd>IEEE double precision, equivalent to most language’s “double”
+</dd>
+<dt><strong>bool</strong></dt>
+<dd>Boolean. Values <code>true</code>, <code>false</code>.
+</dd>
+<dt><strong>char</strong></dt>
+<dd>8-bit character. Does not support Unicode, UTF-8. Write in single quotes: <code>'a'</code>.
+</dd>
+<dt><strong>string</strong></dt>
+<dd>Write in double quotes: <code>"a string"</code>.
+</dd>
+<dt><strong>unit</strong></dt>
+<dd>Takes a single possible value, written <code>()</code>. Typically used to indicate that the function needs no input, or returns no meaningful result. C would typically use <code>void</code> for this, Javascript would use <code>null</code>.
+</dd>
+<dt><strong>product types</strong></dt>
+<dd>In OCAML you can easily “pair up” other types of values. For instance the value <code>(2, true)</code> is of the product type <code>int * bool</code> (try it out!). These kinds of values are called <em>tuples</em>. They can be used for both input and output to functions, or really any other place.
+</dd>
+<dt><strong>lists</strong></dt>
+<dd>A list consists of a sequence of values of the same type. For instance <code>[1; 3; 5]</code> is of type <code>int list</code>. Unlike arrays, list items are processed in that order, from left to right, and you can’t easily jump to the middle of a list.
+</dd>
+<dt><strong>functions</strong></dt>
+<dd>Functions themselves are values. Their type is often called an “arrow type”. We will see it when we start creating functions.
+</dd>
+<dt><strong>arrays</strong></dt>
+<dd>Arrays are less frequently used in OCAML. Their literal notation is similar to lists: <code>[| 1; 3; 5 |]</code>.
+</dd>
+</dl>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>

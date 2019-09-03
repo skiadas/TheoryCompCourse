@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism-dark.css" rel="stylesheet" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>3</title>
+  <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet" href="https://skiadas.github.io/css/course.css" type="text/css" />
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1 id="assignment-3">Assignment 3</h1>
+<p>This assignment focuses on DFAs. The file <code>dfa_test.ml</code> in the <code>ocaml</code> folder can help write tests for your answers.</p>
+<ol type="1">
+<li><p>Suppose we consider the alphabet 0, 1 and the corresponding strings are then binary numbers, which we see highest-order bit first. Consider the language <span class="math inline">\(L = \{w \mid \textrm{the number }w\textrm{ is divisible by } 5\}\)</span>. Draw a DFA with <span class="math inline">\(5\)</span> states that recognizes this language.      </p></li>
+<li><p>Consider the alphabet consisting of the characters <code>a</code> and <code>b</code>, and the language <span class="math inline">\(L\)</span> containing exactly the strings that consist of <span class="math inline">\(0\)</span> or more <code>a</code>s followed by <span class="math inline">\(0\)</span> or more <code>b</code>s. Draw the DFA that recognizes this language, explaining what the different states “represent” (<span class="math inline">\(3\)</span> states are sufficient).      </p></li>
+<li><p>Consider the alphabet consisting of the characters <code>a</code>, <code>b</code> and <code>c</code>, and the language <span class="math inline">\(L\)</span> containing exactly the strings that contain a <code>aa</code> and a <code>bb</code> (in either order and potentially far from each other). Draw the DFA that recognizes this language, explaining what the different states “represent” (<span class="math inline">\(7\)</span> states are sufficient).      </p></li>
+<li><p>Consider the alphabet consisting of all 10 decimal digits, and the three symbols <code>+</code>, <code>-</code>, <code>.</code>. The language <span class="math inline">\(L\)</span> consists of all valid numbers, according to the following rules:</p>
+<ul>
+<li>The first character may be a sign <code>+</code> or <code>-</code>.</li>
+<li>A sign cannot appear anywhere else in the number.</li>
+<li>After the possible sign, a number follows (the integer part).</li>
+<li>It may be <code>0</code> alone, or it may be a non-zero digit, followed by zero or more digits.</li>
+<li>After the “integer part”, there may be a dot, <code>.</code>.</li>
+<li>Following the dot, there may be any number of digits.</li>
+<li>It is also possible that the number starts with (a possible sign then) a dot, followed by at least one digit.</li>
+</ul>
+<p>For example here are some valid numbers: <code>-0.</code>, <code>+.0</code>, <code>.230</code>, <code>143</code>, <code>0.21</code>, <code>-110.</code>. And some invalid numbers: <code>+0+</code>, <code>-.</code>, <code>011</code>, <code>1.23.1</code>.</p>
+<p>Find a DFA that recognizes this language (<span class="math inline">\(7\)</span> states are sufficient). You can use something like <code>1-9</code> to indicate a range of “inputs” that should all take you to the same state.      </p></li>
+</ol>
+<script type="text/javascript">
+let els = document.getElementsByTagName("pre");
+for (const el of els) {
+  const lang = el.getAttribute("class");
+  if (lang != "") {
+      el.children[0].setAttribute("class", "language-"+lang);
+  }
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-java.js"></script>
+</body>
+</html>
