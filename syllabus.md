@@ -63,12 +63,12 @@ There will be regular homework assignments about once per week. Questions on the
 
 ### Exams
 
-There will be two midterms, on Tuesday, October 2nd and Tuesday, November 6th, and a final/3rd midterm during finals week  (as scheduled by the registrar). **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
+There will be two midterms, on Tuesday, October 1nd and Thursday, November 7th, and a final/3rd midterm during finals week  (as scheduled by the registrar). **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
 
 ### Getting Help
 
-- You should never hesitate to ask us questions. I will never think any less of anyone for asking a question. Stop by my office hours or just email me your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.
-- You are allowed, and in fact encouraged, to work together and help each other regarding the class material. However, we strongly encourage you to try things out on your own first before talking to someone about them.
+- You should never hesitate to ask me questions. I will never think any less of anyone for asking a question. Stop by my office hours or just email me your question, which has the great benefit of forcing you to write it down in clear terms, which often helps you understand it better.
+- You are allowed, and in fact encouraged, to work together and help each other regarding the class material. However, I strongly encourage you to try things out on your own first before talking to someone about them.
 - You may discuss homework problems with others, but only after you have spent some time trying them on your own. And in any event the submitted work must be your own! So even though you may talk to others about the problem, when you sit down to write the answers you should be on your own.
 
 ### Classroom policies

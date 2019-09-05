@@ -2,20 +2,20 @@
 
 Week                    Tuesday                                 Thursday
 ----------------------- --------------------------------------- --------------------------------------------------------
-Week  1 (09/03-9/07)    1, 2                                    3
-Week  2 (09/10-09/14)   4.1-4.3                                 4.4-4.5
-Week  3 (09/17-09/21)   5.1                                     5.1
-Week  4 (09/24-09/28)   5.2                                     5.3-5.7, Coding
-Week  5 (10/01-10/05)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2
-Week  6 (10/08-10/12)   7                                       7
-Week  7 (10/15-10/19)   Break                                   7
-Week  8 (10/22-10/26)   8                                       8
-Week  9 (10/29-11/02)   9                                       9
-Week 10 (11/05-11/09)   9                                       [Midterm 2](midterm2_study_guide.md)
-Week 11 (11/12-11/16)   CFGs                                    CFGs
-Week 12 (11/19-11/23)   11                                      Thanksgiving
-Week 13 (11/26-11/30)   12                                      13
-Week 14 (12/03-12/07)   13,14                                   14
+Week  1 (09/02-09/06)   1, 2                                    3
+Week  2 (09/09-09/13)   4.1-4.3                                 4.4-4.5
+Week  3 (09/16-09/20)   5.1                                     5.1
+Week  4 (09/23-09/27)   5.2                                     5.3-5.7, Coding
+Week  5 (09/30-10/04)   [Midterm 1](midterm1_study_guide.md)    6.1, 6.2
+Week  6 (10/07-10/11)   7                                       7
+Week  7 (10/14-10/18)   Break                                   7
+Week  8 (10/21-10/25)   8                                       8
+Week  9 (10/28-11/01)   9                                       9
+Week 10 (11/04-11/08)   9                                       [Midterm 2](midterm2_study_guide.md)
+Week 11 (11/11-11/15)   CFGs                                    CFGs
+Week 12 (11/18-11/22)   11                                      Thanksgiving
+Week 13 (11/23-11/29)   12                                      13
+Week 14 (12/02-12/06)   13,14                                   14
 
 
 ## Week 1 (09/03-9/07)
@@ -55,7 +55,7 @@ Activity 2
         - Three strings of non-predetermined length.
         - A list of an arbitrary number of strings of non-predetermined length.
 
-Activity 3
+Activity 2b
   ~ Write a SISO program that will take as input a string that represents two integers (based on some convention you establish for how to do that) and will return the string that represents the sum of those integers.
 
 ### Day 2
@@ -81,9 +81,9 @@ Activity 3
     - Are `noOnSelf` and `notYesOnSelf` equivalent programs, if they existed?
     - Is a similar conclusion possible for `noOnSelf` as for `notYesOnSelf`?
     - Exercise 3.3
-   - [Activity Handout](activities/activity3.md)
+    - [Activity Handout](activities/activity3.md)
 
-HW 1 (Due 9/13 4pm in LYN 110)
+HW 1 (Due 9/12 4pm in LYN 110)
   ~ 3.2, 3.10, 3.11
 
 ## Week  2 (09/10-09/14)
