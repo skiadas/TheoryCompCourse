@@ -144,7 +144,7 @@ Practice
     - Write a Python program that *decides* the language that contains all strings in the ASCII alphabet that have "matching parentheses", meaning that every "open parenthesis" is going to be matched by a "close parenthesis". The strings can contain any other letters inbetween.
     - (Optional, Challenge) Using HasShortPath as a helper function, write an algorithm for solving ShortestPath.
 
-HW 2 (Due 9/25 4pm in LYN 110)
+HW 2 (Due 9/19 4pm in LYN 110)
   ~ 4.12, 4.19, 4.20, 4.25a,b, Bonus problems: 4.25c, 4.26
 
 ## Week  3 (09/17-09/21)

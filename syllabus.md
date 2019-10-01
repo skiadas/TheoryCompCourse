@@ -63,7 +63,7 @@ There will be regular homework assignments about once per week. Questions on the
 
 ### Exams
 
-There will be two midterms, on Tuesday, October 1nd and Thursday, November 7th, and a final/3rd midterm during finals week  (as scheduled by the registrar). **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
+There will be two midterms, on Tuesday, October 1st and Thursday, November 7th, and a final/3rd midterm during finals week  (as scheduled by the registrar). **You have to be here for the exams**. If you have conflicts with these days, let me know as soon as possible. Do not plan your vacation before you are aware of the finals schedule. In terms of your final grade, the exams you did better on will weigh more.
 
 ### Getting Help
 
