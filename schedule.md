@@ -13,9 +13,9 @@ Week  8 (10/21-10/25)   8                                       8
 Week  9 (10/28-11/01)   9                                       9
 Week 10 (11/04-11/08)   9                                       [Midterm 2](midterm2_study_guide.md)
 Week 11 (11/11-11/15)   CFGs                                    CFGs
-Week 12 (11/18-11/22)   11                                      Thanksgiving
-Week 13 (11/23-11/29)   12                                      13
-Week 14 (12/02-12/06)   13,14                                   14
+Week 12 (11/18-11/22)   CFGs                                    PDAs
+Week 13 (11/23-11/29)   PDAs                                    Thanksgiving
+Week 14 (12/02-12/06)   Review                                  Review
 
 
 ## Week 1 (09/03-9/07)
