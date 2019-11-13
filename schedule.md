@@ -307,11 +307,11 @@ Activity 10
 ### Day 2
 
 Sections 7.4, 7.5
-  ~ - Definition of Turing reduction. (Wahl)
-    - What is an Oracle program. (Wahl)
-    - Propagation of computability. (Wahl)
+  ~ - Definition of Turing reduction.
+    - What is an Oracle program.
+    - Propagation of computability.
     - Is the converse propagation true?
-    - Turing reducibility is transitive. (Wahl)
+    - Turing reducibility is transitive.
     - The problems `yesOnEmpty`, `yesOnAll`, `yesOnSome`.
     - Refresher on the program `ignoreInput`.
     - Use `ignoreInput.py` to write `yesOnString` using `yesOnEmpty` as a helper.
@@ -328,10 +328,10 @@ Homework 6
 ### Day 2
 
 Section 7.5
-  ~ - Review of reduction from `yesOnString` to `yesOnEmpty` or `yesOnSome` or `yesOnAll`. Sequence diagrams visual. (Wahl)
-    - Definition of what it means for a Python program to *halt*. (Wahl)
-    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`. (Wahl)
-    - Use an altering technique similar to what we did for `GAGAOnString` to show a reduction from `yesOnString` to `haltsOnString`. (Wahl)
+  ~ - Review of reduction from `yesOnString` to `yesOnEmpty` or `yesOnSome` or `yesOnAll`. Sequence diagrams visual.
+    - Definition of what it means for a Python program to *halt*.
+    - The Halting problem and its variants: `haltsOnString`, `haltsOnEmpty`, `haltsOnAll`, `haltsOnSome`.
+    - Use an altering technique similar to what we did for `GAGAOnString` to show a reduction from `yesOnString` to `haltsOnString`.
     - Group activity: Show reduction from `haltsOnString` to `haltsOnEmpty`. Include code and sequence diagram.
 
 Section 7.6
@@ -349,8 +349,8 @@ Sections 8.1, 8.2, 8.3
   ~ - Parallel computation in Python programs
     - A parallel computation Python program for containsNANA
     - Considering this program as a non-deterministic program
-    - Computation Trees, positive/negative/non-terminating leaves (Wahl)
-    - Definition of the output of a nondeterministic computation (Wahl)
+    - Computation Trees, positive/negative/non-terminating leaves
+    - Definition of the output of a nondeterministic computation
     - Writing pseudocode for recognizer for the concatenation of two recognizable languages.
         - Conclusion: The concatenation of recognizable languages is recognizable.
 
@@ -369,9 +369,9 @@ Sections 8.4, 8.5
     - Recognizing the union of two recognizable languages via NDTMs
 
 Sections 8.6, 8.7, 8.8
-  ~ - Formal definition of NDTM (Wahl)
-    - For every NDTM that solves a problem, there is a DTM that solves it. (Wahl)
-    - If a language and its complement are both recognizable, then the language is decidable. (Wahl)
+  ~ - Formal definition of NDTM
+    - For every NDTM that solves a problem, there is a DTM that solves it.
+    - If a language and its complement are both recognizable, then the language is decidable.
 
 Homework 7
   ~ (Due 10/30 4pm in LYN 110) 8.4, 8.7, 8.8, 8.9
@@ -384,9 +384,9 @@ Homework review
   ~ - Exercise 7.7
 
 Chapter 8 wrap-up
-  ~ - Let $L$ be an undecidable language. If $L$ is recognizable, then the complement of $L$ is unrecognizable. (Wahl)
-    - Co-recognizable languages. Venn diagram of languages and recognizability. (Wahl)
-    - Examples of unrecognizable languages. (Wahl)
+  ~ - Let $L$ be an undecidable language. If $L$ is recognizable, then the complement of $L$ is unrecognizable.
+    - Co-recognizable languages. Venn diagram of languages and recognizability.
+    - Examples of unrecognizable languages.
 
 Sections 9.1, 9.2
   ~ - Definition of a Deterministic FA (DFA)
@@ -417,8 +417,8 @@ Homework 8
 ### Day 2
 
 Section 9.3 Wrap-up
-  ~ - Strict nfas (Wahl)
-    - Converting from an nfa to a strict nfa (Figure 9.5) (Wahl)
+  ~ - Strict nfas
+    - Converting from an nfa to a strict nfa (Figure 9.5)
 
 Section 9.4
   ~ - Pure regular expressions
@@ -442,12 +442,12 @@ Section 9.4
 ### Day 1
 
 Sections 9.5-9.7
-  ~ - Regular languages (Wahl)
-    - Combining regular languages: (Wahl)
+  ~ - Regular languages
+    - Combining regular languages:
         - The union, complement, intersection, star, and reverse of regular languages is regular
-    - The non-regular language GnTn. (Wahl)
-        - Intuitive explanation of why this language is not regular (Wahl)
-    - Idea of pumping before $n$. (Wahl)
+    - The non-regular language GnTn.
+        - Intuitive explanation of why this language is not regular
+    - Idea of pumping before $n$.
 
 ### Day 2
 
@@ -459,9 +459,9 @@ Sections 9.5-9.7
 ### Day 1
 
 Sections 9.6-9.7 wrap-up
-  ~ - Proving a language is not regular (Pumping Lemma) (Wahl)
-    - Examples of non-regular languages (Wahl)
-    - Language of properly-nested parentheses (Wahl)
+  ~ - Proving a language is not regular (Pumping Lemma)
+    - Examples of non-regular languages
+    - Language of properly-nested parentheses
 
 CFG notes 5.1
   ~ - Motivation for CFGs: Interpreting programming language code
@@ -474,12 +474,6 @@ Homework 9
 
 ### Day 2
 
-Ice Day
-
-## Week 12 (11/19-11/23)
-
-### Day 1
-
 CFG notes 5.1, 5.2 (5.2.1-5.2.3)
   ~ - Informal description of grammar for GnTn and matched parentheses
     - Definition of CFGs (and CFLs):
@@ -490,7 +484,7 @@ CFG notes 5.1, 5.2 (5.2.1-5.2.3)
     - A grammar for (tokenized) arithmetic expressions involving a token/terminal $v$ representing variables, a token/terminal $n$ representing numbers, and tokens/terminals for the operations of addition ($+$) and multiplication ($*$).
     - Group activity: Write down a grammar for palindrome strings on the symbols $a$, $b$, $c$.
     - Group activity: Expand the grammar for arithmetic expressions to also include parentheses.
-    - Show that every regular language is context-free. (Wahl)
+    - Show that every regular language is context-free.
     - Building strings in a grammar:
         - recursive inference  (body to head)
         - derivation (head to body)
@@ -503,12 +497,7 @@ Homework 10
   ~ (Due 11/28 4pm) CFG Notes (page 168) 5.1.1a,b,c, 5.1.2, 5.2.1
 
 
-### Day 2
-
-- Thanksgiving Break
-
-
-## Week 13 (11/26-11/30)
+## Week 12 (11/19-11/23)
 
 ### Day 1
 
@@ -546,6 +535,7 @@ Homework 11
     2. Work out a PDA for the language that consists of all strings of matched parentheses (e.g. `(()(()()))`).
     3. Write the PDA for the grammar on the alphabet `{ i, e }` with rules ` S-> epsilon | SS | iS | iSe`. Follow the standard algorithm for determining the PDA of a CFG, and not some other way. Write out the complete PDA diagram, including the expanded form of the "loops" corresponding to production rules.
 
+
 ### Day 2
 
 PDAs
@@ -563,7 +553,7 @@ Parsing
         - "Fixing" a left-recursive grammar
         - Group activity: LL(1)-table for the fixed left-recursive grammar
 
-## Week 14 (12/03-12/07)
+## Week 13 (11/26-11/30)
 
 ### Day 1
 
@@ -591,6 +581,16 @@ Homework 12
     f. Demonstrate the leftmost derivation of the string `v[v[i][v]]` in this grammar.
     g. Compute first and follow sets for this new grammar, and construct an LL(1) parser for it.
     h. Show the stack and input progress in the LL(1) parser for the string `v[v[i][v]]` and this new grammar.
+
+### Day 2
+
+- Thanksgiving Break
+
+## Week 14 (12/03-12/07)
+
+### Day 1
+
+- TBD
 
 ### Day 2
 
