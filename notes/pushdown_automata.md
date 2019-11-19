@@ -79,7 +79,7 @@ So the language allows any number of $x$'s followed by no more than that many $y
 
 Here is a visual representation:
 
-![A simple pushdown automaton](images/pushdown1.png)
+![A simple pushdown automaton](../images/pushdown1.png)
 
 Now let us try a slightly more difficult language:
 
@@ -108,7 +108,7 @@ Let us illustrate this with a pushdown automaton for the language $L$ described 
 - $\delta(q_2, \epsilon, \$) = \left\{(q_3, \epsilon)\right\}$.
 - All other $\delta$ values are empty sets.
 
-![Matching $x$'s to $y$'s](images/pushdown2.png)
+![Matching $x$'s to $y$'s](../images/pushdown2.png)
 
 Exercise 1: Work out a PDA for the language that consists of all palindromes.
 

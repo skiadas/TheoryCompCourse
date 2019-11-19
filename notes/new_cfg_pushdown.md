@@ -106,7 +106,7 @@ So the language allows any number of $x$'s followed by no more than that many $y
 
 Here is a visual representation:
 
-![A simple pushdown automaton](images/pushdown1.png)
+![A simple pushdown automaton](../images/pushdown1.png)
 
 Now let us try a slightly more difficult language:
 
@@ -135,7 +135,7 @@ Let us illustrate this with a pushdown automaton for the language $L$ described 
 - $\delta(q_2, \epsilon, \$) = \left\{(q_3, \epsilon)\right\}$.
 - All other $\delta$ values are empty sets.
 
-![Matching $x$'s to $y$'s](images/pushdown2.png)
+![Matching $x$'s to $y$'s](../images/pushdown2.png)
 
 In fact this chain of four states is a very common pattern for pushdown automata. What changes from example to example is the transitions around $q_1$ and $q_2$.
 
@@ -179,11 +179,11 @@ The idea is somewhat straightforward.
 
 Here is the basic picture:
 
-![Pushdown Automaton for a CFG](images/pushdown_to_cfg.png)
+![Pushdown Automaton for a CFG](../images/pushdown_to_cfg.png)
 
 The "loops" around $q_\textrm{loop}$ correspond to the production rules in the grammar. Each loop is a shorthand for a sequence of states. For instance if we have a production rule like $S\to aTb$, this would produce the following "loop":
 
-![Loop for rule $S\to aTb$](images/pushdown_to_cfg_rule.png)
+![Loop for rule $S\to aTb$](../images/pushdown_to_cfg_rule.png)
 
 We usually skip the intermediate states in the process and just write this path as a self-loop with transition $\epsilon,S\to aTb$.
 
