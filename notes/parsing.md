@@ -390,13 +390,13 @@ This language is not LL(k) for any $k$. Try to explain why (it is not just that 
 
 The LL parsers we just described essentially carry out the pushdown automaton we built from a CFG back when we were trying to establish the correspondence between PDAs and CFGs, which looked something like this:
 
-![PDA for LL parsers](images/pushdown_to_cfg2.png)
+![PDA for LL parsers](../images/pushdown_to_cfg2.png)
 
 So after we place the empty-stack symbol and the start symbol onto the stack, we perform a series of steps that are all either removing a terminal from the stack if it matches the input, or replacing the nonterminal at the top of the stack with a production rule for it.
 
 There is another PDA that can serve a similar purpose, but it works in a somewhat "dual" way: It can push terminals it encounters on the input onto the stack (a step called **shift**), and if it finds the right-hand side of a production rule at the top spots of the stack then it can replace it with the nonterminal on the left-hand side of the rule ( a step called **reduce**). Graphically this would look something like this:
 
-![PDA for LR parsers](images/pushdown_to_cfg3.png)
+![PDA for LR parsers](../images/pushdown_to_cfg3.png)
 
 This turns out to correspond to a bottom-up approach of building the parse tree. We first build the child nodes of a production rule, then replace them with the parent node. This results in a "rightmost" derivation, hence the "R" in "LR".
 
@@ -520,11 +520,11 @@ F -> .(E)
 
 We continue in this manner. Here is the resulting DFA:
 
-![DFA for LR parser](images/lr_dfa.png)
+![DFA for LR parser](../images/lr_dfa.png)
 
 **Exercise**: As another example, here is the DFA for the polish notation grammar, do it yourselves before checking here:
 
-![DFA for Polish notation](images/lr_dfa_polish.png)
+![DFA for Polish notation](../images/lr_dfa_polish.png)
 
 Exercise (challenging): Understand the regular language that these DFAs recognize.
 
@@ -717,7 +717,7 @@ E                  x, (               ), *, +, $
 
 Here is the DFA of the item sets:
 
-![DFA for grammar with conflicts](images/lr_dfa_conflicts.png)
+![DFA for grammar with conflicts](../images/lr_dfa_conflicts.png)
 
 Let us consider all the conflicts present, starting with state 3. On state 3 we don't have a shift-reduce conflict, since the final set of `S`, namely `$`, does not conflict with the shift options.
 
